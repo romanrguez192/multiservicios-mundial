@@ -1,9 +1,10 @@
 import React from "react";
+import InicioSesion from './Pantallas/InicioSesion'
 
 function App() {
   return (
     <div>
-      <h1>Multiservicios mundial, osi</h1>
+      <InicioSesion />
     </div>
   );
 }

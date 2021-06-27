@@ -7,6 +7,41 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+body p:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+/* Tamaño del scroll */
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+ /* Estilos barra (thumb) de scroll */
+body::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 5px;
+}
+
+body::-webkit-scrollbar-thumb:active {
+  background-color: #999999;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: #b3b3b3;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+ /* Estilos track de scroll */
+body::-webkit-scrollbar-track {
+  background: #e1e1e1;
+  border-radius: 5px;
+}
+
+body::-webkit-scrollbar-track:hover, 
+body::-webkit-scrollbar-track:active {
+  background: #d4d4d4;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
