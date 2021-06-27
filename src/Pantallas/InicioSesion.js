@@ -15,13 +15,6 @@ const useStyles = makeStyles({
 
 const InicioSesion = () => {
     const classes = useStyles();
-    const IniciarSesion = (
-        <div>hola</div>
-    );
-
-    const RegistrarUsuario = (
-        <div>hola</div>
-    );
 
   return (
     <div className="container">
