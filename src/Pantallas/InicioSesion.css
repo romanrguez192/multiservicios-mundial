@@ -28,6 +28,7 @@
 .boton-registrarse {
     text-align: center;
     margin: auto;
+    text-decoration: underline;
 }
 
 .logo-inicio {

@@ -30,6 +30,12 @@ const useStyles = makeStyles({
   iconoColorido: {
     color: '#199479',
   },
+  inputUsuario : {
+    marginBottom: '10pt',
+  },
+  inputClave : {
+    marginBottom: '20pt',
+  },
 });
 
 
@@ -76,7 +82,7 @@ const InicioSesion = () => {
                 label="Usuario"
                 onFocus={handleClickUserColor}
                 onBlur={handleClickUserColor}
-                style={{marginBottom: "10pt"}}
+                className={classes.inputUsuario}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
@@ -91,7 +97,7 @@ const InicioSesion = () => {
                 label="Contraseña"
                 onFocus={handleClickLockColor}
                 onBlur={handleClickLockColor}
-                style={{marginBottom: "20pt"}}
+                className={classes.inputClave}
                 type={showPassword ? "text" : "password"}
                 InputProps={{
                   startAdornment: (
