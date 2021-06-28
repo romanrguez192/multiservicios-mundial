@@ -29,6 +29,7 @@ const useStyles = makeStyles({
   },
   iconoColorido: {
     color: '#199479',
+    transition: 'color .5s',
   },
   inputUsuario : {
     marginBottom: '10pt',
