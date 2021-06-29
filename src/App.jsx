@@ -1,5 +1,5 @@
 import React from "react";
-import InicioSesion from './Pantallas/InicioSesion'
+import InicioSesion from './pages/InicioSesion'
 
 function App() {
   return (
