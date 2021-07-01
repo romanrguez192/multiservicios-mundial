@@ -4,6 +4,10 @@ import {
     VisibilityOffOutlined,
     LockOutlined,
     PersonOutlined,
+    PhoneOutlined,
+    FingerprintOutlined,
+    RoomOutlined,
+    StoreOutlined,
   } from "@material-ui/icons";
 import  { 
     TextField, 
@@ -83,7 +87,6 @@ const Input = (props) => {
         label={props.title}
         onFocus={handleClickChangeColor}
         onBlur={handleClickChangeColor}
-        type={showPassword ? "text" : "password"}
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
@@ -94,7 +97,22 @@ const Input = (props) => {
                   <>
                     {changeColor ? <PersonOutlined className={classes.iconoColorido}/> : <PersonOutlined className={classes.icono}/>}
                   </>,
-                  'otro': <LockOutlined />
+                  'identification':
+                  <>
+                    {changeColor ? <FingerprintOutlined className={classes.iconoColorido}/> : <FingerprintOutlined className={classes.icono}/>}
+                  </>,
+                  'phone':
+                  <>
+                    {changeColor ? <PhoneOutlined className={classes.iconoColorido}/> : <PhoneOutlined className={classes.icono}/>}
+                  </>,
+                  'ubication':
+                  <>
+                    {changeColor ? <RoomOutlined className={classes.iconoColorido}/> : <RoomOutlined className={classes.icono}/>}
+                  </>,
+                  'store':
+                  <>
+                    {changeColor ? <StoreOutlined className={classes.iconoColorido}/> : <StoreOutlined className={classes.icono}/>}
+                  </>,
                 }[props.icon]
               }
             </InputAdornment>

@@ -65,7 +65,7 @@ const useStyles = makeStyles({
 
 const InicioSesion = () => {
     const initialState = {
-      email: "",
+      user: "",
       password: "",
     };
     const classes = useStyles();
