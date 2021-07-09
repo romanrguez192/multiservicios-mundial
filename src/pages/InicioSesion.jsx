@@ -3,7 +3,7 @@ import logo from "../img/logo.svg";
 import { Button, makeStyles, Link } from "@material-ui/core";
 import { Link as RouterLink } from "react-router-dom";
 import Input from "../components/Input";
-import PasswordInput from "../components/Input";
+import PasswordInput from "../components/PasswordInput";
 import Background from "../img/fondoInicioSesion.svg";
 
 // ESTILOS
