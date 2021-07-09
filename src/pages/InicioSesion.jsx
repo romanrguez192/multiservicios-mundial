@@ -2,6 +2,7 @@ import React from "react";
 import logo from "../img/logo.svg";
 import { Button, makeStyles, Link } from "@material-ui/core";
 import { Link as RouterLink } from "react-router-dom";
+import { Formik, Field, Form } from "formik";
 import Input from "../components/Input";
 import PasswordInput from "../components/PasswordInput";
 import Background from "../img/fondoInicioSesion.svg";
@@ -62,32 +63,57 @@ const useStyles = makeStyles({
 const InicioSesion = () => {
   const classes = useStyles();
 
+  const initialValues = {
+    username: "",
+    password: "",
+  };
+
+  const onSubmit = (data, {setSubmitting}) => {
+    setSubmitting(true);
+    console.log(data);
+    setSubmitting(false);
+  };
+
   return (
     <div className={classes.fondoInicioSesion}>
       <div className={classes.containerInicioSesion}>
         <img className={classes.logoInicio} src={logo} alt="logo" />
-        <form className={classes.containerInputs}>
-          <Input
-            className={classes.userInputLogin}
-            label="Usuario"
-            icon="person"
-          />
-          <PasswordInput
-            className={classes.passwordInputLogin}
-            label="Contraseña"
-          />
-          <Link component={RouterLink} to="/signup" className={classes.botonRegistrarse}>
-            ¿No tienes cuenta? ¡Regístrate aquí!
-          </Link>
-          <Button
-            variant="contained"
-            color="primary"
-            fullWidth
-            className={classes.boton}
-          >
-            INGRESAR
-          </Button>
-        </form>
+        <Formik initialValues={initialValues} onSubmit={onSubmit}>
+          {({isSubmitting}) => (
+            <Form className={classes.containerInputs}>
+              <Field
+                name="username"
+                as={Input}
+                className={classes.userInputLogin}
+                label="Usuario"
+                icon="person"
+              />
+              <Field
+                name="password"
+                as={PasswordInput}
+                className={classes.passwordInputLogin}
+                label="Contraseña"
+              />
+              <Link
+                component={RouterLink}
+                to="/signup"
+                className={classes.botonRegistrarse}
+              >
+                ¿No tienes cuenta? ¡Regístrate aquí!
+              </Link>
+              <Button
+                variant="contained"
+                color="primary"
+                fullWidth
+                className={classes.boton}
+                type="submit"
+                disabled={isSubmitting}
+              >
+                INGRESAR
+              </Button>
+            </Form>
+          )}
+        </Formik>
       </div>
     </div>
   );
