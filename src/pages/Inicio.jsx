@@ -6,7 +6,7 @@ import Sidebar from '../components/Sidebar';
 import Tabla from '../components/Tabla';
 
 
-{/* ESTILOS */}
+// ESTILOS
 const useStyles = makeStyles({
   divFlex: {
     display: 'inline-flex',

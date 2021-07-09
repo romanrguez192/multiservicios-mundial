@@ -125,7 +125,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Sidebar(props) {
   const classes = useStyles();
-  const theme = useTheme();
+  // const theme = useTheme();
   const [open, setOpen] = useState(false);
 
   const handleStateDrawer = () => {

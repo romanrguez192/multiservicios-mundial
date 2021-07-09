@@ -10,7 +10,7 @@ import {
     DeleteOutlined,
 } from "@material-ui/icons";
 
-{/* ESTILOS */}
+// ESTILOS
 const useStyles = makeStyles({
   toolbar: {
     fontFamily: 'quicksand',

@@ -1,126 +1,65 @@
-import React , { useState } from "react";
-import { 
-    VisibilityOutlined,
-    VisibilityOffOutlined,
-    LockOutlined,
-    PersonOutlined,
-    PhoneOutlined,
-    FingerprintOutlined,
-    RoomOutlined,
-    StoreOutlined,
-  } from "@material-ui/icons";
-import  { 
-    TextField, 
-    InputAdornment, 
-    makeStyles, 
-    IconButton,
-}from '@material-ui/core';
+import React, { useState } from "react";
+import {
+  LockOutlined,
+  PersonOutlined,
+  PhoneOutlined,
+  FingerprintOutlined,
+  RoomOutlined,
+  StoreOutlined,
+} from "@material-ui/icons";
+import { TextField, InputAdornment, makeStyles } from "@material-ui/core";
 
-
-{/* ESTILOS */}
+// ESTILOS
 const useStyles = makeStyles({
-    icono: {
-      color: '#787878',
-    },
-    iconoColorido: {
-      color: '#199479',
-      transition: 'color .5s',
-    },
-  });
+  icono: {
+    color: "#787878",
+  },
+  iconoColorido: {
+    color: "#199479",
+    transition: "color .5s",
+  },
+});
 
+// Componente de input
 const Input = (props) => {
-    const classes = useStyles();
-    const [showPassword, setShowPassword] = useState(false);
-    const [changeColor, setChangeColor] = useState(false);
+  const classes = useStyles();
+  const [changeColor, setChangeColor] = useState(false);
 
-    // Función para el color del icono de usuario
-    const handleClickChangeColor = () => {
-      setChangeColor(!changeColor);
-    };
+  // Función para el color del icono de usuario
+  const handleClickChangeColor = () => {
+    setChangeColor(!changeColor);
+  };
 
-    // Función para cambiar visibilidad de la contraseña
-    const handleClickShowPassword = () => {
-      setShowPassword(!showPassword);
-    };
+  // Clase del icono a mostrar
+  const iconClass = changeColor ? "iconoColorido" : "icono";
 
-    // Función del icono de de visibilidad
-    const handleMouseDownPassword = (e) => {
-      e.preventDefault();
-    };
+  // Iconos al inicio del input
+  const iconsObject = {
+    person: <PersonOutlined className={classes[iconClass]} />,
+    identification: <FingerprintOutlined className={classes[iconClass]} />,
+    phone: <PhoneOutlined className={classes[iconClass]} />,
+    ubication: <RoomOutlined className={classes[iconClass]} />,
+    store: <StoreOutlined className={classes[iconClass]} />,
+    password: <LockOutlined className={classes[iconClass]} />,
+  };
 
-	if (props.isPassword) {
-    return (
-      <TextField
-        fullWidth
-        variant="outlined"
-        label={props.title}
-        onFocus={handleClickChangeColor}
-        onBlur={handleClickChangeColor}
-        type={showPassword ? "text" : "password"}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              {changeColor ? <LockOutlined className={classes.iconoColorido}/> : <LockOutlined className={classes.icono}/>}
-            </InputAdornment>
-          ),
-          endAdornment: (
-            <InputAdornment position="end">
-              <IconButton
-                aria-label="toggle password visibility"
-                onClick={handleClickShowPassword}
-                onMouseDown={handleMouseDownPassword}
-                edge="end"
-              >
-                {showPassword ? <VisibilityOutlined className={classes.icono}/> : <VisibilityOffOutlined className={classes.icono}/>}
-              </IconButton>
-            </InputAdornment>
-          ),
-        }}
-      ></TextField>
-    );
-  }
-  else {
-    return (
-      <TextField
-        fullWidth
-        variant="outlined"
-        label={props.title}
-        onFocus={handleClickChangeColor}
-        onBlur={handleClickChangeColor}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              {
-                /* SWITCH PARA DETERMINAR EL ICONO QUE SE USARÁ */
-                {
-                  'person': 
-                  <>
-                    {changeColor ? <PersonOutlined className={classes.iconoColorido}/> : <PersonOutlined className={classes.icono}/>}
-                  </>,
-                  'identification':
-                  <>
-                    {changeColor ? <FingerprintOutlined className={classes.iconoColorido}/> : <FingerprintOutlined className={classes.icono}/>}
-                  </>,
-                  'phone':
-                  <>
-                    {changeColor ? <PhoneOutlined className={classes.iconoColorido}/> : <PhoneOutlined className={classes.icono}/>}
-                  </>,
-                  'ubication':
-                  <>
-                    {changeColor ? <RoomOutlined className={classes.iconoColorido}/> : <RoomOutlined className={classes.icono}/>}
-                  </>,
-                  'store':
-                  <>
-                    {changeColor ? <StoreOutlined className={classes.iconoColorido}/> : <StoreOutlined className={classes.icono}/>}
-                  </>,
-                }[props.icon]
-              }
-            </InputAdornment>
-          ),
-        }}
-      ></TextField>
-    );
-  }
-}
+  return (
+    <TextField
+      fullWidth
+      variant="outlined"
+      onFocus={handleClickChangeColor}
+      onBlur={handleClickChangeColor}
+      InputProps={{
+        startAdornment: (
+          <InputAdornment position="start">
+            {iconsObject[props.icon]}
+          </InputAdornment>
+        ),
+        endAdornment: props.endAdornment,
+      }}
+      {...props}
+    ></TextField>
+  );
+};
 
 export default Input;
