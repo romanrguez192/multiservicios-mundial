@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import MaterialTable from 'material-table';
+import MaterialTable from 'material-table-formik';
 import  { 
   makeStyles, 
 }from '@material-ui/core';
@@ -69,14 +69,6 @@ export default function Tabla(props) {
         data={data}
         actions={[
           {
-            icon: EditOutlined,
-            tooltip: "Editar",
-          },
-          {
-            icon: DeleteOutlined,
-            tooltip: "Borrar",
-          },
-          {
             icon: InfoOutlined,
             tooltip: "Información",
           },
@@ -91,15 +83,17 @@ export default function Tabla(props) {
                   resolve()
                 },1000)
             }),
-            onRowDetelete: selectedRow=>new Promise((resolve,reject)=>{
-              const index=selectedRow.tableData.id;
-              const updateRows=updateRows=[...data]
-              updateRows.splice(index,1)
-              setTimeout(()=> {
-                setData(updateRows)
-                resolve()
-              },1000)
-            })
+            onRowUpdate: (newData, oldData) =>
+            new Promise((resolve, reject) => {
+              setData(data.map((d) => (d.id === newData.id ? newData : d)));
+              resolve();
+            }),
+          onRowDelete: (oldData) =>
+            new Promise((resolve, reject) => {
+              setTimeout(() => {
+                resolve();
+              }, 1000);
+            }),
         }}
         cellStyle={classes.iconoColorido}
         options={{
@@ -107,9 +101,21 @@ export default function Tabla(props) {
           headerStyle: {backgroundColor: '#199479',color: '#fff', fontFamily:'quicksand'},
         }}
         localization={{ 
+          deleteAction: "Borrar",
+          deleteHeader: "Borrar",
           toolbar: { searchPlaceholder: 'Buscar' },
           header: {
             actions: "Acciones",
+          },
+          body: {
+            addTooltip: "Añadir",
+            editTooltip: "Editar",
+            deleteTooltip: "Eliminar",
+            editRow: {
+              deleteText: "¿Estás seguro de querer eliminar esta información?",
+              cancelTooltip: "Cancelar",
+              saveTooltip: "Aceptar",
+            },
           },
           pagination: {
             labelRowsSelect: "Filas",
@@ -121,6 +127,7 @@ export default function Tabla(props) {
         }}
         icons={{
           Add: ()=> <AddOutlined />,
+          Edit: ()=> <EditOutlined />,
         }}
       />
     </div>
