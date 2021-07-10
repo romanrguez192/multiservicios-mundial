@@ -42,6 +42,8 @@ const useStyles = makeStyles({
     textAlign: "center",
     margin: "auto",
     textDecoration: "underline",
+    marginLeft: "14pt",
+    color: "#787878",
   },
   boton: {
     position: "relative",
