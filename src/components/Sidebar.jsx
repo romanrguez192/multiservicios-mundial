@@ -39,9 +39,12 @@ import {
   LocalGroceryStoreOutlined,
   Work,
   WorkOutlineOutlined,
+  LocalCarWash,
+  LocalCarWashOutlined,
 } from '@material-ui/icons';
+import { Link } from "react-router-dom";
 
-const drawerWidth = 240;
+const drawerWidth = 250;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -180,16 +183,20 @@ export default function Sidebar(props) {
           {props.page==="inicio" ? 
             <ListItem button selected>
               <ListItemIcon>
-                <Home className={classes.iconDrawerSelect}/>
+                <LocalCarWash className={classes.iconDrawerSelect}/>
               </ListItemIcon>
-              <ListItemText primary="Inicio" className={classes.pageSelectedText}/>
+              <ListItemText primary="Solicitudes de servicio" className={classes.pageSelectedText}/>
             </ListItem>
             :
-            <ListItem button>
+            <ListItem 
+              button
+              component={Link}
+              to="/"
+            >
               <ListItemIcon>
-                <HomeOutlined className={classes.iconDrawer}/>
+                <LocalCarWashOutlined className={classes.iconDrawer}/>
               </ListItemIcon>
-              <ListItemText primary="Inicio" className={classes.pageText}/>
+              <ListItemText primary="Solicitudes de servicio" className={classes.pageText}/>
             </ListItem>
           }
           {props.page==="facturas" ? 
@@ -200,7 +207,11 @@ export default function Sidebar(props) {
               <ListItemText primary="Facturas" className={classes.pageSelectedText}/>
             </ListItem>
             :
-            <ListItem button>
+            <ListItem 
+              button
+              component={Link}
+              to="/facturas"
+            >
               <ListItemIcon>
                 <MonetizationOnOutlined className={classes.iconDrawer}/>
               </ListItemIcon>
@@ -215,7 +226,11 @@ export default function Sidebar(props) {
               <ListItemText primary="Servicios" className={classes.pageSelectedText}/>
             </ListItem>
             :
-            <ListItem button>
+            <ListItem 
+              button
+              component={Link}
+              to="/servicios"
+            >
               <ListItemIcon>
                 <BuildOutlined className={classes.iconDrawer}/>
               </ListItemIcon>
@@ -230,7 +245,11 @@ export default function Sidebar(props) {
               <ListItemText primary="Clientes" className={classes.pageSelectedText}/>
             </ListItem>
             :
-            <ListItem button>
+            <ListItem 
+              button
+              component={Link}
+              to="/clientes"
+            >
               <ListItemIcon>
                 <GroupOutlined className={classes.iconDrawer}/>
               </ListItemIcon>
@@ -245,7 +264,11 @@ export default function Sidebar(props) {
               <ListItemText primary="Vehículos" className={classes.pageSelectedText}/>
             </ListItem>
             :
-            <ListItem button>
+            <ListItem 
+              button
+              component={Link}
+              to="/vehiculos"
+            >
               <ListItemIcon>
                 <DirectionsCarOutlined className={classes.iconDrawer}/>
               </ListItemIcon>
@@ -260,7 +283,11 @@ export default function Sidebar(props) {
               <ListItemText primary="Reservaciones" className={classes.pageSelectedText}/>
             </ListItem>
             :
-            <ListItem button>
+            <ListItem 
+              button
+              component={Link}
+              to="/reservaciones"
+            >
               <ListItemIcon>
                 <CalendarTodayOutlined className={classes.iconDrawer}/>
               </ListItemIcon>
@@ -275,7 +302,11 @@ export default function Sidebar(props) {
               <ListItemText primary="Personal" className={classes.pageSelectedText}/>
             </ListItem>
             :
-            <ListItem button>
+            <ListItem 
+              button
+              component={Link}
+              to="/personal"
+            >
               <ListItemIcon>
                 <PermContactCalendarOutlined className={classes.iconDrawer}/>
               </ListItemIcon>
@@ -290,7 +321,11 @@ export default function Sidebar(props) {
               <ListItemText primary="Inventario" className={classes.pageSelectedText}/>
             </ListItem>
             :
-            <ListItem button>
+            <ListItem 
+              button
+              component={Link}
+              to="/inventario"
+            >
               <ListItemIcon>
                 <AssignmentOutlined className={classes.iconDrawer}/>
               </ListItemIcon>
@@ -305,7 +340,11 @@ export default function Sidebar(props) {
               <ListItemText primary="Sucursales" className={classes.pageSelectedText}/>
             </ListItem>
             :
-            <ListItem button>
+            <ListItem 
+              button
+              component={Link}
+              to="/sucursales"
+            >
               <ListItemIcon>
                 <StoreOutlined className={classes.iconDrawer}/>
               </ListItemIcon>
@@ -320,7 +359,11 @@ export default function Sidebar(props) {
               <ListItemText primary="Tienda" className={classes.pageSelectedText}/>
             </ListItem>
             :
-            <ListItem button>
+            <ListItem 
+              button
+              component={Link}
+              to="/tienda"
+            >
               <ListItemIcon>
                 <LocalGroceryStoreOutlined className={classes.iconDrawer}/>
               </ListItemIcon>
@@ -335,7 +378,11 @@ export default function Sidebar(props) {
               <ListItemText primary="Proveedores" className={classes.pageSelectedText}/>
             </ListItem>
             :
-            <ListItem button>
+            <ListItem 
+              button
+              component={Link}
+              to="/proveedores"
+            >
               <ListItemIcon>
                 <WorkOutlineOutlined className={classes.iconDrawer}/>
               </ListItemIcon>

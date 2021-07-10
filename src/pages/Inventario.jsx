@@ -12,7 +12,7 @@ const useStyles = makeStyles({
     display: 'inline-flex',
     marginBottom: '10pt',
   },
-  containerInicio:{
+  containerInventario:{
     flexGrow: '1',
     marginTop: '60pt',
   },
@@ -26,7 +26,7 @@ const useStyles = makeStyles({
 });
 
 
-const InicioSesion = () => {
+const Inventario = () => {
     const classes = useStyles();
 
 
@@ -34,10 +34,10 @@ const InicioSesion = () => {
   return (
     <>
       <div className={classes.root}>
-        <Sidebar page="inicio"/>
-        <main className={classes.containerInicio}>
+        <Sidebar page="inventario"/>
+        <main className={classes.containerInventario}>
           <div className={classes.tableContainer}>
-            Solicitudes de servicio
+            <Tabla title="Inventario" />
           </div>
         </main>
       </div>
@@ -45,4 +45,4 @@ const InicioSesion = () => {
   );
 };
 
-export default InicioSesion;
+export default Inventario;
