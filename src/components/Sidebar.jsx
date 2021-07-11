@@ -14,6 +14,7 @@ import {
   ListItemIcon,
   ListItemText,
   Toolbar,
+  Tooltip,
 } from '@material-ui/core';
 import {
   MenuOutlined,
@@ -181,213 +182,257 @@ export default function Sidebar(props) {
         </div>
         <List className={classes.drawerList}>
           {props.page==="inicio" ? 
-            <ListItem button selected>
-              <ListItemIcon>
-                <LocalCarWash className={classes.iconDrawerSelect}/>
-              </ListItemIcon>
-              <ListItemText primary="Solicitudes de servicio" className={classes.pageSelectedText}/>
-            </ListItem>
+            <Tooltip title="Solicitudes de servicio">
+              <ListItem button selected>
+                <ListItemIcon>
+                  <LocalCarWash className={classes.iconDrawerSelect}/>
+                </ListItemIcon>
+                <ListItemText primary="Solicitudes de servicio" className={classes.pageSelectedText}/>
+              </ListItem>
+            </Tooltip>
             :
-            <ListItem 
-              button
-              component={Link}
-              to="/"
-            >
-              <ListItemIcon>
-                <LocalCarWashOutlined className={classes.iconDrawer}/>
-              </ListItemIcon>
-              <ListItemText primary="Solicitudes de servicio" className={classes.pageText}/>
-            </ListItem>
+            <Tooltip title="Solicitudes de servicio">
+              <ListItem 
+                button
+                component={Link}
+                to="/"
+              >
+                <ListItemIcon>
+                  <LocalCarWashOutlined className={classes.iconDrawer}/>
+                </ListItemIcon>
+                <ListItemText primary="Solicitudes de servicio" className={classes.pageText}/>
+              </ListItem>
+            </Tooltip>
           }
           {props.page==="facturas" ? 
-            <ListItem button selected>
-              <ListItemIcon>
-                <MonetizationOn className={classes.iconDrawerSelect}/>
-              </ListItemIcon>
-              <ListItemText primary="Facturas" className={classes.pageSelectedText}/>
-            </ListItem>
+            <Tooltip title="Facturas">
+              <ListItem button selected>
+                <ListItemIcon>
+                  <MonetizationOn className={classes.iconDrawerSelect}/>
+                </ListItemIcon>
+                <ListItemText primary="Facturas" className={classes.pageSelectedText}/>
+              </ListItem>
+            </Tooltip>
             :
-            <ListItem 
-              button
-              component={Link}
-              to="/facturas"
-            >
-              <ListItemIcon>
-                <MonetizationOnOutlined className={classes.iconDrawer}/>
-              </ListItemIcon>
-              <ListItemText primary="Facturas" className={classes.pageText}/>
-            </ListItem>
+            <Tooltip title="Facturas">
+              <ListItem 
+                button
+                component={Link}
+                to="/facturas"
+              >
+                <ListItemIcon>
+                  <MonetizationOnOutlined className={classes.iconDrawer}/>
+                </ListItemIcon>
+                <ListItemText primary="Facturas" className={classes.pageText}/>
+              </ListItem>
+            </Tooltip>
           }
           {props.page==="servicios" ? 
-            <ListItem button selected>
-              <ListItemIcon>
-                <Build className={classes.iconDrawerSelect}/>
-              </ListItemIcon>
-              <ListItemText primary="Servicios" className={classes.pageSelectedText}/>
-            </ListItem>
+            <Tooltip title="Servicios">
+              <ListItem button selected>
+                <ListItemIcon>
+                  <Build className={classes.iconDrawerSelect}/>
+                </ListItemIcon>
+                <ListItemText primary="Servicios" className={classes.pageSelectedText}/>
+              </ListItem>
+            </Tooltip>
             :
-            <ListItem 
-              button
-              component={Link}
-              to="/servicios"
-            >
-              <ListItemIcon>
-                <BuildOutlined className={classes.iconDrawer}/>
-              </ListItemIcon>
-              <ListItemText primary="Servicios" className={classes.pageText}/>
-            </ListItem>
+            <Tooltip title="Servicios">
+              <ListItem 
+                button
+                component={Link}
+                to="/servicios"
+              >
+                <ListItemIcon>
+                  <BuildOutlined className={classes.iconDrawer}/>
+                </ListItemIcon>
+                <ListItemText primary="Servicios" className={classes.pageText}/>
+              </ListItem>
+            </Tooltip>
           }
           {props.page==="clientes" ? 
-            <ListItem button selected>
-              <ListItemIcon>
-                <Group className={classes.iconDrawerSelect}/>
-              </ListItemIcon>
-              <ListItemText primary="Clientes" className={classes.pageSelectedText}/>
-            </ListItem>
+            <Tooltip title="Clientes">
+              <ListItem button selected>
+                <ListItemIcon>
+                  <Group className={classes.iconDrawerSelect}/>
+                </ListItemIcon>
+                <ListItemText primary="Clientes" className={classes.pageSelectedText}/>
+              </ListItem>
+            </Tooltip>
             :
-            <ListItem 
-              button
-              component={Link}
-              to="/clientes"
-            >
-              <ListItemIcon>
-                <GroupOutlined className={classes.iconDrawer}/>
-              </ListItemIcon>
-              <ListItemText primary="Clientes" className={classes.pageText}/>
-            </ListItem>
+            <Tooltip title="Clientes">
+              <ListItem 
+                button
+                component={Link}
+                to="/clientes"
+              >
+                <ListItemIcon>
+                  <GroupOutlined className={classes.iconDrawer}/>
+                </ListItemIcon>
+                <ListItemText primary="Clientes" className={classes.pageText}/>
+              </ListItem>
+            </Tooltip>
           }
           {props.page==="vehiculos" ? 
-            <ListItem button selected>
-              <ListItemIcon>
-                <DirectionsCar className={classes.iconDrawerSelect}/>
-              </ListItemIcon>
-              <ListItemText primary="Vehículos" className={classes.pageSelectedText}/>
-            </ListItem>
+            <Tooltip title="Vehículos">
+              <ListItem button selected>
+                <ListItemIcon>
+                  <DirectionsCar className={classes.iconDrawerSelect}/>
+                </ListItemIcon>
+                <ListItemText primary="Vehículos" className={classes.pageSelectedText}/>
+              </ListItem>
+            </Tooltip>
             :
-            <ListItem 
-              button
-              component={Link}
-              to="/vehiculos"
-            >
-              <ListItemIcon>
-                <DirectionsCarOutlined className={classes.iconDrawer}/>
-              </ListItemIcon>
-              <ListItemText primary="Vehículos" className={classes.pageText}/>
-            </ListItem>
+            <Tooltip title="Vehículos">
+              <ListItem 
+                button
+                component={Link}
+                to="/vehiculos"
+              >
+                <ListItemIcon>
+                  <DirectionsCarOutlined className={classes.iconDrawer}/>
+                </ListItemIcon>
+                <ListItemText primary="Vehículos" className={classes.pageText}/>
+              </ListItem>
+            </Tooltip>
           }
           {props.page==="reservaciones" ? 
-            <ListItem button selected>
-              <ListItemIcon>
-                <CalendarToday className={classes.iconDrawerSelect}/>
-              </ListItemIcon>
-              <ListItemText primary="Reservaciones" className={classes.pageSelectedText}/>
-            </ListItem>
+            <Tooltip title="Reservaciones">
+              <ListItem button selected>
+                <ListItemIcon>
+                  <CalendarToday className={classes.iconDrawerSelect}/>
+                </ListItemIcon>
+                <ListItemText primary="Reservaciones" className={classes.pageSelectedText}/>
+              </ListItem>
+            </Tooltip>
             :
-            <ListItem 
-              button
-              component={Link}
-              to="/reservaciones"
-            >
-              <ListItemIcon>
-                <CalendarTodayOutlined className={classes.iconDrawer}/>
-              </ListItemIcon>
-              <ListItemText primary="Reservaciones" className={classes.pageText}/>
-            </ListItem>
+            <Tooltip title="Reservaciones">
+              <ListItem 
+                button
+                component={Link}
+                to="/reservaciones"
+              >
+                <ListItemIcon>
+                  <CalendarTodayOutlined className={classes.iconDrawer}/>
+                </ListItemIcon>
+                <ListItemText primary="Reservaciones" className={classes.pageText}/>
+              </ListItem>
+            </Tooltip>
           }
           {props.page==="personal" ? 
-            <ListItem button selected>
-              <ListItemIcon>
-                <PermContactCalendar className={classes.iconDrawerSelect}/>
-              </ListItemIcon>
-              <ListItemText primary="Personal" className={classes.pageSelectedText}/>
-            </ListItem>
+            <Tooltip title="Personal">
+              <ListItem button selected>
+                <ListItemIcon>
+                  <PermContactCalendar className={classes.iconDrawerSelect}/>
+                </ListItemIcon>
+                <ListItemText primary="Personal" className={classes.pageSelectedText}/>
+              </ListItem>
+            </Tooltip>
             :
-            <ListItem 
-              button
-              component={Link}
-              to="/personal"
-            >
-              <ListItemIcon>
-                <PermContactCalendarOutlined className={classes.iconDrawer}/>
-              </ListItemIcon>
-              <ListItemText primary="Personal" className={classes.pageText}/>
-            </ListItem>
+            <Tooltip title="Personal">
+              <ListItem 
+                button
+                component={Link}
+                to="/personal"
+              >
+                <ListItemIcon>
+                  <PermContactCalendarOutlined className={classes.iconDrawer}/>
+                </ListItemIcon>
+                <ListItemText primary="Personal" className={classes.pageText}/>
+              </ListItem>
+            </Tooltip>
           }
           {props.page==="inventario" ? 
-            <ListItem button selected>
-              <ListItemIcon>
-                <Assignment className={classes.iconDrawerSelect}/>
-              </ListItemIcon>
-              <ListItemText primary="Inventario" className={classes.pageSelectedText}/>
-            </ListItem>
+            <Tooltip title="Inventario">
+              <ListItem button selected>
+                <ListItemIcon>
+                  <Assignment className={classes.iconDrawerSelect}/>
+                </ListItemIcon>
+                <ListItemText primary="Inventario" className={classes.pageSelectedText}/>
+              </ListItem>
+            </Tooltip>
             :
-            <ListItem 
-              button
-              component={Link}
-              to="/inventario"
-            >
-              <ListItemIcon>
-                <AssignmentOutlined className={classes.iconDrawer}/>
-              </ListItemIcon>
-              <ListItemText primary="Inventario" className={classes.pageText}/>
-            </ListItem>
+            <Tooltip title="Inventario">
+              <ListItem 
+                button
+                component={Link}
+                to="/inventario"
+              >
+                <ListItemIcon>
+                  <AssignmentOutlined className={classes.iconDrawer}/>
+                </ListItemIcon>
+                <ListItemText primary="Inventario" className={classes.pageText}/>
+              </ListItem>
+            </Tooltip>
           }
           {props.page==="sucursales" ? 
-            <ListItem button selected>
-              <ListItemIcon>
-                <Store className={classes.iconDrawerSelect}/>
-              </ListItemIcon>
-              <ListItemText primary="Sucursales" className={classes.pageSelectedText}/>
-            </ListItem>
+            <Tooltip title="Sucursales">
+              <ListItem button selected>
+                <ListItemIcon>
+                  <Store className={classes.iconDrawerSelect}/>
+                </ListItemIcon>
+                <ListItemText primary="Sucursales" className={classes.pageSelectedText}/>
+              </ListItem>
+            </Tooltip>
             :
-            <ListItem 
-              button
-              component={Link}
-              to="/sucursales"
-            >
-              <ListItemIcon>
-                <StoreOutlined className={classes.iconDrawer}/>
-              </ListItemIcon>
-              <ListItemText primary="Sucursales" className={classes.pageText}/>
-            </ListItem>
+            <Tooltip title="Sucursales">
+              <ListItem 
+                button
+                component={Link}
+                to="/sucursales"
+              >
+                <ListItemIcon>
+                  <StoreOutlined className={classes.iconDrawer}/>
+                </ListItemIcon>
+                <ListItemText primary="Sucursales" className={classes.pageText}/>
+              </ListItem>
+            </Tooltip>
           }
           {props.page==="tienda" ? 
-            <ListItem button selected>
-              <ListItemIcon>
-                <LocalGroceryStore className={classes.iconDrawerSelect}/>
-              </ListItemIcon>
-              <ListItemText primary="Tienda" className={classes.pageSelectedText}/>
-            </ListItem>
+            <Tooltip title="Tienda">
+              <ListItem button selected>
+                <ListItemIcon>
+                  <LocalGroceryStore className={classes.iconDrawerSelect}/>
+                </ListItemIcon>
+                <ListItemText primary="Tienda" className={classes.pageSelectedText}/>
+              </ListItem>
+            </Tooltip>
             :
-            <ListItem 
-              button
-              component={Link}
-              to="/tienda"
-            >
-              <ListItemIcon>
-                <LocalGroceryStoreOutlined className={classes.iconDrawer}/>
-              </ListItemIcon>
-              <ListItemText primary="Tienda" className={classes.pageText}/>
-            </ListItem>
+            <Tooltip title="Tienda">
+              <ListItem 
+                button
+                component={Link}
+                to="/tienda"
+              >
+                <ListItemIcon>
+                  <LocalGroceryStoreOutlined className={classes.iconDrawer}/>
+                </ListItemIcon>
+                <ListItemText primary="Tienda" className={classes.pageText}/>
+              </ListItem>
+            </Tooltip>
           }
           {props.page==="proveedores" ? 
-            <ListItem button selected>
-              <ListItemIcon>
-                <Work className={classes.iconDrawerSelect}/>
-              </ListItemIcon>
-              <ListItemText primary="Proveedores" className={classes.pageSelectedText}/>
-            </ListItem>
+            <Tooltip title="Proveedores">
+              <ListItem button selected>
+                <ListItemIcon>
+                  <Work className={classes.iconDrawerSelect}/>
+                </ListItemIcon>
+                <ListItemText primary="Proveedores" className={classes.pageSelectedText}/>
+              </ListItem>
+            </Tooltip>
             :
-            <ListItem 
-              button
-              component={Link}
-              to="/proveedores"
-            >
-              <ListItemIcon>
-                <WorkOutlineOutlined className={classes.iconDrawer}/>
-              </ListItemIcon>
-              <ListItemText primary="Proveedores" className={classes.pageText}/>
-            </ListItem>
+            <Tooltip title="Proveedores">
+              <ListItem 
+                button
+                component={Link}
+                to="/proveedores"
+              >
+                <ListItemIcon>
+                  <WorkOutlineOutlined className={classes.iconDrawer}/>
+                </ListItemIcon>
+                <ListItemText primary="Proveedores" className={classes.pageText}/>
+              </ListItem>
+            </Tooltip>
           }
         </List>
       </Drawer>
