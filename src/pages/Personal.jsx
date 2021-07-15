@@ -3,7 +3,7 @@ import  {
   makeStyles, 
 }from '@material-ui/core';
 import Sidebar from '../components/Sidebar';
-import Tabla from '../components/Tabla';
+import Table from '../components/Table';
 
 
 // ESTILOS
@@ -37,7 +37,7 @@ const Personal = () => {
         <Sidebar page="personal"/>
         <main className={classes.containerPersonal}>
           <div className={classes.tableContainer}>
-            <Tabla title="Personal" />
+            <Table title="Personal" />
           </div>
         </main>
       </div>
