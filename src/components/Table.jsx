@@ -18,7 +18,7 @@ const useStyles = makeStyles({
 export default function Table({ title, ...props }) {
   const classes = useStyles();
 
-  const Title = <h1 className={classes.titleC}>{props.title}</h1>;
+  const Title = <h1 className={classes.titleC}>{title}</h1>;
 
   return (
     <div>

@@ -3,6 +3,7 @@ import Table from "./Table";
 
 const TableTiposVehiculos = ({ rows, ...props }) => {
   const [tiposVehiculos, setTiposVehiculos] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getTiposVehiculos();
@@ -21,6 +22,7 @@ const TableTiposVehiculos = ({ rows, ...props }) => {
     const tiposVehiculos = await response.json();
 
     setTiposVehiculos(tiposVehiculos);
+    setLoading(false);
   };
 
   const columns = [
@@ -62,9 +64,49 @@ const TableTiposVehiculos = ({ rows, ...props }) => {
     setTiposVehiculos([...tiposVehiculos, tipoVehiculo]);
   };
 
-  const updateTipoVehiculo = () => null;
+  const updateTipoVehiculo = async (newData, oldData) => {
+    const url = `http://localhost:4000/api/tiposVehiculos/${oldData.codTipoVehiculo}`;
 
-  const deleteTipoVehiculo = () => null;
+    const response = await fetch(url, {
+      method: "PUT",
+      body: JSON.stringify(newData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      // TODO: Error
+      return console.log("Oh no");
+    }
+
+    const tipoVehiculo = await response.json();
+
+    const updatedData = [...tiposVehiculos];
+    const index = oldData.tableData.id;
+    updatedData[index] = tipoVehiculo;
+
+    setTiposVehiculos(updatedData);
+  };
+
+  const deleteTipoVehiculo = async (oldData) => {
+    const url = `http://localhost:4000/api/tiposVehiculos/${oldData.codTipoVehiculo}`;
+
+    const response = await fetch(url, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      // TODO: Error
+      return console.log("Oh no");
+    }
+
+    const dataDelete = [...tiposVehiculos];
+    const index = oldData.tableData.id;
+    dataDelete.splice(index, 1);
+
+    setTiposVehiculos(dataDelete);
+  };
 
   return (
     <div>
@@ -72,6 +114,7 @@ const TableTiposVehiculos = ({ rows, ...props }) => {
         title="Tipos de Vehículos"
         columns={columns}
         data={tiposVehiculos}
+        isLoading={loading}
         editable={{
           onRowAdd: addTipoVehiculo,
           onRowUpdate: updateTipoVehiculo,
