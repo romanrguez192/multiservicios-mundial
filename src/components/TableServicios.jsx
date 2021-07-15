@@ -3,13 +3,14 @@ import Table from "./Table";
 
 const TableServicios = ({ rows, ...props }) => {
   const [servicios, setServicios] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getServicios();
   }, []);
 
   const getServicios = async () => {
-    const url = "url de servicios en la api";
+    const url = "url";
 
     const response = await fetch(url);
 
@@ -21,6 +22,7 @@ const TableServicios = ({ rows, ...props }) => {
     const servicios = await response.json();
 
     setServicios(servicios);
+    setLoading(false);
   };
 
   const columns = [
@@ -52,7 +54,7 @@ const TableServicios = ({ rows, ...props }) => {
   ];
 
   const addServicio = async (data) => {
-    const url = "url de servicios en la api";
+    const url = "url";
 
     const response = await fetch(url, {
       method: "POST",
@@ -72,9 +74,49 @@ const TableServicios = ({ rows, ...props }) => {
     setServicios([...servicios, servicio]);
   };
 
-  const updateServicio = () => null;
+  const updateServicio = async (newData, oldData) => {
+    const url = "url";
 
-  const deleteServicio = () => null;
+    const response = await fetch(url, {
+      method: "PUT",
+      body: JSON.stringify(newData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      // TODO: Error
+      return console.log("Oh no");
+    }
+
+    const servicio = await response.json();
+
+    const updatedData = [...servicios];
+    const index = oldData.tableData.id;
+    updatedData[index] = servicio;
+
+    setServicios(updatedData);
+  };
+
+  const deleteServicio = async (oldData) => {
+    const url = "url";
+
+    const response = await fetch(url, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      // TODO: Error
+      return console.log("Oh no");
+    }
+
+    const dataDelete = [...servicios];
+    const index = oldData.tableData.id;
+    dataDelete.splice(index, 1);
+
+    setServicios(dataDelete);
+  };
 
   return (
     <div>
@@ -82,6 +124,7 @@ const TableServicios = ({ rows, ...props }) => {
         title="Servicios"
         columns={columns}
         data={servicios}
+        isLoading={loading}
         editable={{
           onRowAdd: addServicio,
           onRowUpdate: updateServicio,

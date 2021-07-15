@@ -3,13 +3,14 @@ import Table from "./Table";
 
 const TableClientes = ({ rows, ...props }) => {
   const [clientes, setClientes] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getClientes();
   }, []);
 
   const getClientes = async () => {
-    const url = "url de clientes en la api";
+    const url = "url";
 
     const response = await fetch(url);
 
@@ -21,6 +22,7 @@ const TableClientes = ({ rows, ...props }) => {
     const clientes = await response.json();
 
     setClientes(clientes);
+    setLoading(false);
   };
 
   const columns = [
@@ -57,7 +59,7 @@ const TableClientes = ({ rows, ...props }) => {
   ];
 
   const addCliente = async (data) => {
-    const url = "url de clientes en la api";
+    const url = "url";
 
     const response = await fetch(url, {
       method: "POST",
@@ -77,9 +79,49 @@ const TableClientes = ({ rows, ...props }) => {
     setClientes([...clientes, cliente]);
   };
 
-  const updateCliente = () => null;
+  const updateCliente = async (newData, oldData) => {
+    const url = "url";
 
-  const deleteCliente = () => null;
+    const response = await fetch(url, {
+      method: "PUT",
+      body: JSON.stringify(newData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      // TODO: Error
+      return console.log("Oh no");
+    }
+
+    const cliente = await response.json();
+
+    const updatedData = [...clientes];
+    const index = oldData.tableData.id;
+    updatedData[index] = cliente;
+
+    setClientes(updatedData);
+  };
+
+  const deleteCliente = async (oldData) => {
+    const url = "url";
+
+    const response = await fetch(url, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      // TODO: Error
+      return console.log("Oh no");
+    }
+
+    const dataDelete = [...clientes];
+    const index = oldData.tableData.id;
+    dataDelete.splice(index, 1);
+
+    setClientes(dataDelete);
+  };
 
   return (
     <div>
@@ -87,6 +129,7 @@ const TableClientes = ({ rows, ...props }) => {
         title="Clientes"
         columns={columns}
         data={clientes}
+        isLoading={loading}
         editable={{
           onRowAdd: addCliente,
           onRowUpdate: updateCliente,
