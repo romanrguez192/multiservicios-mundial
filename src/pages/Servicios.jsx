@@ -3,7 +3,7 @@ import  {
   makeStyles, 
 }from '@material-ui/core';
 import Sidebar from '../components/Sidebar';
-import Table from '../components/Table';
+import TableServicios from "../components/TableServicios";
 
 
 // ESTILOS
@@ -37,7 +37,7 @@ const Servicios = () => {
         <Sidebar page="servicios"/>
         <main className={classes.containerServicios}>
           <div className={classes.tableContainer}>
-            <Table title="Servicios" />
+            <TableServicios />
           </div>
         </main>
       </div>

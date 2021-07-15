@@ -2,10 +2,8 @@ import React, { useState } from "react";
 import MaterialTable from "material-table-formik";
 import { makeStyles } from "@material-ui/core";
 import {
-  InfoOutlined,
   AddOutlined,
   EditOutlined,
-  DeleteOutlined,
 } from "@material-ui/icons";
 
 // ESTILOS
@@ -18,7 +16,7 @@ const useStyles = makeStyles({
 export default function Table({ title, ...props }) {
   const classes = useStyles();
 
-  const Title = <h1 className={classes.titleC}>{props.title}</h1>;
+  const Title = <h1 className={classes.titleC}>{title}</h1>;
 
   return (
     <div>
@@ -37,7 +35,7 @@ export default function Table({ title, ...props }) {
         localization={{
           deleteAction: "Borrar",
           deleteHeader: "Borrar",
-          toolbar: { searchPlaceholder: "Buscar" },
+          toolbar: { searchPlaceholder: `Buscar ${title}` },
           header: {
             actions: "Acciones",
           },

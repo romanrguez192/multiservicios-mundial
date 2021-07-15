@@ -3,15 +3,10 @@ import  {
   makeStyles, 
 }from '@material-ui/core';
 import Sidebar from '../components/Sidebar';
-import Table from '../components/Table';
-
+import TableClientes from '../components/TableClientes';
 
 // ESTILOS
 const useStyles = makeStyles({
-  divFlex: {
-    display: 'inline-flex',
-    marginBottom: '10pt',
-  },
   containerClientes:{
     flexGrow: '1',
     marginTop: '60pt',
@@ -37,7 +32,7 @@ const Clientes = () => {
         <Sidebar page="clientes"/>
         <main className={classes.containerClientes}>
           <div className={classes.tableContainer}>
-            <Table title="Clientes" />
+            <TableClientes />
           </div>
         </main>
       </div>
