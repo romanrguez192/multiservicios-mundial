@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch } from "react-router-dom";
 import Inicio from "./pages/Inicio";
 import InicioSesion from "./pages/InicioSesion";
 import RegistroUsuario from "./pages/RegistroUsuario";
@@ -17,10 +17,10 @@ import {
   unstable_createMuiStrictModeTheme as createMuiTheme,
   ThemeProvider,
 } from "@material-ui/core/styles";
+import { UserProvider } from "./contexts/UserContext";
+import Route from "./components/Route";
 
 const theme = createMuiTheme({
-
-
   palette: {
     //Verde
     primary: {
@@ -37,39 +37,40 @@ function App() {
   return (
     <div>
       <ThemeProvider theme={theme}>
+        <UserProvider>
           <Router>
             <Switch>
-              <Route exact path="/">
+              <Route exact path="/" auth>
                 <Inicio />
               </Route>
-              <Route exact path="/facturas">
+              <Route exact path="/facturas" auth>
                 <Facturas />
               </Route>
-              <Route exact path="/servicios">
+              <Route exact path="/servicios" auth>
                 <Servicios />
               </Route>
-              <Route exact path="/clientes">
+              <Route exact path="/clientes" auth>
                 <Clientes />
               </Route>
-              <Route exact path="/vehiculos">
+              <Route exact path="/vehiculos" auth>
                 <Vehiculos />
               </Route>
-              <Route exact path="/reservaciones">
+              <Route exact path="/reservaciones" auth>
                 <Reservaciones />
               </Route>
-              <Route exact path="/personal">
+              <Route exact path="/personal" auth>
                 <Personal />
               </Route>
-              <Route exact path="/inventario">
+              <Route exact path="/inventario" auth>
                 <Inventario />
               </Route>
-              <Route exact path="/sucursales">
+              <Route exact path="/sucursales" auth>
                 <Sucursales />
               </Route>
-              <Route exact path="/tienda">
+              <Route exact path="/tienda" auth>
                 <Tienda />
               </Route>
-              <Route exact path="/proveedores">
+              <Route exact path="/proveedores" auth>
                 <Proveedores />
               </Route>
               <Route path="/login">
@@ -80,6 +81,7 @@ function App() {
               </Route>
             </Switch>
           </Router>
+        </UserProvider>
       </ThemeProvider>
     </div>
   );

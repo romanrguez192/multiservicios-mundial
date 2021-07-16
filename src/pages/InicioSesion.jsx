@@ -2,7 +2,7 @@ import React from "react";
 import logo from "../img/logo.svg";
 import { Button, makeStyles, Link } from "@material-ui/core";
 import { Link as RouterLink } from "react-router-dom";
-import { Formik, Field, Form } from "formik";
+import { Formik, Form } from "formik";
 import Input from "../components/Input";
 import PasswordInput from "../components/PasswordInput";
 import Background from "../img/fondoInicioSesion.svg";
@@ -66,14 +66,34 @@ const InicioSesion = () => {
   const classes = useStyles();
 
   const initialValues = {
-    username: "",
-    password: "",
+    usuario: "",
+    contrasena: "",
   };
 
-  const onSubmit = (data, {setSubmitting}) => {
+  const onSubmit = async (data, { setSubmitting }) => {
     setSubmitting(true);
-    console.log(data);
+
+    const url = "http://localhost:4000/api/auth/login";
+
+    // TODO: try catch ?
+
+    const response = await fetch(url, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      // TODO: Error
+      return console.log("Oh no");
+    }
+
+    localStorage.setItem("user", JSON.stringify(data));
+
     setSubmitting(false);
+    window.location.href = "/";
   };
 
   return (
@@ -81,18 +101,16 @@ const InicioSesion = () => {
       <div className={classes.containerInicioSesion}>
         <img className={classes.logoInicio} src={logo} alt="logo" />
         <Formik initialValues={initialValues} onSubmit={onSubmit}>
-          {({isSubmitting}) => (
+          {({ isSubmitting }) => (
             <Form className={classes.containerInputs}>
-              <Field
-                name="username"
-                as={Input}
+              <Input
+                name="usuario"
                 className={classes.userInputLogin}
                 label="Usuario"
                 icon="person"
               />
-              <Field
-                name="password"
-                as={PasswordInput}
+              <PasswordInput
+                name="contrasena"
                 className={classes.passwordInputLogin}
                 label="Contraseña"
               />

@@ -6,9 +6,9 @@ import Input from "../components/Input";
 import PasswordInput from "../components/PasswordInput";
 import Background from "../img/fondoInicioSesion.svg";
 import ArrowBackOutlinedIcon from "@material-ui/icons/ArrowBackOutlined";
+import { Formik, Form } from "formik";
 
 // ESTILOS
-
 const useStyles = makeStyles({
   fondorRegistroUsuario: {
     backgroundImage: `url(${Background})`,
@@ -65,6 +65,45 @@ const useStyles = makeStyles({
 const InicioSesion = () => {
   const classes = useStyles();
 
+  const initialValues = {
+    usuario: "",
+    cedula: "",
+    nombre: "",
+    apellido: "",
+    telefono: "",
+    direccion: "",
+    contrasena: "",
+    confirmar: "",
+    rifSucursal: "",
+  };
+
+  const onSubmit = async (data, { setSubmitting }) => {
+    setSubmitting(true);
+    const url = "http://localhost:4000/api/auth/signup";
+
+    // TODO: try catch ?
+
+    const response = await fetch(url, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      // TODO: Error
+      return console.log("Oh no");
+    }
+
+    const user = { usuario: data.usuario, contrasena: data.contrasena };
+
+    localStorage.setItem("user", JSON.stringify(user));
+
+    setSubmitting(false);
+    window.location.href = "/";
+  };
+
   return (
     <div className={classes.fondorRegistroUsuario}>
       <div className={classes.containerRegistroUsuario}>
@@ -72,37 +111,47 @@ const InicioSesion = () => {
           <ArrowBackOutlinedIcon color="primary" />
         </IconButton>
         <img className={classes.logoRegistroUsuario} src={logo} alt="logo" />
-        <form className={classes.containerInputs}>
-          <div className={classes.divFlex}>
-            <Input label="Usuario" icon="person" />
-            <div className={classes.spaceDiv} />
-            <Input label="Cédula" icon="identification" />
-          </div>
-          <div className={classes.divFlex}>
-            <Input label="Nombre" icon="person" />
-            <div className={classes.spaceDiv} />
-            <Input label="Apellido" icon="person" />
-          </div>
-          <div className={classes.divFlex}>
-            <Input label="Teléfono" icon="phone" />
-            <div className={classes.spaceDiv} />
-            <Input label="Dirección" icon="ubication" />
-          </div>
-          <div className={classes.divFlex}>
-            <PasswordInput label="Contraseña" />
-            <div className={classes.spaceDiv} />
-            <PasswordInput label="Confirmar contraseña" />
-          </div>
-          <Input label="Código de la sucursal" icon="store" />
-          <Button
-            variant="contained"
-            color="primary"
-            fullWidth
-            className={classes.boton}
-          >
-            REGISTRARSE
-          </Button>
-        </form>
+        <Formik initialValues={initialValues} onSubmit={onSubmit}>
+          {({ isSubmitting }) => (
+            <Form className={classes.containerInputs}>
+              <div className={classes.divFlex}>
+                <Input name="usuario" label="Usuario" icon="person" />
+                <div className={classes.spaceDiv} />
+                <Input name="cedula" label="Cédula" icon="identification" />
+              </div>
+              <div className={classes.divFlex}>
+                <Input name="nombre" label="Nombre" icon="person" />
+                <div className={classes.spaceDiv} />
+                <Input name="apellido" label="Apellido" icon="person" />
+              </div>
+              <div className={classes.divFlex}>
+                <Input name="telefono" label="Teléfono" icon="phone" />
+                <div className={classes.spaceDiv} />
+                <Input name="direccion" label="Dirección" icon="ubication" />
+              </div>
+              <div className={classes.divFlex}>
+                <PasswordInput name="contrasena" label="Contraseña" />
+                <div className={classes.spaceDiv} />
+                <PasswordInput name="confirmar" label="Confirmar Contraseña" />
+              </div>
+              <Input
+                name="rifSucursal"
+                label="RIF de la Sucursal"
+                icon="store"
+              />
+              <Button
+                variant="contained"
+                color="primary"
+                fullWidth
+                className={classes.boton}
+                type="submit"
+                disabled={isSubmitting}
+              >
+                REGISTRARSE
+              </Button>
+            </Form>
+          )}
+        </Formik>
       </div>
     </div>
   );

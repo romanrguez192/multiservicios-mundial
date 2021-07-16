@@ -8,6 +8,7 @@ import {
   StoreOutlined,
 } from "@material-ui/icons";
 import { TextField, InputAdornment, makeStyles } from "@material-ui/core";
+import { useField } from "formik";
 
 // ESTILOS
 const useStyles = makeStyles({
@@ -21,13 +22,20 @@ const useStyles = makeStyles({
 });
 
 // Componente de input
-const Input = (props) => {
+const Input = ({ endAdornment, icon, ...props }) => {
   const classes = useStyles();
   const [changeColor, setChangeColor] = useState(false);
+  const [field] = useField(props);
 
   // Función para el color del icono de usuario
   const handleClickChangeColor = () => {
     setChangeColor(!changeColor);
+  };
+
+  // Función para el color del icono de usuario onBlur
+  const handleBlur = (e) => {
+    setChangeColor(!changeColor);
+    field.onBlur(e);
   };
 
   // Clase del icono a mostrar
@@ -47,15 +55,14 @@ const Input = (props) => {
     <TextField
       fullWidth
       variant="outlined"
+      {...field}
       onFocus={handleClickChangeColor}
-      onBlur={handleClickChangeColor}
+      onBlur={(e) => handleBlur(e)}
       InputProps={{
         startAdornment: (
-          <InputAdornment position="start">
-            {iconsObject[props.icon]}
-          </InputAdornment>
+          <InputAdornment position="start">{iconsObject[icon]}</InputAdornment>
         ),
-        endAdornment: props.endAdornment,
+        endAdornment: endAdornment,
       }}
       {...props}
     ></TextField>
