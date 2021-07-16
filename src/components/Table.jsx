@@ -56,6 +56,7 @@ export default function Table({ title, ...props }) {
             nextTooltip: "Siguiente página",
             previousTooltip: "Página anterior",
             lastTooltip: "Ir al final",
+            labelDisplayedRows: "{from}-{to} de {count}"
           },
         }}
         icons={{

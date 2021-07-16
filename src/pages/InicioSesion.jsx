@@ -66,14 +66,34 @@ const InicioSesion = () => {
   const classes = useStyles();
 
   const initialValues = {
-    username: "",
-    password: "",
+    usuario: "",
+    contrasena: "",
   };
 
-  const onSubmit = (data, { setSubmitting }) => {
+  const onSubmit = async (data, { setSubmitting }) => {
     setSubmitting(true);
-    console.log(data);
+
+    const url = "http://localhost:4000/api/auth/login";
+
+    // TODO: try catch ?
+
+    const response = await fetch(url, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      // TODO: Error
+      return console.log("Oh no");
+    }
+
+    localStorage.setItem("user", JSON.stringify(data));
+
     setSubmitting(false);
+    window.location.href = "/";
   };
 
   return (
@@ -84,13 +104,13 @@ const InicioSesion = () => {
           {({ isSubmitting }) => (
             <Form className={classes.containerInputs}>
               <Input
-                name="username"
+                name="usuario"
                 className={classes.userInputLogin}
                 label="Usuario"
                 icon="person"
               />
               <PasswordInput
-                name="password"
+                name="contrasena"
                 className={classes.passwordInputLogin}
                 label="Contraseña"
               />

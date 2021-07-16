@@ -9,7 +9,6 @@ import ArrowBackOutlinedIcon from "@material-ui/icons/ArrowBackOutlined";
 import { Formik, Form } from "formik";
 
 // ESTILOS
-
 const useStyles = makeStyles({
   fondorRegistroUsuario: {
     backgroundImage: `url(${Background})`,
@@ -78,10 +77,31 @@ const InicioSesion = () => {
     rifSucursal: "",
   };
 
-  const onSubmit = (data, { setSubmitting }) => {
+  const onSubmit = async (data, { setSubmitting }) => {
     setSubmitting(true);
-    console.log(data);
+    const url = "http://localhost:4000/api/auth/signup";
+
+    // TODO: try catch ?
+
+    const response = await fetch(url, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      // TODO: Error
+      return console.log("Oh no");
+    }
+
+    const user = { usuario: data.usuario, contrasena: data.contrasena };
+
+    localStorage.setItem("user", JSON.stringify(user));
+
     setSubmitting(false);
+    window.location.href = "/";
   };
 
   return (

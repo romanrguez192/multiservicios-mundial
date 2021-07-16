@@ -15,18 +15,23 @@ export const UserProvider = ({ children }) => {
   }, []);
 
   const getUser = async () => {
-    const A = new Promise((resolve, reject) =>
-      setTimeout(() => {
-        const usuario = {
-          nombre: "pepitoxd",
-          apellido: "nosheee",
-        };
+    const userData = localStorage.getItem("user");
 
-        resolve(usuario);
-      }, 1000)
-    );
+    const url = "http://localhost:4000/api/auth/login";
 
-    const user = null;
+    const response = await fetch(url, {
+      method: "POST",
+      body: userData,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      return setLoading(false);
+    }
+
+    const user = await response.json();
 
     setUser(user);
     setLoading(false);
