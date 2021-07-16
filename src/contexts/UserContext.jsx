@@ -26,7 +26,7 @@ export const UserProvider = ({ children }) => {
       }, 1000)
     );
 
-    const user = await A;
+    const user = null;
 
     setUser(user);
     setLoading(false);

@@ -2,7 +2,7 @@ import React from "react";
 import logo from "../img/logo.svg";
 import { Button, makeStyles, Link } from "@material-ui/core";
 import { Link as RouterLink } from "react-router-dom";
-import { Formik, Field, Form } from "formik";
+import { Formik, Form } from "formik";
 import Input from "../components/Input";
 import PasswordInput from "../components/PasswordInput";
 import Background from "../img/fondoInicioSesion.svg";
@@ -70,7 +70,7 @@ const InicioSesion = () => {
     password: "",
   };
 
-  const onSubmit = (data, {setSubmitting}) => {
+  const onSubmit = (data, { setSubmitting }) => {
     setSubmitting(true);
     console.log(data);
     setSubmitting(false);
@@ -81,18 +81,16 @@ const InicioSesion = () => {
       <div className={classes.containerInicioSesion}>
         <img className={classes.logoInicio} src={logo} alt="logo" />
         <Formik initialValues={initialValues} onSubmit={onSubmit}>
-          {({isSubmitting}) => (
+          {({ isSubmitting }) => (
             <Form className={classes.containerInputs}>
-              <Field
+              <Input
                 name="username"
-                as={Input}
                 className={classes.userInputLogin}
                 label="Usuario"
                 icon="person"
               />
-              <Field
+              <PasswordInput
                 name="password"
-                as={PasswordInput}
                 className={classes.passwordInputLogin}
                 label="Contraseña"
               />
