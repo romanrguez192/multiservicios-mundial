@@ -19,22 +19,26 @@ export const UserProvider = ({ children }) => {
 
     const url = "http://localhost:4000/api/auth/login";
 
-    const response = await fetch(url, {
-      method: "POST",
-      body: userData,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        body: userData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-    if (!response.ok) {
-      return setLoading(false);
+      if (!response.ok) {
+        return setLoading(false);
+      }
+
+      const user = await response.json();
+
+      setUser(user);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
     }
-
-    const user = await response.json();
-
-    setUser(user);
-    setLoading(false);
   };
 
   return (
