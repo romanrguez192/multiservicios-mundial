@@ -4,12 +4,17 @@ import { makeStyles } from "@material-ui/core";
 import {
   AddOutlined,
   EditOutlined,
+  ImportantDevices,
 } from "@material-ui/icons";
 
 // ESTILOS
 const useStyles = makeStyles({
   toolbar: {
     fontFamily: "quicksand",
+  },
+  table: {
+    marginBottom: '20pt',
+    textAlign: 'center !important',
   },
 });
 
@@ -19,7 +24,7 @@ export default function Table({ title, ...props }) {
   const Title = <h1 className={classes.titleC}>{title}</h1>;
 
   return (
-    <div>
+    <div className={classes.table}>
       <MaterialTable
         title={Title}
         style={{ fontFamily: "quicksand" }}
