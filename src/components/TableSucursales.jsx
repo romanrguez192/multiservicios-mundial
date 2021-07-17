@@ -10,7 +10,7 @@ const TableSucursales = ({ rows, ...props }) => {
   }, []);
 
   const getSucursales = async () => {
-    const url = `http://localhost:4000/api/sucursales/${oldData.rifSucursal}`;
+    const url = `http://localhost:4000/api/sucursales`;
 
     const response = await fetch(url);
 
@@ -72,7 +72,7 @@ const TableSucursales = ({ rows, ...props }) => {
 
     const sucursal = await response.json();
 
-    setSucursal([...sucursales, sucursal]);
+    setSucursales([...sucursales, sucursal]);
   };
 
   const updateSucursal = async (newData, oldData) => {
@@ -115,7 +115,7 @@ const TableSucursales = ({ rows, ...props }) => {
     const index = oldData.tableData.id;
     dataDelete.splice(index, 1);
 
-    setSucursales(dataSucursales);
+    setSucursales(dataDelete);
   };
 
   return (
