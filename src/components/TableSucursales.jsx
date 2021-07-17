@@ -10,7 +10,7 @@ const TableSucursales = ({ rows, ...props }) => {
   }, []);
 
   const getSucursales = async () => {
-    const url = `http://localhost:4000/api/sucursales`;
+    const url = "http://localhost:4000/api/sucursales";
 
     const response = await fetch(url);
 
