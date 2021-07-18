@@ -1,30 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
 
-const TableLineas = ({ rows, ...props }) => {
-  const [lineas, setLineas] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    getLineas();
-  }, []);
-
-  const getLineas = async () => {
-    const url = "http://localhost:4000/api/lineas";
-
-    const response = await fetch(url);
-
-    if (!response.ok) {
-      // TODO: Error
-      return console.log("Oh no");
-    }
-
-    const lineas = await response.json();
-
-    setLineas(lineas);
-    setLoading(false);
-  };
-
+const TableLineas = ({ lineas, setLineas, loadingL, ...props }) => {
   const columns = [
     {
       title: "Código",
@@ -109,7 +86,7 @@ const TableLineas = ({ rows, ...props }) => {
         title="Líneas"
         columns={columns}
         data={lineas}
-        isLoading={loading}
+        isLoading={loadingL}
         editable={{
           onRowAdd: addLinea,
           onRowUpdate: updateLinea,
