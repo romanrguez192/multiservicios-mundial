@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core";
 import Sidebar from "../components/Sidebar";
+import { useUser } from "../contexts/UserContext";
 import TableLineas from "../components/TableLineas";
 import TableProductosServicios from "../components/TableProductosServicio";
 import TableProductosVentas from "../components/TableProductosVentas";
+import TableInventario from "../components/TableInventario";
 
 // ESTILOS
 const useStyles = makeStyles({
@@ -32,6 +34,10 @@ const Inventario = () => {
   const [loadingPS, setLoadingPS] = useState(true);
   const [productosVentas, setProductosVentas] = useState([]);
   const [loadingPV, setLoadingPV] = useState(true);
+  const [inventario, setInventario] = useState([]);
+  const [loadingI, setLoadingI] = useState(true);
+
+  const user = useUser();
 
   useEffect(() => {
     const getLineas = async () => {
@@ -96,6 +102,27 @@ const Inventario = () => {
     getProductosVentas();
   }, [lineas]);
 
+  useEffect(() => {
+    const getInventario = async () => {
+      setLoadingI(true);
+      const url = `http://localhost:4000/api/inventario/${user.rifSucursal}`;
+
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        // TODO: Error
+        return console.log("Oh no");
+      }
+
+      const inventario = await response.json();
+
+      setInventario(inventario);
+      setLoadingI(false);
+    };
+
+    getInventario();
+  }, [productosServicios, productosVentas, user]);
+
   return (
     <>
       <div className={classes.root}>
@@ -128,6 +155,13 @@ const Inventario = () => {
                 setProductosVentas,
                 lineas,
                 loadingPV,
+              }}
+            />
+            <TableInventario
+              {...{
+                // props
+                inventario,
+                loadingI,
               }}
             />
           </div>
