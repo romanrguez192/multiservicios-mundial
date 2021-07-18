@@ -70,7 +70,6 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: drawerWidth,
   },
   menuButton: {
-    marginRight: 36,
     color: '#787878'
   },
   drawer: {

@@ -5,6 +5,7 @@ import TableTiposVehiculos from "../components/TableTiposVehiculos";
 import TableModelos from "../components/TableModelos";
 import TableVehiculos from "../components/TableVehiculos";
 import TableMecanicos from "../components/TableMecanicos";
+import PageTitle from "../components/PageTitle";
 
 // ESTILOS
 const useStyles = makeStyles({
@@ -22,6 +23,7 @@ const useStyles = makeStyles({
   tableContainer: {
     width: "80vw",
     margin: "auto",
+    marginTop: "30pt",
   },
 });
 
@@ -32,6 +34,7 @@ const Vehiculos = () => {
     <div className={classes.root}>
       <Sidebar page="vehiculos" />
       <main className={classes.containerVehiculos}>
+        <PageTitle title="Vehículos"/>
         <div className={classes.tableContainer}>
           <TableVehiculos />
           <TableTiposVehiculos />
