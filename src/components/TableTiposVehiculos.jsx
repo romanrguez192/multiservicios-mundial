@@ -1,30 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
 
-const TableTiposVehiculos = ({ rows, ...props }) => {
-  const [tiposVehiculos, setTiposVehiculos] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    getTiposVehiculos();
-  }, []);
-
-  const getTiposVehiculos = async () => {
-    const url = "http://localhost:4000/api/tiposVehiculos";
-
-    const response = await fetch(url);
-
-    if (!response.ok) {
-      // TODO: Error
-      return console.log("Oh no");
-    }
-
-    const tiposVehiculos = await response.json();
-
-    setTiposVehiculos(tiposVehiculos);
-    setLoading(false);
-  };
-
+const TableTiposVehiculos = ({
+  tiposVehiculos,
+  setTiposVehiculos,
+  loadingT,
+  ...props
+}) => {
   const columns = [
     {
       title: "Código",
@@ -114,7 +96,7 @@ const TableTiposVehiculos = ({ rows, ...props }) => {
         title="Tipos de Vehículos"
         columns={columns}
         data={tiposVehiculos}
-        isLoading={loading}
+        isLoading={loadingT}
         editable={{
           onRowAdd: addTipoVehiculo,
           onRowUpdate: updateTipoVehiculo,

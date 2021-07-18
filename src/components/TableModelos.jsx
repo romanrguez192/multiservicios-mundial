@@ -1,76 +1,80 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
 
-const TableModelos = ({ rows, ...props }) => {
-  const [modelos, setModelos] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    getModelos();
-  }, []);
-
-  const getModelos = async () => {
-    const url = "url";
-
-    const response = await fetch(url);
-
-    if (!response.ok) {
-      // TODO: Error
-      return console.log("Oh no");
-    }
-
-    const modelos = await response.json();
-
-    setModelos(modelos);
-    setLoading(false);
-  };
+const TableModelos = ({
+  modelos,
+  setModelos,
+  loadingM,
+  tiposVehiculos,
+  ...props
+}) => {
+  const lookup = {};
+  tiposVehiculos &&
+    tiposVehiculos.forEach((t) => {
+      lookup[t.codTipoVehiculo] = t.nombre;
+    });
 
   const columns = [
-    {
-      title: "Modelo",
-      field: "modelo",
-      editable: "always",
-    },    
     {
       title: "Marca",
       field: "marca",
       editable: "always",
     },
     {
-      title: "Peso",
-      field: "peso",
+      title: "Modelo",
+      field: "modelo",
+      editable: "always",
+    },
+    {
+      title: "Descripción",
+      field: "descripcion",
       editable: "always",
     },
     {
       title: "Nº de puestos",
       field: "numPuestos",
+      type: "numeric",
       editable: "always",
     },
     {
+      title: "Peso (Kg)",
+      field: "peso",
+      type: "numeric",
+      editable: "always",
+    },
+
+    {
+      title: "Octanaje",
+      field: "octanaje",
+      editable: "always",
+      type: "numeric",
+      lookup: { 91: 91, 95: 95 },
+    },
+    {
       title: "Aceite de motor",
-      field: "aceiteMotor",
+      field: "tipoAceiteMotor",
       editable: "always",
     },
     {
       title: "Aceite de caja",
-      field: "aceiteCaja",
+      field: "tipoAceiteCaja",
       editable: "always",
     },
     {
       title: "Refrigerante",
-      field: "aceiteMotor",
+      field: "tipoRefrigerante",
       editable: "always",
     },
     {
       title: "Tipo de Vehiculo",
-      field: "tipoVehiculo",
+      field: "codTipoVehiculo",
       editable: "always",
-      lookup: { 34: 'Camionetica', 63: 'Todoterreno' },  //cambiar por los tipos de vehiculos
+      lookup: lookup,
     },
   ];
 
   const addModelo = async (data) => {
-    const url = "url";
+    const url = "http://localhost:4000/api/modelos";
 
     const response = await fetch(url, {
       method: "POST",
@@ -91,7 +95,7 @@ const TableModelos = ({ rows, ...props }) => {
   };
 
   const updateModelo = async (newData, oldData) => {
-    const url = "url";
+    const url = `http://localhost:4000/api/modelos/${oldData.marca}/${oldData.modelo}`;
 
     const response = await fetch(url, {
       method: "PUT",
@@ -116,7 +120,7 @@ const TableModelos = ({ rows, ...props }) => {
   };
 
   const deleteModelo = async (oldData) => {
-    const url = "url";
+    const url = `http://localhost:4000/api/modelos/${oldData.marca}/${oldData.modelo}`;
 
     const response = await fetch(url, {
       method: "DELETE",
@@ -134,31 +138,23 @@ const TableModelos = ({ rows, ...props }) => {
     setModelos(dataDelete);
   };
 
-  //para probar namas
-  const data=[
-    { marca: 'Chevrolet', modelo: 'Optra'},
-    { marca: 'Toyota', modelo: '4Runner'},
-  ];
-
   return (
     <div>
       <Table
         title="Modelos"
         columns={columns}
-        data={data} //cambiar despues por modelos
-        //isLoading={loading}
+        data={modelos}
+        isLoading={loadingM}
         editable={{
           onRowAdd: addModelo,
           onRowUpdate: updateModelo,
           onRowDelete: deleteModelo,
         }}
-        detailPanel={rowData => {
+        detailPanel={(rowData) => {
           return (
-          /* Hacer un componente para añadir la descripcion del modelo */
-            <div>
-              Descripcion del modelo   
-            </div>
-          )
+            /* Hacer un componente para añadir la descripcion del modelo */
+            <div>Descripcion del modelo</div>
+          );
         }}
         {...props}
       />

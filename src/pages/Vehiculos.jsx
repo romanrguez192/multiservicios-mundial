@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core";
 import Sidebar from "../components/Sidebar";
 import TableTiposVehiculos from "../components/TableTiposVehiculos";
 import TableModelos from "../components/TableModelos";
 import TableVehiculos from "../components/TableVehiculos";
-import TableMecanicos from "../components/TableMecanicos";
 import PageTitle from "../components/PageTitle";
 
 // ESTILOS
@@ -28,17 +27,75 @@ const useStyles = makeStyles({
 
 const Vehiculos = () => {
   const classes = useStyles();
+  const [tiposVehiculos, setTiposVehiculos] = useState([]);
+  const [loadingT, setLoadingT] = useState(true);
+  const [modelos, setModelos] = useState([]);
+  const [loadingM, setLoadingM] = useState(true);
+
+  useEffect(() => {
+    const getTiposVehiculos = async () => {
+      const url = "http://localhost:4000/api/tiposVehiculos";
+
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        // TODO: Error
+        return console.log("Oh no");
+      }
+
+      const tiposVehiculos = await response.json();
+
+      setTiposVehiculos(tiposVehiculos);
+      setLoadingT(false);
+    };
+
+    getTiposVehiculos();
+  }, []);
+
+  useEffect(() => {
+    const getModelos = async () => {
+      const url = "http://localhost:4000/api/modelos";
+
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        // TODO: Error
+        return console.log("Oh no");
+      }
+
+      const modelos = await response.json();
+
+      setModelos(modelos);
+      setLoadingM(false);
+    };
+
+    getModelos();
+  }, [tiposVehiculos]);
 
   return (
     <div className={classes.root}>
       <Sidebar page="vehiculos" />
       <main className={classes.containerVehiculos}>
-        <PageTitle title="Vehículos"/>
+        <PageTitle title="Vehículos" />
         <div className={classes.tableContainer}>
           <TableVehiculos />
-          <TableTiposVehiculos />
-          <TableModelos />
-          <TableMecanicos />
+          <TableTiposVehiculos
+            // props
+            {...{
+              tiposVehiculos,
+              setTiposVehiculos,
+              loadingT,
+            }}
+          />
+          <TableModelos
+            // props
+            {...{
+              modelos,
+              setModelos,
+              loadingM,
+              tiposVehiculos,
+            }}
+          />
         </div>
       </main>
     </div>

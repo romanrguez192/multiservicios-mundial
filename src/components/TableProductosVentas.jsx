@@ -48,7 +48,7 @@ const TableProductosVentas = ({
       lookup: { true: "Sí", false: "No" },
     },
     {
-      title: "Precio",
+      title: "Precio (Bs.S)",
       field: "precio",
       editable: "always",
       type: "numeric",
