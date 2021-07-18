@@ -3,8 +3,8 @@ import  {
   makeStyles, 
 }from '@material-ui/core';
 import Sidebar from '../components/Sidebar';
-import Table from '../components/Table';
-
+import TableProveedores from "../components/TableProveedores";
+import PageTitle from "../components/PageTitle";
 
 // ESTILOS
 const useStyles = makeStyles({
@@ -36,8 +36,9 @@ const Proveedores = () => {
       <div className={classes.root}>
         <Sidebar page="proveedores"/>
         <main className={classes.containerProveedores}>
+          <PageTitle title="Proveedores"/>
           <div className={classes.tableContainer}>
-            <Table title="Proveedores" />
+            <TableProveedores />
           </div>
         </main>
       </div>

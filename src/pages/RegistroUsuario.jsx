@@ -62,7 +62,7 @@ const useStyles = makeStyles({
   },
 });
 
-const InicioSesion = () => {
+const RegistroUsuario = () => {
   const classes = useStyles();
 
   const initialValues = {
@@ -157,4 +157,4 @@ const InicioSesion = () => {
   );
 };
 
-export default InicioSesion;
+export default RegistroUsuario;

@@ -2,6 +2,10 @@ import React from "react";
 import { makeStyles } from "@material-ui/core";
 import Sidebar from "../components/Sidebar";
 import TableTiposVehiculos from "../components/TableTiposVehiculos";
+import TableModelos from "../components/TableModelos";
+import TableVehiculos from "../components/TableVehiculos";
+import TableMecanicos from "../components/TableMecanicos";
+import PageTitle from "../components/PageTitle";
 
 // ESTILOS
 const useStyles = makeStyles({
@@ -29,8 +33,12 @@ const Vehiculos = () => {
     <div className={classes.root}>
       <Sidebar page="vehiculos" />
       <main className={classes.containerVehiculos}>
+        <PageTitle title="Vehículos"/>
         <div className={classes.tableContainer}>
+          <TableVehiculos />
           <TableTiposVehiculos />
+          <TableModelos />
+          <TableMecanicos />
         </div>
       </main>
     </div>
