@@ -1,43 +1,37 @@
 import React from "react";
-import  { 
-  makeStyles, 
-}from '@material-ui/core';
-import Sidebar from '../components/Sidebar';
-import Table from '../components/Table';
-
+import { makeStyles } from "@material-ui/core";
+import Sidebar from "../components/Sidebar";
+import TableSucursales from "../components/TableSucursales";
 
 // ESTILOS
 const useStyles = makeStyles({
   divFlex: {
-    display: 'inline-flex',
-    marginBottom: '10pt',
+    display: "inline-flex",
+    marginBottom: "10pt",
   },
-  containerSucursales:{
-    flexGrow: '1',
-    marginTop: '60pt',
+  containerSucursales: {
+    flexGrow: "1",
+    marginTop: "60pt",
   },
   root: {
-    display: 'flex',
+    display: "flex",
   },
   tableContainer: {
-    width: '80vw',
-    margin: 'auto',
+    width: "80vw",
+    margin: "auto",
   },
 });
 
-
 const Sucursales = () => {
-    const classes = useStyles();
-
-
+  const classes = useStyles();
 
   return (
     <>
       <div className={classes.root}>
-        <Sidebar page="sucursales"/>
+        <Sidebar page="sucursales" />
         <main className={classes.containerSucursales}>
           <div className={classes.tableContainer}>
-            <Table title="Sucursales" />
+            <TableSucursales />
           </div>
         </main>
       </div>
