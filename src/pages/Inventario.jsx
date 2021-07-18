@@ -137,8 +137,6 @@ const Inventario = () => {
                 loadingL,
               }}
             />
-          </div>
-          <div className={classes.tableContainer}>
             <TableProductosServicios
               {...{
                 // props

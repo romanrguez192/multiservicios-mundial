@@ -10,7 +10,7 @@ const TableProveedores = ({ rows, ...props }) => {
   }, []);
 
   const getProveedores = async () => {
-    const url = "url";
+    const url = "http://localhost:4000/api/proveedores";
 
     const response = await fetch(url);
 
@@ -48,18 +48,18 @@ const TableProveedores = ({ rows, ...props }) => {
     },
     {
       title: "Teléfono Celular",
-      field: "tlfCelular",
+      field: "telefonoCelular",
       editable: "always",
     },
     {
       title: "Teléfono Local",
-      field: "tlfLocal",
+      field: "telefonoLocal",
       editable: "always",
     },
   ];
 
   const addProveedor = async (data) => {
-    const url = "url";
+    const url = "http://localhost:4000/api/proveedores";
 
     const response = await fetch(url, {
       method: "POST",
@@ -80,7 +80,7 @@ const TableProveedores = ({ rows, ...props }) => {
   };
 
   const updateProveedor = async (newData, oldData) => {
-    const url = "url";
+    const url = `http://localhost:4000/api/proveedores/${oldData.rifProveedor}`;
 
     const response = await fetch(url, {
       method: "PUT",
@@ -105,7 +105,7 @@ const TableProveedores = ({ rows, ...props }) => {
   };
 
   const deleteProveedor = async (oldData) => {
-    const url = "url";
+    const url = `http://localhost:4000/api/proveedores/${oldData.rifProveedor}`;
 
     const response = await fetch(url, {
       method: "DELETE",
