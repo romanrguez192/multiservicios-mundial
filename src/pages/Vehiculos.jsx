@@ -23,7 +23,6 @@ const useStyles = makeStyles({
   tableContainer: {
     width: "80vw",
     margin: "auto",
-    marginTop: "30pt",
   },
 });
 

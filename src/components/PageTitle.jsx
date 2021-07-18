@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Typography, makeStyles } from "@material-ui/core";
 import Background from "../img/titleBackground.svg";
 
