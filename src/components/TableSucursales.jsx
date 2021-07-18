@@ -27,28 +27,37 @@ const TableSucursales = ({ rows, ...props }) => {
 
   const columns = [
     {
-      Title: "Rif",
+      title: "Rif",
       field: "rifSucursal",
       editable: "never",
     },
     {
-      Title: "Nombre",
+      title: "Nombre",
       field: "nombre",
       editable: "always",
     },
     {
-      Title: "Dirección",
+      title: "Dirección",
       field: "direccion",
       editable: "always",
     },
-
     {
-      Title: "Encargado",
+      title: "Ciudad",
+      field: "ciudad",
+      editable: "always",
+    },
+    {
+      title: "Encargado",
+      field: "nombreEncargado",
+      editable: "always",
+    },
+    {
+      title: "CI de encargado",
       field: "cedEncargado",
       editable: "always",
     },
     {
-      Title: "Fecha Inventario",
+      title: "Última fecha del inventario físico",
       field: "fechaInvFisico",
       editable: "always",
     },
