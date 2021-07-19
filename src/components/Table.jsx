@@ -3,7 +3,9 @@ import MaterialTable from "material-table-formik";
 import { makeStyles } from "@material-ui/core";
 import {
   AddOutlined,
+  DeleteOutlined,
   EditOutlined,
+  SearchOutlined,
 } from "@material-ui/icons";
 import Fade from 'react-reveal/Fade';
 
@@ -14,6 +16,9 @@ const useStyles = makeStyles({
   },
   table: {
     marginBottom: '20pt',
+  },
+  icono: {
+    color: '#787878',
   },
 });
 
@@ -64,8 +69,10 @@ export default function Table({ title, ...props }) {
             },
           }}
           icons={{
-            Add: () => <AddOutlined />,
-            Edit: () => <EditOutlined />,
+            Add: () => <AddOutlined className={classes.icono}/>,
+            Edit: () => <EditOutlined className={classes.icono}/>,
+            Search: () => <SearchOutlined className={classes.icono}/>,
+            Delete: () => <DeleteOutlined className={classes.icono}/>,
           }}
           {...props}
         />
