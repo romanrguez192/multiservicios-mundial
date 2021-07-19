@@ -1,30 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
 
-const TableServicios = ({ rows, ...props }) => {
-  const [servicios, setServicios] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    getServicios();
-  }, []);
-
-  const getServicios = async () => {
-    const url = "url";
-
-    const response = await fetch(url);
-
-    if (!response.ok) {
-      // TODO: Error
-      return console.log("Oh no");
-    }
-
-    const servicios = await response.json();
-
-    setServicios(servicios);
-    setLoading(false);
-  };
-
+const TableServicios = ({ servicios, setServicios, loadingS, ...props }) => {
   const columns = [
     {
       title: "Código",
@@ -42,19 +19,22 @@ const TableServicios = ({ rows, ...props }) => {
       editable: "always",
     },
     {
+      // TODO: Colocar si quiere reserva o no?
       title: "Tiempo mínimo para reservar",
       field: "minTiempoReserva",
+      type: "time",
       editable: "always",
     },
     {
-      title: "Porcentaje de abono mínimo al reservar",
+      title: "Porcentaje de abono al reservar",
       field: "porcentajeAbono",
+      type: "numeric",
       editable: "always",
     },
   ];
 
   const addServicio = async (data) => {
-    const url = "url";
+    const url = "http://localhost:4000/api/servicios";
 
     const response = await fetch(url, {
       method: "POST",
@@ -75,7 +55,7 @@ const TableServicios = ({ rows, ...props }) => {
   };
 
   const updateServicio = async (newData, oldData) => {
-    const url = "url";
+    const url = `http://localhost:4000/api/servicios/${oldData.codServicio}`;
 
     const response = await fetch(url, {
       method: "PUT",
@@ -100,7 +80,7 @@ const TableServicios = ({ rows, ...props }) => {
   };
 
   const deleteServicio = async (oldData) => {
-    const url = "url";
+    const url = `http://localhost:4000/api/servicios/${oldData.codServicio}`;
 
     const response = await fetch(url, {
       method: "DELETE",
@@ -124,7 +104,7 @@ const TableServicios = ({ rows, ...props }) => {
         title="Servicios"
         columns={columns}
         data={servicios}
-        isLoading={loading}
+        isLoading={loadingS}
         editable={{
           onRowAdd: addServicio,
           onRowUpdate: updateServicio,
