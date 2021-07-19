@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
+import TableHistorialVehiculo from "./TableHistorialVehiculo";
 
 const TableVehiculos = ({ rows, ...props }) => {
   const [vehiculos, setVehiculos] = useState([]);
@@ -150,9 +151,7 @@ const TableVehiculos = ({ rows, ...props }) => {
         detailPanel={rowData => {
           return (
           /* Hacer un componente que muestre los mantenimientos realizados por el vehiculo */
-            <div>
-              Mantenimientos realizados por el vehiculo   
-            </div>
+            <TableHistorialVehiculo codVehiculo={rowData.codVehiculo}/>
           )
         }}
         {...props}
