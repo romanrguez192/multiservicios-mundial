@@ -5,6 +5,7 @@ import TableTiposVehiculos from "../components/TableTiposVehiculos";
 import TableModelos from "../components/TableModelos";
 import TableVehiculos from "../components/TableVehiculos";
 import PageTitle from "../components/PageTitle";
+import Nature from "../components/Nature";
 
 // ESTILOS
 const useStyles = makeStyles({
@@ -96,6 +97,7 @@ const Vehiculos = () => {
               tiposVehiculos,
             }}
           />
+          <Nature />
         </div>
       </main>
     </div>
