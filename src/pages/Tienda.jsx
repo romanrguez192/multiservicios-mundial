@@ -3,6 +3,8 @@ import { makeStyles } from "@material-ui/core";
 import Sidebar from "../components/Sidebar";
 import Table from "../components/Table";
 import { useUser } from "../contexts/UserContext";
+import Nature from "../components/Nature";
+import PageTitle from "../components/PageTitle";
 
 // ESTILOS
 const useStyles = makeStyles({
@@ -33,10 +35,12 @@ const Tienda = () => {
       <div className={classes.root}>
         <Sidebar page="tienda" />
         <main className={classes.containerTienda}>
+          <PageTitle title="Tienda" />
           <div className={classes.tableContainer}>
             <Table title="Tienda" />
           </div>
           <h1>{JSON.stringify(user)}</h1>
+          <Nature/>
         </main>
       </div>
     </>

@@ -4,6 +4,8 @@ import  {
 }from '@material-ui/core';
 import Sidebar from '../components/Sidebar';
 import Table from '../components/Table';
+import Nature from "../components/Nature";
+import PageTitle from "../components/PageTitle";
 
 
 // ESTILOS
@@ -36,9 +38,11 @@ const Facturas = () => {
       <div className={classes.root}>
         <Sidebar page="facturas"/>
         <main className={classes.containerFacturas}>
+          <PageTitle title="Facturas" />
           <div className={classes.tableContainer}>
             <Table title="Facturas" />
           </div>
+          <Nature />
         </main>
       </div>
     </>

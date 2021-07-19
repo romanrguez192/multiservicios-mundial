@@ -41,7 +41,7 @@ const Nature = (props) => {
       <Fade>
         <div>
           <img src={Nature1} />
-          <h2>Trata el ambiente igual de bien que a tu vehículo</h2>
+          <h2>Trata al ambiente igual de bien que a tu vehículo</h2>
         </div>
       </Fade>
       <Fade>

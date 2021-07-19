@@ -4,6 +4,8 @@ import  {
 }from '@material-ui/core';
 import Sidebar from '../components/Sidebar';
 import TableReservaciones from '../components/TableReservaciones';
+import Nature from "../components/Nature";
+import PageTitle from "../components/PageTitle";
 
 
 // ESTILOS
@@ -36,9 +38,11 @@ const Reservaciones = () => {
       <div className={classes.root}>
         <Sidebar page="reservaciones"/>
         <main className={classes.containerReservaciones}>
+          <PageTitle title="Reservaciones"/>
           <div className={classes.tableContainer}>
             <TableReservaciones />
           </div>
+          <Nature/>
         </main>
       </div>
     </>
