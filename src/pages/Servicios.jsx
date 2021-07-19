@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core";
 import Sidebar from "../components/Sidebar";
 import TableServicios from "../components/TableServicios";
+import Nature from "../components/Nature";
+import PageTitle from "../components/PageTitle";
 
 // ESTILOS
 const useStyles = makeStyles({
@@ -52,6 +54,7 @@ const Servicios = () => {
       <div className={classes.root}>
         <Sidebar page="servicios" />
         <main className={classes.containerServicios}>
+          <PageTitle title="Servicios"/>
           <div className={classes.tableContainer}>
             <TableServicios
               // props
@@ -62,6 +65,7 @@ const Servicios = () => {
               }}
             />
           </div>
+          <Nature />
         </main>
       </div>
     </>

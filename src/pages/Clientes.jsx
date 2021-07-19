@@ -4,6 +4,9 @@ import  {
 }from '@material-ui/core';
 import Sidebar from '../components/Sidebar';
 import TableClientes from '../components/TableClientes';
+import Nature from "../components/Nature";
+import PageTitle from "../components/PageTitle";
+
 
 // ESTILOS
 const useStyles = makeStyles({
@@ -31,8 +34,10 @@ const Clientes = () => {
       <div className={classes.root}>
         <Sidebar page="clientes"/>
         <main className={classes.containerClientes}>
+          <PageTitle title="Clientes"/>
           <div className={classes.tableContainer}>
             <TableClientes />
+            <Nature />
           </div>
         </main>
       </div>

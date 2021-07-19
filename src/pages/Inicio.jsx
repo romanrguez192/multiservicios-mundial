@@ -3,8 +3,8 @@ import  {
   makeStyles, 
 }from '@material-ui/core';
 import Sidebar from '../components/Sidebar';
-import Table from '../components/Table';
 import PageTitle from "../components/PageTitle";
+import Nature from "../components/Nature";
 
 
 // ESTILOS
@@ -40,6 +40,7 @@ const InicioSesion = () => {
           <div className={classes.tableContainer}>
             <PageTitle title="Solicitudes de servicio"/>
           </div>
+          <Nature />
         </main>
       </div>
     </>

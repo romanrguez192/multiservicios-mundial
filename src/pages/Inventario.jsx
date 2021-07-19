@@ -6,6 +6,8 @@ import TableLineas from "../components/TableLineas";
 import TableProductosServicios from "../components/TableProductosServicio";
 import TableProductosVentas from "../components/TableProductosVentas";
 import TableInventario from "../components/TableInventario";
+import Nature from "../components/Nature";
+import PageTitle from "../components/PageTitle";
 
 // ESTILOS
 const useStyles = makeStyles({
@@ -128,6 +130,7 @@ const Inventario = () => {
       <div className={classes.root}>
         <Sidebar page="inventario" />
         <main className={classes.containerInventario}>
+          <PageTitle title="Inventario"/>
           <div className={classes.tableContainer}>
             <TableLineas
               {...{
@@ -163,6 +166,7 @@ const Inventario = () => {
               }}
             />
           </div>
+          <Nature />
         </main>
       </div>
     </>

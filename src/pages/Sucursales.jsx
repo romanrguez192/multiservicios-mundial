@@ -2,6 +2,8 @@ import React from "react";
 import { makeStyles } from "@material-ui/core";
 import Sidebar from "../components/Sidebar";
 import TableSucursales from "../components/TableSucursales";
+import Nature from "../components/Nature";
+import PageTitle from "../components/PageTitle";
 
 // ESTILOS
 const useStyles = makeStyles({
@@ -30,9 +32,11 @@ const Sucursales = () => {
       <div className={classes.root}>
         <Sidebar page="sucursales" />
         <main className={classes.containerSucursales}>
+          <PageTitle title="Sucursales"/>
           <div className={classes.tableContainer}>
             <TableSucursales />
           </div>
+          <Nature/>
         </main>
       </div>
     </>

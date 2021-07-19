@@ -4,6 +4,7 @@ import  {
 }from '@material-ui/core';
 import Sidebar from '../components/Sidebar';
 import TableProveedores from "../components/TableProveedores";
+import Nature from "../components/Nature";
 import PageTitle from "../components/PageTitle";
 
 // ESTILOS
@@ -40,6 +41,7 @@ const Proveedores = () => {
           <div className={classes.tableContainer}>
             <TableProveedores />
           </div>
+          <Nature />
         </main>
       </div>
     </>
