@@ -25,7 +25,11 @@ const useStyles = makeStyles({
 export default function Table({ title, ...props }) {
   const classes = useStyles();
 
-  const Title = <h1>{title}</h1>;
+  const Title = props.subTable ? <h2>{title}</h2> : <h1>{title}</h1> ;
+
+  const colorHeader = props.subTable ? "#FFBB56" : "#199479";
+
+  const placeH = props.subTable ? "Buscar" : `Buscar ${title}`;
 
   return (
     <Fade>
@@ -36,7 +40,7 @@ export default function Table({ title, ...props }) {
           options={{
             actionsColumnIndex: -1,
             headerStyle: {
-              backgroundColor: "#199479",
+              backgroundColor: colorHeader,
               color: "#fff",
               fontFamily: "quicksand",
             },
@@ -44,7 +48,7 @@ export default function Table({ title, ...props }) {
           localization={{
             deleteAction: "Borrar",
             deleteHeader: "Borrar",
-            toolbar: { searchPlaceholder: `Buscar ${title}` },
+            toolbar: { searchPlaceholder: placeH },
             header: {
               actions: "Acciones",
             },

@@ -1,6 +1,7 @@
 import React from "react";
-import MaterialTable from "material-table-formik";
+import Table from "./Table";
 import { makeStyles } from "@material-ui/core";
+import Slide from "react-reveal/Slide";
 
 // ESTILOS
 const useStyles = makeStyles({
@@ -35,31 +36,16 @@ export default function TableHistorialVehiculo({ title, ...props }) {
 
   return (
       <div className={classes.table}>
-        <MaterialTable
+        <Slide top collapse>
+          <Table
+            title="Historial de mantenimientos"
+            subTable
             columns={columns}
             data={data}
-            style={{ fontFamily: "quicksand" }}
-            options={{
-            actionsColumnIndex: -1,
-            toolbar: false,
-            headerStyle: {
-                backgroundColor: "#FFBB56",
-                color: "#fff",
-                fontFamily: "quicksand",
-            },
-            }}
-            localization={{
-            pagination: {
-                labelRowsSelect: "Filas",
-                firstTooltip: "Ir al principio",
-                nextTooltip: "Siguiente página",
-                previousTooltip: "Página anterior",
-                lastTooltip: "Ir al final",
-                labelDisplayedRows: "{from}-{to} de {count}"
-            },
-            }}
+            //isLoading={loading}
             {...props}
-        />
+          />
+        </Slide>
       </div>
   );
 }
