@@ -31,13 +31,19 @@ export default function Table({ title, ...props }) {
 
   const placeH = props.subTable ? "Buscar" : `Buscar ${title}`;
 
+  const styleTable = props.subTable ? { fontFamily: "quicksand" ,borderColor: "#787878"} : { fontFamily: "quicksand" }; 
+
+  const pageSize = props.subTable ? [5] : [5,10,20];
+
   return (
     <Fade>
       <div className={classes.table}>
         <MaterialTable
           title={Title}
-          style={{ fontFamily: "quicksand" }}
+          style={styleTable}
           options={{
+            emptyRowsWhenPaging: true,   //to make page size fix in case of less data rows
+            pageSizeOptions: pageSize,
             actionsColumnIndex: -1,
             headerStyle: {
               backgroundColor: colorHeader,
