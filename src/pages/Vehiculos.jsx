@@ -79,7 +79,7 @@ const Vehiculos = () => {
       <main className={classes.containerVehiculos}>
         <PageTitle title="Vehículos" />
         <div className={classes.tableContainer}>
-          <TableVehiculos />
+          <TableVehiculos {...{ modelos }}/>
           <TableTiposVehiculos
             // props
             {...{

@@ -2,16 +2,22 @@ import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import TableHistorialVehiculo from "./TableHistorialVehiculo";
 
-const TableVehiculos = ({ rows, ...props }) => {
+const TableVehiculos = ({ modelos, ...props }) => {
   const [vehiculos, setVehiculos] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const lookup = {}
+  modelos &&
+    modelos.forEach((t) => {
+      lookup['marca'] = t.modelo;
+  });
 
   useEffect(() => {
     getVehiculos();
   }, []);
 
   const getVehiculos = async () => {
-    const url = "url";
+    const url = "http://localhost:4000/api/vehiculos";
 
     const response = await fetch(url);
 
@@ -56,7 +62,7 @@ const TableVehiculos = ({ rows, ...props }) => {
       title: "Modelo",
       field: "modeloVehiculo",
       editable: "always",
-      lookup: { 34: '4Runner', 63: 'Optra' },  //cambiar por los modelos de vehiculos
+      lookup: {1: 'dasas', 2: '32dsda'},  //cambiar por los modelos de vehiculos
     },
     {
       title: "Cédula del mecánico",
@@ -87,7 +93,8 @@ const TableVehiculos = ({ rows, ...props }) => {
   };
 
   const updateVehiculo = async (newData, oldData) => {
-    const url = "url";
+    console.log(oldData)
+    const url = `http://localhost:4000/api/vehiculos/${oldData.tableData.id}`;
 
     const response = await fetch(url, {
       method: "PUT",
@@ -141,7 +148,7 @@ const TableVehiculos = ({ rows, ...props }) => {
       <Table
         title="Vehículos"
         columns={columns}
-        data={data} //cambiar despues por vehiculos
+        data={vehiculos} //cambiar despues por vehiculos
         //isLoading={loading}
         editable={{
           onRowAdd: addVehiculo,
