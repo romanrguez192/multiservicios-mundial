@@ -10,6 +10,7 @@ const useStyles = makeStyles({
   },
   table: {
     marginBottom: '20pt',
+    width: '820pt',
   },
 });
 
@@ -35,6 +36,18 @@ export default function TableDescripcionModelo({ title, ...props }) {
   ];
 
 
+  const addDescripcion = async (data) => {
+    
+  };
+
+  const updateDescripcion = async (newData, oldData) => {
+    
+  };
+
+  const deleteDescripcion = async (oldData) => {
+    
+  };
+
   return (
       <div className={classes.table}>
         <Slide top collapse>
@@ -43,6 +56,11 @@ export default function TableDescripcionModelo({ title, ...props }) {
             subTable
             columns={columns} 
             data={data}
+            editable={{
+                onRowAdd: addDescripcion,
+                onRowUpdate: updateDescripcion,
+                onRowDelete: deleteDescripcion,
+            }}
             //isLoading={loading}
             {...props}
           />
