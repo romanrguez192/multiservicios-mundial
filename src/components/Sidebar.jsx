@@ -58,10 +58,19 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 'bold',
     lineHeight: '16px',
     display: 'flex',
-    alignItems: 'center',
-    textAlign: 'center',
     color: '#199479',
-},
+  },
+  sucursalTitle: {
+    fontFamily: 'Quicksand',
+    fontStyle: 'normal',
+    fontSize: '15pt',
+    fontWeight: 'bold',
+    lineHeight: '8px',
+    color: '#787878',
+    position: 'fixed',
+    right: '0',
+    marginRight: '10pt',
+  },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
     backgroundColor: '#ffffff',
@@ -124,6 +133,9 @@ const useStyles = makeStyles((theme) => ({
   pageText: {
     color: '#787878',
   },
+  separator: {
+    width: '50%',
+  }
 }));
 
 export default function Sidebar(props) {
@@ -156,9 +168,11 @@ export default function Sidebar(props) {
             <MenuOutlined />
           </IconButton>
           <img className={classes.logoDrawer} src={logo} alt="logo"/>
-          <Typography className={classes.titleMM}>
+          <h1 className={classes.titleMM}>
             MULTISERVICIOS MUNDIAL
-          </Typography>
+          </h1>
+          <div className={classes.separator} />
+          <h4 className={classes.sucursalTitle}>San Juan de los Morros</h4> {/*cambiar por nombre de sucursal*/}
         </Toolbar>
       </AppBar>
       <Drawer

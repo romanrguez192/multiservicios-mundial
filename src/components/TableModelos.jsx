@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
+import TableDescripcionModelo from "./TableDescripcionModelo";
 
 const TableModelos = ({
   modelos,
@@ -152,8 +153,7 @@ const TableModelos = ({
         }}
         detailPanel={(rowData) => {
           return (
-            /* Hacer un componente para añadir la descripcion del modelo */
-            <div>Descripcion del modelo</div>
+            <TableDescripcionModelo />
           );
         }}
         {...props}
