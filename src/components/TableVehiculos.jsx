@@ -118,7 +118,7 @@ const TableVehiculos = ({ modelos, ...props }) => {
   };
 
   const deleteVehiculo = async (oldData) => {
-    const url = "http://localhost:4000/api/vehiculos/${oldData.codVehiculo}";
+    const url = `http://localhost:4000/api/vehiculos/${oldData.codVehiculo}`;
 
     const response = await fetch(url, {
       method: "DELETE",
