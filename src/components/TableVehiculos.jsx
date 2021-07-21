@@ -62,7 +62,7 @@ const TableVehiculos = ({ modelos, ...props }) => {
       title: "Modelo",
       field: "modeloVehiculo",
       editable: "always",
-      lookup: {1: 'dasas', 2: '32dsda'},  //cambiar por los modelos de vehiculos
+      lookup: lookup,  //cambiar por los modelos de vehiculos
     },
     {
       title: "Cédula del mecánico",
@@ -93,8 +93,7 @@ const TableVehiculos = ({ modelos, ...props }) => {
   };
 
   const updateVehiculo = async (newData, oldData) => {
-    console.log(oldData)
-    const url = `http://localhost:4000/api/vehiculos/${oldData.tableData.id}`;
+    const url = `http://localhost:4000/api/vehiculos/${oldData.codVehiculo}`;
 
     const response = await fetch(url, {
       method: "PUT",
@@ -119,7 +118,7 @@ const TableVehiculos = ({ modelos, ...props }) => {
   };
 
   const deleteVehiculo = async (oldData) => {
-    const url = "url";
+    const url = "http://localhost:4000/api/vehiculos/${oldData.codVehiculo}";
 
     const response = await fetch(url, {
       method: "DELETE",
