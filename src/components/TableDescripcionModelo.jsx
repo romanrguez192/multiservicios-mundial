@@ -20,19 +20,23 @@ export default function TableDescripcionModelo({ title, ...props }) {
   //aca va las columnas q se muestran en la descripcion del modelo
   const columns = [
     {
-      title: "Servicio",
-      field: "servicio",
+      title: "Producto",
+      field: "producto",
     },
     {
-      title: "Fecha",
-      field: "fecha",
+      title: "Cantidad",
+      field: "cantidad",
+    },
+    {
+      title: "Unidad de medida",
+      field: "unidadMedida",
     },
   ];
 
   //pa probar namas
   const data=[
-    { servicio: 'Pulitura de carrocería', fecha: '02/02/2021'},
-    { servicio: 'Lavado', fecha: '08/05/2021'},
+    { producto: 'Pulitura de carrocería', cantidad: '02/02/2021'},
+    { producto: 'Lavado', cantidad: '08/05/2021'},
   ];
 
 
