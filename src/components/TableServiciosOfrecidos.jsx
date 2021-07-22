@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
+import { useUser } from "../contexts/UserContext";
 
 const TableServiciosOfrecidos = ({
   serviciosOfrecidos,
@@ -8,26 +9,61 @@ const TableServiciosOfrecidos = ({
   servicios,
   ...props
 }) => {
+  const [empleados, setEmpleados] = useState([]);
+  const user = useUser();
+
+  const lookupServicio = {};
+  if (servicios) {
+    servicios.forEach((s) => {
+      lookupServicio[s.codServicio] = `${s.codServicio} - ${s.nombre}`;
+    });
+  }
+
+  const lookupCoordinador = {};
+  if (empleados) {
+    empleados.forEach((e) => {
+      lookupCoordinador[e.cedEmpleado] = `${e.cedEmpleado} - ${e.nombre} ${e.apellido}`;
+    });
+  }
+
+  useEffect(() => {
+    const getEmpleados = async () => {
+      const url = `http://localhost:4000/api/empleados?rifSucursal=${user.rifSucursal}`;
+
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        // TODO: Error
+        return console.log("Oh no");
+      }
+
+      const empleados = await response.json();
+
+      setEmpleados(empleados);
+    };
+
+    getEmpleados();
+  }, [user]);
+
   const columns = [
     {
-      title: "Cedula",
-      field: "cedCliente",
+      title: "Servicio",
+      field: "codServicio",
       editable: "always",
+      lookup: lookupServicio,
     },
     {
-      title: "Nombre",
-      field: "nombre",
+      title: "Coordinador",
+      field: "cedCoordinador",
       editable: "always",
-    },
-    {
-      title: "Teléfono",
-      field: "telefono",
-      editable: "always",
+      lookup: lookupCoordinador,
     },
   ];
 
   const addServicioOfrecido = async (data) => {
-    const url = "url";
+    const url = `http://localhost:4000/api/serviciosOfrecidos`;
+
+    data = { codServicio: data.codServicio, cedEmpleado: data.cedCoordinador };
 
     const response = await fetch(url, {
       method: "POST",
@@ -73,7 +109,8 @@ const TableServiciosOfrecidos = ({
   };
 
   const deleteServicioOfrecido = async (oldData) => {
-    const url = "url";
+    console.log(oldData)
+    const url = `http://localhost:4000/api/serviciosOfrecidos/${oldData.codServicio}/${oldData.cedCoordinador}`;
 
     const response = await fetch(url, {
       method: "DELETE",

@@ -5,6 +5,7 @@ import TableServicios from "../components/TableServicios";
 import TableServiciosOfrecidos from "../components/TableServiciosOfrecidos";
 import Nature from "../components/Nature";
 import PageTitle from "../components/PageTitle";
+import { useUser } from "../contexts/UserContext";
 
 // ESTILOS
 const useStyles = makeStyles({
@@ -27,6 +28,7 @@ const useStyles = makeStyles({
 
 const Servicios = () => {
   const classes = useStyles();
+  const user = useUser();
   const [servicios, setServicios] = useState([]);
   const [loadingS, setLoadingS] = useState(true);
   const [serviciosOfrecidos, setServiciosOfrecidos] = useState([]);
@@ -54,7 +56,7 @@ const Servicios = () => {
 
   useEffect(() => {
     const getServiciosOfrecidos = async () => {
-      const url = "url";
+      const url = `http://localhost:4000/api/serviciosOfrecidos/${user.rifSucursal}`;
 
       const response = await fetch(url);
 
@@ -70,7 +72,7 @@ const Servicios = () => {
     };
 
     getServiciosOfrecidos();
-  }, [servicios]);
+  }, [servicios, user]);
 
   return (
     <>
