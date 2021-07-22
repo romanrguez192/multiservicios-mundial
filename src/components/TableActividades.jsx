@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
+import Slide from "react-reveal/Slide";
 
 const TableActividades = ({ codServicio, ...props }) => {
   const [actividades, setActividades] = useState([]);
@@ -116,7 +117,7 @@ const TableActividades = ({ codServicio, ...props }) => {
   };
 
   return (
-    <div>
+    <Slide top collapse>
       <Table
         title="Actividades"
         columns={columns}
@@ -130,7 +131,7 @@ const TableActividades = ({ codServicio, ...props }) => {
         }}
         {...props}
       />
-    </div>
+    </Slide>
   );
 };
 
