@@ -19,11 +19,18 @@ const TableServicios = ({ servicios, setServicios, loadingS, ...props }) => {
       editable: "always",
     },
     {
-      // TODO: Colocar si quiere reserva o no?
       title: "Tiempo mínimo para reservar",
       field: "minTiempoReserva",
-      type: "time",
       editable: "always",
+      lookup: {
+        "1 day": "1 día",
+        "2 days": "2 días",
+        "3 days": "3 días",
+        "5 days": "5 días",
+        "7 days": "1 semana",
+        "14 days": "2 semanas",
+        "21 days": "3 semanas",
+      },
     },
     {
       title: "Porcentaje de abono al reservar",
@@ -32,6 +39,8 @@ const TableServicios = ({ servicios, setServicios, loadingS, ...props }) => {
       editable: "always",
     },
   ];
+
+  console.log(servicios)
 
   const addServicio = async (data) => {
     const url = "http://localhost:4000/api/servicios";
