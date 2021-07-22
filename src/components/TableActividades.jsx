@@ -37,7 +37,7 @@ const TableActividades = ({ codServicio, ...props }) => {
       editable: "always",
     },
     {
-      title: "Precio",
+      title: "Precio (Bs.S)",
       field: "precio",
       type: "numeric",
       editable: "always",
@@ -121,7 +121,7 @@ const TableActividades = ({ codServicio, ...props }) => {
         title="Actividades"
         columns={columns}
         data={actividades}
-        isLoading={false}
+        isLoading={loading}
         subTable
         editable={{
           onRowAdd: addActividad,
