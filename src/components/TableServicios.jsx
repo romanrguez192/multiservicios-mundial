@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
+import TableActividades from "./TableActividades";
 
 const TableServicios = ({ servicios, setServicios, loadingS, ...props }) => {
   const columns = [
@@ -39,8 +40,6 @@ const TableServicios = ({ servicios, setServicios, loadingS, ...props }) => {
       editable: "always",
     },
   ];
-
-  console.log(servicios)
 
   const addServicio = async (data) => {
     const url = "http://localhost:4000/api/servicios";
@@ -118,6 +117,9 @@ const TableServicios = ({ servicios, setServicios, loadingS, ...props }) => {
           onRowAdd: addServicio,
           onRowUpdate: updateServicio,
           onRowDelete: deleteServicio,
+        }}
+        detailPanel={(rowData) => {
+          return <TableActividades codServicio={rowData.codServicio} />;
         }}
         {...props}
       />
