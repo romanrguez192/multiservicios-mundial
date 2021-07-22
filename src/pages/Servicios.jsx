@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core";
 import Sidebar from "../components/Sidebar";
 import TableServicios from "../components/TableServicios";
+import TableServiciosOfrecidos from "../components/TableServiciosOfrecidos";
 import Nature from "../components/Nature";
 import PageTitle from "../components/PageTitle";
 
@@ -28,6 +29,8 @@ const Servicios = () => {
   const classes = useStyles();
   const [servicios, setServicios] = useState([]);
   const [loadingS, setLoadingS] = useState(true);
+  const [serviciosOfrecidos, setServiciosOfrecidos] = useState([]);
+  const [loadingSO, setLoadingSO] = useState(true);
 
   useEffect(() => {
     const getServicios = async () => {
@@ -49,12 +52,32 @@ const Servicios = () => {
     getServicios();
   }, []);
 
+  useEffect(() => {
+    const getServiciosOfrecidos = async () => {
+      const url = "url";
+
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        // TODO: Error
+        return console.log("Oh no");
+      }
+
+      const serviciosOfrecidos = await response.json();
+
+      setServiciosOfrecidos(serviciosOfrecidos);
+      setLoadingSO(false);
+    };
+
+    getServiciosOfrecidos();
+  }, [servicios]);
+
   return (
     <>
       <div className={classes.root}>
         <Sidebar page="servicios" />
         <main className={classes.containerServicios}>
-          <PageTitle title="Servicios"/>
+          <PageTitle title="Servicios" />
           <div className={classes.tableContainer}>
             <TableServicios
               // props
@@ -62,6 +85,14 @@ const Servicios = () => {
                 servicios,
                 setServicios,
                 loadingS,
+              }}
+            />
+            <TableServiciosOfrecidos
+              {...{
+                serviciosOfrecidos,
+                setServiciosOfrecidos,
+                loadingSO,
+                servicios,
               }}
             />
           </div>
