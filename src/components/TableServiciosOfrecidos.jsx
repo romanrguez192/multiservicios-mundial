@@ -49,7 +49,7 @@ const TableServiciosOfrecidos = ({
     {
       title: "Servicio",
       field: "codServicio",
-      editable: "always",
+      editable: "onAdd",
       lookup: lookupServicio,
     },
     {
@@ -84,7 +84,7 @@ const TableServiciosOfrecidos = ({
   };
 
   const updateServicioOfrecido = async (newData, oldData) => {
-    const url = "url";
+    const url = `http://localhost:4000/api/serviciosOfrecidos/${oldData.codServicio}/${oldData.cedCoordinador}`;
 
     const response = await fetch(url, {
       method: "PUT",
@@ -109,7 +109,6 @@ const TableServiciosOfrecidos = ({
   };
 
   const deleteServicioOfrecido = async (oldData) => {
-    console.log(oldData)
     const url = `http://localhost:4000/api/serviciosOfrecidos/${oldData.codServicio}/${oldData.cedCoordinador}`;
 
     const response = await fetch(url, {
