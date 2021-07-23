@@ -37,19 +37,25 @@ const TableReservaciones = ({ rows, ...props }) => {
       editable: "always",
     },
     {
-      title: "Monto Abonado",
-      field: "montoAbonado",
-      editable: "never",
-    },
-    {
-      title: "Nombre del Cliente",
+      title: "Placa del vehículo",
       field: "nombreCliente",
-      editable: "never",
+      editable: "always",
     },
     {
       title: "Cedula del Cliente",
       field: "cedCliente",
-      editable: "never",
+      editable: "always",
+    },
+    {
+      title: "Servicio",
+      field: "servicio",
+      editable: "always",
+      //lookup de servicios existentes
+    },
+    {
+      title: "Monto Abonado",
+      field: "montoAbonado",
+      editable: "always",
     },
     {
       title: "Status",
