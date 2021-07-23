@@ -30,9 +30,6 @@ const useStyles = makeStyles({
 
 const Reservaciones = () => {
     const classes = useStyles();
-
-
-
   return (
     <>
       <div className={classes.root}>

@@ -91,7 +91,6 @@ const InicioSesion = () => {
     }
 
     localStorage.setItem("user", JSON.stringify(data));
-
     setSubmitting(false);
     window.location.href = "/";
   };

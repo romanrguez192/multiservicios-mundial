@@ -4,10 +4,46 @@ import Table from "./Table";
 const TableReservaciones = ({ rows, ...props }) => {
   const [reservaciones, setReservaciones] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [servicios, setServicios] = useState([]);
 
   useEffect(() => {
+    getServicios();
     getReservaciones();
   }, []);
+
+  const lookup = {}
+  servicios &&
+  servicios.forEach((t) => {
+      lookup[t.codServicio] = t.nombre;
+  });
+
+  const getServicioById = id => {
+    let resul = null;
+    const codServicio = parseInt(id)
+    servicios.forEach(t => {
+      if(t.codServicio === codServicio) {
+        resul = t.nombre;
+        return;
+      }
+    });
+    return resul
+  }
+
+  const getServicios = async () => {
+    const url = "http://localhost:4000/api/servicios";
+
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      // TODO: Error
+      return console.log("Oh no");
+    }
+
+    const servicios = await response.json();
+
+    setServicios(servicios);
+    setLoading(false);
+  }
 
   const getReservaciones = async () => {
     const url = "http://localhost:4000/api/reservaciones";
@@ -28,17 +64,12 @@ const TableReservaciones = ({ rows, ...props }) => {
   const columns = [
     {
       title: "Numero de reservación",
-      field: "numReserva",
+      field: "nroReserva",
       editable: "never",
     },
     {
-      title: "Fecha",
-      field: "fecha",
-      editable: "always",
-    },
-    {
-      title: "Placa del vehículo",
-      field: "nombreCliente",
+      title: "Fecha (aaaa-mm-dd)",
+      field: "fechaActividad",
       editable: "always",
     },
     {
@@ -48,9 +79,9 @@ const TableReservaciones = ({ rows, ...props }) => {
     },
     {
       title: "Servicio",
-      field: "servicio",
+      field: "codServicio",
       editable: "always",
-      //lookup de servicios existentes
+      lookup: lookup
     },
     {
       title: "Monto Abonado",
@@ -65,8 +96,12 @@ const TableReservaciones = ({ rows, ...props }) => {
   ];
 
   const addReservacion = async (data) => {
-    const url = "http://localhost:4000/api/reservaciones";
+    data.montoAbonado = parseFloat(data.montoAbonado);
 
+    //LUEGO VEO COMO OBTENER EL RIF DE LA SUCURSAL
+    data.rifSucursal = "799072750";
+
+    const url = "http://localhost:4000/api/reservaciones";
     const response = await fetch(url, {
       method: "POST",
       body: JSON.stringify(data),
@@ -79,15 +114,13 @@ const TableReservaciones = ({ rows, ...props }) => {
       // TODO: Error
       return console.log("Oh no");
     }
-
     const reservacion = await response.json();
-
     setReservaciones([...reservaciones, reservacion]);
   };
 
   const updateReservacion = async (newData, oldData) => {
-    const url = `http://localhost:4000/api/reservaciones/${oldData.numeroReserva}`;
-
+    newData.montoAbonado = parseFloat(newData.montoAbonado)
+    const url = `http://localhost:4000/api/reservaciones/${oldData.nroReserva}`;
     const response = await fetch(url, {
       method: "PUT",
       body: JSON.stringify(newData),
@@ -111,7 +144,7 @@ const TableReservaciones = ({ rows, ...props }) => {
   };
 
   const deleteReservacion = async (oldData) => {
-    const url = `http://localhost:4000/api/reservaciones/${oldData.numeroReserva}`;
+    const url = `http://localhost:4000/api/reservaciones/${oldData.nroReserva}`;
 
     const response = await fetch(url, {
       method: "DELETE",

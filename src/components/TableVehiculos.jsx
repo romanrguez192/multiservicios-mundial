@@ -9,12 +9,24 @@ const TableVehiculos = ({ modelos, ...props }) => {
   const lookup = {}
   modelos &&
     modelos.forEach((t) => {
-      lookup['marca'] = t.modelo;
+      lookup[t.modelo] = t.modelo;
   });
 
   useEffect(() => {
     getVehiculos();
   }, []);
+
+  const getMarcaByModelo = modelo => {
+    let resul = null;
+    modelos.forEach(t => {
+      if(t.modelo === modelo) {
+        resul = t.marca;
+        return;
+      }
+    });
+    return resul
+  }
+  
 
   const getVehiculos = async () => {
     const url = "http://localhost:4000/api/vehiculos";
@@ -44,13 +56,8 @@ const TableVehiculos = ({ modelos, ...props }) => {
       editable: "always",
     },
     {
-      title: "Fecha de adquisición",
+      title: "Fecha de adquisición (aaaa/mm/dd)",
       field: "fechaAdquisicion",
-      editable: "always",
-    },
-    {
-      title: "Fecha de registro",
-      field: "fechaRegistro",
       editable: "always",
     },
     {
@@ -60,20 +67,25 @@ const TableVehiculos = ({ modelos, ...props }) => {
     },
     {
       title: "Modelo",
-      field: "modeloVehiculo",
+      field: "modelo",
       editable: "always",
       lookup: lookup,  //cambiar por los modelos de vehiculos
     },
     {
-      title: "Cédula del mecánico",
-      field: "cedMecanico",
+      title: "Nombre del Mecánico",
+      field: "nombreMecanico",
       editable: "always",
     },
+    {
+      title: "Teléfono del Mecánico",
+      field: "tlfMecanico",
+      editable: "always",
+    }
   ];
 
   const addVehiculo = async (data) => {
-    const url = "url";
-
+    const url = "http://localhost:4000/api/vehiculos";
+    data["marca"] = getMarcaByModelo(data.modelo);
     const response = await fetch(url, {
       method: "POST",
       body: JSON.stringify(data),
@@ -94,7 +106,7 @@ const TableVehiculos = ({ modelos, ...props }) => {
 
   const updateVehiculo = async (newData, oldData) => {
     const url = `http://localhost:4000/api/vehiculos/${oldData.codVehiculo}`;
-
+    newData["marca"] = getMarcaByModelo(newData.modelo)
     const response = await fetch(url, {
       method: "PUT",
       body: JSON.stringify(newData),
@@ -135,12 +147,6 @@ const TableVehiculos = ({ modelos, ...props }) => {
 
     setVehiculos(dataDelete);
   };
-
-  //para probar namas
-  const data=[
-    { codVehiculo: '0FB1', placa: 'AB644FE'},
-    { codVehiculo: '0FB2', placa: 'CE997KO'},
-  ];
 
   return (
     <div>
