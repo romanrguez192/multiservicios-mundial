@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
+import TableProductosDistribuidos from "./TableProductosDistribuidos";
 
 const TableProveedores = ({ rows, ...props }) => {
   const [proveedores, setProveedores] = useState([]);
@@ -134,6 +135,11 @@ const TableProveedores = ({ rows, ...props }) => {
           onRowAdd: addProveedor,
           onRowUpdate: updateProveedor,
           onRowDelete: deleteProveedor,
+        }}
+        detailPanel={(rowData) => {
+          return (
+            <TableProductosDistribuidos rifProveedor={rowData.rifProveedor} />
+          );
         }}
         {...props}
       />
