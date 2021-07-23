@@ -23,6 +23,7 @@ const TableServicios = ({ servicios, setServicios, loadingS, ...props }) => {
       title: "Tiempo mínimo para reservar",
       field: "minTiempoReserva",
       editable: "always",
+      emptyValue: "Ninguno",
       lookup: {
         "1 day": "1 día",
         "2 days": "2 días",
@@ -38,6 +39,7 @@ const TableServicios = ({ servicios, setServicios, loadingS, ...props }) => {
       field: "porcentajeAbono",
       type: "numeric",
       editable: "always",
+      emptyValue: "Ninguno",
     },
   ];
 
