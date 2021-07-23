@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
-import TableResActividades from "./TableResActividades";
 
 const TableReservaciones = ({ rows, ...props }) => {
   const [reservaciones, setReservaciones] = useState([]);
@@ -174,9 +173,6 @@ const TableReservaciones = ({ rows, ...props }) => {
           onRowAdd: addReservacion,
           onRowUpdate: updateReservacion,
           onRowDelete: deleteReservacion,
-        }}
-        detailPanel={(rowData) => {
-          return <TableResActividades codServicio={rowData.codServicio} />;
         }}
         {...props}
       />
