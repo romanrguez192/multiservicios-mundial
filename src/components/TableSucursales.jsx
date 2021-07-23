@@ -85,7 +85,7 @@ const TableSucursales = ({ rows, ...props }) => {
   };
 
   const updateSucursal = async (newData, oldData) => {
-    const url = `http://localhost:4000/api/sucursal/${oldData.rifSucursal}`;
+    const url = `http://localhost:4000/api/sucursales/${oldData.rifSucursal}`;
 
     const response = await fetch(url, {
       method: "PUT",

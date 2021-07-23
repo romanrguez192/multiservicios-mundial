@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
 
-const TableClientes = ({ rows, ...props }) => {
+const TableReservaciones = ({ rows, ...props }) => {
   const [reservaciones, setReservaciones] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -10,7 +10,7 @@ const TableClientes = ({ rows, ...props }) => {
   }, []);
 
   const getReservaciones = async () => {
-    const url = "url";
+    const url = "http://localhost:4000/api/reservaciones";
 
     const response = await fetch(url);
 
@@ -59,7 +59,7 @@ const TableClientes = ({ rows, ...props }) => {
   ];
 
   const addReservacion = async (data) => {
-    const url = "url";
+    const url = "http://localhost:4000/api/reservaciones";
 
     const response = await fetch(url, {
       method: "POST",
@@ -80,7 +80,7 @@ const TableClientes = ({ rows, ...props }) => {
   };
 
   const updateReservacion = async (newData, oldData) => {
-    const url = "url";
+    const url = `http://localhost:4000/api/reservaciones/${oldData.numeroReserva}`;
 
     const response = await fetch(url, {
       method: "PUT",
@@ -105,7 +105,7 @@ const TableClientes = ({ rows, ...props }) => {
   };
 
   const deleteReservacion = async (oldData) => {
-    const url = "url";
+    const url = `http://localhost:4000/api/reservaciones/${oldData.numeroReserva}`;
 
     const response = await fetch(url, {
       method: "DELETE",
@@ -141,4 +141,4 @@ const TableClientes = ({ rows, ...props }) => {
   );
 };
 
-export default TableClientes;
+export default TableReservaciones;

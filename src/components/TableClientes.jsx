@@ -10,7 +10,7 @@ const TableClientes = ({ rows, ...props }) => {
   }, []);
 
   const getClientes = async () => {
-    const url = "url";
+    const url = "http://localhost:4000/api/clientes";
 
     const response = await fetch(url);
 
@@ -59,7 +59,7 @@ const TableClientes = ({ rows, ...props }) => {
   ];
 
   const addCliente = async (data) => {
-    const url = "url";
+    const url = "http://localhost:4000/api/clientes";
 
     const response = await fetch(url, {
       method: "POST",
@@ -80,7 +80,7 @@ const TableClientes = ({ rows, ...props }) => {
   };
 
   const updateCliente = async (newData, oldData) => {
-    const url = "url";
+    const url = `http://localhost:4000/api/clientes/${oldData.cedula}`;
 
     const response = await fetch(url, {
       method: "PUT",
@@ -105,7 +105,7 @@ const TableClientes = ({ rows, ...props }) => {
   };
 
   const deleteCliente = async (oldData) => {
-    const url = "url";
+    const url = `http://localhost:4000/api/clientes/${oldData.cedula}`;
 
     const response = await fetch(url, {
       method: "DELETE",
