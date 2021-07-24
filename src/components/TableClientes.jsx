@@ -80,7 +80,7 @@ const TableClientes = ({ ...props }) => {
   };
 
   const updateCliente = async (newData, oldData) => {
-    const url = `http://localhost:4000/api/clientes/${oldData.cedula}`;
+    const url = `http://localhost:4000/api/clientes/${oldData.cedCliente}`;
 
     const response = await fetch(url, {
       method: "PUT",
@@ -105,7 +105,7 @@ const TableClientes = ({ ...props }) => {
   };
 
   const deleteCliente = async (oldData) => {
-    const url = `http://localhost:4000/api/clientes/${oldData.cedula}`;
+    const url = `http://localhost:4000/api/clientes/${oldData.cedCliente}`;
 
     const response = await fetch(url, {
       method: "DELETE",
