@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
+import { useUser } from "../contexts/UserContext";
 
 const TablePersonal = ({ ...props }) => {
   const [personal, setPersonal] = useState([]);
   const [loading, setLoading] = useState(true);
+  const user = useUser();
 
   useEffect(() => {
     getPersonal();
   }, []);
 
   const getPersonal = async () => {
-    const url = "url";
+    const url = `http://localhost:4000/api/empleados?rifSucursal=${user.rifSucursal}`;
 
     const response = await fetch(url);
 
@@ -28,7 +30,7 @@ const TablePersonal = ({ ...props }) => {
   const columns = [
     {
       title: "Cedula",
-      field: "cedTrabajador",
+      field: "cedEmpleado",
       editable: "always",
     },
     {
@@ -48,7 +50,7 @@ const TablePersonal = ({ ...props }) => {
     },
     {
       title: "Cargo",
-      field: "cargo",
+      field: "tipoEmpleado",
       editable: "never",
     },
   ];
