@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
 
-const TableClientes = ({ rows, ...props }) => {
+const TableClientes = ({ ...props }) => {
   const [clientes, setClientes] = useState([]);
   const [loading, setLoading] = useState(true);
 

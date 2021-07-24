@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
 
-const TablePersonal = ({ rows, ...props }) => {
+const TablePersonal = ({ ...props }) => {
   const [personal, setPersonal] = useState([]);
   const [loading, setLoading] = useState(true);
 

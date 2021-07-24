@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
     fontStyle: 'normal',
     fontSize: '20pt',
     fontWeight: 'bold',
-    lineHeight: '16px',
+    lineHeight: '28px',
     display: 'flex',
     color: '#199479',
   },

@@ -1,107 +1,133 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
+import { useUser } from "../contexts/UserContext";
 
-const TableReservaciones = ({ rows, ...props }) => {
+const TableReservaciones = ({ ...props }) => {
   const [reservaciones, setReservaciones] = useState([]);
   const [loading, setLoading] = useState(true);
   const [servicios, setServicios] = useState([]);
+  const [clientes, setClientes] = useState([]);
+  const user = useUser();
 
   useEffect(() => {
-    getServicios();
-    getReservaciones();
-  }, []);
+    const getServicios = async () => {
+      const url = `http://localhost:4000/api/serviciosOfrecidos/${user.rifSucursal}`;
 
-  const lookup = {}
-  servicios &&
-  servicios.forEach((t) => {
-      lookup[t.codServicio] = t.nombre;
-  });
+      const response = await fetch(url);
 
-  const getServicioById = id => {
-    let resul = null;
-    const codServicio = parseInt(id)
-    servicios.forEach(t => {
-      if(t.codServicio === codServicio) {
-        resul = t.nombre;
-        return;
+      if (!response.ok) {
+        // TODO: Error
+        return console.log("Oh no");
       }
+
+      const servicios = await response.json();
+
+      setServicios(servicios);
+    };
+
+    const getClientes = async () => {
+      // const url = `http://localhost:4000/api/clientes?rifSucursal=${user.rifSucursal}`;
+      const url = `http://localhost:4000/api/clientes`;
+
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        // TODO: Error
+        return console.log("Oh no");
+      }
+
+      const clientes = await response.json();
+
+      setClientes(clientes);
+    };
+
+    const getReservaciones = async () => {
+      const url = `http://localhost:4000/api/reservaciones?rifSucursal=${user.rifSucursal}`;
+
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        // TODO: Error
+        return console.log("Oh no");
+      }
+
+      const reservaciones = await response.json();
+
+      setReservaciones(reservaciones);
+      setLoading(false);
+    };
+
+    getServicios();
+    getClientes();
+    getReservaciones();
+  }, [user]);
+
+  const lookupServicios = {};
+  servicios &&
+    servicios.forEach((s) => {
+      lookupServicios[s.codServicio] = `${s.codServicio} - ${s.nombreServicio}`;
     });
-    return resul
-  }
 
-  const getServicios = async () => {
-    const url = "http://localhost:4000/api/servicios";
-
-    const response = await fetch(url);
-
-    if (!response.ok) {
-      // TODO: Error
-      return console.log("Oh no");
-    }
-
-    const servicios = await response.json();
-
-    setServicios(servicios);
-    setLoading(false);
-  }
-
-  const getReservaciones = async () => {
-    const url = "http://localhost:4000/api/reservaciones";
-
-    const response = await fetch(url);
-
-    if (!response.ok) {
-      // TODO: Error
-      return console.log("Oh no");
-    }
-
-    const reservaciones = await response.json();
-
-    setReservaciones(reservaciones);
-    setLoading(false);
-  };
+  const lookupClientes = {};
+  clientes &&
+    clientes.forEach((c) => {
+      lookupClientes[c.cedCliente] = `${c.cedCliente} - ${c.nombre}`;
+    });
 
   const columns = [
     {
-      title: "Numero de reservación",
+      title: "Numero de Reserva",
       field: "nroReserva",
       editable: "never",
     },
     {
-      title: "Fecha (aaaa-mm-dd)",
-      field: "fechaActividad",
+      title: "Cliente",
+      field: "cedCliente",
       editable: "always",
+      lookup: lookupClientes,
     },
     {
-      title: "Cedula del Cliente",
-      field: "cedCliente",
+      title: "Fecha de Reservación",
+      field: "fechaReserva",
+      type: "datetime",
+      editable: "never",
+    },
+    {
+      title: "Fecha de la Actividad",
+      field: "fechaActividad",
+      type: "datetime",
       editable: "always",
     },
     {
       title: "Servicio",
       field: "codServicio",
       editable: "always",
-      lookup: lookup
+      lookup: lookupServicios,
     },
     {
-      title: "Monto Abonado",
+      title: "Monto Abonado (Bs.S)",
       field: "montoAbonado",
+      type: "numeric",
       editable: "always",
     },
     {
       title: "Status",
       field: "status",
-      editable: "never",
+      editable: "onUpdate",
+      lookup: {
+        pendiente: "Pendiente",
+        cancelada: "Cancelada",
+        perdida: "Perdida",
+        atendida: "Atendida",
+      },
     },
   ];
 
   const addReservacion = async (data) => {
-    data.montoAbonado = parseFloat(data.montoAbonado);
-
-    //LUEGO VEO COMO OBTENER EL RIF DE LA SUCURSAL
-    data.rifSucursal = "799072750";
-
     const url = "http://localhost:4000/api/reservaciones";
+
+    data.rifSucursal = user.rifSucursal;
+
     const response = await fetch(url, {
       method: "POST",
       body: JSON.stringify(data),
@@ -119,8 +145,8 @@ const TableReservaciones = ({ rows, ...props }) => {
   };
 
   const updateReservacion = async (newData, oldData) => {
-    newData.montoAbonado = parseFloat(newData.montoAbonado)
     const url = `http://localhost:4000/api/reservaciones/${oldData.nroReserva}`;
+
     const response = await fetch(url, {
       method: "PUT",
       body: JSON.stringify(newData),

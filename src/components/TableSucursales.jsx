@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
 
-const TableSucursales = ({ rows, ...props }) => {
+const TableSucursales = ({ ...props }) => {
   const [sucursales, setSucursales] = useState([]);
   const [loading, setLoading] = useState(true);
 
