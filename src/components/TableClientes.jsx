@@ -1,30 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
 
-const TableClientes = ({ ...props }) => {
-  const [clientes, setClientes] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    getClientes();
-  }, []);
-
-  const getClientes = async () => {
-    const url = "http://localhost:4000/api/clientes";
-
-    const response = await fetch(url);
-
-    if (!response.ok) {
-      // TODO: Error
-      return console.log("Oh no");
-    }
-
-    const clientes = await response.json();
-
-    setClientes(clientes);
-    setLoading(false);
-  };
-
+const TableClientes = ({ clientes, setClientes, loadingC, ...props }) => {
   const columns = [
     {
       title: "Cedula",
@@ -126,10 +103,10 @@ const TableClientes = ({ ...props }) => {
   return (
     <div>
       <Table
-        title="Clientes"
+        title="Clientes Registrados"
         columns={columns}
         data={clientes}
-        isLoading={loading}
+        isLoading={loadingC}
         editable={{
           onRowAdd: addCliente,
           onRowUpdate: updateCliente,

@@ -44,6 +44,7 @@ import {
   LocalCarWashOutlined,
 } from '@material-ui/icons';
 import { Link } from "react-router-dom";
+import { useUser } from "../contexts/UserContext";
 
 const drawerWidth = 250;
 
@@ -140,8 +141,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Sidebar(props) {
   const classes = useStyles();
-  // const theme = useTheme();
   const [open, setOpen] = useState(false);
+  const user = useUser();
 
   const handleStateDrawer = () => {
     setOpen(!open);
@@ -172,7 +173,7 @@ export default function Sidebar(props) {
             MULTISERVICIOS MUNDIAL
           </h1>
           <div className={classes.separator} />
-          <h4 className={classes.sucursalTitle}>San Juan de los Morros</h4> {/*cambiar por nombre de sucursal*/}
+          <h4 className={classes.sucursalTitle}>{user.nombreSucursal}</h4> {/*cambiar por nombre de sucursal*/}
         </Toolbar>
       </AppBar>
       <Drawer
