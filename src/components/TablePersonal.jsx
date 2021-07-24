@@ -8,54 +8,98 @@ const TablePersonal = ({ ...props }) => {
   const user = useUser();
 
   useEffect(() => {
+    const getPersonal = async () => {
+      const url = `http://localhost:4000/api/empleados?rifSucursal=${user.rifSucursal}`;
+
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        // TODO: Error
+        return console.log("Oh no");
+      }
+
+      const personal = await response.json();
+
+      setPersonal(personal);
+      setLoading(false);
+    };
+
     getPersonal();
-  }, []);
+  }, [user]);
 
-  const getPersonal = async () => {
-    const url = `http://localhost:4000/api/empleados?rifSucursal=${user.rifSucursal}`;
+  const columns = [
+    {
+      title: "Cédula",
+      field: "cedEmpleado",
+      type: "numeric",
+      editable: "never",
+      align: "left",
+    },
+    {
+      title: "Nombre",
+      field: "nombre",
+      editable: "never",
+    },
+    {
+      title: "Apellido",
+      field: "apellido",
+      editable: "never",
+    },
+    {
+      title: "Teléfono",
+      field: "telefono",
+      editable: "never",
+    },
+    {
+      title: "Dirección",
+      field: "direccion",
+      editable: "never",
+    },
+    {
+      title: "Cargo",
+      field: "tipoEmpleado",
+      lookup: {
+        personal: "Personal",
+        encargado: "Encargado",
+      },
+      editable: user.tipoEmpleado === "dueño" ? "always" : "never",
+    },
+  ];
 
-    const response = await fetch(url);
+  if (user.tipoEmpleado !== "personal") {
+    columns.splice(5, 0, {
+      title: "Sueldo (Bs.S)",
+      field: "sueldo",
+      editable: "always",
+      type: "numeric",
+      emptyValue: "No asignado",
+    });
+  }
+
+  const update = async (newData, oldData) => {
+    const url = `http://localhost:4000/api/empleados/${oldData.cedEmpleado}`;
+
+    const response = await fetch(url, {
+      method: "PUT",
+      body: JSON.stringify(newData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
     if (!response.ok) {
       // TODO: Error
       return console.log("Oh no");
     }
 
-    const personal = await response.json();
-    personal && personal.forEach( t => {
-      t.nombreCompleto = `${t.nombre} ${t.apellido}`;
-    })
-    setPersonal(personal);
-    setLoading(false);
-  };
+    const empleado = await response.json();
 
-  const columns = [
-    {
-      title: "Cedula",
-      field: "cedEmpleado",
-      editable: "always",
-    },
-    {
-      title: "Nombre",
-      field: "nombreCompleto",
-      editable: "always",
-    },
-    {
-      title: "Teléfono",
-      field: "telefono",
-      editable: "always",
-    },
-    {
-      title: "Dirección",
-      field: "direccion",
-      editable: "always",
-    },
-    {
-      title: "Cargo",
-      field: "tipoEmpleado",
-      editable: "never",
-    },
-  ];
+    const updatedData = [...personal];
+    const index = oldData.tableData.id;
+    updatedData[index] = empleado;
+
+    setPersonal(updatedData);
+  };
 
   return (
     <div>
@@ -64,6 +108,13 @@ const TablePersonal = ({ ...props }) => {
         columns={columns}
         data={personal}
         isLoading={loading}
+        editable={
+          user.tipoEmpleado !== "personal" && {
+            isEditable: (rowData) => rowData.cedEmpleado !== user.cedEmpleado,
+            onRowUpdate: update,
+            // TODO: Se podrían borrar alguna vez? Para pensar luego
+          }
+        }
         {...props}
       />
     </div>

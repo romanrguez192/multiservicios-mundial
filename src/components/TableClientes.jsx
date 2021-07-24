@@ -7,6 +7,7 @@ const TableClientes = ({ clientes, setClientes, loadingC, ...props }) => {
       title: "Cedula",
       field: "cedCliente",
       editable: "always",
+      type: "numeric"
     },
     {
       title: "Nombre",
