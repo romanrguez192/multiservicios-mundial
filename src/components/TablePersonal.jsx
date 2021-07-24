@@ -22,7 +22,9 @@ const TablePersonal = ({ ...props }) => {
     }
 
     const personal = await response.json();
-
+    personal && personal.forEach( t => {
+      t.nombreCompleto = `${t.nombre} ${t.apellido}`;
+    })
     setPersonal(personal);
     setLoading(false);
   };
@@ -35,7 +37,7 @@ const TablePersonal = ({ ...props }) => {
     },
     {
       title: "Nombre",
-      field: "nombre",
+      field: "nombreCompleto",
       editable: "always",
     },
     {
