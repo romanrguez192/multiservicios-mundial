@@ -130,7 +130,7 @@ const TableServiciosOfrecidos = ({
   return (
     <div>
       <Table
-        title="Servicios Ofrecidos"
+        title={`Servicios Ofrecidos en ${user.nombreSucursal}`}
         columns={columns}
         data={serviciosOfrecidos}
         isLoading={loadingSO}
