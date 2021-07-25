@@ -64,7 +64,7 @@ const TablePersonal = ({ ...props }) => {
         encargado: "Encargado",
       },
       editable: user.tipoEmpleado === "dueño" ? "always" : "never",
-    },
+    }, // TODO: Pensar bien lo del dueño
   ];
 
   if (user.tipoEmpleado !== "personal") {
@@ -111,7 +111,7 @@ const TablePersonal = ({ ...props }) => {
         isLoading={loading}
         editable={
           user.tipoEmpleado !== "personal" && {
-            isEditable: (rowData) => rowData.cedEmpleado !== user.cedEmpleado,
+            isEditHidden: (rowData) => rowData.cedEmpleado === user.cedEmpleado,
             onRowUpdate: update,
             // TODO: Se podrían borrar alguna vez? Para pensar luego
           }

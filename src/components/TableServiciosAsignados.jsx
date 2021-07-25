@@ -121,7 +121,7 @@ const TableServiciosAsignados = ({ cedEmpleado, ...props }) => {
         isLoading={loading}
         subTable
         editable={{
-          isDeletable: (rowData) => rowData.esCoordinador === false,
+          isDeleteHidden: (rowData) => rowData.esCoordinador === true,
           onRowAdd: addServicioAsignado,
           onRowDelete: deleteServicioAsignado,
         }}
