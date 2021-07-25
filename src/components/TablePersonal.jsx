@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
+import TableServiciosAsignados from "./TableServiciosAsignados";
 import { useUser } from "../contexts/UserContext";
 
 const TablePersonal = ({ ...props }) => {
@@ -115,6 +116,11 @@ const TablePersonal = ({ ...props }) => {
             // TODO: Se podrían borrar alguna vez? Para pensar luego
           }
         }
+        detailPanel={(rowData) => {
+          return (
+            <TableServiciosAsignados cedEmpleado={rowData.cedEmpleado} />
+          );
+        }}
         {...props}
       />
     </div>
