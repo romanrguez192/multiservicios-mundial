@@ -11,6 +11,7 @@ import {
   Step,
   StepLabel,
   StepConnector,
+  Icon,
  } from "@material-ui/core";
 import TableClientesSucursal from "./TableClientesSucursal";
 
@@ -41,9 +42,21 @@ const QontoConnector = withStyles({
 // ESTILOS
 const useStyles = makeStyles({
   dialogStyle: {
-    width: '1600pt',
     margin: 'auto',
-  }
+  },
+  buttons: {
+    width: '200pt',
+    margin: 'auto',
+  },
+  backButton: {
+    marginRight: '10pt',
+    width: '90pt',
+    color: '#fff',
+  },
+  nextButton: {
+    marginLeft: '10pt',
+    width: '90pt',
+  },
 });
 
 
@@ -64,35 +77,36 @@ const DialogSolicitud = (props) => {
   const steps = getSteps();
   const [selectedRow, setSelectedRow] = useState(null);
 
+  const options = {
+    rowStyle: rowData => ({
+      backgroundColor: (selectedRow === rowData.tableData.id) ? '#9E9E9E50' : '#FFF'
+    }),
+    emptyRowsWhenPaging: true,
+    pageSizeOptions: [5],
+    actionsColumnIndex: -1,
+    headerStyle: {
+      backgroundColor: "#199479",
+      color: "#fff",
+      fontFamily: "quicksand",
+    },
+  };
+
   function getStepContent(stepIndex) {
     switch (stepIndex) {
       case 0:
         return <TableClientesSucursal
                 onRowClick={(evt, selectedRow) => {
                   setSelectedRow(selectedRow.tableData.id);
-                  
                 }}
-                options={{
-                  rowStyle: rowData => ({
-                    backgroundColor: (selectedRow === rowData.tableData.id) ? '#9E9E9E50' : '#FFF'
-                  }),
-                  emptyRowsWhenPaging: true,
-                  pageSizeOptions: [5],
-                  actionsColumnIndex: -1,
-                  headerStyle: {
-                    backgroundColor: "#199479",
-                    color: "#fff",
-                    fontFamily: "quicksand",
-                  },
-                }}
+                options={options}
                 data={data}
               />;
       case 1:
-        return 'Tabla de los vehiculos del cliente seleciconado';
+        return 'Table de vehiculos';
       case 2:
         return 'Tabla de las reservaciones';
       case 3:
-        return 'This is the bit I really care about!';
+        return 'Inputs para llenar los datos de salida';
       default:
         return 'Error';
     }
@@ -133,15 +147,17 @@ const DialogSolicitud = (props) => {
             </div>
           )}
         </div>
-        <div>
+        <div className={classes.buttons}>
           <Button
             disabled={activeStep === 0}
             onClick={handleBack}
+            color="secondary"
+            variant="contained"
             className={classes.backButton}
           >
             Volver
           </Button>
-          <Button variant="contained" color="primary" onClick={handleNext}>
+          <Button variant="contained" className={classes.nextButton} color="primary" onClick={handleNext}>
             {activeStep === steps.length - 1 ? 'Guardar' : 'Siguiente'}
           </Button>
         </div>
