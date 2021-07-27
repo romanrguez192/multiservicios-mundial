@@ -5,7 +5,7 @@ import  {
 import Sidebar from '../components/Sidebar';
 import PageTitle from "../components/PageTitle";
 import Nature from "../components/Nature";
-
+import TableSolServicios from "../components/TableSolServicios";
 
 // ESTILOS
 const useStyles = makeStyles({
@@ -37,8 +37,9 @@ const InicioSesion = () => {
       <div className={classes.root}>
         <Sidebar page="inicio"/>
         <main className={classes.containerInicio}>
+          <PageTitle title="Solicitudes de servicio"/>
           <div className={classes.tableContainer}>
-            <PageTitle title="Solicitudes de servicio"/>
+            <TableSolServicios />
           </div>
           <Nature />
         </main>

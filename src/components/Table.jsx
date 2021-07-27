@@ -24,16 +24,16 @@ const useStyles = makeStyles({
 
 export default function Table({ title, ...props }) {
   const classes = useStyles();
+  const [selectedRow, setSelectedRow] = useState(null);
 
   const Title = props.subTable ? <h2>{title}</h2> : <h1>{title}</h1> ;
 
   const colorHeader = props.subTable ? "#FFBB56" : "#199479";
 
-  const placeH = props.subTable ? "Buscar" : `Buscar ${title}`;
-
   const styleTable = props.subTable ? { fontFamily: "quicksand" ,borderColor: "#787878"} : { fontFamily: "quicksand" }; 
 
   const pageSize = props.subTable ? [5] : [5,10,20];
+
 
   return (
     <Fade>
@@ -42,7 +42,7 @@ export default function Table({ title, ...props }) {
           title={Title}
           style={styleTable}
           options={{
-            emptyRowsWhenPaging: true,   //to make page size fix in case of less data rows
+            emptyRowsWhenPaging: true,
             pageSizeOptions: pageSize,
             actionsColumnIndex: -1,
             headerStyle: {
@@ -54,7 +54,7 @@ export default function Table({ title, ...props }) {
           localization={{
             deleteAction: "Borrar",
             deleteHeader: "Borrar",
-            toolbar: { searchPlaceholder: placeH },
+            toolbar: { searchPlaceholder: "Buscar" },
             header: {
               actions: "Acciones",
             },
