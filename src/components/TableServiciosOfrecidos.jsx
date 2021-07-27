@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import { useUser } from "../contexts/UserContext";
+import Fade from "react-reveal/Fade";
 
 const TableServiciosOfrecidos = ({
   serviciosOfrecidos,
@@ -128,7 +129,7 @@ const TableServiciosOfrecidos = ({
   };
 
   return (
-    <div>
+    <Fade>
       <Table
         title={`Servicios Ofrecidos en ${user.nombreSucursal}`}
         columns={columns}
@@ -141,7 +142,7 @@ const TableServiciosOfrecidos = ({
         }}
         {...props}
       />
-    </div>
+    </Fade>
   );
 };
 
