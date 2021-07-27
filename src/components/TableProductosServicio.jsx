@@ -26,7 +26,7 @@ const TableProductosServicios = ({
       editable: "always",
     },
     {
-      title: "Descripcion",
+      title: "Descripción",
       field: "descripcion",
       editable: "always",
     },
