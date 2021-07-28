@@ -69,16 +69,22 @@ const TableVehiculosCliente = ({ cedCliente, ...props }) => {
       editable: "always",
     },
     {
+      title: "Modelo",
+      field: "modelo",
+      editable: "always",
+      lookup: lookup,
+    },
+    {
       title: "Fecha de adquisición",
       field: "fechaAdquisicion",
       editable: "always",
       type: "date",
     },
     {
-      title: "Modelo",
-      field: "modelo",
-      editable: "always",
-      lookup: lookup,
+      title: "Fecha de registro",
+      field: "fechaRegistro",
+      editable: "never",
+      type: "date",
     },
     {
       title: "Nombre del Mecánico",

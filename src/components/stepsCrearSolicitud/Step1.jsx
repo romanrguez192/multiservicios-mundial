@@ -49,6 +49,7 @@ const Step1 = ({ cliente, setCliente }) => {
         data={clientes}
         isLoading={loading}
         onRowClick={handleClick}
+        detailPanel={undefined}
         options={{
           rowStyle: (rowData) => ({
             backgroundColor:

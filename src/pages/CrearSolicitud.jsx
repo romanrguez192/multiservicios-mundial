@@ -65,7 +65,7 @@ const CrearSolicitud = () => {
       case 0:
         return <Step1 {...{ cliente, setCliente }} />;
       case 1:
-        return <Step2 {...{ vehiculo, setVehiculo }} />;
+        return <Step2 {...{ vehiculo, setVehiculo, cliente }} />;
       case 2:
         return <Step3 {...{ servicios, setServicios }} />;
       case 3:
