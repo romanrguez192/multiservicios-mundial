@@ -1,19 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import Add from "@material-ui/icons/AddOutlined";
-import DialogSolicitud from "../DialogSolicitud";
+import { useHistory } from "react-router-dom";
 
-const TableSolServicios = ({ modelos, ...props }) => {
-  const [dialog, setDialog] = useState(false);
+const TableSolServicios = ({ ...props }) => {
   const [loading, setLoading] = useState(true);
-
-  const openDialog = () => {
-    setDialog(true);
-  };
-
-  const handleClose = () => {
-    setDialog(false);
-  };
+  const history = useHistory();
 
   const columns = [
     {
@@ -26,15 +18,18 @@ const TableSolServicios = ({ modelos, ...props }) => {
       field: "placa",
       editable: "never",
     },
-    
   ];
+
+  const create = () => {
+    history.push("/solicitudes/crear");
+  };
 
   const actions = [
     {
       icon: () => <Add />,
-      tooltip: 'Añadir',
+      tooltip: "Añadir",
       isFreeAction: true,
-      onClick: openDialog,
+      onClick: create,
     },
   ];
 
@@ -43,12 +38,10 @@ const TableSolServicios = ({ modelos, ...props }) => {
       <Table
         title="Solicitudes de servicio"
         columns={columns}
-
         //isLoading={loading}
         actions={actions}
         {...props}
       />
-      <DialogSolicitud dialog={dialog} handleClose={handleClose}/>
     </div>
   );
 };

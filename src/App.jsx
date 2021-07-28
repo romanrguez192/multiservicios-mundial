@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Switch } from "react-router-dom";
-import Inicio from "./pages/Inicio";
+import SolicitudesServicios from "./pages/SolicitudesServicios";
 import InicioSesion from "./pages/InicioSesion";
 import RegistroUsuario from "./pages/RegistroUsuario";
 import Facturas from "./pages/Facturas";
@@ -13,6 +13,8 @@ import Inventario from "./pages/Inventario";
 import Sucursales from "./pages/Sucursales";
 import Tienda from "./pages/Tienda";
 import Proveedores from "./pages/Proveedores";
+import CrearSolicitud from "./pages/CrearSolicitud";
+import Inicio from "./pages/Inicio";
 import {
   unstable_createMuiStrictModeTheme as createMuiTheme,
   ThemeProvider,
@@ -42,6 +44,12 @@ function App() {
             <Switch>
               <Route exact path="/" auth>
                 <Inicio />
+              </Route>
+              <Route exact path="/solicitudes" auth>
+                <SolicitudesServicios />
+              </Route>
+              <Route exact path="/solicitudes/crear" auth>
+                <CrearSolicitud />
               </Route>
               <Route exact path="/facturas" auth>
                 <Facturas />

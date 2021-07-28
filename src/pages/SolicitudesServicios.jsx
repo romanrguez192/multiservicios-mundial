@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core";
 import Sidebar from "../components/Sidebar";
 import PageTitle from "../components/PageTitle";
 import Nature from "../components/Nature";
+import TableSolServicios from "../components/tables/TableSolServicios";
 
 // ESTILOS
 const useStyles = makeStyles({
@@ -10,7 +11,7 @@ const useStyles = makeStyles({
     display: "inline-flex",
     marginBottom: "10pt",
   },
-  containerInicio: {
+  containerSolicitud: {
     flexGrow: "1",
     marginTop: "60pt",
   },
@@ -23,16 +24,18 @@ const useStyles = makeStyles({
   },
 });
 
-const Inicio = () => {
+const SolicitudesServicios = () => {
   const classes = useStyles();
 
   return (
     <>
       <div className={classes.root}>
-        <Sidebar page="inicio" />
-        {/* TODO: Ojo ese "inicio" agregarlo al sidebar */}
-        <main className={classes.containerInicio}>
-          <PageTitle title="Inicio OJO" />
+        <Sidebar page="solicitudes" />
+        <main className={classes.containerSolicitud}>
+          <PageTitle title="Solicitudes de servicio" />
+          <div className={classes.tableContainer}>
+            <TableSolServicios />
+          </div>
           <Nature />
         </main>
       </div>
@@ -40,4 +43,4 @@ const Inicio = () => {
   );
 };
 
-export default Inicio;
+export default SolicitudesServicios;

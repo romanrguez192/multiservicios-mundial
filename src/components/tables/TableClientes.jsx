@@ -4,10 +4,11 @@ import Table from "./Table";
 const TableClientes = ({ clientes, setClientes, loadingC, ...props }) => {
   const columns = [
     {
-      title: "Cedula",
+      title: "Cédula",
       field: "cedCliente",
       editable: "always",
-      type: "numeric"
+      type: "numeric",
+      align: "left",
     },
     {
       title: "Nombre",

@@ -173,7 +173,7 @@ export default function Sidebar(props) {
             MULTISERVICIOS MUNDIAL
           </h1>
           <div className={classes.separator} />
-          <h4 className={classes.sucursalTitle}>{user.nombreSucursal}</h4> {/*cambiar por nombre de sucursal*/}
+          <h4 className={classes.sucursalTitle}>{user.nombreSucursal}</h4>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -195,7 +195,7 @@ export default function Sidebar(props) {
           </IconButton>
         </div>
         <List className={classes.drawerList}>
-          {props.page==="inicio" ? 
+          {props.page==="solicitudes" ? 
             <Tooltip title="Solicitudes de servicio">
               <ListItem button selected>
                 <ListItemIcon>
@@ -209,7 +209,7 @@ export default function Sidebar(props) {
               <ListItem 
                 button
                 component={Link}
-                to="/"
+                to="/solicitudes"
               >
                 <ListItemIcon>
                   <LocalCarWashOutlined className={classes.iconDrawer}/>
