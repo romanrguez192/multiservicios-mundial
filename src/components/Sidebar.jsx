@@ -86,6 +86,29 @@ const useStyles = makeStyles((theme) => ({
     width: drawerWidth,
     flexShrink: 0,
     whiteSpace: 'nowrap',
+    '@global': {
+      '*::-webkit-scrollbar': {
+        width: '0pt',
+      },
+      '*::-webkit-scrollbar-thumb:active': {
+        backgroundColor: 'transparent',
+      },
+      '*::-webkit-scrollbar-thumb': {
+        backgroundColor: 'transparent',
+        borderRadius: '5px',
+      },
+      '*::-webkit-scrollbar-thumb:hover': {
+        backgroundColor: 'transparent',
+        boxShadow: '0 0 2px 1px rgba(0, 0, 0, 0.2)',
+      },
+      '*::-webkit-scrollbar-track': {
+        backgroundColor: 'transparent',
+        borderRadius: '5px',
+      },
+      '*::-webkit-scrollbar-track:hover , body::-webkit-scrollbar-track:active': {
+        backgroundColor: 'transparent',
+      },
+    },
   },
   drawerOpen: {
     width: drawerWidth,
