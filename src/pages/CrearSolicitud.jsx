@@ -61,6 +61,7 @@ const CrearSolicitud = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [cliente, setCliente] = useState(null);
   const [vehiculo, setVehiculo] = useState(null);
+  const [reservas, setReservas] = useState([]);
   const [servicios, setServicios] = useState([]);
 
   const steps = [
@@ -73,11 +74,11 @@ const CrearSolicitud = () => {
   const getStepContent = (stepIndex) => {
     switch (stepIndex) {
       case 0:
-        return <Step1 {...{ cliente, setCliente, setVehiculo, setServicios }} />;
+        return <Step1 {...{ cliente, setCliente, setVehiculo, setReservas, setServicios }} />;
       case 1:
-        return <Step2 {...{ vehiculo, setVehiculo, cliente, setServicios }} />;
+        return <Step2 {...{ vehiculo, setVehiculo, cliente, setReservas, setServicios }} />;
       case 2:
-        return <Step3 {...{ servicios, setServicios }} />;
+        return <Step3 {...{ servicios, setServicios, reservas, setReservas, cliente }} />;
       case 3:
         return <Step4 />;
       default:
@@ -96,7 +97,7 @@ const CrearSolicitud = () => {
   const disable =
     (activeStep === 0 && !cliente) ||
     (activeStep === 1 && !vehiculo) ||
-    (activeStep === 2 && !servicios.length);
+    (activeStep === 2 && !reservas.length && !servicios.length);
 
   return (
     <div className={classes.root}>

@@ -10,11 +10,18 @@ const useStyles = makeStyles({
   },
 });
 
-const Step2 = ({ vehiculo, setVehiculo, cliente, setServicios }) => {
+const Step2 = ({
+  vehiculo,
+  setVehiculo,
+  cliente,
+  setReservas,
+  setServicios,
+}) => {
   const classes = useStyles();
 
   const handleClick = (evt, selectedRow) => {
     // Se reinician los pasos siguientes
+    setReservas([]);
     setServicios([]);
     // TODO: Reinciar datos finales
 
@@ -38,7 +45,7 @@ const Step2 = ({ vehiculo, setVehiculo, cliente, setServicios }) => {
                 : "#FFF",
           }),
           emptyRowsWhenPaging: true,
-          pageSizeOptions: [5],
+          pageSizeOptions: [5, 10, 20],
           actionsColumnIndex: -1,
           headerStyle: {
             backgroundColor: "#199479",

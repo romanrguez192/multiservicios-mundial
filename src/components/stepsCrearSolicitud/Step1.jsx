@@ -10,7 +10,13 @@ const useStyles = makeStyles({
   },
 });
 
-const Step1 = ({ cliente, setCliente, setVehiculo, setServicios }) => {
+const Step1 = ({
+  cliente,
+  setCliente,
+  setVehiculo,
+  setReservas,
+  setServicios,
+}) => {
   const classes = useStyles();
   const [clientes, setClientes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -38,9 +44,10 @@ const Step1 = ({ cliente, setCliente, setVehiculo, setServicios }) => {
   const handleClick = (evt, selectedRow) => {
     // Se reinician los pasos siguientes
     setVehiculo(null);
+    setReservas([]);
     setServicios([]);
     // TODO: Reinciar datos finales
-    
+
     if (cliente && cliente.cedCliente === selectedRow.cedCliente) {
       return setCliente(null);
     }
@@ -63,7 +70,7 @@ const Step1 = ({ cliente, setCliente, setVehiculo, setServicios }) => {
                 : "#FFF",
           }),
           emptyRowsWhenPaging: true,
-          pageSizeOptions: [5],
+          pageSizeOptions: [5, 10, 20],
           actionsColumnIndex: -1,
           headerStyle: {
             backgroundColor: "#199479",

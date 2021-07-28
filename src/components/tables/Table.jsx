@@ -22,17 +22,16 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Table({ title, ...props }) {
+export default function Table({ selection, subTable, title, ...props }) {
   const classes = useStyles();
-  const [selectedRow, setSelectedRow] = useState(null);
 
-  const Title = props.subTable ? <h2>{title}</h2> : <h1>{title}</h1> ;
+  const Title = subTable ? <h2>{title}</h2> : <h1>{title}</h1> ;
 
-  const colorHeader = props.subTable ? "#FFBB56" : "#199479";
+  const colorHeader = subTable ? "#FFBB56" : "#199479";
 
-  const styleTable = props.subTable ? { fontFamily: "quicksand" ,borderColor: "#787878"} : { fontFamily: "quicksand" }; 
+  const styleTable = subTable ? { fontFamily: "quicksand" ,borderColor: "#787878"} : { fontFamily: "quicksand" }; 
 
-  const pageSize = props.subTable ? [5] : [5,10,20];
+  const pageSize = subTable ? [5] : [5,10,20];
 
 
   return (
@@ -42,6 +41,7 @@ export default function Table({ title, ...props }) {
           title={Title}
           style={styleTable}
           options={{
+            selection: selection,
             emptyRowsWhenPaging: true,
             pageSizeOptions: pageSize,
             actionsColumnIndex: -1,
@@ -54,7 +54,7 @@ export default function Table({ title, ...props }) {
           localization={{
             deleteAction: "Borrar",
             deleteHeader: "Borrar",
-            toolbar: { searchPlaceholder: "Buscar" },
+            toolbar: { searchPlaceholder: "Buscar", nRowsSelected: "{0} fila(s) seleccionadas" },
             header: {
               actions: "Acciones",
             },
