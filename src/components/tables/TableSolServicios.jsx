@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import Add from "@material-ui/icons/AddOutlined";
-import DialogSolicitud from "./DialogSolicitud";
+import DialogSolicitud from "../DialogSolicitud";
 
 const TableSolServicios = ({ modelos, ...props }) => {
   const [dialog, setDialog] = useState(false);

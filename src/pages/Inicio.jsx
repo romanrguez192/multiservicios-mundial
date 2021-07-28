@@ -5,7 +5,7 @@ import  {
 import Sidebar from '../components/Sidebar';
 import PageTitle from "../components/PageTitle";
 import Nature from "../components/Nature";
-import TableSolServicios from "../components/TableSolServicios";
+import TableSolServicios from "../components/tables/TableSolServicios";
 
 // ESTILOS
 const useStyles = makeStyles({

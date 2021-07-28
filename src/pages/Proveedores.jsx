@@ -3,7 +3,7 @@ import  {
   makeStyles, 
 }from '@material-ui/core';
 import Sidebar from '../components/Sidebar';
-import TableProveedores from "../components/TableProveedores";
+import TableProveedores from "../components/tables/TableProveedores";
 import Nature from "../components/Nature";
 import PageTitle from "../components/PageTitle";
 

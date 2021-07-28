@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core";
 import Sidebar from "../components/Sidebar";
-import TableServicios from "../components/TableServicios";
-import TableServiciosOfrecidos from "../components/TableServiciosOfrecidos";
+import TableServicios from "../components/tables/TableServicios";
+import TableServiciosOfrecidos from "../components/tables/TableServiciosOfrecidos";
 import Nature from "../components/Nature";
 import PageTitle from "../components/PageTitle";
 import { useUser } from "../contexts/UserContext";

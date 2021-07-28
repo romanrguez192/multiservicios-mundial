@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
-import { useUser } from "../contexts/UserContext";
+import { useUser } from "../../contexts/UserContext";
 
 const TableReservaciones = ({ ...props }) => {
   const [reservaciones, setReservaciones] = useState([]);

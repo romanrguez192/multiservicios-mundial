@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import TableServiciosAsignados from "./TableServiciosAsignados";
-import { useUser } from "../contexts/UserContext";
+import { useUser } from "../../contexts/UserContext";
 
 const TablePersonal = ({ ...props }) => {
   const [personal, setPersonal] = useState([]);

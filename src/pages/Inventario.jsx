@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core";
 import Sidebar from "../components/Sidebar";
 import { useUser } from "../contexts/UserContext";
-import TableLineas from "../components/TableLineas";
-import TableProductosServicios from "../components/TableProductosServicio";
-import TableProductosVentas from "../components/TableProductosVentas";
-import TableInventario from "../components/TableInventario";
+import TableLineas from "../components/tables/TableLineas";
+import TableProductosServicios from "../components/tables/TableProductosServicio";
+import TableProductosVentas from "../components/tables/TableProductosVentas";
+import TableInventario from "../components/tables/TableInventario";
 import Nature from "../components/Nature";
 import PageTitle from "../components/PageTitle";
 
