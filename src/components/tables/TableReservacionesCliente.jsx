@@ -9,9 +9,10 @@ const TableReservacionesCliente = ({ setReservas, cedCliente, ...props }) => {
 
   useEffect(() => {
     const getReservaciones = async () => {
+      const today = (new Date()).toISOString();
       const url = `http://localhost:4000/api/reservaciones?rifSucursal=${
         user.rifSucursal
-      }&?cedCliente=${cedCliente}&fechaActividad=${Date.now()}`;
+      }&cedCliente=${cedCliente}&fechaActividad=${today}`;
 
       const response = await fetch(url);
 

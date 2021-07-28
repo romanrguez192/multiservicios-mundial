@@ -26,7 +26,7 @@ const TableReservaciones = ({ ...props }) => {
     };
 
     const getClientes = async () => {
-      const url = `http://localhost:4000/api/clientes?rifSucursal=${user.rifSucursal}`;
+      const url = `http://localhost:4000/api/clientes`;
 
       const response = await fetch(url);
 
