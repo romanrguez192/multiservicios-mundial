@@ -10,10 +10,14 @@ const useStyles = makeStyles({
   },
 });
 
-const Step2 = ({vehiculo, setVehiculo, cliente}) => {
+const Step2 = ({ vehiculo, setVehiculo, cliente, setServicios }) => {
   const classes = useStyles();
 
   const handleClick = (evt, selectedRow) => {
+    // Se reinician los pasos siguientes
+    setServicios([]);
+    // TODO: Reinciar datos finales
+
     if (vehiculo && vehiculo.codVehiculo === selectedRow.codVehiculo) {
       return setVehiculo(null);
     }

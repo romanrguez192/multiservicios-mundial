@@ -73,9 +73,9 @@ const CrearSolicitud = () => {
   const getStepContent = (stepIndex) => {
     switch (stepIndex) {
       case 0:
-        return <Step1 {...{ cliente, setCliente }} />;
+        return <Step1 {...{ cliente, setCliente, setVehiculo, setServicios }} />;
       case 1:
-        return <Step2 {...{ vehiculo, setVehiculo, cliente }} />;
+        return <Step2 {...{ vehiculo, setVehiculo, cliente, setServicios }} />;
       case 2:
         return <Step3 {...{ servicios, setServicios }} />;
       case 3:

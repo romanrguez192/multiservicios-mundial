@@ -10,7 +10,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Step1 = ({ cliente, setCliente }) => {
+const Step1 = ({ cliente, setCliente, setVehiculo, setServicios }) => {
   const classes = useStyles();
   const [clientes, setClientes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -36,6 +36,11 @@ const Step1 = ({ cliente, setCliente }) => {
   }, []);
 
   const handleClick = (evt, selectedRow) => {
+    // Se reinician los pasos siguientes
+    setVehiculo(null);
+    setServicios([]);
+    // TODO: Reinciar datos finales
+    
     if (cliente && cliente.cedCliente === selectedRow.cedCliente) {
       return setCliente(null);
     }
