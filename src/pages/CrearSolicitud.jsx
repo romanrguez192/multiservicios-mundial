@@ -7,12 +7,16 @@ import {
   Typography,
   Step,
   StepLabel,
+  IconButton,
 } from "@material-ui/core";
 import QontoConnector from "../components/stepsCrearSolicitud/QontoConnector";
 import Step1 from "../components/stepsCrearSolicitud/Step1";
 import Step2 from "../components/stepsCrearSolicitud/Step2";
 import Step3 from "../components/stepsCrearSolicitud/Step3";
 import Step4 from "../components/stepsCrearSolicitud/Step4";
+import { ArrowBackOutlined } from "@material-ui/icons";
+import { Link } from "react-router-dom";
+import Fade from "react-reveal/Fade";
 
 // ESTILOS
 const useStyles = makeStyles({
@@ -43,6 +47,12 @@ const useStyles = makeStyles({
   nextButton: {
     marginLeft: "10pt",
     width: "90pt",
+  },
+  stepStyle: {
+    backgroundColor: "#fafafa",
+  },
+  backIcon: {
+    marginLeft: "5pt",
   },
 });
 
@@ -92,17 +102,23 @@ const CrearSolicitud = () => {
     <div className={classes.root}>
       <Sidebar page="solicitudes" />
       <main className={classes.container}>
-        <Stepper
-          activeStep={activeStep}
-          alternativeLabel
-          connector={<QontoConnector />}
-        >
-          {steps.map((label) => (
-            <Step key={label}>
-              <StepLabel>{label}</StepLabel>
-            </Step>
-          ))}
-        </Stepper>
+        <IconButton component={Link} to="/solicitudes" className={classes.backIcon}>
+          <ArrowBackOutlined color="primary" />
+        </IconButton>
+        <Fade>
+          <Stepper
+            activeStep={activeStep}
+            className={classes.stepStyle}
+            alternativeLabel
+            connector={<QontoConnector />}
+          >
+            {steps.map((label) => (
+              <Step key={label}>
+                <StepLabel>{label}</StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+        </Fade>
         <div>
           {activeStep === steps.length ? (
             <Typography>Guardar y cerrar</Typography>

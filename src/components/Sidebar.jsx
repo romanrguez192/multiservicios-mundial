@@ -195,6 +195,29 @@ export default function Sidebar(props) {
           </IconButton>
         </div>
         <List className={classes.drawerList}>
+        {props.page==="inicio" ? 
+            <Tooltip title="Inicio">
+              <ListItem button selected>
+                <ListItemIcon>
+                  <Home className={classes.iconDrawerSelect}/>
+                </ListItemIcon>
+                <ListItemText primary="Inicio" className={classes.pageSelectedText}/>
+              </ListItem>
+            </Tooltip>
+            :
+            <Tooltip title="Inicio">
+              <ListItem 
+                button
+                component={Link}
+                to="/"
+              >
+                <ListItemIcon>
+                  <HomeOutlined className={classes.iconDrawer}/>
+                </ListItemIcon>
+                <ListItemText primary="Inicio" className={classes.pageText}/>
+              </ListItem>
+            </Tooltip>
+          }
           {props.page==="solicitudes" ? 
             <Tooltip title="Solicitudes de servicio">
               <ListItem button selected>

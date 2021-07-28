@@ -30,9 +30,8 @@ const Inicio = () => {
     <>
       <div className={classes.root}>
         <Sidebar page="inicio" />
-        {/* TODO: Ojo ese "inicio" agregarlo al sidebar */}
         <main className={classes.containerInicio}>
-          <PageTitle title="Inicio OJO" />
+          <PageTitle title="Inicio" />
           <Nature />
         </main>
       </div>
