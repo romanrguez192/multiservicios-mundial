@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
+import TableVehiculosCliente from "./TableVehiculosCliente";
 import { useUser } from "../../contexts/UserContext";
 
 const TableClientesSucursal = ({ clientesSucursal, loadingCS, ...props }) => {
@@ -45,6 +46,9 @@ const TableClientesSucursal = ({ clientesSucursal, loadingCS, ...props }) => {
         columns={columns}
         data={clientesSucursal}
         isLoading={loadingCS}
+        detailPanel={(rowData) => {
+          return <TableVehiculosCliente cedCliente={rowData.cedCliente} />;
+        }}
         {...props}
       />
     </div>

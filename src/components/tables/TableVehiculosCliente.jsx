@@ -2,21 +2,22 @@ import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import TableHistorialVehiculo from "./TableHistorialVehiculo";
 
-const TableVehiculos = ({ modelos, ...props }) => {
+const TableVehiculosCliente = ({ cedCliente, ...props }) => {
   const [vehiculos, setVehiculos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [modelos, setModelos] = useState([]);
 
   const lookup = {};
-  if (modelos) {
-    modelos.forEach((m) => {
-      const str = m.marca + "|" + m.modelo;
-      lookup[str] = m.marca + " " + m.modelo;
-    });
-  }
+
+  modelos.forEach((m) => {
+    const str = m.marca + "|" + m.modelo;
+    lookup[str] = m.marca + " " + m.modelo;
+  });
 
   useEffect(() => {
-    const getVehiculos = async () => {
-      const url = "http://localhost:4000/api/vehiculos";
+    const getVehiculosCliente = async () => {
+      setLoading(true);
+      const url = `http://localhost:4000/api/vehiculos?cedCliente=${cedCliente}`;
 
       const response = await fetch(url);
 
@@ -26,12 +27,34 @@ const TableVehiculos = ({ modelos, ...props }) => {
       }
 
       const vehiculos = await response.json();
+      vehiculos.forEach((v) => {
+        v.modelo = v.marca + "|" + v.modelo;
+      });
 
       setVehiculos(vehiculos);
       setLoading(false);
     };
 
-    getVehiculos();
+    getVehiculosCliente();
+  }, [cedCliente]);
+
+  useEffect(() => {
+    const getModelos = async () => {
+      const url = "http://localhost:4000/api/modelos";
+
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        // TODO: Error
+        return console.log("Oh no");
+      }
+
+      const modelos = await response.json();
+
+      setModelos(modelos);
+    };
+
+    getModelos();
   }, []);
 
   const columns = [
@@ -50,11 +73,6 @@ const TableVehiculos = ({ modelos, ...props }) => {
       field: "fechaAdquisicion",
       editable: "always",
       type: "date",
-    },
-    {
-      title: "Cédula del cliente",
-      field: "cedCliente",
-      editable: "always",
     },
     {
       title: "Modelo",
@@ -82,6 +100,8 @@ const TableVehiculos = ({ modelos, ...props }) => {
     data.marca = marcaModelo[0];
     data.modelo = marcaModelo[1];
 
+    data.cedCliente = cedCliente;
+
     const response = await fetch(url, {
       method: "POST",
       body: JSON.stringify(data),
@@ -96,6 +116,7 @@ const TableVehiculos = ({ modelos, ...props }) => {
     }
 
     const vehiculo = await response.json();
+    vehiculo.modelo = vehiculo.marca + "|" + vehiculo.modelo;
 
     setVehiculos([...vehiculos, vehiculo]);
   };
@@ -107,6 +128,8 @@ const TableVehiculos = ({ modelos, ...props }) => {
     const marcaModelo = newData.modelo.split("|");
     newData.marca = marcaModelo[0];
     newData.modelo = marcaModelo[1];
+
+    newData.cedCliente = cedCliente;
 
     const response = await fetch(url, {
       method: "PUT",
@@ -122,6 +145,7 @@ const TableVehiculos = ({ modelos, ...props }) => {
     }
 
     const vehiculo = await response.json();
+    vehiculo.modelo = vehiculo.marca + "|" + vehiculo.modelo;
 
     const updatedData = [...vehiculos];
     const index = oldData.tableData.id;
@@ -156,6 +180,7 @@ const TableVehiculos = ({ modelos, ...props }) => {
         columns={columns}
         data={vehiculos}
         isLoading={loading}
+        subTable
         editable={{
           onRowAdd: addVehiculo,
           onRowUpdate: updateVehiculo,
@@ -170,4 +195,4 @@ const TableVehiculos = ({ modelos, ...props }) => {
   );
 };
 
-export default TableVehiculos;
+export default TableVehiculosCliente;

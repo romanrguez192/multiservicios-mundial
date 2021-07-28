@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
+import TableVehiculosCliente from "./TableVehiculosCliente";
 
 const TableClientes = ({ clientes, setClientes, loadingC, ...props }) => {
   const columns = [
@@ -113,6 +114,9 @@ const TableClientes = ({ clientes, setClientes, loadingC, ...props }) => {
           onRowAdd: addCliente,
           onRowUpdate: updateCliente,
           onRowDelete: deleteCliente,
+        }}
+        detailPanel={(rowData) => {
+          return <TableVehiculosCliente cedCliente={rowData.cedCliente} />;
         }}
         {...props}
       />
