@@ -63,6 +63,7 @@ const TableReservacionesCliente = ({ setReservas, cedCliente, ...props }) => {
         data={reservaciones}
         isLoading={loading}
         selection
+        // TODO: OJO borrar los datos finales si cambia
         onSelectionChange={(rows) => setReservas(rows)}
         {...props}
       />
