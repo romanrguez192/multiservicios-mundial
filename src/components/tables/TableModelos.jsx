@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import TableDescripcionModelo from "./TableDescripcionModelo";
+import TableListaMantenimientos from "./TableListaMantenimientos";
 
 const TableModelos = ({
   modelos,
@@ -153,7 +154,10 @@ const TableModelos = ({
         }}
         detailPanel={(rowData) => {
           return (
-            <TableDescripcionModelo data={rowData}/>
+            <>
+              <TableDescripcionModelo data={rowData}/>
+              <TableListaMantenimientos />
+            </>
           );
         }}
         {...props}
