@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import TableVehiculosCliente from "./TableVehiculosCliente";
+import Slide from "react-reveal/Slide";
 
 const TableClientes = ({ clientes, setClientes, loadingC, ...props }) => {
   const columns = [
@@ -116,7 +117,12 @@ const TableClientes = ({ clientes, setClientes, loadingC, ...props }) => {
           onRowDelete: deleteCliente,
         }}
         detailPanel={(rowData) => {
-          return <TableVehiculosCliente cedCliente={rowData.cedCliente} />;
+          return(
+          <>
+            <Slide top collapse>
+              <TableVehiculosCliente cedCliente={rowData.cedCliente} />
+            </Slide>
+          </>);
         }}
         {...props}
       />

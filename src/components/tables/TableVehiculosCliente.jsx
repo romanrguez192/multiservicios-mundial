@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import TableHistorialVehiculo from "./TableHistorialVehiculo";
-import Slide from "react-reveal/Slide";
 
 const TableVehiculosCliente = ({ cedCliente, ...props }) => {
   const [vehiculos, setVehiculos] = useState([]);
@@ -181,7 +180,7 @@ const TableVehiculosCliente = ({ cedCliente, ...props }) => {
   };
 
   return (
-    <Slide top collapse>
+    <div>
       <Table
         title="Vehículos"
         columns={columns}
@@ -198,7 +197,7 @@ const TableVehiculosCliente = ({ cedCliente, ...props }) => {
         }}
         {...props}
       />
-    </Slide>
+    </div>
   );
 };
 
