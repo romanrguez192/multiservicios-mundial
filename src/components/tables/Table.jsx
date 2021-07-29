@@ -22,12 +22,12 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Table({ selection, subTable, title, ...props }) {
+export default function Table({ selection, triTable, subTable, title, ...props }) {
   const classes = useStyles();
 
   const Title = subTable ? <h2>{title}</h2> : <h1>{title}</h1> ;
 
-  const colorHeader = subTable ? "#FFBB56" : "#199479";
+  const colorHeader = subTable ? triTable ? "#E9967A" : "#FFBB56"  : "#199479";
 
   const styleTable = subTable ? { fontFamily: "quicksand" ,borderColor: "#787878"} : { fontFamily: "quicksand" }; 
 
@@ -45,6 +45,8 @@ export default function Table({ selection, subTable, title, ...props }) {
             emptyRowsWhenPaging: true,
             pageSizeOptions: pageSize,
             actionsColumnIndex: -1,
+            showTextRowsSelected: false,
+            showSelectAllCheckbox: false,
             headerStyle: {
               backgroundColor: colorHeader,
               color: "#fff",

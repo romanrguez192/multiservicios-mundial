@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import TableHistorialVehiculo from "./TableHistorialVehiculo";
 import { useUser } from "../../contexts/UserContext";
+import TableMantenimientosPrevios from "./TableMantenimientosPrevios";
 
 const TableVehiculos = ({ modelos, ...props }) => {
   const [vehiculos, setVehiculos] = useState([]);
@@ -81,7 +82,12 @@ const TableVehiculos = ({ modelos, ...props }) => {
         data={vehiculos}
         isLoading={loading}
         detailPanel={(rowData) => {
-          return <TableHistorialVehiculo codVehiculo={rowData.codVehiculo} />;
+          return (
+            <>
+            <TableHistorialVehiculo codVehiculo={rowData.codVehiculo}/>
+            <TableMantenimientosPrevios codVehiculo={rowData.codVehiculo}/>
+            </>
+          );
         }}
         {...props}
       />
