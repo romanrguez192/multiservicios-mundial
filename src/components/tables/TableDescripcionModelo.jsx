@@ -103,11 +103,36 @@ export default function TableDescripcionModelo({ data, ...props }) {
     }
 
     const newDebeAplicarse = await response.json();
-    setDebeAplicarse({...debeAplicarse, newDebeAplicarse});
+    setDebeAplicarse([...debeAplicarse, newDebeAplicarse]);
   };
 
   const updateDescripcion = async (newData, oldData) => {
-    
+    const { modelo, marca } = getData();
+    const url = `http://localhost:4000/api/debeAplicarse/${marca}/${modelo}/${oldData.codProductoServicio}`;
+
+    newData.modelo = modelo;
+    newData.marca = marca;
+
+    const response = await fetch(url, {
+      method: "PUT",
+      body: JSON.stringify(newData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      // TODO: Error
+      return console.log("Oh no");
+    }
+
+    const newDebeAplicarse = await response.json();
+
+    const updatedData = [...debeAplicarse];
+    const index = oldData.tableData.id;
+    updatedData[index] = newDebeAplicarse;
+
+    setDebeAplicarse(updatedData);
   };
 
   const deleteDescripcion = async (oldData) => {
