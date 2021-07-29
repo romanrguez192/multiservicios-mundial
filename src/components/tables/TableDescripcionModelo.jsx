@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Table from "./Table";
 import { makeStyles } from "@material-ui/core";
 import Slide from "react-reveal/Slide";
@@ -14,8 +14,18 @@ const useStyles = makeStyles({
   },
 });
 
-export default function TableDescripcionModelo({ title, ...props }) {
+export default function TableDescripcionModelo({ data, ...props }) {
   const classes = useStyles();
+
+  const [productos, setProductos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [debeAplicarse, setDebeAplicarse] = useState([]);
+
+  useEffect(() => {
+    getProductos();
+    getDebeAplicarse();
+  }, [])
+  
 
   //aca va las columnas q se muestran en la descripcion del modelo
   const columns = [
@@ -33,12 +43,50 @@ export default function TableDescripcionModelo({ title, ...props }) {
     },
   ];
 
-  //pa probar namas
-  const data=[
-    { producto: 'Pulitura de carrocería', cantidad: '02/02/2021'},
-    { producto: 'Lavado', cantidad: '08/05/2021'},
-  ];
+  const getDebeAplicarse = async () => {
+    const url = `http://localhost:4000/api/debeAplicarse/${data.marca}/${data.modelo}`;
 
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      //TODO: Error
+      return console.log("Oh no");
+    }
+
+    const debeAplicarse = await response.json();
+    console.log(debeAplicarse)
+    debeAplicarse && debeAplicarse.forEach(async (t) => {
+      const url2 = `http://localhost:4000/api/productosServicios/${t.codProductoServicio}`
+
+      const res = await fetch(url2);
+
+      if (!res.ok) {
+        //TODO: Error
+        return console.log("Oh no");
+      }
+
+      const  codProducto = await res.json();
+      console.log(codProducto)
+    }) 
+
+    setDebeAplicarse(debeAplicarse); 
+    setLoading(false);
+  }
+
+  const getProductos = async () => {
+    const url = `http://localhost:4000/api/productosServicios`;
+    
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      //TODO: Error
+      return console.log("Oh no");
+    }
+
+    const productos = await response.json();
+    console.log(productos)
+    setProductos(productos);    
+  }
 
   const addDescripcion = async (data) => {
     
@@ -59,13 +107,13 @@ export default function TableDescripcionModelo({ title, ...props }) {
             title="Debe aplicarse"
             subTable
             columns={columns} 
-            data={data}
+            data={debeAplicarse}
             editable={{
                 onRowAdd: addDescripcion,
                 onRowUpdate: updateDescripcion,
                 onRowDelete: deleteDescripcion,
             }}
-            //isLoading={loading}
+            isLoading={loading}
             {...props}
           />
         </Slide>

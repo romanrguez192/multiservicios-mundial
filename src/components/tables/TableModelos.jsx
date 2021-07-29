@@ -153,7 +153,7 @@ const TableModelos = ({
         }}
         detailPanel={(rowData) => {
           return (
-            <TableDescripcionModelo />
+            <TableDescripcionModelo data={rowData}/>
           );
         }}
         {...props}
