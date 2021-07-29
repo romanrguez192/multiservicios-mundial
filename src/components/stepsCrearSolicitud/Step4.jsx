@@ -42,6 +42,10 @@ const useStyles = makeStyles({
     display: "inline-flex",
     paddingBottom: "10pt",
   },
+  spaceDiv: {
+    marginLeft: '20pt',
+    marginRight: '20pt',
+  }
 });
 
 const Step4 = () => {
