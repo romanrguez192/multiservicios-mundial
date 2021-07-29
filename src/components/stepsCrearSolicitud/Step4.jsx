@@ -6,6 +6,7 @@ import {
 import InputDate from "./InputDate";
 import Fade from "react-reveal/Fade";
 import Input from "../inputs/Input";
+import { Formik, Form } from "formik";
 
 // Estilos
 const useStyles = makeStyles({
@@ -37,10 +38,21 @@ const useStyles = makeStyles({
     color: '#199479',
     paddingBottom: '20pt',
   },
+  divFlex: {
+    display: "inline-flex",
+    paddingBottom: "10pt",
+  },
 });
 
 const Step4 = () => {
   const classes = useStyles();
+
+  const initialValues = {
+    cedula: "",
+    nombre: "",
+    telefono: "",
+  };
+
 
   return (
     <Fade>
@@ -49,7 +61,19 @@ const Step4 = () => {
           <p className={classes.subtitleFH}>Fecha y hora estimada para la salida</p>
           <InputDate/>
           <p className={classes.subtitleDA}>Datos del autorizado para retirar el vehículo</p>
-          
+          <Formik initialValues={initialValues}>
+          {({ isSubmitting }) => (
+            <Form className={classes.containerInputs}>
+              <div className={classes.divFlex}>
+                <Input name="nombre" label="Nombre" icon="person" />
+                <div className={classes.spaceDiv} />
+                <Input name="cedula" label="Cédula" icon="identification" />
+                <div className={classes.spaceDiv} />
+                <Input name="telefono" label="Teléfono" icon="phone" />
+              </div>
+            </Form>
+          )}
+        </Formik>
         </div>
       </Paper>
     </Fade>
