@@ -40,7 +40,7 @@ const useStyles = makeStyles({
   },
   divFlex: {
     display: "inline-flex",
-    paddingBottom: "10pt",
+    paddingBottom: "20pt",
   },
   spaceDiv: {
     marginLeft: '20pt',
