@@ -14,7 +14,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function TableDescripcionModelo({ data, ...props }) {
+export default function TableDescripcionModelo({ marca, modelo, ...props }) {
   const classes = useStyles();
   const lookup = []
   const [productos, setProductos] = useState([]);
@@ -26,7 +26,6 @@ export default function TableDescripcionModelo({ data, ...props }) {
     getDebeAplicarse();
   }, [])
   
-  const getData = () => data;
 
   productos && productos.forEach(p => {
     lookup[p.codProducto] = p.nombre;
@@ -53,7 +52,7 @@ export default function TableDescripcionModelo({ data, ...props }) {
   ];
 
   const getDebeAplicarse = async () => {
-    const url = `http://localhost:4000/api/debeAplicarse/${data.marca}/${data.modelo}`;
+    const url = `http://localhost:4000/api/debeAplicarse/${marca}/${modelo}`;
 
     const response = await fetch(url);
 
@@ -83,7 +82,6 @@ export default function TableDescripcionModelo({ data, ...props }) {
   }
 
   const addDescripcion = async (data) => {
-    const { modelo, marca } = getData();
     data.modelo = modelo;
     data.marca = marca;
 
@@ -107,7 +105,6 @@ export default function TableDescripcionModelo({ data, ...props }) {
   };
 
   const updateDescripcion = async (newData, oldData) => {
-    const { modelo, marca } = getData();
     const url = `http://localhost:4000/api/debeAplicarse/${marca}/${modelo}/${oldData.codProductoServicio}`;
 
     newData.modelo = modelo;
@@ -136,7 +133,6 @@ export default function TableDescripcionModelo({ data, ...props }) {
   };
 
   const deleteDescripcion = async (oldData) => {
-    const { modelo, marca } = getData();
     const url = `http://localhost:4000/api/debeAplicarse/${marca}/${modelo}/${oldData.codProductoServicio}`;
 
     const response = await fetch(url, {
