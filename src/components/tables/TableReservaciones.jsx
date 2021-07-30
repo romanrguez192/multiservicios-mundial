@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
-import { useUser } from "../contexts/UserContext";
+import { useUser } from "../../contexts/UserContext";
 
 const TableReservaciones = ({ ...props }) => {
   const [reservaciones, setReservaciones] = useState([]);
@@ -26,7 +26,7 @@ const TableReservaciones = ({ ...props }) => {
     };
 
     const getClientes = async () => {
-      const url = `http://localhost:4000/api/clientes?rifSucursal=${user.rifSucursal}`;
+      const url = `http://localhost:4000/api/clientes`;
 
       const response = await fetch(url);
 

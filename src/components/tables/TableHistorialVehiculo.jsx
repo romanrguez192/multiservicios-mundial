@@ -10,6 +10,7 @@ const useStyles = makeStyles({
   },
   table: {
     marginBottom: '20pt',
+    width: '820pt',
   },
 });
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
-import { useUser } from "../contexts/UserContext";
+import { useUser } from "../../contexts/UserContext";
+import Slide from "react-reveal/Slide";
 
 const TableServiciosAsignados = ({ cedEmpleado, ...props }) => {
   const [serviciosAsignados, setServiciosAsignados] = useState([]);
@@ -113,7 +114,7 @@ const TableServiciosAsignados = ({ cedEmpleado, ...props }) => {
   };
 
   return (
-    <div>
+    <Slide top collapse>
       <Table
         title="Servicios Asignados"
         columns={columns}
@@ -127,7 +128,7 @@ const TableServiciosAsignados = ({ cedEmpleado, ...props }) => {
         }}
         {...props}
       />
-    </div>
+    </Slide>
   );
 };
 

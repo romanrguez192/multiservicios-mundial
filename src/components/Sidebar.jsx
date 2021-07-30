@@ -86,6 +86,29 @@ const useStyles = makeStyles((theme) => ({
     width: drawerWidth,
     flexShrink: 0,
     whiteSpace: 'nowrap',
+    '@global': {
+      '*::-webkit-scrollbar': {
+        width: '0pt',
+      },
+      '*::-webkit-scrollbar-thumb:active': {
+        backgroundColor: 'transparent',
+      },
+      '*::-webkit-scrollbar-thumb': {
+        backgroundColor: 'transparent',
+        borderRadius: '5px',
+      },
+      '*::-webkit-scrollbar-thumb:hover': {
+        backgroundColor: 'transparent',
+        boxShadow: '0 0 2px 1px rgba(0, 0, 0, 0.2)',
+      },
+      '*::-webkit-scrollbar-track': {
+        backgroundColor: 'transparent',
+        borderRadius: '5px',
+      },
+      '*::-webkit-scrollbar-track:hover , body::-webkit-scrollbar-track:active': {
+        backgroundColor: 'transparent',
+      },
+    },
   },
   drawerOpen: {
     width: drawerWidth,
@@ -173,7 +196,7 @@ export default function Sidebar(props) {
             MULTISERVICIOS MUNDIAL
           </h1>
           <div className={classes.separator} />
-          <h4 className={classes.sucursalTitle}>{user.nombreSucursal}</h4> {/*cambiar por nombre de sucursal*/}
+          <h4 className={classes.sucursalTitle}>{user.nombreSucursal}</h4>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -195,7 +218,30 @@ export default function Sidebar(props) {
           </IconButton>
         </div>
         <List className={classes.drawerList}>
-          {props.page==="inicio" ? 
+        {props.page==="inicio" ? 
+            <Tooltip title="Inicio">
+              <ListItem button selected>
+                <ListItemIcon>
+                  <Home className={classes.iconDrawerSelect}/>
+                </ListItemIcon>
+                <ListItemText primary="Inicio" className={classes.pageSelectedText}/>
+              </ListItem>
+            </Tooltip>
+            :
+            <Tooltip title="Inicio">
+              <ListItem 
+                button
+                component={Link}
+                to="/"
+              >
+                <ListItemIcon>
+                  <HomeOutlined className={classes.iconDrawer}/>
+                </ListItemIcon>
+                <ListItemText primary="Inicio" className={classes.pageText}/>
+              </ListItem>
+            </Tooltip>
+          }
+          {props.page==="solicitudes" ? 
             <Tooltip title="Solicitudes de servicio">
               <ListItem button selected>
                 <ListItemIcon>
@@ -209,7 +255,7 @@ export default function Sidebar(props) {
               <ListItem 
                 button
                 component={Link}
-                to="/"
+                to="/solicitudes"
               >
                 <ListItemIcon>
                   <LocalCarWashOutlined className={classes.iconDrawer}/>

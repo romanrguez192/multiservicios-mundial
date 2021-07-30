@@ -2,47 +2,60 @@ import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import TableHistorialVehiculo from "./TableHistorialVehiculo";
 
-const TableVehiculos = ({ modelos, ...props }) => {
+const TableVehiculosCliente = ({ cedCliente, ...props }) => {
   const [vehiculos, setVehiculos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [modelos, setModelos] = useState([]);
 
-  const lookup = {}
-  modelos &&
-    modelos.forEach((t) => {
-      lookup[t.modelo] = t.modelo;
+  const lookup = {};
+
+  modelos.forEach((m) => {
+    const str = m.marca + "|" + m.modelo;
+    lookup[str] = m.marca + " " + m.modelo;
   });
 
   useEffect(() => {
-    getVehiculos();
-  }, []);
+    const getVehiculosCliente = async () => {
+      setLoading(true);
+      const url = `http://localhost:4000/api/vehiculos?cedCliente=${cedCliente}`;
 
-  const getMarcaByModelo = modelo => {
-    let resul = null;
-    modelos.forEach(t => {
-      if(t.modelo === modelo) {
-        resul = t.marca;
-        return;
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        // TODO: Error
+        return console.log("Oh no");
       }
-    });
-    return resul
-  }
-  
 
-  const getVehiculos = async () => {
-    const url = "http://localhost:4000/api/vehiculos";
+      const vehiculos = await response.json();
+      vehiculos.forEach((v) => {
+        v.modelo = v.marca + "|" + v.modelo;
+      });
 
-    const response = await fetch(url);
+      setVehiculos(vehiculos);
+      setLoading(false);
+    };
 
-    if (!response.ok) {
-      // TODO: Error
-      return console.log("Oh no");
-    }
+    getVehiculosCliente();
+  }, [cedCliente]);
 
-    const vehiculos = await response.json();
+  useEffect(() => {
+    const getModelos = async () => {
+      const url = "http://localhost:4000/api/modelos";
 
-    setVehiculos(vehiculos);
-    setLoading(false);
-  };
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        // TODO: Error
+        return console.log("Oh no");
+      }
+
+      const modelos = await response.json();
+
+      setModelos(modelos);
+    };
+
+    getModelos();
+  }, []);
 
   const columns = [
     {
@@ -56,20 +69,22 @@ const TableVehiculos = ({ modelos, ...props }) => {
       editable: "always",
     },
     {
-      title: "Fecha de adquisición (aaaa/mm/dd)",
-      field: "fechaAdquisicion",
-      editable: "always",
-    },
-    {
-      title: "Cédula del cliente",
-      field: "cedCliente",
-      editable: "always",
-    },
-    {
       title: "Modelo",
       field: "modelo",
       editable: "always",
-      lookup: lookup,  //cambiar por los modelos de vehiculos
+      lookup: lookup,
+    },
+    {
+      title: "Fecha de adquisición",
+      field: "fechaAdquisicion",
+      editable: "always",
+      type: "date",
+    },
+    {
+      title: "Fecha de registro",
+      field: "fechaRegistro",
+      editable: "never",
+      type: "date",
     },
     {
       title: "Nombre del Mecánico",
@@ -80,12 +95,19 @@ const TableVehiculos = ({ modelos, ...props }) => {
       title: "Teléfono del Mecánico",
       field: "tlfMecanico",
       editable: "always",
-    }
+    },
   ];
 
   const addVehiculo = async (data) => {
     const url = "http://localhost:4000/api/vehiculos";
-    data["marca"] = getMarcaByModelo(data.modelo);
+
+    // TODO: OJO con los errores
+    const marcaModelo = data.modelo.split("|");
+    data.marca = marcaModelo[0];
+    data.modelo = marcaModelo[1];
+
+    data.cedCliente = cedCliente;
+
     const response = await fetch(url, {
       method: "POST",
       body: JSON.stringify(data),
@@ -100,13 +122,21 @@ const TableVehiculos = ({ modelos, ...props }) => {
     }
 
     const vehiculo = await response.json();
+    vehiculo.modelo = vehiculo.marca + "|" + vehiculo.modelo;
 
     setVehiculos([...vehiculos, vehiculo]);
   };
 
   const updateVehiculo = async (newData, oldData) => {
     const url = `http://localhost:4000/api/vehiculos/${oldData.codVehiculo}`;
-    newData["marca"] = getMarcaByModelo(newData.modelo)
+
+    // TODO: OJO con los errores
+    const marcaModelo = newData.modelo.split("|");
+    newData.marca = marcaModelo[0];
+    newData.modelo = marcaModelo[1];
+
+    newData.cedCliente = cedCliente;
+
     const response = await fetch(url, {
       method: "PUT",
       body: JSON.stringify(newData),
@@ -121,6 +151,7 @@ const TableVehiculos = ({ modelos, ...props }) => {
     }
 
     const vehiculo = await response.json();
+    vehiculo.modelo = vehiculo.marca + "|" + vehiculo.modelo;
 
     const updatedData = [...vehiculos];
     const index = oldData.tableData.id;
@@ -153,18 +184,16 @@ const TableVehiculos = ({ modelos, ...props }) => {
       <Table
         title="Vehículos"
         columns={columns}
-        data={vehiculos} //cambiar despues por vehiculos
-        //isLoading={loading}
+        data={vehiculos}
+        isLoading={loading}
+        subTable
         editable={{
           onRowAdd: addVehiculo,
           onRowUpdate: updateVehiculo,
           onRowDelete: deleteVehiculo,
         }}
-        detailPanel={rowData => {
-          return (
-          /* Hacer un componente que muestre los mantenimientos realizados por el vehiculo */
-            <TableHistorialVehiculo codVehiculo={rowData.codVehiculo}/>
-          )
+        detailPanel={(rowData) => {
+          return <TableHistorialVehiculo triTable codVehiculo={rowData.codVehiculo} />;
         }}
         {...props}
       />
@@ -172,4 +201,4 @@ const TableVehiculos = ({ modelos, ...props }) => {
   );
 };
 
-export default TableVehiculos;
+export default TableVehiculosCliente;

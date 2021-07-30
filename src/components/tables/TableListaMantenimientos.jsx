@@ -14,52 +14,46 @@ const useStyles = makeStyles({
   },
 });
 
-export default function TableDescripcionModelo({ title, ...props }) {
+export default function TableListaMantenimientos({ mantenimientos, setMantenimientos, ...props }) {
   const classes = useStyles();
 
-  //aca va las columnas q se muestran en la descripcion del modelo
   const columns = [
     {
-      title: "Producto",
-      field: "producto",
+      title: "Tiempo de uso",
+      field: "tiempoUso",
     },
     {
-      title: "Cantidad",
-      field: "cantidad",
+      title: "Kilometraje",
+      field: "kilometraje",
     },
     {
-      title: "Unidad de medida",
-      field: "unidadMedida",
+      title: "Mantenimiento recomendado",
+      field: "mantenimiento",
     },
-  ];
-
-  //pa probar namas
-  const data=[
-    { producto: 'Pulitura de carrocería', cantidad: '02/02/2021'},
-    { producto: 'Lavado', cantidad: '08/05/2021'},
   ];
 
 
   const addDescripcion = async (data) => {
-    
+  
   };
 
   const updateDescripcion = async (newData, oldData) => {
-    
+  
   };
 
   const deleteDescripcion = async (oldData) => {
-    
+
   };
 
   return (
       <div className={classes.table}>
         <Slide top collapse>
           <Table
-            title="Debe aplicarse"
+            title="Mantenimientos recomendados"
             subTable
+            triTable
             columns={columns} 
-            data={data}
+            //data={data}
             editable={{
                 onRowAdd: addDescripcion,
                 onRowUpdate: updateDescripcion,

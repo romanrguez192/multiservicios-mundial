@@ -1,9 +1,9 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core";
 import Sidebar from "../components/Sidebar";
-import TableSucursales from "../components/tables/TableSucursales";
-import Nature from "../components/Nature";
 import PageTitle from "../components/PageTitle";
+import Nature from "../components/Nature";
+import TableSolServicios from "../components/tables/TableSolServicios";
 
 // ESTILOS
 const useStyles = makeStyles({
@@ -11,7 +11,7 @@ const useStyles = makeStyles({
     display: "inline-flex",
     marginBottom: "10pt",
   },
-  containerSucursales: {
+  containerSolicitud: {
     flexGrow: "1",
     marginTop: "60pt",
   },
@@ -24,23 +24,23 @@ const useStyles = makeStyles({
   },
 });
 
-const Sucursales = () => {
+const SolicitudesServicios = () => {
   const classes = useStyles();
 
   return (
     <>
       <div className={classes.root}>
-        <Sidebar page="sucursales" />
-        <main className={classes.containerSucursales}>
-          <PageTitle title="Sucursales"/>
+        <Sidebar page="solicitudes" />
+        <main className={classes.containerSolicitud}>
+          <PageTitle title="Solicitudes de servicio" />
           <div className={classes.tableContainer}>
-            <TableSucursales />
+            <TableSolServicios />
           </div>
-          <Nature/>
+          <Nature />
         </main>
       </div>
     </>
   );
 };
 
-export default Sucursales;
+export default SolicitudesServicios;

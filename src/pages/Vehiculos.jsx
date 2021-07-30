@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core";
 import Sidebar from "../components/Sidebar";
-import TableTiposVehiculos from "../components/TableTiposVehiculos";
-import TableModelos from "../components/TableModelos";
-import TableVehiculos from "../components/TableVehiculos";
+import TableTiposVehiculos from "../components/tables/TableTiposVehiculos";
+import TableModelos from "../components/tables/TableModelos";
+import TableVehiculos from "../components/tables/TableVehiculos";
 import PageTitle from "../components/PageTitle";
 import Nature from "../components/Nature";
 

@@ -3,8 +3,8 @@ import logo from "../img/logo.svg";
 import { Button, makeStyles, Link } from "@material-ui/core";
 import { Link as RouterLink } from "react-router-dom";
 import { Formik, Form } from "formik";
-import Input from "../components/Input";
-import PasswordInput from "../components/PasswordInput";
+import Input from "../components/inputs/Input";
+import PasswordInput from "../components/inputs/PasswordInput";
 import Background from "../img/fondoInicioSesion.svg";
 
 // ESTILOS

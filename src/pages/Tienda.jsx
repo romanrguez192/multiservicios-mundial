@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core";
 import Sidebar from "../components/Sidebar";
-import Table from "../components/Table";
+import Table from "../components/tables/Table";
 import { useUser } from "../contexts/UserContext";
 import Nature from "../components/Nature";
 import PageTitle from "../components/PageTitle";

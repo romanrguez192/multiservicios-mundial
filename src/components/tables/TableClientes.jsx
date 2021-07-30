@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
+import TableVehiculosCliente from "./TableVehiculosCliente";
+import Slide from "react-reveal/Slide";
 
 const TableClientes = ({ clientes, setClientes, loadingC, ...props }) => {
   const columns = [
     {
-      title: "Cedula",
+      title: "Cédula",
       field: "cedCliente",
       editable: "always",
-      type: "numeric"
+      type: "numeric",
+      align: "left",
     },
     {
       title: "Nombre",
@@ -112,6 +115,14 @@ const TableClientes = ({ clientes, setClientes, loadingC, ...props }) => {
           onRowAdd: addCliente,
           onRowUpdate: updateCliente,
           onRowDelete: deleteCliente,
+        }}
+        detailPanel={(rowData) => {
+          return(
+          <>
+            <Slide top collapse>
+              <TableVehiculosCliente cedCliente={rowData.cedCliente} />
+            </Slide>
+          </>);
         }}
         {...props}
       />
