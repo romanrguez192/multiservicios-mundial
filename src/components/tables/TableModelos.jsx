@@ -156,7 +156,7 @@ const TableModelos = ({
           return (
             <>
               <TableDescripcionModelo marca={rowData.marca} modelo={rowData.modelo}/>
-              <TableListaMantenimientos/>
+              <TableListaMantenimientos marca={rowData.marca} modelo={rowData.modelo}/>
             </>
           );
         }}
