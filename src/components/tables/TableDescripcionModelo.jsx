@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Table from "./Table";
 import { makeStyles } from "@material-ui/core";
 import Slide from "react-reveal/Slide";
@@ -9,32 +9,57 @@ const useStyles = makeStyles({
     fontFamily: "quicksand",
   },
   table: {
-    marginBottom: '20pt',
-    width: '820pt',
+    marginBottom: "20pt",
+    width: "820pt",
   },
 });
 
 export default function TableDescripcionModelo({ marca, modelo, ...props }) {
   const classes = useStyles();
-  const lookup = []
+  const lookup = [];
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [debeAplicarse, setDebeAplicarse] = useState([]);
 
   useEffect(() => {
-    getProductos();
+    const getProductos = async () => {
+      const url = `http://localhost:4000/api/productosServicios`;
+
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        //TODO: Error
+        return console.log("Oh no");
+      }
+
+      const productos = await response.json();
+      setProductos(productos);
+    };
+
+    const getDebeAplicarse = async () => {
+      const url = `http://localhost:4000/api/debeAplicarse/${marca}/${modelo}`;
+
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        //TODO: Error
+        return console.log("Oh no");
+      }
+
+      const debeAplicarse = await response.json();
+
+      setDebeAplicarse(debeAplicarse);
+      await getProductos();
+      setLoading(false);
+    };
+
     getDebeAplicarse();
-  }, [])
-  
+  }, [marca, modelo]);
 
-  productos && productos.forEach(p => {
-    lookup[p.codProducto] = p.nombre;
-  })
-  
+  productos.forEach((p) => {
+    lookup[p.codProducto] = `${p.codProducto} - ${p.nombre}`;
+  });
 
-  
-
-  //aca va las columnas q se muestran en la descripcion del modelo
   const columns = [
     {
       title: "Producto",
@@ -44,42 +69,13 @@ export default function TableDescripcionModelo({ marca, modelo, ...props }) {
     {
       title: "Cantidad",
       field: "cantidad",
+      type: "numeric",
     },
     {
       title: "Unidad de medida",
       field: "unidadMedida",
     },
   ];
-
-  const getDebeAplicarse = async () => {
-    const url = `http://localhost:4000/api/debeAplicarse/${marca}/${modelo}`;
-
-    const response = await fetch(url);
-
-    if (!response.ok) {
-      //TODO: Error
-      return console.log("Oh no");
-    }
-
-    const debeAplicarse = await response.json();
-
-    setDebeAplicarse(debeAplicarse); 
-    setLoading(false);
-  }
-
-  const getProductos = async () => {
-    const url = `http://localhost:4000/api/productosServicios`;
-    
-    const response = await fetch(url);
-
-    if (!response.ok) {
-      //TODO: Error
-      return console.log("Oh no");
-    }
-
-    const productos = await response.json();
-    setProductos(productos);    
-  }
 
   const addDescripcion = async (data) => {
     data.modelo = modelo;
@@ -152,22 +148,22 @@ export default function TableDescripcionModelo({ marca, modelo, ...props }) {
   };
 
   return (
-      <div className={classes.table}>
-        <Slide top collapse>
-          <Table
-            title="Debe aplicarse"
-            subTable
-            columns={columns} 
-            data={debeAplicarse}
-            editable={{
-                onRowAdd: addDescripcion,
-                onRowUpdate: updateDescripcion,
-                onRowDelete: deleteDescripcion,
-            }}
-            isLoading={loading}
-            {...props}
-          />
-        </Slide>
-      </div>
+    <div className={classes.table}>
+      <Slide top collapse>
+        <Table
+          title="Productos Recomendados"
+          subTable
+          columns={columns}
+          data={debeAplicarse}
+          editable={{
+            onRowAdd: addDescripcion,
+            onRowUpdate: updateDescripcion,
+            onRowDelete: deleteDescripcion,
+          }}
+          isLoading={loading}
+          {...props}
+        />
+      </Slide>
+    </div>
   );
 }

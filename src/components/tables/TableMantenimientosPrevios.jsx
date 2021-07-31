@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Table from "./Table";
 import { makeStyles } from "@material-ui/core";
 import Slide from "react-reveal/Slide";
-import { date } from "yup";
 
 // ESTILOS
 const useStyles = makeStyles({
@@ -10,17 +9,16 @@ const useStyles = makeStyles({
     fontFamily: "quicksand",
   },
   table: {
-    marginBottom: '20pt',
-    width: '820pt',
+    marginBottom: "20pt",
+    width: "820pt",
   },
 });
 
-export default function TableMantenimientosPrevios({codVehiculo, ...props }) {
+export default function TableMantenimientosPrevios({ codVehiculo, ...props }) {
   const classes = useStyles();
   const [mantenimientos, setMantenimientos] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  //aca va las columnas q se muestran en la descripcion del modelo
   const columns = [
     {
       title: "Fecha",
@@ -35,7 +33,7 @@ export default function TableMantenimientosPrevios({codVehiculo, ...props }) {
 
   useEffect(() => {
     const getMantenimientos = async () => {
-      console.log(codVehiculo)
+      console.log(codVehiculo);
       const url = `http://localhost:4000/api/mantenimientosPrevios/${codVehiculo}`;
 
       const response = await fetch(url);
@@ -47,12 +45,12 @@ export default function TableMantenimientosPrevios({codVehiculo, ...props }) {
 
       const mantenimientos = await response.json();
 
-      setMantenimientos(mantenimientos); 
+      setMantenimientos(mantenimientos);
       setLoading(false);
-    }
+    };
 
     getMantenimientos();
-  }, [])
+  }, [codVehiculo]);
 
   const addMantenimiento = async (data) => {
     const url = `http://localhost:4000/api/mantenimientosPrevios`;
@@ -123,23 +121,23 @@ export default function TableMantenimientosPrevios({codVehiculo, ...props }) {
   };
 
   return (
-      <div className={classes.table}>
-        <Slide top collapse>
-          <Table
-            title="Mantenimientos previos a M&M"
-            subTable
-            triTable
-            columns={columns} 
-            data={mantenimientos}
-            editable={{
-                onRowAdd: addMantenimiento,
-                onRowUpdate: updateMantenimiento,
-                onRowDelete: deleteMantenimiento,
-            }}
-            isLoading={loading}
-            {...props}
-          />
-        </Slide>
-      </div>
+    <div className={classes.table}>
+      <Slide top collapse>
+        <Table
+          title="Mantenimientos Previos a M&M"
+          subTable
+          triTable
+          columns={columns}
+          data={mantenimientos}
+          editable={{
+            onRowAdd: addMantenimiento,
+            onRowUpdate: updateMantenimiento,
+            onRowDelete: deleteMantenimiento,
+          }}
+          isLoading={loading}
+          {...props}
+        />
+      </Slide>
+    </div>
   );
 }

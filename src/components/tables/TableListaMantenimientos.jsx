@@ -9,8 +9,8 @@ const useStyles = makeStyles({
     fontFamily: "quicksand",
   },
   table: {
-    marginBottom: '20pt',
-    width: '820pt',
+    marginBottom: "20pt",
+    width: "820pt",
   },
 });
 
@@ -34,12 +34,10 @@ export default function TableListaMantenimientos({ marca, modelo, ...props }) {
 
       setMantenimientos(mantenimientos);
       setLoading(false);
-      console.log(mantenimientos)
-      
-    }
+    };
 
     getMantenimientos();
-  }, []);
+  }, [marca, modelo]);
 
   const columns = [
     {
@@ -55,19 +53,19 @@ export default function TableListaMantenimientos({ marca, modelo, ...props }) {
         "7 days": "1 semana",
         "14 days": "2 semanas",
         "21 days": "3 semanas",
-        "1 month": "1 mes"
-      }
+        "1 month": "1 mes",
+      },
     },
     {
       title: "Kilometraje",
       field: "kilometraje",
+      type: "numeric",
     },
     {
       title: "Mantenimiento recomendado",
       field: "mantenimiento",
     },
   ];
-
 
   const addMantenimiento = async (data) => {
     const url = `http://localhost:4000/api/mantenimientosRecomendados`;
@@ -138,23 +136,23 @@ export default function TableListaMantenimientos({ marca, modelo, ...props }) {
   };
 
   return (
-      <div className={classes.table}>
-        <Slide top collapse>
-          <Table
-            title="Mantenimientos recomendados"
-            subTable
-            triTable
-            columns={columns} 
-            data={mantenimientos}
-            editable={{
-                onRowAdd: addMantenimiento,
-                onRowUpdate: updateMantenimiento,
-                onRowDelete: deleteMantenimiento,
-            }}
-            isLoading={loading}
-            {...props}
-          />
-        </Slide>
-      </div>
+    <div className={classes.table}>
+      <Slide top collapse>
+        <Table
+          title="Mantenimientos Recomendados"
+          subTable
+          triTable
+          columns={columns}
+          data={mantenimientos}
+          editable={{
+            onRowAdd: addMantenimiento,
+            onRowUpdate: updateMantenimiento,
+            onRowDelete: deleteMantenimiento,
+          }}
+          isLoading={loading}
+          {...props}
+        />
+      </Slide>
+    </div>
   );
 }
