@@ -8,6 +8,7 @@ import TableProductosVentas from "../components/tables/TableProductosVentas";
 import TableInventario from "../components/tables/TableInventario";
 import Nature from "../components/Nature";
 import PageTitle from "../components/PageTitle";
+import TableOrdenesCompra from "../components/tables/TableOrdenesCompra";
 
 // ESTILOS
 const useStyles = makeStyles({
@@ -32,12 +33,15 @@ const Inventario = () => {
   const classes = useStyles();
   const [lineas, setLineas] = useState([]);
   const [loadingL, setLoadingL] = useState(true);
+  const [loadingOC, setLoadingOC] = useState(true);
   const [productosServicios, setProductosServicios] = useState([]);
   const [loadingPS, setLoadingPS] = useState(true);
   const [productosVentas, setProductosVentas] = useState([]);
   const [loadingPV, setLoadingPV] = useState(true);
   const [inventario, setInventario] = useState([]);
   const [loadingI, setLoadingI] = useState(true);
+  const [proveedores, setProveedores] = useState([]);
+  const [ordCompra, setOrdCompra] = useState([]);
 
   const user = useUser();
 
@@ -125,6 +129,45 @@ const Inventario = () => {
     getInventario();
   }, [productosServicios, productosVentas, user]);
 
+  useEffect(() => {
+    const getProveedores = async () => {
+      const url = "http://localhost:4000/api/proveedores";
+
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        // TODO: Error
+        return console.log("Oh no");
+      }
+
+      const proveedor = await response.json();
+
+      setProveedores(proveedor);
+    };
+
+    getProveedores();
+  }, []);
+
+  useEffect(() => {
+    const getOrdCompra = async () => {
+      const url = "http://localhost:4000/api/ordenesCompra";
+
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        // TODO: Error
+        return console.log("Oh no");
+      }
+
+      const ordenesCompra = await response.json();
+
+      setOrdCompra(ordenesCompra);
+      setLoadingOC(false);
+    };
+
+    getOrdCompra();
+  }, []);
+
   return (
     <>
       <div className={classes.root}>
@@ -132,6 +175,15 @@ const Inventario = () => {
         <main className={classes.containerInventario}>
           <PageTitle title="Inventario"/>
           <div className={classes.tableContainer}>
+            <TableOrdenesCompra
+              {...{
+                //props
+                ordCompra,
+                setOrdCompra,
+                proveedores,
+                loadingOC,
+              }}
+            />
             <TableLineas
               {...{
                 //props
