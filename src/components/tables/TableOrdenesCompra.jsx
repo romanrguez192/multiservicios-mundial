@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
 
+
 const TableOrdenesCompra = ({
   proveedores,
   ordCompra,
   setOrdCompra,
   loadingOC,
+  rifSucursal,
   ...props
 }) => {
+
   const proveedoresLookup = {};
   proveedores &&
     proveedores.forEach((l) => {
@@ -28,7 +31,7 @@ const TableOrdenesCompra = ({
     },
     {
       title: "Proveedor",
-      field: "proveedor",
+      field: "rifProveedor",
       lookup: proveedoresLookup,
       editable: "always",
     },
@@ -36,6 +39,8 @@ const TableOrdenesCompra = ({
 
   const addOrdCompra = async (data) => {
     const url = "http://localhost:4000/api/ordenesCompra";
+
+    data.rifSucursal = rifSucursal;
 
     const response = await fetch(url, {
       method: "POST",
@@ -56,8 +61,9 @@ const TableOrdenesCompra = ({
   };
 
   const updateOrdCompra = async (newData, oldData) => {
-    const url = `http://localhost:4000/api/ordenCompra/${oldData.codOrdCompra}`;
+    const url = `http://localhost:4000/api/ordenesCompra/${oldData.codOrdCompra}`;
 
+    newData.rifSucursal = rifSucursal;
     const response = await fetch(url, {
       method: "PUT",
       body: JSON.stringify(newData),
@@ -81,7 +87,7 @@ const TableOrdenesCompra = ({
   };
 
   const deleteOrdCompra = async (oldData) => {
-    const url = `http://localhost:4000/api/ordenCompra/${oldData.codOrdCompra}`;
+    const url = `http://localhost:4000/api/ordenesCompra/${oldData.codOrdCompra}`;
 
     const response = await fetch(url, {
       method: "DELETE",

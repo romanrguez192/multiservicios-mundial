@@ -150,7 +150,7 @@ const Inventario = () => {
 
   useEffect(() => {
     const getOrdCompra = async () => {
-      const url = "http://localhost:4000/api/ordenesCompra";
+      const url = `http://localhost:4000/api/ordenesCompra?rifSucursal=${user.rifSucursal}`;
 
       const response = await fetch(url);
 
@@ -182,6 +182,7 @@ const Inventario = () => {
                 setOrdCompra,
                 proveedores,
                 loadingOC,
+                rifSucursal: user.rifSucursal
               }}
             />
             <TableLineas
