@@ -52,7 +52,6 @@ const Step4 = () => {
   const classes = useStyles();
 
   const initialValues = {
-    cedula: "",
     nombre: "",
     telefono: "",
   };
@@ -70,8 +69,6 @@ const Step4 = () => {
             <Form className={classes.containerInputs}>
               <div className={classes.divFlex}>
                 <Input name="nombre" label="Nombre" icon="person" />
-                <div className={classes.spaceDiv} />
-                <Input name="cedula" label="Cédula" icon="identification" />
                 <div className={classes.spaceDiv} />
                 <Input name="telefono" label="Teléfono" icon="phone" />
               </div>
