@@ -8,10 +8,10 @@ const TableOrdenesCompra = ({
   loadingOC,
   ...props
 }) => {
-  const proveedor = {};
+  const proveedoresLookup = {};
   proveedores &&
     proveedores.forEach((l) => {
-      proveedores[l.rifProveedor] = l.razonSocial;
+      proveedoresLookup[l.rifProveedor] = l.razonSocial;
     });
 
   const columns = [
@@ -23,18 +23,14 @@ const TableOrdenesCompra = ({
     {
       title: "Fecha",
       field: "fecha",
-      editable: "never",
+      type: "date",
+      editable: "always",
     },
     {
       title: "Proveedor",
       field: "proveedor",
-      lookup: proveedor,
-      editable: "never",
-    },
-    {
-      title: "Teléfono",
-      field: "telefono",
-      editable: "never",
+      lookup: proveedoresLookup,
+      editable: "always",
     },
   ];
 
