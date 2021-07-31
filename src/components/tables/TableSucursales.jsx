@@ -40,6 +40,7 @@ const TableSucursales = ({ ...props }) => {
       title: "Dirección",
       field: "direccion",
       editable: "always",
+      
     },
     {
       title: "Ciudad",
@@ -49,18 +50,22 @@ const TableSucursales = ({ ...props }) => {
     {
       title: "Encargado",
       field: "nombreEncargado",
-      editable: "always",
+      emptyValue: "No asignado",
+      editable: "never",
     },
     {
       title: "CI de encargado",
       field: "cedEncargado",
-      editable: "always",
+      emptyValue: "No aplica",
+      editable: "never",
     },
     {
-      title: "Última fecha del inventario físico",
-      field: "fechaInvFisico",
-      editable: "always",
-    },
+      title: "Fecha de inicio del encargado",
+      field: "fechaInicioEncargado",
+      type: "date",
+      emptyValue: "No aplica",
+      editable: "onUpdate"
+    }
   ];
 
   const addSucursal = async (data) => {
@@ -94,6 +99,7 @@ const TableSucursales = ({ ...props }) => {
         "Content-Type": "application/json",
       },
     });
+    
     if (!response.ok) {
       //TODO: Error
       return console.log("OH NO");
