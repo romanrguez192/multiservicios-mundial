@@ -85,7 +85,7 @@ const TableOrdenesCompra = ({
   };
 
   const deleteOrdCompra = async (oldData) => {
-    const url = `http://localhost:4000/api/modelos/${oldData.codOrdCompra}`;
+    const url = `http://localhost:4000/api/ordenCompra/${oldData.codOrdCompra}`;
 
     const response = await fetch(url, {
       method: "DELETE",
