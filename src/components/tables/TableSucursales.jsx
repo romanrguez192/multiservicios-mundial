@@ -6,30 +6,30 @@ const TableSucursales = ({ ...props }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const getSucursales = async () => {
+      const url = "http://localhost:4000/api/sucursales";
+
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        //TODO: Error
+        return console.log("Oh no");
+      }
+
+      const sucursales = await response.json();
+
+      setSucursales(sucursales);
+      setLoading(false);
+    };
+
     getSucursales();
   }, []);
 
-  const getSucursales = async () => {
-    const url = "http://localhost:4000/api/sucursales";
-
-    const response = await fetch(url);
-
-    if (!response.ok) {
-      //TODO: Error
-      return console.log("Oh no");
-    }
-
-    const sucursales = await response.json();
-
-    setSucursales(sucursales);
-    setLoading(false);
-  };
-
   const columns = [
     {
-      title: "Rif",
+      title: "RIF",
       field: "rifSucursal",
-      editable: "never",
+      editable: "always",
     },
     {
       title: "Nombre",
@@ -49,17 +49,21 @@ const TableSucursales = ({ ...props }) => {
     {
       title: "Encargado",
       field: "nombreEncargado",
-      editable: "always",
+      emptyValue: "N/A",
+      editable: "never",
     },
     {
-      title: "CI de encargado",
+      title: "Cédula del encargado",
       field: "cedEncargado",
-      editable: "always",
+      emptyValue: "N/A",
+      editable: "never",
     },
     {
-      title: "Última fecha del inventario físico",
-      field: "fechaInvFisico",
-      editable: "always",
+      title: "Fecha de inicio del encargado",
+      field: "fechaInicioEncargado",
+      type: "date",
+      emptyValue: "N/A",
+      editable: "onUpdate",
     },
   ];
 
@@ -94,12 +98,16 @@ const TableSucursales = ({ ...props }) => {
         "Content-Type": "application/json",
       },
     });
+
     if (!response.ok) {
       //TODO: Error
       return console.log("OH NO");
     }
 
     const sucursal = await response.json();
+
+    sucursal.nombreEncargado = oldData.nombreEncargado;
+    sucursal.cedEncargado = oldData.cedEncargado;
 
     const updatedData = [...sucursales];
     const index = oldData.tableData.id;

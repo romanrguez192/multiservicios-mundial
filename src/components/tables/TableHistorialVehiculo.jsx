@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Table from "./Table";
 import { makeStyles } from "@material-ui/core";
 import Slide from "react-reveal/Slide";
@@ -14,8 +14,9 @@ const useStyles = makeStyles({
   },
 });
 
-export default function TableHistorialVehiculo({ title, ...props }) {
+export default function TableHistorialVehiculo({ codVehiculo, ...props }) {
   const classes = useStyles();
+  const [loading, setLoading] = useState([]);
 
   //aca va las columnas q se muestran en mantenimiento
   const columns = [
@@ -35,6 +36,18 @@ export default function TableHistorialVehiculo({ title, ...props }) {
     { servicio: 'Lavado', fecha: '08/05/2021'},
   ];
 
+  const addMantenimiento = async (data) => {
+
+  }
+
+  const updateMantenimiento = async (newData, oldData) => {
+
+  }
+
+  const deleteMantenimiento = async (oldData) => {
+
+  }
+
   return (
       <div className={classes.table}>
         <Slide top collapse>
@@ -43,7 +56,12 @@ export default function TableHistorialVehiculo({ title, ...props }) {
             subTable
             columns={columns}
             data={data}
-            //isLoading={loading}
+            // isLoading={loading}
+            editable={{
+              onRowAdd: addMantenimiento,
+              onRowUpdate: updateMantenimiento,
+              onRowDelete: deleteMantenimiento
+            }}
             {...props}
           />
         </Slide>

@@ -83,7 +83,7 @@ const TableLineas = ({ lineas, setLineas, loadingL, ...props }) => {
   return (
     <div>
       <Table
-        title="Líneas"
+        title="Líneas de Suministro"
         columns={columns}
         data={lineas}
         isLoading={loadingL}

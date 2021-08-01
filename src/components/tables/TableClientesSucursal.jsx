@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import TableVehiculosCliente from "./TableVehiculosCliente";
 import { useUser } from "../../contexts/UserContext";
+import Slide from "react-reveal/Slide";
 
 const TableClientesSucursal = ({ clientesSucursal, loadingCS, ...props }) => {
   const user = useUser();
@@ -47,7 +48,13 @@ const TableClientesSucursal = ({ clientesSucursal, loadingCS, ...props }) => {
         data={clientesSucursal}
         isLoading={loadingCS}
         detailPanel={(rowData) => {
-          return <TableVehiculosCliente cedCliente={rowData.cedCliente} />;
+          return (
+            <>
+              <Slide top collapse>
+                <TableVehiculosCliente cedCliente={rowData.cedCliente} />
+              </Slide>
+            </>
+          );
         }}
         {...props}
       />

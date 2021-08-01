@@ -155,8 +155,8 @@ const TableModelos = ({
         detailPanel={(rowData) => {
           return (
             <>
-              <TableDescripcionModelo data={rowData}/>
-              <TableListaMantenimientos />
+              <TableDescripcionModelo marca={rowData.marca} modelo={rowData.modelo}/>
+              <TableListaMantenimientos marca={rowData.marca} modelo={rowData.modelo}/>
             </>
           );
         }}

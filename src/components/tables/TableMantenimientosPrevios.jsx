@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Table from "./Table";
 import { makeStyles } from "@material-ui/core";
 import Slide from "react-reveal/Slide";
@@ -9,29 +9,52 @@ const useStyles = makeStyles({
     fontFamily: "quicksand",
   },
   table: {
-    marginBottom: '20pt',
-    width: '820pt',
+    marginBottom: "20pt",
+    width: "820pt",
   },
 });
 
-export default function TableMantenimientosPrevios({ mantenimientos, setMantenimientos, ...props }) {
+export default function TableMantenimientosPrevios({ codVehiculo, ...props }) {
   const classes = useStyles();
+  const [mantenimientos, setMantenimientos] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  //aca va las columnas q se muestran en la descripcion del modelo
   const columns = [
     {
       title: "Fecha",
-      field: "fecha",
+      field: "fechaMant",
+      type: "date",
     },
     {
       title: "Descripción",
-      field: "descripción",
+      field: "descripcion",
     },
   ];
 
+  useEffect(() => {
+    const getMantenimientos = async () => {
+      console.log(codVehiculo);
+      const url = `http://localhost:4000/api/mantenimientosPrevios/${codVehiculo}`;
 
-  const addDescripcion = async (data) => {
-    const url = "";
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        //TODO: Error
+        return console.log("Oh no");
+      }
+
+      const mantenimientos = await response.json();
+
+      setMantenimientos(mantenimientos);
+      setLoading(false);
+    };
+
+    getMantenimientos();
+  }, [codVehiculo]);
+
+  const addMantenimiento = async (data) => {
+    const url = `http://localhost:4000/api/mantenimientosPrevios`;
+    data.codVehiculo = codVehiculo;
 
     const response = await fetch(url, {
       method: "POST",
@@ -51,8 +74,10 @@ export default function TableMantenimientosPrevios({ mantenimientos, setMantenim
     setMantenimientos([...mantenimientos, mantenimiento]);
   };
 
-  const updateDescripcion = async (newData, oldData) => {
-    const url = ``;
+  const updateMantenimiento = async (newData, oldData) => {
+    const url = `http://localhost:4000/api/mantenimientosPrevios/${codVehiculo}?fechaMant=${oldData.fechaMant}`;
+
+    newData.codVehiculo = codVehiculo;
 
     const response = await fetch(url, {
       method: "PUT",
@@ -76,8 +101,8 @@ export default function TableMantenimientosPrevios({ mantenimientos, setMantenim
     setMantenimientos(updatedData);
   };
 
-  const deleteDescripcion = async (oldData) => {
-    const url = ``;
+  const deleteMantenimiento = async (oldData) => {
+    const url = `http://localhost:4000/api/mantenimientosPrevios/${codVehiculo}?fechaMant=${oldData.fechaMant}`;
 
     const response = await fetch(url, {
       method: "DELETE",
@@ -96,23 +121,23 @@ export default function TableMantenimientosPrevios({ mantenimientos, setMantenim
   };
 
   return (
-      <div className={classes.table}>
-        <Slide top collapse>
-          <Table
-            title="Mantenimientos previos a M&M"
-            subTable
-            triTable
-            columns={columns} 
-            //data={data}
-            editable={{
-                onRowAdd: addDescripcion,
-                onRowUpdate: updateDescripcion,
-                onRowDelete: deleteDescripcion,
-            }}
-            //isLoading={loading}
-            {...props}
-          />
-        </Slide>
-      </div>
+    <div className={classes.table}>
+      <Slide top collapse>
+        <Table
+          title="Mantenimientos Previos a M&M"
+          subTable
+          triTable
+          columns={columns}
+          data={mantenimientos}
+          editable={{
+            onRowAdd: addMantenimiento,
+            onRowUpdate: updateMantenimiento,
+            onRowDelete: deleteMantenimiento,
+          }}
+          isLoading={loading}
+          {...props}
+        />
+      </Slide>
+    </div>
   );
 }

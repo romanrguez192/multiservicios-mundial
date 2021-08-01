@@ -73,7 +73,7 @@ export default function InputDate(type, ...props) {
               cancelLabel="Cancelar"
               keyboardIcon={iconsObject['date']}
               label="Fecha de Salida"
-              format="MM/dd/yyyy"
+              format="yyyy/MM/dd"
               value={selectedDate}
               onChange={handleDateChange}
               KeyboardButtonProps={{
@@ -84,6 +84,7 @@ export default function InputDate(type, ...props) {
             <KeyboardTimePicker
               margin="normal"
               okLabel="Ok"
+              ampm={false}
               cancelLabel="Cancelar"
               onBlur={handleHora}
               onFocus={handleHora}
