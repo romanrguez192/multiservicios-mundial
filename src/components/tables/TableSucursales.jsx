@@ -49,20 +49,20 @@ const TableSucursales = ({ ...props }) => {
     {
       title: "Encargado",
       field: "nombreEncargado",
-      emptyValue: "No asignado",
+      emptyValue: "N/A",
       editable: "never",
     },
     {
       title: "Cédula del encargado",
       field: "cedEncargado",
-      emptyValue: "No aplica",
+      emptyValue: "N/A",
       editable: "never",
     },
     {
       title: "Fecha de inicio del encargado",
       field: "fechaInicioEncargado",
       type: "date",
-      emptyValue: "No aplica",
+      emptyValue: "N/A",
       editable: "onUpdate",
     },
   ];
@@ -105,6 +105,9 @@ const TableSucursales = ({ ...props }) => {
     }
 
     const sucursal = await response.json();
+
+    sucursal.nombreEncargado = oldData.nombreEncargado;
+    sucursal.cedEncargado = oldData.cedEncargado;
 
     const updatedData = [...sucursales];
     const index = oldData.tableData.id;
