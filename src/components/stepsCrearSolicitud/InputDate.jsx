@@ -41,6 +41,7 @@ export default function InputDate(type, ...props) {
   
     const handleDateChange = (date) => {
       setSelectedDate(date);
+      console.log(date.toJSON());
     };
 
     const handleFecha = () => {
