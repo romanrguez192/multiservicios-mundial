@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
-import { useUser } from "../../contexts/UserContext";
+import TableProductosCompra from "./TableProductosCompra";
 
 const TableOrdenesCompra = ({
   ordCompra,
@@ -9,7 +9,6 @@ const TableOrdenesCompra = ({
   ...props
 }) => {
   const [proveedores, setProveedores] = useState([]);
-  const user = useUser();
   const proveedoresLookup = {};
 
   proveedores.forEach((p) => {
@@ -40,6 +39,13 @@ const TableOrdenesCompra = ({
       title: "Código",
       field: "codOrdCompra",
       editable: "never",
+      emptyValue: "N/A",
+    },
+    {
+      title: "Proveedor",
+      field: "rifProveedor",
+      lookup: proveedoresLookup,
+      editable: "onAdd",
     },
     {
       title: "Fecha",
@@ -48,46 +54,43 @@ const TableOrdenesCompra = ({
       editable: "never",
     },
     {
-      title: "Proveedor",
-      field: "rifProveedor",
-      lookup: proveedoresLookup,
-      editable: "onAdd",
+      title: "Enviada",
+      field: "enviada",
+      editable: "never",
+      lookup: {
+        true: "Sí",
+        false: "No",
+      },
+    },
+    {
+      title: "Recibida",
+      field: "recibida",
+      editable: "never",
+      lookup: {
+        true: "Sí",
+        false: "No",
+      },
     },
   ];
 
   const addOrdCompra = async (data) => {
-    const url = "http://localhost:4000/api/ordenesCompra";
-
-    data.rifSucursal = user.rifSucursal;
-
-    const response = await fetch(url, {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (!response.ok) {
-      // TODO: Error
-      return console.log("Oh no");
-    }
-
-    const ordenCompra = await response.json();
-
-    setOrdCompra([...ordCompra, ordenCompra]);
+    data.enviada = false;
+    data.recibida = false;
+    setOrdCompra([...ordCompra, data]);
   };
 
   const deleteOrdCompra = async (oldData) => {
-    const url = `http://localhost:4000/api/ordenesCompra/${oldData.codOrdCompra}`;
+    if (oldData.enviada) {
+      const url = `http://localhost:4000/api/ordenesCompra/${oldData.codOrdCompra}`;
 
-    const response = await fetch(url, {
-      method: "DELETE",
-    });
+      const response = await fetch(url, {
+        method: "DELETE",
+      });
 
-    if (!response.ok) {
-      // TODO: Error
-      return console.log("Oh no");
+      if (!response.ok) {
+        // TODO: Error
+        return console.log("Oh no");
+      }
     }
 
     const dataDelete = [...ordCompra];
@@ -96,6 +99,7 @@ const TableOrdenesCompra = ({
 
     setOrdCompra(dataDelete);
   };
+
   return (
     <div>
       <Table
@@ -106,6 +110,15 @@ const TableOrdenesCompra = ({
         editable={{
           onRowAdd: addOrdCompra,
           onRowDelete: deleteOrdCompra,
+        }}
+        detailPanel={(rowData) => {
+          return (
+            <TableProductosCompra
+              ordCompra={rowData}
+              ordenesCompra={ordCompra}
+              setOrdenesCompra={setOrdCompra}
+            />
+          );
         }}
         {...props}
       />
