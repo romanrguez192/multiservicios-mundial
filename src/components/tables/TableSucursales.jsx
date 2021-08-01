@@ -6,30 +6,30 @@ const TableSucursales = ({ ...props }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const getSucursales = async () => {
+      const url = "http://localhost:4000/api/sucursales";
+
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        //TODO: Error
+        return console.log("Oh no");
+      }
+
+      const sucursales = await response.json();
+
+      setSucursales(sucursales);
+      setLoading(false);
+    };
+
     getSucursales();
   }, []);
 
-  const getSucursales = async () => {
-    const url = "http://localhost:4000/api/sucursales";
-
-    const response = await fetch(url);
-
-    if (!response.ok) {
-      //TODO: Error
-      return console.log("Oh no");
-    }
-
-    const sucursales = await response.json();
-
-    setSucursales(sucursales);
-    setLoading(false);
-  };
-
   const columns = [
     {
-      title: "Rif",
+      title: "RIF",
       field: "rifSucursal",
-      editable: "never",
+      editable: "always",
     },
     {
       title: "Nombre",
@@ -40,7 +40,6 @@ const TableSucursales = ({ ...props }) => {
       title: "Dirección",
       field: "direccion",
       editable: "always",
-      
     },
     {
       title: "Ciudad",
@@ -54,7 +53,7 @@ const TableSucursales = ({ ...props }) => {
       editable: "never",
     },
     {
-      title: "CI de encargado",
+      title: "Cédula del encargado",
       field: "cedEncargado",
       emptyValue: "No aplica",
       editable: "never",
@@ -64,8 +63,8 @@ const TableSucursales = ({ ...props }) => {
       field: "fechaInicioEncargado",
       type: "date",
       emptyValue: "No aplica",
-      editable: "onUpdate"
-    }
+      editable: "onUpdate",
+    },
   ];
 
   const addSucursal = async (data) => {
@@ -99,7 +98,7 @@ const TableSucursales = ({ ...props }) => {
         "Content-Type": "application/json",
       },
     });
-    
+
     if (!response.ok) {
       //TODO: Error
       return console.log("OH NO");
