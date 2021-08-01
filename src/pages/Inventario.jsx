@@ -40,7 +40,6 @@ const Inventario = () => {
   const [loadingPV, setLoadingPV] = useState(true);
   const [inventario, setInventario] = useState([]);
   const [loadingI, setLoadingI] = useState(true);
-  const [proveedores, setProveedores] = useState([]);
   const [ordCompra, setOrdCompra] = useState([]);
 
   const user = useUser();
@@ -130,25 +129,6 @@ const Inventario = () => {
   }, [productosServicios, productosVentas, user]);
 
   useEffect(() => {
-    const getProveedores = async () => {
-      const url = "http://localhost:4000/api/proveedores";
-
-      const response = await fetch(url);
-
-      if (!response.ok) {
-        // TODO: Error
-        return console.log("Oh no");
-      }
-
-      const proveedor = await response.json();
-
-      setProveedores(proveedor);
-    };
-
-    getProveedores();
-  }, []);
-
-  useEffect(() => {
     const getOrdCompra = async () => {
       const url = `http://localhost:4000/api/ordenesCompra?rifSucursal=${user.rifSucursal}`;
 
@@ -166,23 +146,21 @@ const Inventario = () => {
     };
 
     getOrdCompra();
-  }, []);
+  }, [user]);
 
   return (
     <>
       <div className={classes.root}>
         <Sidebar page="inventario" />
         <main className={classes.containerInventario}>
-          <PageTitle title="Inventario"/>
+          <PageTitle title="Inventario" />
           <div className={classes.tableContainer}>
             <TableOrdenesCompra
               {...{
                 //props
                 ordCompra,
                 setOrdCompra,
-                proveedores,
                 loadingOC,
-                rifSucursal: user.rifSucursal
               }}
             />
             <TableLineas

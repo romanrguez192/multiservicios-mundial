@@ -1,21 +1,39 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
-
+import { useUser } from "../../contexts/UserContext";
 
 const TableOrdenesCompra = ({
-  proveedores,
   ordCompra,
   setOrdCompra,
   loadingOC,
-  rifSucursal,
   ...props
 }) => {
-
+  const [proveedores, setProveedores] = useState([]);
+  const user = useUser();
   const proveedoresLookup = {};
-  proveedores &&
-    proveedores.forEach((l) => {
-      proveedoresLookup[l.rifProveedor] = l.razonSocial;
-    });
+
+  proveedores.forEach((p) => {
+    proveedoresLookup[p.rifProveedor] = p.razonSocial;
+  });
+
+  useEffect(() => {
+    const getProveedores = async () => {
+      const url = "http://localhost:4000/api/proveedores";
+
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        // TODO: Error
+        return console.log("Oh no");
+      }
+
+      const proveedor = await response.json();
+
+      setProveedores(proveedor);
+    };
+
+    getProveedores();
+  }, []);
 
   const columns = [
     {
@@ -27,20 +45,20 @@ const TableOrdenesCompra = ({
       title: "Fecha",
       field: "fecha",
       type: "date",
-      editable: "always",
+      editable: "never",
     },
     {
       title: "Proveedor",
       field: "rifProveedor",
       lookup: proveedoresLookup,
-      editable: "always",
+      editable: "onAdd",
     },
   ];
 
   const addOrdCompra = async (data) => {
     const url = "http://localhost:4000/api/ordenesCompra";
 
-    data.rifSucursal = rifSucursal;
+    data.rifSucursal = user.rifSucursal;
 
     const response = await fetch(url, {
       method: "POST",
@@ -58,32 +76,6 @@ const TableOrdenesCompra = ({
     const ordenCompra = await response.json();
 
     setOrdCompra([...ordCompra, ordenCompra]);
-  };
-
-  const updateOrdCompra = async (newData, oldData) => {
-    const url = `http://localhost:4000/api/ordenesCompra/${oldData.codOrdCompra}`;
-
-    newData.rifSucursal = rifSucursal;
-    const response = await fetch(url, {
-      method: "PUT",
-      body: JSON.stringify(newData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (!response.ok) {
-      // TODO: Error
-      return console.log("Oh no");
-    }
-
-    const ordenCompra = await response.json();
-
-    const updatedData = [...ordCompra];
-    const index = oldData.tableData.id;
-    updatedData[index] = ordenCompra;
-
-    setOrdCompra(updatedData);
   };
 
   const deleteOrdCompra = async (oldData) => {
@@ -107,15 +99,14 @@ const TableOrdenesCompra = ({
   return (
     <div>
       <Table
-        title="Ordenes de Compra"
+        title="Órdenes de Compra"
         columns={columns}
         data={ordCompra}
         isLoading={loadingOC}
         editable={{
-            onRowAdd: addOrdCompra,
-            onRowUpdate: updateOrdCompra,
-            onRowDelete: deleteOrdCompra,
-          }}
+          onRowAdd: addOrdCompra,
+          onRowDelete: deleteOrdCompra,
+        }}
         {...props}
       />
     </div>
