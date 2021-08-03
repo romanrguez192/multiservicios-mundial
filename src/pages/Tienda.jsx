@@ -5,6 +5,7 @@ import Table from "../components/tables/Table";
 import { useUser } from "../contexts/UserContext";
 import Nature from "../components/Nature";
 import PageTitle from "../components/PageTitle";
+import TableCompras from "../components/tables/TableCompras";
 
 // ESTILOS
 const useStyles = makeStyles({
@@ -37,9 +38,8 @@ const Tienda = () => {
         <main className={classes.containerTienda}>
           <PageTitle title="Tienda" />
           <div className={classes.tableContainer}>
-            <Table title="Tienda" />
+            <TableCompras />
           </div>
-          <h1>{JSON.stringify(user)}</h1>
           <Nature/>
         </main>
       </div>
