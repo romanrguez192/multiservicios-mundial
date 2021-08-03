@@ -7,6 +7,21 @@ const useStyles = makeStyles({
   tableContainer: {
     width: "80vw",
     margin: "auto",
+    textAlign: "center",
+  },
+  subtitle: {
+    fontFamily: 'Quicksand',
+    fontStyle: 'normal',
+    fontSize: '15pt',
+    fontWeight: 'bold',
+    lineHeight: '28px',
+    color: '#199479',
+    marginRight: '10pt',
+    marginLeft: '10pt',
+  },
+  divFlex: {
+    display: "inline-flex",
+    textAlign: 'center',
   },
 });
 
@@ -52,8 +67,10 @@ const Step2Compra = () => {
         loading,
         setLoading
       }}/>
-      <h4>{ montoTotal }</h4>
-      <h4>{ cantidad }</h4>
+      <div className={classes.divFlex}>
+        <p className={classes.subtitle}>Monto total: { montoTotal }</p>
+        <p className={classes.subtitle}>Cantidad total: { cantidad }</p>
+      </div>
     </div>
   );
 };
