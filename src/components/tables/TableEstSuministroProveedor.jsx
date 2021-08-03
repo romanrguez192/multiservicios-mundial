@@ -5,6 +5,11 @@ import Table from "./Table";
 const TableEstSuministroProveedor = (props) => {
   const columns = [
     {
+      title: "Rif",
+      field: "rif",
+      editable: "never",
+    },
+    {
       title: "Proveedor",
       field: "proveedor",
       editable: "never",
