@@ -54,6 +54,7 @@ const TableFacturasProveedores = ({ rifProveedor, ...props }) => {
     {
       title: "Monto total",
       field: "montoTotal",
+      type: "numeric",
       editable: "onAdd",
     },
   ];

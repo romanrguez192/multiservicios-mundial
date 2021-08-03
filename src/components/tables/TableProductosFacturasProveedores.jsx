@@ -77,17 +77,20 @@ const TableProductosFacturasProveedores = ({}) => {
     {
       title: "Cantidad",
       field: "cantidad",
+      type: "numeric",
       editable: "onAdd",
     },
     {
       title: "Precio Unitario",
       field: "precioUnitario",
-      editable: "never",
+      type: "numeric",
+      editable: "onAdd",
     },
     {
       title: "Precio Total",
       field: "precioTotal",
-      editable: "never",
+      type: "numeric",
+      editable: "onAdd",
     },
   ];
 
