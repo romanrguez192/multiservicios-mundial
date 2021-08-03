@@ -1,7 +1,18 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
 
-const TableComprarProductos = ({ productos, setProductos, loadingCP, ...props }) => {
+const TableComprarProductos = ({ 
+  productos, setProductos, 
+  montoTotal, setMontoTotal,
+  cantidad, setCantidad,
+  loading, setLoading,
+  lista, setLista, ...props }) => {
+
+  const lookup = {}
+  productos && productos.forEach(p => {
+    lookup[p.codProducto] = p.nombre;
+  })
+
   const columns = [
     {
       title: "Código",
@@ -10,8 +21,8 @@ const TableComprarProductos = ({ productos, setProductos, loadingCP, ...props })
     },
     {
       title: "Nombre",
-      field: "nombre",
-      //lookup: lookup,
+      field: "nombreTabla",
+      lookup: lookup
     },
     {
       title: "Descripción",
@@ -38,68 +49,50 @@ const TableComprarProductos = ({ productos, setProductos, loadingCP, ...props })
   ];
 
   const addProducto = async (data) => {
-    const url = "";
-
-    const response = await fetch(url, {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (!response.ok) {
-      // TODO: Error
-      return console.log("Oh no");
+    if(data.nombreTabla && data.cantidad){
+      data.codProducto = parseInt(data.nombreTabla);
+      productos && productos.forEach(p => {
+        if(parseInt(data.codProducto) === p.codProducto){
+          data.nombre = p.nombre;
+          data.descripcion = p.descripcion;
+          data.codLinea = p.codLinea;
+          data.precio = p.precio;
+          return;
+        }
+      })
+      setCantidad(cantidad + data.cantidad);
+      setMontoTotal(montoTotal + data.precio * data.cantidad);
+      setLista([...lista, data]);
     }
-
-    const producto = await response.json();
-
-    setProductos([...productos, producto]);
   };
 
   const updateProducto = async (newData, oldData) => {
-    const url = ``;
 
-    const response = await fetch(url, {
-      method: "PUT",
-      body: JSON.stringify(newData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    newData.codProducto = oldData.codProducto;
+    newData.nombre = oldData.nombre;
+    newData.codLinea = oldData.codLinea;
+    newData.precio = oldData.precio;
 
-    if (!response.ok) {
-      // TODO: Error
-      return console.log("Oh no");
-    }
-
-    const producto = await response.json();
-
-    const updatedData = [...productos];
+    const updatedData = [...lista];
     const index = oldData.tableData.id;
-    updatedData[index] = producto;
+    updatedData[index] = newData;
 
-    setProductos(updatedData);
+
+    setMontoTotal(montoTotal - (oldData.precio * oldData.cantidad) + (newData.precio * newData.cantidad));
+    setCantidad(cantidad - oldData.cantidad + newData.cantidad);
+    setLista(updatedData);
   };
 
   const deleteProducto = async (oldData) => {
-    const url = ``;
+    
 
-    const response = await fetch(url, {
-      method: "DELETE",
-    });
-
-    if (!response.ok) {
-      // TODO: Error
-      return console.log("Oh no");
-    }
-
-    const dataDelete = [...productos];
+    const dataDelete = [...lista];
     const index = oldData.tableData.id;
     dataDelete.splice(index, 1);
 
-    setProductos(dataDelete);
+    setMontoTotal(montoTotal - oldData.precio * oldData.cantidad);
+    setCantidad(cantidad - oldData.cantidad);
+    setLista(dataDelete);
   };
 
   return (
@@ -107,8 +100,8 @@ const TableComprarProductos = ({ productos, setProductos, loadingCP, ...props })
       <Table
         title="Seleccionar Productos"
         columns={columns}
-        data={productos}
-        //isLoading={loadingCP}
+        data={lista}
+        isLoading={loading}
         editable={{
           onRowAdd: addProducto,
           onRowUpdate: updateProducto,
