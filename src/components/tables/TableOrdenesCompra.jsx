@@ -107,7 +107,7 @@ const TableOrdenesCompra = ({
   return (
     <div>
       <Table
-        title="Ordenes de Compra"
+        title="Órdenes de Compra"
         columns={columns}
         data={ordCompra}
         isLoading={loadingOC}
