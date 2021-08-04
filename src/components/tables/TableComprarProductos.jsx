@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Table from "./Table";
 
 const TableComprarProductos = ({ 
+  setProductosS,
   productos, setProductos, 
   montoTotal, setMontoTotal,
   cantidad, setCantidad,
@@ -63,6 +64,7 @@ const TableComprarProductos = ({
       setCantidad(cantidad + data.cantidad);
       setMontoTotal(montoTotal + data.precio * data.cantidad);
       setLista([...lista, data]);
+      setProductosS(true);
     }
   };
 

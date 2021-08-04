@@ -25,7 +25,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Step2Compra = () => {
+const Step2Compra = ({ setProductosS }) => {
   const classes = useStyles();
   const [productos, setProductos] = useState([]);
   const [lista, setLista] = useState([])
@@ -51,11 +51,14 @@ const Step2Compra = () => {
     }
 
     getProductos();
-  }, [])
+  }, []);
+
+  if(cantidad === 0) setProductosS(null);
 
   return (
     <div className={classes.tableContainer}>
       <TableComprarProductos {...{
+        setProductosS,
         productos,
         setProductos,
         montoTotal, 

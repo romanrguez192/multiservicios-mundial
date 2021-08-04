@@ -59,7 +59,7 @@ const Compra = () => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
   const [cliente, setCliente] = useState(null);
-  const [productos, setProductos] = useState(null);
+  const [productosS, setProductosS] = useState(null);
 
   const steps = [
     "Seleccionar el cliente",
@@ -70,9 +70,9 @@ const Compra = () => {
   const getStepContent = (stepIndex) => {
     switch (stepIndex) {
       case 0:
-        return <Step1Compra {...{ cliente, setCliente, setProductos }} />;
+        return <Step1Compra {...{ cliente, setCliente, setProductosS }} />;
       case 1:
-        return <Step2Compra />;
+        return <Step2Compra {...{ setProductosS }} />;
       case 2:
         return <Step3  />;
       default:
@@ -90,7 +90,7 @@ const Compra = () => {
 
   const disable =
     (activeStep === 0 && !cliente) ||
-    (activeStep === 1 && !productos);
+    (activeStep === 1 && !productosS);
 
   return (
     <div className={classes.root}>
