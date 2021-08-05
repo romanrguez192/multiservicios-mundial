@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "../components/Sidebar";
 import {
   makeStyles,
@@ -10,6 +10,7 @@ import { ArrowBackOutlined } from "@material-ui/icons";
 import TableOrdenServicio from "../components/tables/TableOrdenServicio";
 import { Link } from "react-router-dom";
 import Fade from "react-reveal/Fade";
+import PageTitle from "../components/PageTitle";
 
 // ESTILOS
 const useStyles = makeStyles({
@@ -22,6 +23,7 @@ const useStyles = makeStyles({
   },
   backIcon: {
     marginLeft: "5pt",
+    float: "left",
   },
   paperContainer: {
     marginBottom: '20pt',
@@ -56,10 +58,74 @@ const useStyles = makeStyles({
     textOverflow: 'ellipsis',
     overflow: 'hidden',
   },
+  divFlex: {
+    display: "inline-flex",
+    textAlign: "center",
+  },
 });
 
 const CrearSolicitud = () => {
   const classes = useStyles();
+  const [servicio, setServicio] = useState([]);
+  const [actividades, setActividades] = useState([]);
+  const [productosS, setProductosS] = useState([]);
+
+  useEffect(() => {
+    const getServicio = async () => {
+      const url = "http://localhost:4000/api/servicios";
+
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        // TODO: Error
+        return console.log("Oh no");
+      }
+
+      const servicio = await response.json();
+
+      setServicio(servicio);
+    };
+
+    getServicio();
+  }, []);
+
+  useEffect(() => {
+    const getActividades = async () => {
+      const url = "http://localhost:4000/api/actividades";
+
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        // TODO: Error
+        return console.log("Oh no");
+      }
+
+      const actividades = await response.json();
+
+      setActividades(actividades);
+    };
+
+    getActividades();
+  }, []);
+
+  useEffect(() => {
+    const getProductosS = async () => {
+      const url = "http://localhost:4000/api/productosServicios";
+
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        // TODO: Error
+        return console.log("Oh no");
+      }
+
+      const productos = await response.json();
+
+      setProductosS(productos);
+    };
+
+    getProductosS();
+  }, []);
 
   return (
     <div className={classes.root}>
@@ -68,6 +134,7 @@ const CrearSolicitud = () => {
         <IconButton component={Link} to="/solicitudes" className={classes.backIcon}>
           <ArrowBackOutlined color="primary" />
         </IconButton>
+        <PageTitle title="Solicitud 11"/>
         <div className={classes.tableContainer}>
           <Fade>
             <Paper className={classes.paperContainer}>
@@ -89,7 +156,14 @@ const CrearSolicitud = () => {
               </div>
             </Paper>
           </Fade>
-          <TableOrdenServicio />
+          <TableOrdenServicio
+            {...{
+              //props
+              servicio,
+              actividades,
+              productosS,
+            }}
+          />
         </div>
       </main>
     </div>
