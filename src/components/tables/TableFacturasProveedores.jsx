@@ -102,12 +102,10 @@ const TableFacturasProveedores = ({ rifProveedor, ...props }) => {
   };
 
   return (
-    <Slide top collapse>
       <Table
-        title="Facturas"
+        title="Facturas de Proveedores"
         columns={columns}
         isLoading={loading}
-        subTable
         editable={{
           onRowAdd: addFacturaProveedor,
           onRowDelete: deleteFacturaProveedor,
@@ -116,7 +114,6 @@ const TableFacturasProveedores = ({ rifProveedor, ...props }) => {
           return <TableProductosFacturasProveedores />;
         }}
       />
-    </Slide>
   );
 };
 
