@@ -14,7 +14,6 @@ const useStyles = makeStyles({
 });
 
 const TableOrdenServicio = ({
-  servicio,
   actividades,
   productosS,
   ...props
@@ -34,23 +33,10 @@ const TableOrdenServicio = ({
     }
   );
 
-  const serviciosLookup = {};
-  servicio &&
-    servicio.forEach((l) => {
-      serviciosLookup[l.codServicio] = l.nombre;
-    }
-  );
-
   const classes = useStyles();
 
   //aca va las columnas q se muestran en mantenimiento
   const columns = [
-    {
-      title: "Servicio",
-      field: "servicio",
-			editable: "always",
-			lookup: serviciosLookup,
-    },
 		{
       title: "Actividad",
       field: "actividad",

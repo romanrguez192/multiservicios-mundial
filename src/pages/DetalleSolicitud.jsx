@@ -71,25 +71,6 @@ const CrearSolicitud = () => {
   const [productosS, setProductosS] = useState([]);
 
   useEffect(() => {
-    const getServicio = async () => {
-      const url = "http://localhost:4000/api/servicios";
-
-      const response = await fetch(url);
-
-      if (!response.ok) {
-        // TODO: Error
-        return console.log("Oh no");
-      }
-
-      const servicio = await response.json();
-
-      setServicio(servicio);
-    };
-
-    getServicio();
-  }, []);
-
-  useEffect(() => {
     const getActividades = async () => {
       const url = "http://localhost:4000/api/actividades";
 
