@@ -103,7 +103,7 @@ const TableFacturasServicios = ({}) => {
   return (
     <div>
       <Table
-        title="Facturas Servicios"
+        title="Facturas de Servicios"
         columns={columns}
         data={facturasServicios}
         isLoading={loading}

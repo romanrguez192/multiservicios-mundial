@@ -6,8 +6,6 @@ import Sidebar from '../components/Sidebar';
 import TableFacturasVentas from '../components/tables/TableFacturasVentas';
 import TableFacturasProveedores from '../components/tables/TableFacturasProveedores';
 import TableFacturasServicios from '../components/tables/TableFacturasServicios';
-import TableFacturaActividades from '../components/tables/TableFacturaActividades';
-import TableFacturaProductos from '../components/tables/TableFacturaProductos';
 import Nature from "../components/Nature";
 import PageTitle from "../components/PageTitle";
 
