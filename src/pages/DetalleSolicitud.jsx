@@ -62,13 +62,21 @@ const useStyles = makeStyles({
     display: "inline-flex",
     textAlign: "center",
   },
+  containerSubInformation: {
+    textAlign: "center",
+    paddingBottom: "10pt",
+  },
+  divider: {
+    marginLeft: "10pt",
+    marginRight: "10pt",
+  }
 });
 
 const CrearSolicitud = () => {
   const classes = useStyles();
-  const [servicio, setServicio] = useState([]);
   const [actividades, setActividades] = useState([]);
   const [productosS, setProductosS] = useState([]);
+  const [servicio, setServicio] = useState([]);
 
   useEffect(() => {
     const getActividades = async () => {
@@ -108,6 +116,25 @@ const CrearSolicitud = () => {
     getProductosS();
   }, []);
 
+  useEffect(() => {
+    const getServicio = async () => {
+      const url = "http://localhost:4000/api/servicios";
+
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        // TODO: Error
+        return console.log("Oh no");
+      }
+
+      const servicio = await response.json();
+
+      setServicio(servicio);
+    };
+
+    getServicio();
+  }, []);
+
   return (
     <div className={classes.root}>
       <Sidebar page="solicitudes" />
@@ -135,13 +162,19 @@ const CrearSolicitud = () => {
                   <p className={classes.subtitle}>04/09/2021</p>
                 </div>
               </div>
+              <Divider className={classes.divider}/>
+              <div className={classes.containerSubInformation}>
+                <p className={classes.title}>Servicios</p>
+                <p className={classes.subtitle}>Lavado y pulitura de carrocería</p>
+                <p className={classes.subtitle}>Servicio de motor y chasis</p>
+              </div>
             </Paper>
           </Fade>
           <TableOrdenServicio
             {...{
               //props
-              servicio,
               actividades,
+              servicio,
               productosS,
             }}
           />
