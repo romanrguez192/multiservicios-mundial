@@ -32,7 +32,7 @@ import { es } from "date-fns/locale";
     }
   });
 
-export default function InputDate(type, ...props) {
+export default function InputDate({ setFechaSalida, setHoraSalida, ...props }) {
     // The first commit of Material-UI
     const [selectedDate, setSelectedDate] = useState(null);
     const [fecha, setFecha] = useState(false);
@@ -41,14 +41,17 @@ export default function InputDate(type, ...props) {
   
     const handleDateChange = (date) => {
       setSelectedDate(date);
+      console.log(date.toJSON());
     };
 
     const handleFecha = () => {
       setFecha(!fecha);
+      setFechaSalida(true);
     };
 
     const handleHora = () => {
       setHora(!hora);
+      setHoraSalida(true);
     };
 
     // Clase del icono a mostrar

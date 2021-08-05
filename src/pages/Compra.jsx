@@ -10,10 +10,9 @@ import {
   IconButton,
 } from "@material-ui/core";
 import QontoConnector from "../components/stepsCrearSolicitud/QontoConnector";
-import Step1 from "../components/stepsCrearSolicitud/Step1";
-import Step2 from "../components/stepsCrearSolicitud/Step2";
+import Step1Compra from "../components/stepsCompra/Step1Compra";
+import Step2Compra from "../components/stepsCompra/Step2Compra";
 import Step3 from "../components/stepsCrearSolicitud/Step3";
-import Step4 from "../components/stepsCrearSolicitud/Step4";
 import { ArrowBackOutlined } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import Fade from "react-reveal/Fade";
@@ -56,33 +55,26 @@ const useStyles = makeStyles({
   },
 });
 
-const CrearSolicitud = () => {
+const Compra = () => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
   const [cliente, setCliente] = useState(null);
-  const [vehiculo, setVehiculo] = useState(null);
-  const [reservas, setReservas] = useState([]);
-  const [servicios, setServicios] = useState([]);
-  const [fechaSalida, setFechaSalida] = useState(null);
-  const [horaSalida, setHoraSalida] = useState(null);
+  const [productosS, setProductosS] = useState(null);
 
   const steps = [
     "Seleccionar el cliente",
-    "Seleccionar el vehículo",
-    "Seleccionar los servicios",
-    "Datos de salida",
+    "Seleccionar los productos",
+    "Seleccionar método de pago",
   ];
 
   const getStepContent = (stepIndex) => {
     switch (stepIndex) {
       case 0:
-        return <Step1 {...{ cliente, setCliente, setVehiculo, setReservas, setServicios }} />;
+        return <Step1Compra {...{ cliente, setCliente, setProductosS }} />;
       case 1:
-        return <Step2 {...{ vehiculo, setVehiculo, cliente, setReservas, setServicios }} />;
+        return <Step2Compra {...{ setProductosS }} />;
       case 2:
-        return <Step3 {...{ setServicios, setReservas, cliente }} />;
-      case 3:
-        return <Step4 {...{ horaSalida, setHoraSalida, fechaSalida, setFechaSalida }}/>;
+        return <Step3  />;
       default:
         return "Error";
     }
@@ -98,15 +90,13 @@ const CrearSolicitud = () => {
 
   const disable =
     (activeStep === 0 && !cliente) ||
-    (activeStep === 1 && !vehiculo) ||
-    (activeStep === 2 && !reservas.length && !servicios.length) ||
-    (activeStep === 3 && false);
+    (activeStep === 1 && !productosS);
 
   return (
     <div className={classes.root}>
-      <Sidebar page="solicitudes" />
+      <Sidebar page="tienda" />
       <main className={classes.container}>
-        <IconButton component={Link} to="/solicitudes" className={classes.backIcon}>
+        <IconButton component={Link} to="/tienda" className={classes.backIcon}>
           <ArrowBackOutlined color="primary" />
         </IconButton>
         <Fade>
@@ -155,4 +145,4 @@ const CrearSolicitud = () => {
   );
 };
 
-export default CrearSolicitud;
+export default Compra;

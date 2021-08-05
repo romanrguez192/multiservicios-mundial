@@ -14,7 +14,9 @@ import Sucursales from "./pages/Sucursales";
 import Tienda from "./pages/Tienda";
 import Proveedores from "./pages/Proveedores";
 import CrearSolicitud from "./pages/CrearSolicitud";
+import Compra from "./pages/Compra";
 import Inicio from "./pages/Inicio";
+import DetalleSolicitud from "./pages/DetalleSolicitud";
 import {
   unstable_createMuiStrictModeTheme as createMuiTheme,
   ThemeProvider,
@@ -51,6 +53,9 @@ function App() {
               <Route exact path="/solicitudes/crear" auth>
                 <CrearSolicitud />
               </Route>
+              <Route exact path="/solicitudes/detalles" auth>
+                <DetalleSolicitud />
+              </Route>
               <Route exact path="/facturas" auth>
                 <Facturas />
               </Route>
@@ -77,6 +82,9 @@ function App() {
               </Route>
               <Route exact path="/tienda" auth>
                 <Tienda />
+              </Route>
+              <Route exact path="/tienda/compra" auth>
+                <Compra />
               </Route>
               <Route exact path="/proveedores" auth>
                 <Proveedores />

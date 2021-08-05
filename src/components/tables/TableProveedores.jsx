@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import TableProductosDistribuidos from "./TableProductosDistribuidos";
+import TableFacturasProveedores from "./TableFacturasProveedores";
+import { TableContainer } from "@material-ui/core";
+import TableProductosFacturasProveedores from "./TableProductosFacturasProveedores";
 
 const TableProveedores = ({ ...props }) => {
   const [proveedores, setProveedores] = useState([]);
@@ -31,7 +34,7 @@ const TableProveedores = ({ ...props }) => {
       title: "RIF",
       field: "rifProveedor",
       editable: "always",
-      type: "numeric"
+      type: "numeric",
     },
     {
       title: "Razón Social",
@@ -139,7 +142,10 @@ const TableProveedores = ({ ...props }) => {
         }}
         detailPanel={(rowData) => {
           return (
-            <TableProductosDistribuidos rifProveedor={rowData.rifProveedor} />
+            <TableContainer>
+              <TableProductosDistribuidos rifProveedor={rowData.rifProveedor} />
+              <TableFacturasProveedores rifProveedor={rowData.rifProveedor} />
+            </TableContainer>
           );
         }}
         {...props}
