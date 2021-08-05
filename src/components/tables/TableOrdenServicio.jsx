@@ -57,6 +57,11 @@ const TableOrdenServicio = ({
 			editable: "always",
 			//lookup: actividadesLookup,  nu sirve :(
     },
+    {
+      title: "Cédula del empleado",
+      field: "cedulaEmp",
+			editable: "always",
+    },
 		{
       title: "Producto",
       field: "codProducto",
