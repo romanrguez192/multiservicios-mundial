@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {
-   makeStyles,
-   Paper,
+  makeStyles,
+  Paper,
 } from "@material-ui/core";
 import InputDate from "./InputDate";
 import Fade from "react-reveal/Fade";
@@ -48,7 +48,10 @@ const useStyles = makeStyles({
   }
 });
 
-const Step4 = () => {
+const Step4 = ({
+  horaSalida, setHoraSalida,
+  fechaSalida, setFechaSalida
+}) => {
   const classes = useStyles();
 
   const initialValues = {
@@ -62,7 +65,7 @@ const Step4 = () => {
       <Paper className={classes.container}>
         <div className={classes.containerData}>
           <p className={classes.subtitleFH}>Fecha y hora estimada para la salida</p>
-          <InputDate/>
+          <InputDate {...{ setFechaSalida, setHoraSalida }} />
           <p className={classes.subtitleDA}>Datos del autorizado para retirar el vehículo</p>
           <Formik initialValues={initialValues}>
           {({ isSubmitting }) => (

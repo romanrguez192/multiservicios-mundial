@@ -63,6 +63,8 @@ const CrearSolicitud = () => {
   const [vehiculo, setVehiculo] = useState(null);
   const [reservas, setReservas] = useState([]);
   const [servicios, setServicios] = useState([]);
+  const [fechaSalida, setFechaSalida] = useState(null);
+  const [horaSalida, setHoraSalida] = useState(null);
 
   const steps = [
     "Seleccionar el cliente",
@@ -80,7 +82,7 @@ const CrearSolicitud = () => {
       case 2:
         return <Step3 {...{ setServicios, setReservas, cliente }} />;
       case 3:
-        return <Step4 />;
+        return <Step4 {...{ horaSalida, setHoraSalida, fechaSalida, setFechaSalida }}/>;
       default:
         return "Error";
     }
@@ -97,7 +99,8 @@ const CrearSolicitud = () => {
   const disable =
     (activeStep === 0 && !cliente) ||
     (activeStep === 1 && !vehiculo) ||
-    (activeStep === 2 && !reservas.length && !servicios.length);
+    (activeStep === 2 && !reservas.length && !servicios.length) ||
+    (activeStep === 3 && false);
 
   return (
     <div className={classes.root}>
