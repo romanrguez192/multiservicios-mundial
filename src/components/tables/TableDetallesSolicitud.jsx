@@ -9,16 +9,16 @@ const TableDetallesSolicitud = ({ nroSolicitud, codServicio, ...props }) => {
   useEffect(() => {
     const getActividades = async () => {
       const url = `http://localhost:4000/api/solicitudesServicio/${nroSolicitud}/servicios/${codServicio}`;
-  
+
       const response = await fetch(url);
-  
+
       if (!response.ok) {
         // TODO: Error
         return console.log("Oh no");
       }
-  
+
       const actividades = await response.json();
-  
+
       setActividades(actividades);
       setLoading(false);
     };
@@ -26,97 +26,30 @@ const TableDetallesSolicitud = ({ nroSolicitud, codServicio, ...props }) => {
     getActividades();
   }, [nroSolicitud, codServicio]);
 
-  
-
   const columns = [
     {
       title: "Número",
       field: "nroActividad",
-      editable: "always",
+      type: "numeric",
     },
     {
       title: "Descripción",
       field: "descripcion",
-      editable: "always",
     },
     {
       title: "Precio (Bs.S)",
       field: "precio",
       type: "numeric",
-      editable: "always",
     },
     {
-      title: "Capacidad diaria",
-      field: "capacidad",
-      type: "numeric",
-      editable: "always",
+      title: "Ejecutada",
+      field: "ejecutada",
+      lookup: {
+        true: "Sí",
+        false: "No",
+      },
     },
   ];
-
-  const addActividad = async (data) => {
-    const url = `http://localhost:4000/api/servicios/${codServicio}/actividades`;
-
-    const response = await fetch(url, {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (!response.ok) {
-      // TODO: Error
-      return console.log("Oh no");
-    }
-
-    const actividad = await response.json();
-
-    setActividades([...actividades, actividad]);
-  };
-
-  const updateActividad = async (newData, oldData) => {
-    const url = `http://localhost:4000/api/servicios/${codServicio}/actividades/${oldData.nroActividad}`;
-
-    const response = await fetch(url, {
-      method: "PUT",
-      body: JSON.stringify(newData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (!response.ok) {
-      // TODO: Error
-      return console.log("Oh no");
-    }
-
-    const actividad = await response.json();
-
-    const updatedData = [...actividades];
-    const index = oldData.tableData.id;
-    updatedData[index] = actividad;
-
-    setActividades(updatedData);
-  };
-
-  const deleteActividad = async (oldData) => {
-    const url = `http://localhost:4000/api/servicios/${codServicio}/actividades/${oldData.nroActividad}`;
-
-    const response = await fetch(url, {
-      method: "DELETE",
-    });
-
-    if (!response.ok) {
-      // TODO: Error
-      return console.log("Oh no");
-    }
-
-    const dataDelete = [...actividades];
-    const index = oldData.tableData.id;
-    dataDelete.splice(index, 1);
-
-    setActividades(dataDelete);
-  };
 
   return (
     <Slide top collapse>
@@ -126,11 +59,6 @@ const TableDetallesSolicitud = ({ nroSolicitud, codServicio, ...props }) => {
         data={actividades}
         isLoading={loading}
         subTable
-        editable={{
-          onRowAdd: addActividad,
-          onRowUpdate: updateActividad,
-          onRowDelete: deleteActividad,
-        }}
         {...props}
       />
     </Slide>
