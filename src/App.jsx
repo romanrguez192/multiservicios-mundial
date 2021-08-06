@@ -17,6 +17,7 @@ import CrearSolicitud from "./pages/CrearSolicitud";
 import Compra from "./pages/Compra";
 import Inicio from "./pages/Inicio";
 import DetalleSolicitud from "./pages/DetalleSolicitud";
+import Estadisticas from "./pages/Estadisticas";
 import {
   unstable_createMuiStrictModeTheme as createMuiTheme,
   ThemeProvider,
@@ -46,6 +47,9 @@ function App() {
             <Switch>
               <Route exact path="/" auth>
                 <Inicio />
+              </Route>
+              <Route exact path="/estadisticas" auth>
+                <Estadisticas />
               </Route>
               <Route exact path="/solicitudes" auth>
                 <SolicitudesServicios />

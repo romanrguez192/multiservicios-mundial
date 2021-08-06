@@ -84,6 +84,10 @@ const TableSolServicios = ({ ...props }) => {
     },
   ];
 
+  const handleRowClick = (evt, rowData) => {
+    history.push(`/solicitudes/${rowData.nroSolicitud}`);
+  };
+
   return (
     <div>
       <Table
@@ -92,6 +96,7 @@ const TableSolServicios = ({ ...props }) => {
         isLoading={loading}
         data={solicitudes}
         actions={actions}
+        onRowClick={handleRowClick}
         {...props}
       />
     </div>

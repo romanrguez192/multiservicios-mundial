@@ -42,6 +42,9 @@ import {
   WorkOutlineOutlined,
   LocalCarWash,
   LocalCarWashOutlined,
+  BarChart,
+  BarChartOutlined,
+  ExitToAppOutlined,
 } from '@material-ui/icons';
 import { Link } from "react-router-dom";
 import { useUser } from "../contexts/UserContext";
@@ -159,7 +162,14 @@ const useStyles = makeStyles((theme) => ({
   },
   separator: {
     width: '50%',
-  }
+  },
+  exitText: {
+    color: '#EE6754',
+  },
+  exitIcon: {
+    marginLeft: '5pt',
+    color: '#EE6754',
+  },
 }));
 
 export default function Sidebar(props) {
@@ -238,6 +248,29 @@ export default function Sidebar(props) {
                   <HomeOutlined className={classes.iconDrawer}/>
                 </ListItemIcon>
                 <ListItemText primary="Inicio" className={classes.pageText}/>
+              </ListItem>
+            </Tooltip>
+          }
+          {props.page==="estadisticas" ? 
+            <Tooltip title="Estadísticas">
+              <ListItem button selected>
+                <ListItemIcon>
+                  <BarChart className={classes.iconDrawerSelect}/>
+                </ListItemIcon>
+                <ListItemText primary="Estadísticas" className={classes.pageSelectedText}/>
+              </ListItem>
+            </Tooltip>
+            :
+            <Tooltip title="Estadísticas">
+              <ListItem 
+                button
+                component={Link}
+                to="/estadisticas"
+              >
+                <ListItemIcon>
+                  <BarChartOutlined className={classes.iconDrawer}/>
+                </ListItemIcon>
+                <ListItemText primary="Estadísticas" className={classes.pageText}/>
               </ListItem>
             </Tooltip>
           }
@@ -494,6 +527,17 @@ export default function Sidebar(props) {
               </ListItem>
             </Tooltip>
           }
+          <Tooltip title="Cerrar Sesión">
+              <ListItem 
+                button
+                //COLOCAR LA OPCION PARA CERRAR SESION
+              >
+                <ListItemIcon>
+                  <ExitToAppOutlined className={classes.exitIcon}/>
+                </ListItemIcon>
+                <ListItemText primary="Cerrar Sesión" className={classes.exitText}/>
+              </ListItem>
+            </Tooltip>
         </List>
       </Drawer>
     </div>
