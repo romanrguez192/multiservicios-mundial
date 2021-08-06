@@ -13,6 +13,8 @@ const TableClientesSucursal = ({ clientesSucursal, loadingCS, ...props }) => {
       title: "Cedula",
       field: "cedCliente",
       editable: "never",
+      align: "left",
+      type: "numeric",
     },
     {
       title: "Nombre",

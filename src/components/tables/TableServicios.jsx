@@ -9,6 +9,8 @@ const TableServicios = ({ servicios, setServicios, loadingS, ...props }) => {
       title: "Código",
       field: "codServicio",
       editable: "never",
+      align: "left",
+      type: "numeric",
     },
     {
       title: "Nombre",
@@ -39,6 +41,7 @@ const TableServicios = ({ servicios, setServicios, loadingS, ...props }) => {
       title: "Porcentaje de abono al reservar",
       field: "porcentajeAbono",
       type: "numeric",
+      align: "left",
       editable: "always",
       emptyValue: "Ninguno",
     },

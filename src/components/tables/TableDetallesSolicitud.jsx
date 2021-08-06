@@ -30,6 +30,7 @@ const TableDetallesSolicitud = ({ nroSolicitud, codServicio, ...props }) => {
     {
       title: "Número",
       field: "nroActividad",
+      align: "left",
       type: "numeric",
     },
     {
@@ -40,6 +41,7 @@ const TableDetallesSolicitud = ({ nroSolicitud, codServicio, ...props }) => {
       title: "Precio (Bs.S)",
       field: "precio",
       type: "numeric",
+      align: "left",
     },
     {
       title: "Ejecutada",

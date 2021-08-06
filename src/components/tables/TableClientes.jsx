@@ -118,14 +118,15 @@ const TableClientes = ({ clientes, setClientes, loadingC, ...props }) => {
           onRowDelete: deleteCliente,
         }}
         detailPanel={(rowData) => {
-          return(
-          <>
-            <TableContainer>
-              <Slide top collapse>
-                <TableVehiculosCliente cedCliente={rowData.cedCliente} />
-              </Slide>
-            </TableContainer>
-          </>);
+          return (
+            <>
+              <TableContainer>
+                <Slide top collapse>
+                  <TableVehiculosCliente cedCliente={rowData.cedCliente} />
+                </Slide>
+              </TableContainer>
+            </>
+          );
         }}
         {...props}
       />

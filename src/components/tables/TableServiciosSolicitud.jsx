@@ -12,6 +12,7 @@ const TableServiciosSolicitud = ({ nroSolicitud, ...props }) => {
       title: "Código",
       field: "codServicio",
       type: "numeric",
+      align: "left",
     },
     {
       title: "Nombre",

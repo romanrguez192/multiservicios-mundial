@@ -77,12 +77,16 @@ const TableReservaciones = ({ ...props }) => {
     {
       title: "Numero de Reserva",
       field: "nroReserva",
+      type: "numeric",
       editable: "never",
+      align: "left",
     },
     {
       title: "Cliente",
       field: "cedCliente",
       editable: "always",
+      type: "numeric",
+      align: "left",
       lookup: lookupClientes,
     },
     {
@@ -100,6 +104,8 @@ const TableReservaciones = ({ ...props }) => {
     {
       title: "Servicio",
       field: "codServicio",
+      type: "numeric",
+      align: "left",
       editable: "always",
       lookup: lookupServicios,
     },
@@ -107,6 +113,7 @@ const TableReservaciones = ({ ...props }) => {
       title: "Monto Abonado (Bs.S)",
       field: "montoAbonado",
       type: "numeric",
+      align: "left",
       editable: "always",
     },
     {

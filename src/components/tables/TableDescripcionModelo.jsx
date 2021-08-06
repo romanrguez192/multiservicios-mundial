@@ -64,12 +64,15 @@ export default function TableDescripcionModelo({ marca, modelo, ...props }) {
     {
       title: "Producto",
       field: "codProductoServicio",
+      type: "numeric",
+      align: "left",
       lookup: lookup,
     },
     {
       title: "Cantidad",
       field: "cantidad",
       type: "numeric",
+      align: "left",
     },
     {
       title: "Unidad de medida",

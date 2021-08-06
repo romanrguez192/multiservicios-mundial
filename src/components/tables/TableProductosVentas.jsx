@@ -18,6 +18,8 @@ const TableProductosVentas = ({
     {
       title: "Código",
       field: "codProducto",
+      type: "numeric",
+      align: "left",
       editable: "never",
     },
     {
@@ -34,6 +36,8 @@ const TableProductosVentas = ({
       title: "Línea",
       field: "codLinea",
       editable: "always",
+      type: "numeric",
+      align: "left",
       lookup: lookup,
     },
     {
@@ -52,18 +56,21 @@ const TableProductosVentas = ({
       field: "precio",
       editable: "always",
       type: "numeric",
+      align: "left",
     },
     {
       title: "Nivel mínimo",
       field: "nivelMinimo",
       editable: "always",
       type: "numeric",
+      align: "left",
     },
     {
       title: "Nivel máximo",
       field: "nivelMaximo",
       editable: "always",
       type: "numeric",
+      align: "left",
     },
   ];
 

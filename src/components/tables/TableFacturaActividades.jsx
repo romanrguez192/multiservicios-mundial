@@ -31,6 +31,8 @@ const TableFacturaActividades = ({}) => {
       title: "Número",
       field: "nroActividad",
       editable: "onAdd",
+      type: "numeric",
+      align: "left",
     },
     {
       title: "Descripción",
@@ -40,7 +42,9 @@ const TableFacturaActividades = ({}) => {
     {
       title: "Precio (Bs.S)",
       field: "precio",
+      type: "numeric",
       editable: "onAdd",
+      align: "left",
     },
   ];
 

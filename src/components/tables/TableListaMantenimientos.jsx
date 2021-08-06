@@ -62,6 +62,7 @@ export default function TableListaMantenimientos({ marca, modelo, ...props }) {
       title: "Kilometraje",
       field: "kilometraje",
       type: "numeric",
+      align: "left",
     },
     {
       title: "Mantenimiento recomendado",

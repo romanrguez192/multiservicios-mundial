@@ -34,6 +34,7 @@ const TableVehiculos = ({ modelos, ...props }) => {
     {
       title: "Código de Vehículo",
       field: "codVehiculo",
+      type: "numeric",
     },
     {
       title: "Placa",
@@ -42,6 +43,8 @@ const TableVehiculos = ({ modelos, ...props }) => {
     {
       title: "Cédula del cliente",
       field: "cedCliente",
+      type: "numeric",
+      align: "left",
     },
     {
       title: "Nombre del cliente",
@@ -85,10 +88,10 @@ const TableVehiculos = ({ modelos, ...props }) => {
         detailPanel={(rowData) => {
           return (
             <>
-            <TableContainer>
-              <TableHistorialVehiculo codVehiculo={rowData.codVehiculo}/>
-              <TableMantenimientosPrevios codVehiculo={rowData.codVehiculo}/>
-            </TableContainer>
+              <TableContainer>
+                <TableHistorialVehiculo codVehiculo={rowData.codVehiculo} />
+                <TableMantenimientosPrevios codVehiculo={rowData.codVehiculo} />
+              </TableContainer>
             </>
           );
         }}

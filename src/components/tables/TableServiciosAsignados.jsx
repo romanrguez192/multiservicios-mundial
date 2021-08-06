@@ -60,6 +60,8 @@ const TableServiciosAsignados = ({ cedEmpleado, ...props }) => {
       title: "Servicio",
       field: "codServicio",
       editable: "onAdd",
+      type: "numeric",
+      align: "left",
       lookup: lookupServicio,
     },
     {

@@ -23,7 +23,9 @@ const TableServiciosOfrecidos = ({
   const lookupCoordinador = {};
   if (empleados) {
     empleados.forEach((e) => {
-      lookupCoordinador[e.cedEmpleado] = `${e.cedEmpleado} - ${e.nombre} ${e.apellido}`;
+      lookupCoordinador[
+        e.cedEmpleado
+      ] = `${e.cedEmpleado} - ${e.nombre} ${e.apellido}`;
     });
   }
 

@@ -64,6 +64,8 @@ const TableVehiculosCliente = ({ cedCliente, ...props }) => {
       title: "Código de Vehículo",
       field: "codVehiculo",
       editable: "never",
+      type: "numeric",
+      align: "left",
     },
     {
       title: "Placa",
@@ -197,8 +199,8 @@ const TableVehiculosCliente = ({ cedCliente, ...props }) => {
         detailPanel={(rowData) => {
           return (
             <TableContainer>
-              <TableHistorialVehiculo codVehiculo={rowData.codVehiculo}/>
-              <TableMantenimientosPrevios codVehiculo={rowData.codVehiculo}/>
+              <TableHistorialVehiculo codVehiculo={rowData.codVehiculo} />
+              <TableMantenimientosPrevios codVehiculo={rowData.codVehiculo} />
             </TableContainer>
           );
         }}

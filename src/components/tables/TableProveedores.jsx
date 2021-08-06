@@ -35,6 +35,7 @@ const TableProveedores = ({ ...props }) => {
       field: "rifProveedor",
       editable: "always",
       type: "numeric",
+      align: "left",
     },
     {
       title: "Razón Social",

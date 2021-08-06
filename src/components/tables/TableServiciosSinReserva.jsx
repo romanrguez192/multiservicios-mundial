@@ -32,6 +32,8 @@ const TableServiciosSinReserva = ({ setServicios, ...props }) => {
     {
       title: "Servicio",
       field: "codServicio",
+      type: "numeric",
+      align: "left",
     },
     {
       title: "Nombre",

@@ -30,7 +30,9 @@ const TableActividades = ({ codServicio, ...props }) => {
     {
       title: "Número",
       field: "nroActividad",
+      type: "numeric",
       editable: "always",
+      align: "left",
     },
     {
       title: "Descripción",
@@ -41,12 +43,14 @@ const TableActividades = ({ codServicio, ...props }) => {
       title: "Precio (Bs.S)",
       field: "precio",
       type: "numeric",
+      align: "left",
       editable: "always",
     },
     {
       title: "Capacidad diaria",
       field: "capacidad",
       type: "numeric",
+      align: "left",
       editable: "always",
     },
   ];

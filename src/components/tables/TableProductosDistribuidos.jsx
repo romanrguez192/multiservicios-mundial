@@ -58,6 +58,8 @@ const TableProductosDistribuidos = ({ rifProveedor, ...props }) => {
       title: "Producto",
       field: "codProducto",
       editable: "onAdd",
+      type: "numeric",
+      align: "left",
       lookup: lookup,
     },
   ];

@@ -11,7 +11,7 @@ const TableSolServicios = ({ ...props }) => {
   const user = useUser();
 
   useEffect(() => {
-    const getSolicitudes = async() => {
+    const getSolicitudes = async () => {
       const url = `http://localhost:4000/api/solicitudesServicio/?rifSucursal=${user.rifSucursal}`;
 
       const response = await fetch(url);
@@ -25,24 +25,28 @@ const TableSolServicios = ({ ...props }) => {
 
       setSolicitudes(solicitudes);
       setLoading(false);
-    }
+    };
 
     getSolicitudes();
-  }, [user])
+  }, [user]);
 
   const columns = [
     {
       title: "Número de solicitud",
       field: "nroSolicitud",
+      type: "numeric",
+      align: "left",
     },
     {
       title: "Código de vehiculo",
       field: "codVehiculo",
+      type: "numeric",
+      align: "left",
     },
     {
       title: "Fecha de entrada",
       field: "fechaEntrada",
-      type: "date"
+      type: "date",
     },
     {
       title: "Fecha de salida (estimada)",
@@ -53,17 +57,17 @@ const TableSolServicios = ({ ...props }) => {
       title: "Fecha de salida (real)",
       field: "fechaSalidaReal",
       type: "date",
-      emptyValue: "No aplica"
+      emptyValue: "No aplica",
     },
     {
       title: "Autorizado para el retiro",
       field: "nombreAutorizado",
-      emptyValue: "Ninguno"
+      emptyValue: "Ninguno",
     },
     {
       title: "Teléfono del autorizado",
       field: "tlfAutorizado",
-      emptyValue: "Ninguno"
+      emptyValue: "Ninguno",
     },
   ];
 

@@ -8,6 +8,8 @@ const TableEstSuministroProveedor = (props) => {
       title: "Rif",
       field: "rif",
       editable: "never",
+      type: "numeric",
+      align: "left",
     },
     {
       title: "Proveedor",
@@ -20,6 +22,8 @@ const TableEstSuministroProveedor = (props) => {
       title: "Número de productos suministrados",
       field: "numProductosSuministrados",
       editable: "never",
+      type: "numeric",
+      align: "left",
     },
   ];
   return (

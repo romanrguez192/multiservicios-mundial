@@ -53,7 +53,9 @@ const TableFacturaProductos = ({}) => {
       title: "Código",
       field: "codProducto",
       editable: "onAdd",
+      type: "numeric",
       lookup: lookup,
+      align: "left",
     },
     {
       title: "Nombre",
@@ -63,13 +65,16 @@ const TableFacturaProductos = ({}) => {
     {
       title: "Cantidad",
       field: "cantidad",
+      type: "numeric",
       editable: "onAdd",
+      align: "left",
     },
     {
       title: "Precio (Bs.S)",
       field: "precio",
       type: "numeric",
       editable: "onAdd",
+      align: "left",
     },
   ];
 

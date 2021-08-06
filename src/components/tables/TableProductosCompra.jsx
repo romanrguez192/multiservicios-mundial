@@ -70,6 +70,8 @@ const TableProductosCompra = ({
       title: "Producto",
       field: "codProducto",
       editable: "onAdd",
+      type: "numeric",
+      align: "left",
       lookup: lookup,
     },
     {
@@ -77,6 +79,7 @@ const TableProductosCompra = ({
       field: "cantidad",
       editable: "always",
       type: "numeric",
+      align: "left",
     },
   ];
 

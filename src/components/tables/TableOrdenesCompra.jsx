@@ -40,6 +40,8 @@ const TableOrdenesCompra = ({
       title: "Código",
       field: "codOrdCompra",
       editable: "never",
+      type: "numeric",
+      align: "left",
       emptyValue: "N/A",
     },
     {

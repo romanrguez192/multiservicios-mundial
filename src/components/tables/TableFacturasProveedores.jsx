@@ -34,11 +34,15 @@ const TableFacturasProveedores = ({ rifProveedor, ...props }) => {
       title: "N° de Factura",
       field: "nroFactura",
       editable: "onAdd",
+      type: "numeric",
+      align: "left",
     },
     {
       title: "Orden de Compra",
       field: "codOrdCompra",
       editable: "onAdd",
+      type: "numeric",
+      align: "left",
     },
     {
       title: "Fecha de Facturación",
@@ -51,12 +55,14 @@ const TableFacturasProveedores = ({ rifProveedor, ...props }) => {
       field: "fechaPago",
       type: "date",
       editable: "onAdd",
+      emptyValue: "No pagada",
     },
     {
       title: "Monto total",
       field: "montoTotal",
       type: "numeric",
       editable: "onAdd",
+      align: "left",
     },
   ];
 
@@ -103,22 +109,22 @@ const TableFacturasProveedores = ({ rifProveedor, ...props }) => {
   };
 
   return (
-      <Table
-        title="Facturas de Proveedores"
-        columns={columns}
-        isLoading={loading}
-        editable={{
-          onRowAdd: addFacturaProveedor,
-          onRowDelete: deleteFacturaProveedor,
-        }}
-        detailPanel={() => {
-          return (
-            <TableContainer>
-              <TableProductosFacturasProveedores />
-            </TableContainer>
-          );
-        }}
-      />
+    <Table
+      title="Facturas de Proveedores"
+      columns={columns}
+      isLoading={loading}
+      editable={{
+        onRowAdd: addFacturaProveedor,
+        onRowDelete: deleteFacturaProveedor,
+      }}
+      detailPanel={() => {
+        return (
+          <TableContainer>
+            <TableProductosFacturasProveedores />
+          </TableContainer>
+        );
+      }}
+    />
   );
 };
 

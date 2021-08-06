@@ -30,6 +30,8 @@ const TableMecanicos = ({ rows, ...props }) => {
       title: "Cedula",
       field: "cedCliente",
       editable: "always",
+      type: "numeric",
+      align: "left",
     },
     {
       title: "Nombre",

@@ -12,6 +12,8 @@ const TableTiposVehiculos = ({
       title: "Código",
       field: "codTipoVehiculo",
       editable: "never",
+      type: "numeric",
+      align: "left",
     },
     {
       title: "Nombre",

@@ -7,6 +7,8 @@ const TableLineas = ({ lineas, setLineas, loadingL, ...props }) => {
       title: "Código",
       field: "codLinea",
       editable: "never",
+      type: "numeric",
+      align: "left",
     },
     {
       title: "Descripcion",

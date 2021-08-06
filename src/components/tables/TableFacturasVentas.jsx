@@ -30,11 +30,14 @@ const TableFacturasVentas = ({}) => {
     {
       title: "Nro Factura",
       field: "nroFactura",
+      type: "numeric",
       editable: "onAdd",
+      align: "left",
     },
     {
       title: "Cliente",
       field: "cedCliente",
+      type: "numeric",
       editable: "onAdd",
     },
     {
@@ -52,12 +55,14 @@ const TableFacturasVentas = ({}) => {
       title: "Descuento",
       field: "descuento",
       type: "numeric",
+      align: "left",
       editable: "onAdd",
     },
     {
       title: "Monto",
       field: "montoTotal",
       type: "numeric",
+      align: "left",
       editable: "onAdd",
     },
   ];

@@ -9,10 +9,8 @@ const TableReservacionesCliente = ({ setReservas, cedCliente, ...props }) => {
 
   useEffect(() => {
     const getReservaciones = async () => {
-      const today = (new Date()).toISOString();
-      const url = `http://localhost:4000/api/reservaciones?rifSucursal=${
-        user.rifSucursal
-      }&cedCliente=${cedCliente}&fechaActividad=${today}`;
+      const today = new Date().toISOString();
+      const url = `http://localhost:4000/api/reservaciones?rifSucursal=${user.rifSucursal}&cedCliente=${cedCliente}&fechaActividad=${today}`;
 
       const response = await fetch(url);
 
@@ -34,6 +32,8 @@ const TableReservacionesCliente = ({ setReservas, cedCliente, ...props }) => {
     {
       title: "Numero de Reserva",
       field: "nroReserva",
+      type: "numeric",
+      align: "left",
     },
     {
       title: "Fecha de Reservación",
@@ -43,6 +43,8 @@ const TableReservacionesCliente = ({ setReservas, cedCliente, ...props }) => {
     {
       title: "Código de Servicio",
       field: "codServicio",
+      type: "numeric",
+      align: "left",
     },
     {
       title: "Nombre de Servicio",
@@ -52,6 +54,7 @@ const TableReservacionesCliente = ({ setReservas, cedCliente, ...props }) => {
       title: "Monto Abonado (Bs.S)",
       field: "montoAbonado",
       type: "numeric",
+      align: "left",
     },
   ];
 

@@ -8,8 +8,8 @@ const useStyles = makeStyles({
     fontFamily: "quicksand",
   },
   table: {
-    marginBottom: '20pt',
-    width: '820pt',
+    marginBottom: "20pt",
+    width: "820pt",
   },
 });
 
@@ -19,27 +19,23 @@ const TableOrdenServicio = ({
   servicio,
   ...props
 }) => {
-
   const actividadesLookup = {};
   actividades &&
     actividades.forEach((l) => {
       actividadesLookup[l.codServicio] = l.descripcion;
-    }
-  );
+    });
 
   const productosSLookup = {};
   productosS &&
     productosS.forEach((l) => {
       productosSLookup[l.codProducto] = l.nombre;
-    }
-  );
+    });
 
   const servicioLookup = {};
   servicio &&
     servicio.forEach((l) => {
       servicioLookup[l.codServicio] = l.nombre;
-    }
-  );
+    });
 
   const classes = useStyles();
 
@@ -48,68 +44,66 @@ const TableOrdenServicio = ({
     {
       title: "Servicio",
       field: "servicio",
-			editable: "always",
-			lookup: servicioLookup,
+      editable: "always",
+      lookup: servicioLookup,
     },
-		{
+    {
       title: "Actividad",
       field: "actividad",
-			editable: "always",
-			//lookup: actividadesLookup,  nu sirve :(
+      editable: "always",
+      //lookup: actividadesLookup,  nu sirve :(
     },
     {
       title: "Cédula del empleado",
       field: "cedulaEmp",
-			editable: "always",
+      editable: "always",
+      type: "numeric",
+      align: "left",
     },
-		{
+    {
       title: "Producto",
       field: "codProducto",
-			editable: "always",
-			lookup: productosSLookup,
+      editable: "always",
+      type: "numeric",
+      align: "left",
+      lookup: productosSLookup,
     },
-		{
+    {
       title: "cantidad",
       field: "cantidad",
-			editable: "always",
-			type: "numeric",
+      editable: "always",
+      align: "left",
+      type: "numeric",
     },
-		{
+    {
       title: "Unidad de medida",
       field: "unidadMedida",
-			editable: "always",
-			type: "numeric",
+      editable: "always",
     },
   ];
 
-  const addOrdenServicio = async (data) => {
+  const addOrdenServicio = async (data) => {};
 
-  }
+  const updateOrdenServicio = async (newData, oldData) => {};
 
-  const updateOrdenServicio = async (newData, oldData) => {
-
-  }
-
-  const deleteOrdenServicio = async (oldData) => {
-
-  }
+  const deleteOrdenServicio = async (oldData) => {};
 
   return (
-      <div className={classes.table}>
-				<Table
-					title="Órdenes de Servicio"
-					columns={columns}
-					//data={data}
-					// isLoading={loading}
-					editable={{
-						onRowAdd: addOrdenServicio,
-						onRowUpdate: updateOrdenServicio,
-						onRowDelete: deleteOrdenServicio,
-					}}
-					{...props}
-				/>
-      </div>
+    <div className={classes.table}>
+      <Table
+        title="Órdenes de Servicio"
+        columns={columns}
+        //data={data}
+        // isLoading={loading}
+        editable={{
+          onRowAdd: addOrdenServicio,
+          onRowUpdate: updateOrdenServicio,
+          onRowDelete: deleteOrdenServicio,
+        }}
+        {...props}
+      />
+    </div>
   );
-}
+};
 
 export default TableOrdenServicio;
