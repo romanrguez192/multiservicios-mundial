@@ -53,7 +53,7 @@ const useStyles = makeStyles({
   }
 });
 
-const Step3Compra = ({ tipoPago, setTipoPago, datoPago, setDatoPago, ...props }) => {
+const Step3Compra = ({ tipoPago, setTipoPago, datoPago, setDatoPago, setMoneda, ...props }) => {
   const classes = useStyles();
   
 
@@ -65,10 +65,6 @@ const Step3Compra = ({ tipoPago, setTipoPago, datoPago, setDatoPago, ...props })
 
   const verificarTipoPago = (type) => {
     switch(type) {
-      case null:
-        return
-      case 'Efectivo':
-        return
       case 'Transferencia':
         return(
           <>
@@ -78,21 +74,27 @@ const Step3Compra = ({ tipoPago, setTipoPago, datoPago, setDatoPago, ...props })
           />
           </>
         ); 
-      default:
+      case 'Tarjeta de crédito':
         return(
           <>
           <p className={classes.subtitleDA}>Datos adicionales</p>
-          <Input name="tarjeta" placeholder="Numero de tarjeta"
+          <Input name="credito" placeholder="Numero de tarjeta"
             datoPago={datoPago} setDatoPago={setDatoPago}
           />
           </>
-        );  
+        ); 
+      case 'Tarjeta de débito':
+        return(
+          <>
+          <p className={classes.subtitleDA}>Datos adicionales</p>
+          <Input name="debito" placeholder="Numero de tarjeta"
+            datoPago={datoPago} setDatoPago={setDatoPago}
+          />
+          </>
+        ); 
     }
   };
 
-<Input name="tarjeta" placeholder="Numero de tarjeta"
-          datoPago={datoPago} setDatoPago={setDatoPago}
-        />
 
   return (
     <Fade>
@@ -104,7 +106,7 @@ const Step3Compra = ({ tipoPago, setTipoPago, datoPago, setDatoPago, ...props })
               <p className={classes.subtitleFH}>Seleccionar Tipo de pago</p>
               <SelectPago name="tipoPago" title="Tipo de Pago" setTipoPago={setTipoPago}/>
               <p className={classes.subtitleFH}>Seleccionar Moneda</p>
-              <SelectPago name="tipoMoneda" title="Moneda" setDatoPago={setDatoPago} setTipoPago={setTipoPago}/>
+              <SelectPago name="tipoMoneda" title="Moneda" setMoneda={setMoneda}/>
               <div className={classes.datosAd}>
                 {verificarTipoPago(tipoPago)} 
               </div>

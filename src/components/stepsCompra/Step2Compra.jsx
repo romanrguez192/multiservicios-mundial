@@ -27,7 +27,7 @@ const useStyles = makeStyles({
 });
 
 const Step2Compra = ({ lista, setLista, cantidad, setCantidad,
-  setTipoPago, setDatoPago, montoTotal, setMontoTotal }) => {
+  setTipoPago, setDatoPago, setMoneda, montoTotal, setMontoTotal }) => {
   const classes = useStyles();
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -56,6 +56,7 @@ const Step2Compra = ({ lista, setLista, cantidad, setCantidad,
 
     // Se reinician los pasos siguientes
     setDatoPago(null);
+    setMoneda(null);
     setTipoPago(null);
   }, []);
 
