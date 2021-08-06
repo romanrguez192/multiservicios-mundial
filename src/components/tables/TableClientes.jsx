@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import TableVehiculosCliente from "./TableVehiculosCliente";
 import Slide from "react-reveal/Slide";
+import { TableContainer } from "@material-ui/core";
 
 const TableClientes = ({ clientes, setClientes, loadingC, ...props }) => {
   const columns = [
@@ -119,9 +120,11 @@ const TableClientes = ({ clientes, setClientes, loadingC, ...props }) => {
         detailPanel={(rowData) => {
           return(
           <>
-            <Slide top collapse>
-              <TableVehiculosCliente cedCliente={rowData.cedCliente} />
-            </Slide>
+            <TableContainer>
+              <Slide top collapse>
+                <TableVehiculosCliente cedCliente={rowData.cedCliente} />
+              </Slide>
+            </TableContainer>
           </>);
         }}
         {...props}

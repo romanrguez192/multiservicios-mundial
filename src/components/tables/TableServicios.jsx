@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import TableActividades from "./TableActividades";
+import { TableContainer } from "@material-ui/core";
 
 const TableServicios = ({ servicios, setServicios, loadingS, ...props }) => {
   const columns = [
@@ -121,7 +122,11 @@ const TableServicios = ({ servicios, setServicios, loadingS, ...props }) => {
           onRowDelete: deleteServicio,
         }}
         detailPanel={(rowData) => {
-          return <TableActividades codServicio={rowData.codServicio} />;
+          return (
+            <TableContainer>
+              <TableActividades codServicio={rowData.codServicio} />
+            </TableContainer>
+          );
         }}
         {...props}
       />

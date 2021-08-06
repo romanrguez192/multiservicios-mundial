@@ -1,101 +1,97 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
-
+import TableProductosCompra from "./TableProductosCompra";
+import { TableContainer } from "@material-ui/core";
 
 const TableOrdenesCompra = ({
-  proveedores,
   ordCompra,
   setOrdCompra,
   loadingOC,
-  rifSucursal,
   ...props
 }) => {
-
+  const [proveedores, setProveedores] = useState([]);
   const proveedoresLookup = {};
-  proveedores &&
-    proveedores.forEach((l) => {
-      proveedoresLookup[l.rifProveedor] = l.razonSocial;
-    });
+
+  proveedores.forEach((p) => {
+    proveedoresLookup[p.rifProveedor] = p.razonSocial;
+  });
+
+  useEffect(() => {
+    const getProveedores = async () => {
+      const url = "http://localhost:4000/api/proveedores";
+
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        // TODO: Error
+        return console.log("Oh no");
+      }
+
+      const proveedor = await response.json();
+
+      setProveedores(proveedor);
+    };
+
+    getProveedores();
+  }, []);
 
   const columns = [
     {
       title: "Código",
       field: "codOrdCompra",
       editable: "never",
-    },
-    {
-      title: "Fecha",
-      field: "fecha",
-      type: "date",
-      editable: "always",
+      emptyValue: "N/A",
     },
     {
       title: "Proveedor",
       field: "rifProveedor",
       lookup: proveedoresLookup,
-      editable: "always",
+      editable: "onAdd",
+    },
+    {
+      title: "Fecha",
+      field: "fecha",
+      type: "date",
+      editable: "never",
+    },
+    {
+      title: "Enviada",
+      field: "enviada",
+      editable: "never",
+      lookup: {
+        true: "Sí",
+        false: "No",
+      },
+    },
+    {
+      title: "Recibida",
+      field: "recibida",
+      editable: "never",
+      lookup: {
+        true: "Sí",
+        false: "No",
+      },
     },
   ];
 
   const addOrdCompra = async (data) => {
-    const url = "http://localhost:4000/api/ordenesCompra";
-
-    data.rifSucursal = rifSucursal;
-
-    const response = await fetch(url, {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (!response.ok) {
-      // TODO: Error
-      return console.log("Oh no");
-    }
-
-    const ordenCompra = await response.json();
-
-    setOrdCompra([...ordCompra, ordenCompra]);
-  };
-
-  const updateOrdCompra = async (newData, oldData) => {
-    const url = `http://localhost:4000/api/ordenesCompra/${oldData.codOrdCompra}`;
-
-    newData.rifSucursal = rifSucursal;
-    const response = await fetch(url, {
-      method: "PUT",
-      body: JSON.stringify(newData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (!response.ok) {
-      // TODO: Error
-      return console.log("Oh no");
-    }
-
-    const ordenCompra = await response.json();
-
-    const updatedData = [...ordCompra];
-    const index = oldData.tableData.id;
-    updatedData[index] = ordenCompra;
-
-    setOrdCompra(updatedData);
+    data.enviada = false;
+    data.recibida = false;
+    setOrdCompra([...ordCompra, data]);
   };
 
   const deleteOrdCompra = async (oldData) => {
-    const url = `http://localhost:4000/api/ordenesCompra/${oldData.codOrdCompra}`;
+    if (oldData.enviada) {
+      const url = `http://localhost:4000/api/ordenesCompra/${oldData.codOrdCompra}`;
 
-    const response = await fetch(url, {
-      method: "DELETE",
-    });
+      const response = await fetch(url, {
+        method: "DELETE",
+      });
 
-    if (!response.ok) {
-      // TODO: Error
-      return console.log("Oh no");
+      if (!response.ok) {
+        // TODO: Error
+        return console.log("Oh no");
+      }
     }
 
     const dataDelete = [...ordCompra];
@@ -104,6 +100,7 @@ const TableOrdenesCompra = ({
 
     setOrdCompra(dataDelete);
   };
+
   return (
     <div>
       <Table
@@ -112,10 +109,20 @@ const TableOrdenesCompra = ({
         data={ordCompra}
         isLoading={loadingOC}
         editable={{
-            onRowAdd: addOrdCompra,
-            onRowUpdate: updateOrdCompra,
-            onRowDelete: deleteOrdCompra,
-          }}
+          onRowAdd: addOrdCompra,
+          onRowDelete: deleteOrdCompra,
+        }}
+        detailPanel={(rowData) => {
+          return (
+            <TableContainer>
+              <TableProductosCompra
+                ordCompra={rowData}
+                ordenesCompra={ordCompra}
+                setOrdenesCompra={setOrdCompra}
+              />
+            </TableContainer>
+          );
+        }}
         {...props}
       />
     </div>

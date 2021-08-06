@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import TableHistorialVehiculo from "./TableHistorialVehiculo";
+import { TableContainer } from "@material-ui/core";
 
 const TableVehiculosCliente = ({ cedCliente, ...props }) => {
   const [vehiculos, setVehiculos] = useState([]);
@@ -193,7 +194,11 @@ const TableVehiculosCliente = ({ cedCliente, ...props }) => {
           onRowDelete: deleteVehiculo,
         }}
         detailPanel={(rowData) => {
-          return <TableHistorialVehiculo triTable codVehiculo={rowData.codVehiculo} />;
+          return (
+            <TableContainer>
+              <TableHistorialVehiculo triTable codVehiculo={rowData.codVehiculo} />
+            </TableContainer>
+          );
         }}
         {...props}
       />

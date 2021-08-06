@@ -3,6 +3,7 @@ import Table from "./Table";
 import TableHistorialVehiculo from "./TableHistorialVehiculo";
 import { useUser } from "../../contexts/UserContext";
 import TableMantenimientosPrevios from "./TableMantenimientosPrevios";
+import { TableContainer } from "@material-ui/core";
 
 const TableVehiculos = ({ modelos, ...props }) => {
   const [vehiculos, setVehiculos] = useState([]);
@@ -84,8 +85,10 @@ const TableVehiculos = ({ modelos, ...props }) => {
         detailPanel={(rowData) => {
           return (
             <>
-            <TableHistorialVehiculo codVehiculo={rowData.codVehiculo}/>
-            <TableMantenimientosPrevios codVehiculo={rowData.codVehiculo}/>
+            <TableContainer>
+              <TableHistorialVehiculo codVehiculo={rowData.codVehiculo}/>
+              <TableMantenimientosPrevios codVehiculo={rowData.codVehiculo}/>
+            </TableContainer>
             </>
           );
         }}

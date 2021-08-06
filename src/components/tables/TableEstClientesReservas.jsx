@@ -5,11 +5,15 @@ import Table from "./Table";
 const TableEstClientesReservas = (props) => {
   const columns = [
     {
-      title: "Cliente",
-      field: "cliente",
+      title: "Cédula",
+      field: "cedula",
       editable: "never",
     },
-    // TO DO noselaverdad
+    {
+      title: "Nombre",
+      field: "nombre",
+      editable: "never",
+    },
     {
       title: "Número de reservas perdidas",
       field: "numReservasPerdidas",

@@ -46,6 +46,7 @@ export default function TableListaMantenimientos({ marca, modelo, ...props }) {
       editable: "always",
       emptyValue: "Ninguno",
       lookup: {
+        "1 month": "1 mes",
         "3 months": "3 meses",
         "6 months": "6 meses",
         "1 year": "1 año",

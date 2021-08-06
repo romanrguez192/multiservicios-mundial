@@ -12,7 +12,7 @@ import {
 import QontoConnector from "../components/stepsCrearSolicitud/QontoConnector";
 import Step1Compra from "../components/stepsCompra/Step1Compra";
 import Step2Compra from "../components/stepsCompra/Step2Compra";
-import Step3 from "../components/stepsCrearSolicitud/Step3";
+import Step3Compra from "../components/stepsCompra/Step3Compra";
 import { ArrowBackOutlined } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import Fade from "react-reveal/Fade";
@@ -60,6 +60,7 @@ const Compra = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [cliente, setCliente] = useState(null);
   const [productosS, setProductosS] = useState(null);
+  const [datoPago, setDatoPago] = useState(null);
 
   const steps = [
     "Seleccionar el cliente",
@@ -74,7 +75,7 @@ const Compra = () => {
       case 1:
         return <Step2Compra {...{ setProductosS }} />;
       case 2:
-        return <Step3  />;
+        return <Step3Compra  {...{ setDatoPago }} />;
       default:
         return "Error";
     }
@@ -90,7 +91,8 @@ const Compra = () => {
 
   const disable =
     (activeStep === 0 && !cliente) ||
-    (activeStep === 1 && !productosS);
+    (activeStep === 1 && !productosS) ||
+    (activeStep === 2 && !datoPago);
 
   return (
     <div className={classes.root}>

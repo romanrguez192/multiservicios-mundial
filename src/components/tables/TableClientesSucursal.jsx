@@ -3,6 +3,7 @@ import Table from "./Table";
 import TableVehiculosCliente from "./TableVehiculosCliente";
 import { useUser } from "../../contexts/UserContext";
 import Slide from "react-reveal/Slide";
+import { TableContainer } from "@material-ui/core";
 
 const TableClientesSucursal = ({ clientesSucursal, loadingCS, ...props }) => {
   const user = useUser();
@@ -50,9 +51,11 @@ const TableClientesSucursal = ({ clientesSucursal, loadingCS, ...props }) => {
         detailPanel={(rowData) => {
           return (
             <>
-              <Slide top collapse>
-                <TableVehiculosCliente cedCliente={rowData.cedCliente} />
-              </Slide>
+              <TableContainer>
+                <Slide top collapse>
+                  <TableVehiculosCliente cedCliente={rowData.cedCliente} />
+                </Slide>
+              </TableContainer>
             </>
           );
         }}

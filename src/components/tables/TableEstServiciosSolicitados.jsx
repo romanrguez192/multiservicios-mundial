@@ -2,7 +2,7 @@ import React from "react";
 import Table from "./Table";
 
 //Tabla de Marca de vehículos que más atendemos por tipo de servicio.
-const TableEstserviciosSolicitados = (props) => {
+const TableEstServiciosSolicitados = (props) => {
   const columns = [
     {
       title: "Código",
@@ -31,4 +31,4 @@ const TableEstserviciosSolicitados = (props) => {
   );
 };
 
-export default TableEstserviciosSolicitados;
+export default TableEstServiciosSolicitados;

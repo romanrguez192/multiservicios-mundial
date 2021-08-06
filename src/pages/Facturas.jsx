@@ -3,7 +3,9 @@ import  {
   makeStyles, 
 }from '@material-ui/core';
 import Sidebar from '../components/Sidebar';
-import Table from '../components/tables/Table';
+import TableFacturasVentas from '../components/tables/TableFacturasVentas';
+import TableFacturasProveedores from '../components/tables/TableFacturasProveedores';
+import TableFacturasServicios from '../components/tables/TableFacturasServicios';
 import Nature from "../components/Nature";
 import PageTitle from "../components/PageTitle";
 
@@ -40,7 +42,9 @@ const Facturas = () => {
         <main className={classes.containerFacturas}>
           <PageTitle title="Facturas" />
           <div className={classes.tableContainer}>
-            <Table title="Facturas" />
+            <TableFacturasVentas />
+            <TableFacturasServicios />
+            <TableFacturasProveedores />
           </div>
           <Nature />
         </main>

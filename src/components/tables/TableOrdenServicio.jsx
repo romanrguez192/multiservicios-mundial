@@ -13,34 +13,60 @@ const useStyles = makeStyles({
   },
 });
 
-export default function TableOrdenServicio({ codVehiculo, ...props }) {
+const TableOrdenServicio = ({
+  actividades,
+  productosS,
+  servicio,
+  ...props
+}) => {
+
+  const actividadesLookup = {};
+  actividades &&
+    actividades.forEach((l) => {
+      actividadesLookup[l.codServicio] = l.descripcion;
+    }
+  );
+
+  const productosSLookup = {};
+  productosS &&
+    productosS.forEach((l) => {
+      productosSLookup[l.codProducto] = l.nombre;
+    }
+  );
+
+  const servicioLookup = {};
+  servicio &&
+    servicio.forEach((l) => {
+      servicioLookup[l.codServicio] = l.nombre;
+    }
+  );
+
   const classes = useStyles();
-  const [loading, setLoading] = useState([]);
 
   //aca va las columnas q se muestran en mantenimiento
   const columns = [
     {
-      title: "Nº de Solicitud",
-      field: "numSolicitud",
-      editable: "never",
-    },
-    {
       title: "Servicio",
       field: "servicio",
 			editable: "always",
-			//lookup: lookup de los servicios
+			lookup: servicioLookup,
     },
 		{
       title: "Actividad",
       field: "actividad",
 			editable: "always",
-			//lookup: lookup de las actividades
+			//lookup: actividadesLookup,  nu sirve :(
+    },
+    {
+      title: "Cédula del empleado",
+      field: "cedulaEmp",
+			editable: "always",
     },
 		{
       title: "Producto",
       field: "codProducto",
 			editable: "always",
-			//lookup: lookup de los productos
+			lookup: productosSLookup,
     },
 		{
       title: "cantidad",
@@ -85,3 +111,5 @@ export default function TableOrdenServicio({ codVehiculo, ...props }) {
       </div>
   );
 }
+
+export default TableOrdenServicio;
