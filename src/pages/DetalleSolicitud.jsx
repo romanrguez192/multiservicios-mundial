@@ -89,10 +89,10 @@ const useStyles = makeStyles({
     left: "50%",
   },
   endServ: {
-    margin: 'auto',
-    width: '250px',
-    paddingTop: '10pt',
-    paddingBottom: '30pt',
+    margin: "auto",
+    width: "250px",
+    paddingTop: "10pt",
+    paddingBottom: "30pt",
   },
 });
 
@@ -146,30 +146,32 @@ const DetalleSolicitud = () => {
             <Paper className={classes.paperContainer}>
               <div className={classes.containerInformation}>
                 <div className={classes.box}>
-                  <p className={classes.title}>Fecha de inicio</p>
-                  <p className={classes.subtitle}>{solicitud.fechaEntrada}</p>
-                </div>
-                <Divider orientation="vertical" flexItem />
-                <div className={classes.box}>
                   <p className={classes.title}>Nombre del cliente</p>
                   <p className={classes.subtitle}>{solicitud.nombreCliente}</p>
                 </div>
                 <Divider orientation="vertical" flexItem />
                 <div className={classes.box}>
+                  <p className={classes.title}>Fecha de inicio</p>
+                  <p className={classes.subtitle}>{solicitud.fechaEntrada}</p>
+                </div>
+                <Divider orientation="vertical" flexItem />
+                <div className={classes.box}>
                   <p className={classes.title}>Fecha de salida estimada</p>
-                  <p className={classes.subtitle}>{solicitud.fechaSalidaEstimada}</p>
+                  <p className={classes.subtitle}>
+                    {solicitud.fechaSalidaEstimada}
+                  </p>
                 </div>
               </div>
               <Divider className={classes.divider} />
               <div className={classes.containerInformation}>
                 <div className={classes.box}>
-                  <p className={classes.title}>Marca del vehículo</p>
-                  <p className={classes.subtitle}>{solicitud.marca}</p>
+                  <p className={classes.title}>Placa de vehículo</p>
+                  <p className={classes.subtitle}>{solicitud.placa}</p>
                 </div>
                 <Divider orientation="vertical" flexItem />
                 <div className={classes.box}>
-                  <p className={classes.title}>Placa de vehículo</p>
-                  <p className={classes.subtitle}>{solicitud.placa}</p>
+                  <p className={classes.title}>Marca del vehículo</p>
+                  <p className={classes.subtitle}>{solicitud.marca}</p>
                 </div>
                 <Divider orientation="vertical" flexItem />
                 <div className={classes.box}>
@@ -181,7 +183,9 @@ const DetalleSolicitud = () => {
           </Fade>
           <TableServiciosSolicitud nroSolicitud={solicitud.nroSolicitud} />
           <div className={classes.endServ}>
-            <Button fullWidth variant="contained" color="primary">Finalizar Servicio</Button>
+            <Button fullWidth variant="contained" color="primary">
+              Finalizar Servicio
+            </Button>
           </div>
         </div>
       </main>

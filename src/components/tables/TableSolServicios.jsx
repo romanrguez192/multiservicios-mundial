@@ -73,6 +73,14 @@ const TableSolServicios = ({ ...props }) => {
       field: "tlfAutorizado",
       emptyValue: "Ninguno",
     },
+    {
+      title: "Finalizada",
+      field: "finalizada",
+      lookup: {
+        true: "Sí", 
+        false: "No"
+      }
+    },
   ];
 
   const create = () => {
@@ -95,7 +103,7 @@ const TableSolServicios = ({ ...props }) => {
   return (
     <div>
       <Table
-        title="Solicitudes de servicio"
+        title="Solicitudes de Servicio"
         columns={columns}
         isLoading={loading}
         data={solicitudes}

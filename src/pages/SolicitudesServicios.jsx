@@ -32,7 +32,7 @@ const SolicitudesServicios = () => {
       <div className={classes.root}>
         <Sidebar page="solicitudes" />
         <main className={classes.containerSolicitud}>
-          <PageTitle title="Solicitudes de servicio" />
+          <PageTitle title="Solicitudes de Servicio" />
           <div className={classes.tableContainer}>
             <TableSolServicios />
           </div>

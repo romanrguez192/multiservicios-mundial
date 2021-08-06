@@ -31,7 +31,7 @@ const Inicio = () => {
       <div className={classes.root}>
         <Sidebar page="inicio" />
         <main className={classes.containerInicio}>
-          <PageTitle title="¡Bienvenido a m&m!" />
+          <PageTitle title={"¡Bienvenido a M&M!"} />
           <div className={classes.tableContainer}>
           </div>
           <Nature />
