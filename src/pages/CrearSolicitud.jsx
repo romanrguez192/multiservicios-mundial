@@ -13,10 +13,11 @@ import Step1 from "../components/stepsCrearSolicitud/Step1";
 import Step2 from "../components/stepsCrearSolicitud/Step2";
 import Step3 from "../components/stepsCrearSolicitud/Step3";
 import Step4 from "../components/stepsCrearSolicitud/Step4";
-import { ArrowBackOutlined, HistorySharp } from "@material-ui/icons";
+import { ArrowBackOutlined } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import Fade from "react-reveal/Fade";
 import { useUser } from "../contexts/UserContext";
+import { useHistory } from "react-router-dom";
 
 // ESTILOS
 const useStyles = makeStyles({
@@ -68,6 +69,7 @@ const CrearSolicitud = () => {
   const [nombreAutorizado, setNombreAutorizado] = useState("");
   const [tlfAutorizado, setTlfAutorizado] = useState("");
   const user = useUser();
+  const history = useHistory();
 
   const steps = [
     "Seleccionar el cliente",
@@ -181,7 +183,7 @@ const CrearSolicitud = () => {
     const solicitud = await response.json();
 
     setSubmitting(false);
-    HistorySharp.push("/solicitudes/" + solicitud.nroSolicitud);
+    history.push("/solicitudes/" + solicitud.nroSolicitud);
   };
 
   const disable =
