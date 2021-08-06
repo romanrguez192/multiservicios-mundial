@@ -17,6 +17,7 @@ import Step4 from "../components/stepsCrearSolicitud/Step4";
 import { ArrowBackOutlined } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import Fade from "react-reveal/Fade";
+import { useUser } from "../contexts/UserContext";
 
 // ESTILOS
 const useStyles = makeStyles({
@@ -64,7 +65,7 @@ const CrearSolicitud = () => {
   const [reservas, setReservas] = useState([]);
   const [servicios, setServicios] = useState([]);
   const [fechaSalida, setFechaSalida] = useState(null);
-  const [horaSalida, setHoraSalida] = useState(null);
+  const user = useUser();
 
   const steps = [
     "Seleccionar el cliente",
@@ -82,7 +83,7 @@ const CrearSolicitud = () => {
       case 2:
         return <Step3 {...{ setServicios, setReservas, cliente }} />;
       case 3:
-        return <Step4 {...{ horaSalida, setHoraSalida, fechaSalida, setFechaSalida }}/>;
+        return <Step4 {...{ setFechaSalida }}/>;
       default:
         return "Error";
     }
@@ -96,11 +97,37 @@ const CrearSolicitud = () => {
     setActiveStep(activeStep - 1);
   };
 
+  const guardarDatos = async () => {
+    const data = {
+      fechaSalidaEstimada: fechaSalida,
+      codVehiculo: vehiculo.codVehiculo,
+      rifSucursal: user.rifSucursal,
+      // autorizado: autorizado,
+    };
+
+    const url = `http://localhost:4000/api/solicitudesServicio/${user.rifSucursal}`
+
+    const response = await fetch(url, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const solicitud = response.json();
+
+    // Primero crea los detalles de solicitud para las reservaciones en caso de que haya
+    // TODO
+
+    // Luego se crean los detalles de solicitud para los servicios sin reserva en caso de que haya
+    // TODO
+  }
+
   const disable =
     (activeStep === 0 && !cliente) ||
     (activeStep === 1 && !vehiculo) ||
-    (activeStep === 2 && !reservas.length && !servicios.length) ||
-    (activeStep === 3 && false);
+    (activeStep === 2 && !reservas.length && !servicios.length);
 
   return (
     <div className={classes.root}>
@@ -125,7 +152,7 @@ const CrearSolicitud = () => {
         </Fade>
         <div>
           {activeStep === steps.length ? (
-            <Typography>Guardar y cerrar</Typography>
+            guardarDatos()
           ) : (
             <div>{getStepContent(activeStep)}</div>
           )}

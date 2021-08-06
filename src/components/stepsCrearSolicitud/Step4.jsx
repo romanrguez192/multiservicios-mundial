@@ -49,8 +49,7 @@ const useStyles = makeStyles({
 });
 
 const Step4 = ({
-  horaSalida, setHoraSalida,
-  fechaSalida, setFechaSalida
+  setFechaSalida
 }) => {
   const classes = useStyles();
 
@@ -65,7 +64,7 @@ const Step4 = ({
       <Paper className={classes.container}>
         <div className={classes.containerData}>
           <p className={classes.subtitleFH}>Fecha y hora estimada para la salida</p>
-          <InputDate {...{ setFechaSalida, setHoraSalida }} />
+          <InputDate {...{ setFechaSalida }} />
           <p className={classes.subtitleDA}>Datos del autorizado para retirar el vehículo</p>
           <Formik initialValues={initialValues}>
           {({ isSubmitting }) => (
