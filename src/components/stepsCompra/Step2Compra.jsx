@@ -25,11 +25,10 @@ const useStyles = makeStyles({
   },
 });
 
-const Step2Compra = ({ lista, setLista, setTipoPago, setDatoPago }) => {
+const Step2Compra = ({ lista, setLista, cantidad, setCantidad,
+  setTipoPago, setDatoPago, montoTotal, setMontoTotal }) => {
   const classes = useStyles();
   const [productos, setProductos] = useState([]);
-  const [montoTotal, setMontoTotal] = useState(0);
-  const [cantidad, setCantidad] = useState(0);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
