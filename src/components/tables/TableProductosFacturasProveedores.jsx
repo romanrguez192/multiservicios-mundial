@@ -156,7 +156,6 @@ const TableProductosFacturasProveedores = ({}) => {
       <Slide top collapse>
         <Table
           title="Productos"
-          subTable
           triTable
           columns={columns}
           data={{}}

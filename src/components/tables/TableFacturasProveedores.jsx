@@ -121,6 +121,7 @@ const TableFacturasProveedores = ({ rifProveedor, ...props }) => {
       title="Facturas de Proveedores"
       columns={columns}
       isLoading={loading}
+      subTable
       editable={{
         onRowAdd: addFacturaProveedor,
         onRowDelete: deleteFacturaProveedor,

@@ -3,7 +3,6 @@ import Table from "./Table";
 import TableProductosDistribuidos from "./TableProductosDistribuidos";
 import TableFacturasProveedores from "./TableFacturasProveedores";
 import { TableContainer } from "@material-ui/core";
-import TableProductosFacturasProveedores from "./TableProductosFacturasProveedores";
 import { useSnackbar } from "notistack";
 
 const TableProveedores = ({ ...props }) => {
