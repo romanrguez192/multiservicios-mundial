@@ -48,7 +48,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Step3Compra = () => {
+const Step3Compra = ({ setDatoPago }) => {
   const classes = useStyles();
   const [tipoPago, setTipoPago] = useState(null);
   const [moneda, setMoneda] = useState(null);
@@ -64,14 +64,15 @@ const Step3Compra = () => {
       case null:
         return
       case 'Efectivo':
-        return <SelectPago setMoneda={setMoneda} name="tipoMoneda" title="Moneda" />
+        return <SelectPago setMoneda={setMoneda} name="tipoMoneda" title="Moneda" onChange={setDatoPago(true)}/>
       case 'Transferencia':
-        return <Input name="transferencia" placeholder="Banco"/>
+        return <Input name="transferencia" placeholder="Banco" onChange={setDatoPago(true)}/>
       default:
-        return <Input name="tarjeta" placeholder="Numero de tarjeta"/>
+        return <Input name="tarjeta" placeholder="Numero de tarjeta" onChange={setDatoPago(true)}/>
     }
   };
 
+  if(tipoPago === null) setDatoPago(null);
 
   return (
     <Fade>
