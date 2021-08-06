@@ -16,6 +16,9 @@ import Step3Compra from "../components/stepsCompra/Step3Compra";
 import { ArrowBackOutlined } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import Fade from "react-reveal/Fade";
+import { useSnackbar } from "notistack";
+import { useHistory } from "react-router-dom";
+import { useUser } from "../contexts/UserContext";
 
 // ESTILOS
 const useStyles = makeStyles({
@@ -65,6 +68,11 @@ const Compra = () => {
   const [moneda, setMoneda] = useState(null);
   const [montoTotal, setMontoTotal] = useState(0);
   const [cantidad, setCantidad] = useState(0);
+  const { enqueueSnackbar } = useSnackbar();
+  
+
+  const history = useHistory();
+  const user = useUser();
 
   const steps = [
     "Seleccionar el cliente",
@@ -101,17 +109,79 @@ const Compra = () => {
   const disable =
     (activeStep === 0 && !cliente) ||
     (activeStep === 1 && lista.length === 0) ||
-    (activeStep === 2 && !datoPago);
+    (activeStep === 2 && (!datoPago && !moneda));
 
 
   const save = async () => {
-    console.log(cliente);
-    console.log(lista);
-    console.log(tipoPago);
-    console.log(datoPago);
-    console.log(moneda);
-    console.log(montoTotal);
-    console.log(cantidad);
+    if(!tipoPago){
+      return enqueueSnackbar("Usted debe seleccionar un tipo de pago", {
+        variant: "error",
+      });
+    }
+    if(!moneda){
+      return enqueueSnackbar("Usted debe seleccionar un tipo de moneda", {
+        variant: "error",
+      });
+    }
+    if(!datoPago && tipoPago !== 'Efectivo'){
+      return enqueueSnackbar("Usted debe proporcionar información adicional", {
+        variant: "error",
+      });
+    }
+
+    const data = {
+      nombreModalidad: tipoPago,
+      rifSucursal: user.rifSucursal,
+      cedCliente: cliente.cedCliente,
+      monto: montoTotal,
+      moneda: moneda.toLowerCase(),
+      lista,
+    }
+    // Por ahora se hará asi
+    switch(tipoPago){
+      case 'Efectivo':
+        data.codModalidad = 1;
+        data.banco = null;
+        data.nroTarjeta = null;
+        break;
+      case 'Transferencia':
+        data.codModalidad = 2;
+        data.banco = datoPago;
+        data.nroTarjeta = null;
+        break;
+      case 'Tarjeta de crédito':
+        data.codModalidad = 3;
+        data.nroTarjeta = datoPago;
+        data.banco = null;
+        break;
+      case 'Tarjeta de débito':
+        data.codModalidad = 4;
+        data.nroTarjeta = datoPago;
+        data.banco = null;
+    }
+
+    const url = "http://localhost:4000/api/facturasVentas";
+
+    const response = await fetch(url, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      // TODO: Error
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
+    }
+
+    // Retorna un array 
+    // La primera posicion tiene lo que se guarda en la tabla FacturasClientes
+    // La segunda posicion tiene lo que se guarda en la tabla Pagos
+    const factura = await response.json();
+    history.push("/tienda");
   }
 
   return (
