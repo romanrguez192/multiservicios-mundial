@@ -16,6 +16,9 @@ const Step1 = ({
   setVehiculo,
   setReservas,
   setServicios,
+  setFechaSalida,
+  setNombreAutorizado,
+  setTlfAutorizado,
 }) => {
   const classes = useStyles();
   const [clientes, setClientes] = useState([]);
@@ -46,7 +49,9 @@ const Step1 = ({
     setVehiculo(null);
     setReservas([]);
     setServicios([]);
-    // TODO: Reinciar datos finales
+    setFechaSalida(null);
+    setNombreAutorizado("");
+    setTlfAutorizado("");
 
     if (cliente && cliente.cedCliente === selectedRow.cedCliente) {
       return setCliente(null);

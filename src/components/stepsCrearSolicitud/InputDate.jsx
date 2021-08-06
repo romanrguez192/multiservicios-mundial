@@ -33,7 +33,6 @@ import { es } from "date-fns/locale";
   });
 
 export default function InputDate({ setFechaSalida, ...props }) {
-    // The first commit of Material-UI
     const [selectedDate, setSelectedDate] = useState(null);
     const [fecha, setFecha] = useState(false);
     const [hora, setHora] = useState(false);

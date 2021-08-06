@@ -4,7 +4,6 @@ import {
   makeStyles,
   Button,
   Stepper,
-  Typography,
   Step,
   StepLabel,
   IconButton,
@@ -14,7 +13,7 @@ import Step1 from "../components/stepsCrearSolicitud/Step1";
 import Step2 from "../components/stepsCrearSolicitud/Step2";
 import Step3 from "../components/stepsCrearSolicitud/Step3";
 import Step4 from "../components/stepsCrearSolicitud/Step4";
-import { ArrowBackOutlined } from "@material-ui/icons";
+import { ArrowBackOutlined, HistorySharp } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import Fade from "react-reveal/Fade";
 import { useUser } from "../contexts/UserContext";
@@ -60,11 +59,14 @@ const useStyles = makeStyles({
 const CrearSolicitud = () => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
+  const [submitting, setSubmitting] = useState(false);
   const [cliente, setCliente] = useState(null);
   const [vehiculo, setVehiculo] = useState(null);
   const [reservas, setReservas] = useState([]);
   const [servicios, setServicios] = useState([]);
   const [fechaSalida, setFechaSalida] = useState(null);
+  const [nombreAutorizado, setNombreAutorizado] = useState("");
+  const [tlfAutorizado, setTlfAutorizado] = useState("");
   const user = useUser();
 
   const steps = [
@@ -77,13 +79,58 @@ const CrearSolicitud = () => {
   const getStepContent = (stepIndex) => {
     switch (stepIndex) {
       case 0:
-        return <Step1 {...{ cliente, setCliente, setVehiculo, setReservas, setServicios }} />;
+        return (
+          <Step1
+            {...{
+              cliente,
+              setCliente,
+              setVehiculo,
+              setReservas,
+              setServicios,
+              setFechaSalida,
+              setNombreAutorizado,
+              setTlfAutorizado,
+            }}
+          />
+        );
       case 1:
-        return <Step2 {...{ vehiculo, setVehiculo, cliente, setReservas, setServicios }} />;
+        return (
+          <Step2
+            {...{
+              vehiculo,
+              setVehiculo,
+              cliente,
+              setReservas,
+              setServicios,
+              setFechaSalida,
+              setNombreAutorizado,
+              setTlfAutorizado,
+            }}
+          />
+        );
       case 2:
-        return <Step3 {...{ setServicios, setReservas, cliente }} />;
+        return (
+          <Step3
+            {...{
+              setServicios,
+              setReservas,
+              cliente,
+            }}
+          />
+        );
       case 3:
-        return <Step4 {...{ setFechaSalida }}/>;
+        return (
+          <Step4
+            {...{
+              fechaSalida,
+              setFechaSalida,
+              nombreAutorizado,
+              setNombreAutorizado,
+              tlfAutorizado,
+              setTlfAutorizado,
+            }}
+          />
+        );
       default:
         return "Error";
     }
@@ -94,18 +141,28 @@ const CrearSolicitud = () => {
   };
 
   const handleBack = () => {
+    setReservas([]);
+    setServicios([]);
+    setFechaSalida(null);
+    setNombreAutorizado("");
+    setTlfAutorizado("");
     setActiveStep(activeStep - 1);
   };
 
-  const guardarDatos = async () => {
+  const save = async () => {
+    setSubmitting(true);
+
     const data = {
       fechaSalidaEstimada: fechaSalida,
       codVehiculo: vehiculo.codVehiculo,
       rifSucursal: user.rifSucursal,
-      // autorizado: autorizado,
+      nombreAutorizado: nombreAutorizado,
+      tlfAutorizado: tlfAutorizado,
+      reservas: reservas,
+      servicios: servicios,
     };
 
-    const url = `http://localhost:4000/api/solicitudesServicio/${user.rifSucursal}`
+    const url = `http://localhost:4000/api/solicitudesServicio`;
 
     const response = await fetch(url, {
       method: "POST",
@@ -115,25 +172,33 @@ const CrearSolicitud = () => {
       },
     });
 
-    const solicitud = response.json();
+    if (!response.ok) {
+      // TODO: Error
+      setSubmitting(false);
+      return console.log("Oh no");
+    }
 
-    // Primero crea los detalles de solicitud para las reservaciones en caso de que haya
-    // TODO
+    const solicitud = await response.json();
 
-    // Luego se crean los detalles de solicitud para los servicios sin reserva en caso de que haya
-    // TODO
-  }
+    setSubmitting(false);
+    HistorySharp.push("/solicitudes/" + solicitud.nroSolicitud);
+  };
 
   const disable =
     (activeStep === 0 && !cliente) ||
     (activeStep === 1 && !vehiculo) ||
-    (activeStep === 2 && !reservas.length && !servicios.length);
+    (activeStep === 2 && !reservas.length && !servicios.length) ||
+    (activeStep === 3 && !fechaSalida);
 
   return (
     <div className={classes.root}>
       <Sidebar page="solicitudes" />
       <main className={classes.container}>
-        <IconButton component={Link} to="/solicitudes" className={classes.backIcon}>
+        <IconButton
+          component={Link}
+          to="/solicitudes"
+          className={classes.backIcon}
+        >
           <ArrowBackOutlined color="primary" />
         </IconButton>
         <Fade>
@@ -150,16 +215,10 @@ const CrearSolicitud = () => {
             ))}
           </Stepper>
         </Fade>
-        <div>
-          {activeStep === steps.length ? (
-            guardarDatos()
-          ) : (
-            <div>{getStepContent(activeStep)}</div>
-          )}
-        </div>
+        <div>{getStepContent(activeStep)}</div>
         <div className={classes.buttons}>
           <Button
-            disabled={activeStep === 0}
+            disabled={activeStep === 0 || submitting}
             onClick={handleBack}
             color="secondary"
             variant="contained"
@@ -171,8 +230,8 @@ const CrearSolicitud = () => {
             variant="contained"
             className={classes.nextButton}
             color="primary"
-            onClick={handleNext}
-            disabled={disable}
+            onClick={activeStep === steps.length - 1 ? save : handleNext}
+            disabled={disable || submitting}
           >
             {activeStep === steps.length - 1 ? "Guardar" : "Siguiente"}
           </Button>
