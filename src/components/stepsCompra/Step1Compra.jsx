@@ -13,7 +13,7 @@ const useStyles = makeStyles({
 const Step1Compra = ({
   cliente,
   setCliente,
-  setProductosS,
+  setLista
 }) => {
   const classes = useStyles();
   const [clientes, setClientes] = useState([]);
@@ -41,7 +41,7 @@ const Step1Compra = ({
 
   const handleClick = (evt, selectedRow) => {
     // Se reinician los pasos siguientes
-    setProductosS(null);
+    setLista([]);
     // TODO: Reinciar datos finales
 
     if (cliente && cliente.cedCliente === selectedRow.cedCliente) {

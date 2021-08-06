@@ -25,10 +25,9 @@ const useStyles = makeStyles({
   },
 });
 
-const Step2Compra = ({ setProductosS, setTipoPago, setDatoPago }) => {
+const Step2Compra = ({ lista, setLista, setTipoPago, setDatoPago }) => {
   const classes = useStyles();
   const [productos, setProductos] = useState([]);
-  const [lista, setLista] = useState([])
   const [montoTotal, setMontoTotal] = useState(0);
   const [cantidad, setCantidad] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -49,7 +48,7 @@ const Step2Compra = ({ setProductosS, setTipoPago, setDatoPago }) => {
       setProductos(productosVenta);
       setLoading(false);
     }
-    
+
     getProductos();
 
     // Se reinician los pasos siguientes
@@ -57,12 +56,11 @@ const Step2Compra = ({ setProductosS, setTipoPago, setDatoPago }) => {
     setTipoPago(null);
   }, []);
 
-  if(cantidad === 0) setProductosS(null);
+  if(cantidad === 0) setLista([]);
 
   return (
     <div className={classes.tableContainer}>
       <TableComprarProductos {...{
-        setProductosS,
         productos,
         setProductos,
         montoTotal, 
