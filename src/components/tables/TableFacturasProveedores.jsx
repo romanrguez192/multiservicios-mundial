@@ -4,16 +4,17 @@ import Slide from "react-reveal/Slide";
 import TableProductosFacturasProveedores from "./TableProductosFacturasProveedores";
 import { TableContainer } from "@material-ui/core";
 import { useSnackbar } from "notistack";
+import { useUser } from "../../contexts/UserContext";
 
 const TableFacturasProveedores = ({ rifProveedor, ...props }) => {
   const [facturasProveedores, setFacturasProveedores] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const user = useUser();
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     const getFacturasProveedores = async () => {
-      const url =
-        ""; /* `http://localhost:4000/api/facturasProveedores/${rifProveedor}`*/
+      const url = `http://localhost:4000/api/facturasProveedores/${rifProveedor}`;
 
       const response = await fetch(url);
 
@@ -25,6 +26,7 @@ const TableFacturasProveedores = ({ rifProveedor, ...props }) => {
       }
 
       const facturasProveedores = await response.json();
+      console.log(facturasProveedores);
 
       setFacturasProveedores(facturasProveedores);
       setLoading(false);
@@ -37,16 +39,14 @@ const TableFacturasProveedores = ({ rifProveedor, ...props }) => {
     {
       title: "N° de Factura",
       field: "nroFactura",
-      editable: "onAdd",
       type: "numeric",
       align: "left",
+      editable: "never"
     },
     {
       title: "Orden de Compra",
       field: "codOrdCompra",
       editable: "onAdd",
-      type: "numeric",
-      align: "left",
     },
     {
       title: "Fecha de Facturación",
@@ -58,21 +58,20 @@ const TableFacturasProveedores = ({ rifProveedor, ...props }) => {
       title: "Fecha de Pago",
       field: "fechaPago",
       type: "date",
-      editable: "onAdd",
+      editable: "onUpdate",
       emptyValue: "No pagada",
     },
     {
       title: "Monto total",
       field: "montoTotal",
       type: "numeric",
-      editable: "onAdd",
+      editable: "never",
       align: "left",
     },
   ];
 
   const addFacturaProveedor = async (data) => {
-    const url =
-      ""; /* `http://localhost:4000/api/facturasProveedores/${rifProveedor}`*/
+    const url =`http://localhost:4000/api/facturasProveedores/${user.rifSucursal}`
 
     const response = await fetch(url, {
       method: "POST",
@@ -95,8 +94,7 @@ const TableFacturasProveedores = ({ rifProveedor, ...props }) => {
   };
 
   const deleteFacturaProveedor = async (oldData) => {
-    const url =
-      ""; /* `http://localhost:4000/api/facturasProveedores/${rifProveedor}${oldData.nroFactura}`*/
+    const url = `http://localhost:4000/api/facturasProveedores/${oldData.nroFactura}`
 
     const response = await fetch(url, {
       method: "DELETE",
@@ -118,7 +116,8 @@ const TableFacturasProveedores = ({ rifProveedor, ...props }) => {
 
   return (
     <Table
-      title="Facturas de Proveedores"
+      title="Facturas del Proveedor"
+      data={facturasProveedores}
       columns={columns}
       isLoading={loading}
       subTable
