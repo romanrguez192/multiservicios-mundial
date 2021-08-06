@@ -1,28 +1,59 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import Slide from "react-reveal/Slide";
+import { useSnackbar } from "notistack";
 
-const TableCompras = ({ loading, compras, setCompras, ...props }) => {
+
+const TableProductosVendidos = ({ nroFactura, ...props }) => {
   
-
   const columns = [
     {
       title: "Código de producto",
       field: "codProducto",
+      editable: "never"
     },
     {
       title: "Producto",
-      field: "producto",
+      field: "nombre",
+      editable: "never"
     },
+    // {
+    //   title: "Cantidad",
+    //   field: "cantidad",
+    // },
     {
-      title: "Cantidad",
-      field: "cantidad",
-    },
-    {
-      title: "Monto",
-      field: "monto",
+      title: "Precio unitario",
+      field: "precio",
+      editable: "never"
     },
   ];
+
+  const { enqueueSnackbar } = useSnackbar();
+  const [productos, setProductos] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const getProductos = async() => {
+      const url = `http://localhost:4000/api/facturasVentas/productos/${nroFactura}`;
+      
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        // TODO: Error
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
+      }
+
+      const productos = await response.json();
+
+      console.log(productos);
+      setLoading(false);
+      setProductos(productos);
+    }
+
+    getProductos();
+  }, [])
 
 
   return (
@@ -32,8 +63,8 @@ const TableCompras = ({ loading, compras, setCompras, ...props }) => {
             title="Productos vendidos"
             subTable
             columns={columns}
-            //data={compras}
-            //isLoading={loading}
+            data={productos}
+            isLoading={loading}
             {...props}
         />
       </Slide>
@@ -41,4 +72,4 @@ const TableCompras = ({ loading, compras, setCompras, ...props }) => {
   );
 };
 
-export default TableCompras;
+export default TableProductosVendidos;
