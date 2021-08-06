@@ -3,10 +3,12 @@ import Table from "./Table";
 import Slide from "react-reveal/Slide";
 import TableProductosFacturasProveedores from "./TableProductosFacturasProveedores";
 import { TableContainer } from "@material-ui/core";
+import { useSnackbar } from "notistack";
 
 const TableFacturasProveedores = ({ rifProveedor, ...props }) => {
   const [facturasProveedores, setFacturasProveedores] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     const getFacturasProveedores = async () => {
@@ -17,7 +19,9 @@ const TableFacturasProveedores = ({ rifProveedor, ...props }) => {
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const facturasProveedores = await response.json();
@@ -34,11 +38,15 @@ const TableFacturasProveedores = ({ rifProveedor, ...props }) => {
       title: "N° de Factura",
       field: "nroFactura",
       editable: "onAdd",
+      type: "numeric",
+      align: "left",
     },
     {
       title: "Orden de Compra",
       field: "codOrdCompra",
       editable: "onAdd",
+      type: "numeric",
+      align: "left",
     },
     {
       title: "Fecha de Facturación",
@@ -51,12 +59,14 @@ const TableFacturasProveedores = ({ rifProveedor, ...props }) => {
       field: "fechaPago",
       type: "date",
       editable: "onAdd",
+      emptyValue: "No pagada",
     },
     {
       title: "Monto total",
       field: "montoTotal",
       type: "numeric",
       editable: "onAdd",
+      align: "left",
     },
   ];
 
@@ -74,7 +84,9 @@ const TableFacturasProveedores = ({ rifProveedor, ...props }) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const facturaProveedor = await response.json();
@@ -92,7 +104,9 @@ const TableFacturasProveedores = ({ rifProveedor, ...props }) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const dataDelete = [...facturasProveedores];
@@ -103,22 +117,22 @@ const TableFacturasProveedores = ({ rifProveedor, ...props }) => {
   };
 
   return (
-      <Table
-        title="Facturas de Proveedores"
-        columns={columns}
-        isLoading={loading}
-        editable={{
-          onRowAdd: addFacturaProveedor,
-          onRowDelete: deleteFacturaProveedor,
-        }}
-        detailPanel={() => {
-          return (
-            <TableContainer>
-              <TableProductosFacturasProveedores />
-            </TableContainer>
-          );
-        }}
-      />
+    <Table
+      title="Facturas de Proveedores"
+      columns={columns}
+      isLoading={loading}
+      editable={{
+        onRowAdd: addFacturaProveedor,
+        onRowDelete: deleteFacturaProveedor,
+      }}
+      detailPanel={() => {
+        return (
+          <TableContainer>
+            <TableProductosFacturasProveedores />
+          </TableContainer>
+        );
+      }}
+    />
   );
 };
 

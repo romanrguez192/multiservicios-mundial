@@ -20,6 +20,8 @@ const TableEstSuministroProveedor = (props) => {
       title: "Número de productos suministrados",
       field: "numProductosSuministrados",
       editable: "never",
+      type: "numeric",
+      align: "left",
     },
   ];
   return (

@@ -3,11 +3,13 @@ import Table from "./Table";
 import TableServiciosAsignados from "./TableServiciosAsignados";
 import { useUser } from "../../contexts/UserContext";
 import { TableContainer } from "@material-ui/core";
+import { useSnackbar } from "notistack";
 
 const TablePersonal = ({ ...props }) => {
   const [personal, setPersonal] = useState([]);
   const [loading, setLoading] = useState(true);
   const user = useUser();
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     const getPersonal = async () => {
@@ -17,7 +19,9 @@ const TablePersonal = ({ ...props }) => {
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const personal = await response.json();
@@ -91,7 +95,9 @@ const TablePersonal = ({ ...props }) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const empleado = await response.json();

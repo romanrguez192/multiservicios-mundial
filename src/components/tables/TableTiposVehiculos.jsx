@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
+import { useSnackbar } from "notistack";
 
 const TableTiposVehiculos = ({
   tiposVehiculos,
@@ -7,11 +8,14 @@ const TableTiposVehiculos = ({
   loadingT,
   ...props
 }) => {
+  const { enqueueSnackbar } = useSnackbar();
   const columns = [
     {
       title: "Código",
       field: "codTipoVehiculo",
       editable: "never",
+      type: "numeric",
+      align: "left",
     },
     {
       title: "Nombre",
@@ -38,7 +42,9 @@ const TableTiposVehiculos = ({
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const tipoVehiculo = await response.json();
@@ -59,7 +65,9 @@ const TableTiposVehiculos = ({
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const tipoVehiculo = await response.json();
@@ -80,7 +88,9 @@ const TableTiposVehiculos = ({
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const dataDelete = [...tiposVehiculos];

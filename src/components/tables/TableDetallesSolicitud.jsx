@@ -3,10 +3,12 @@ import Table from "./Table";
 import Slide from "react-reveal/Slide";
 import TableOrdenServicio from "./TableOrdenServicio";
 import { TableContainer } from "@material-ui/core";
+import { useSnackbar } from "notistack";
 
 const TableDetallesSolicitud = ({ nroSolicitud, codServicio, ...props }) => {
   const [actividades, setActividades] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     const getActividades = async () => {
@@ -16,7 +18,9 @@ const TableDetallesSolicitud = ({ nroSolicitud, codServicio, ...props }) => {
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const actividades = await response.json();
@@ -32,6 +36,7 @@ const TableDetallesSolicitud = ({ nroSolicitud, codServicio, ...props }) => {
     {
       title: "Número",
       field: "nroActividad",
+      align: "left",
       type: "numeric",
     },
     {
@@ -42,6 +47,7 @@ const TableDetallesSolicitud = ({ nroSolicitud, codServicio, ...props }) => {
       title: "Precio (Bs.S)",
       field: "monto",
       type: "numeric",
+      align: "left",
     },
     {
       title: "Ejecutada",

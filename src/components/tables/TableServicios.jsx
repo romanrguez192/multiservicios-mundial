@@ -2,13 +2,18 @@ import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import TableActividades from "./TableActividades";
 import { TableContainer } from "@material-ui/core";
+import { useSnackbar } from "notistack";
 
 const TableServicios = ({ servicios, setServicios, loadingS, ...props }) => {
+  const { enqueueSnackbar } = useSnackbar();
+
   const columns = [
     {
       title: "Código",
       field: "codServicio",
       editable: "never",
+      align: "left",
+      type: "numeric",
     },
     {
       title: "Nombre",
@@ -39,6 +44,7 @@ const TableServicios = ({ servicios, setServicios, loadingS, ...props }) => {
       title: "Porcentaje de abono al reservar",
       field: "porcentajeAbono",
       type: "numeric",
+      align: "left",
       editable: "always",
       emptyValue: "Ninguno",
     },
@@ -57,7 +63,9 @@ const TableServicios = ({ servicios, setServicios, loadingS, ...props }) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const servicio = await response.json();
@@ -78,7 +86,9 @@ const TableServicios = ({ servicios, setServicios, loadingS, ...props }) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const servicio = await response.json();
@@ -99,7 +109,9 @@ const TableServicios = ({ servicios, setServicios, loadingS, ...props }) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const dataDelete = [...servicios];

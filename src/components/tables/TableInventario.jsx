@@ -6,6 +6,8 @@ const TableProductosVentas = ({ inventario, loadingI, ...props }) => {
     {
       title: "Código",
       field: "codProducto",
+      type: "numeric",
+      align: "left",
     },
     {
       title: "Nombre",
@@ -15,11 +17,13 @@ const TableProductosVentas = ({ inventario, loadingI, ...props }) => {
       title: "Existencia teórica",
       field: "existenciaTeorica",
       type: "numeric",
+      align: "left",
     },
     {
       title: "Cantidad física",
       field: "cantidadFisica",
       type: "numeric",
+      align: "left",
     },
   ];
 

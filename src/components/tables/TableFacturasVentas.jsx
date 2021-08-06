@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import TableFacturaProductos from "./TableFacturaProductos";
 import { TableContainer } from "@material-ui/core";
+import { useSnackbar } from "notistack";
 
 const TableFacturasVentas = ({}) => {
   const [facturasVentas, setFacturasVentas] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     const getFacturasVentas = async () => {
@@ -14,7 +16,9 @@ const TableFacturasVentas = ({}) => {
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const facturasVentas = await response.json();
@@ -30,11 +34,14 @@ const TableFacturasVentas = ({}) => {
     {
       title: "Nro Factura",
       field: "nroFactura",
+      type: "numeric",
       editable: "onAdd",
+      align: "left",
     },
     {
       title: "Cliente",
       field: "cedCliente",
+      type: "numeric",
       editable: "onAdd",
     },
     {
@@ -52,12 +59,14 @@ const TableFacturasVentas = ({}) => {
       title: "Descuento",
       field: "descuento",
       type: "numeric",
+      align: "left",
       editable: "onAdd",
     },
     {
       title: "Monto",
       field: "montoTotal",
       type: "numeric",
+      align: "left",
       editable: "onAdd",
     },
   ];
@@ -74,7 +83,9 @@ const TableFacturasVentas = ({}) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const facturaVenta = await response.json();
@@ -91,7 +102,9 @@ const TableFacturasVentas = ({}) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const dataDelete = [...facturasVentas];

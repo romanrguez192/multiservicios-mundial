@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import TableFacturaActividades from "./TableFacturaActividades";
 import { TableContainer } from "@material-ui/core";
+import { useSnackbar } from "notistack";
 
 const TableFacturasServicios = ({}) => {
   const [facturasServicios, setFacturasServicios] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     const getFacturasServicios = async () => {
@@ -14,7 +16,9 @@ const TableFacturasServicios = ({}) => {
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const facturasServicios = await response.json();
@@ -30,6 +34,8 @@ const TableFacturasServicios = ({}) => {
     {
       title: "Nro Factura",
       field: "nroFactura",
+      type: "numeric",
+      align: "left",
       editable: "onAdd",
     },
     {
@@ -40,6 +46,8 @@ const TableFacturasServicios = ({}) => {
     {
       title: "Cliente",
       field: "cedCliente",
+      type: "numeric",
+      align: "left",
       editable: "onAdd",
     },
     {
@@ -52,12 +60,14 @@ const TableFacturasServicios = ({}) => {
       title: "Descuento",
       field: "descuento",
       type: "numeric",
+      align: "left",
       editable: "onAdd",
     },
     {
       title: "Monto",
       field: "montoTotal",
       type: "numeric",
+      align: "left",
       editable: "onAdd",
     },
   ];
@@ -74,7 +84,9 @@ const TableFacturasServicios = ({}) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const facturaServicio = await response.json();
@@ -91,7 +103,9 @@ const TableFacturasServicios = ({}) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const dataDelete = [...facturasServicios];

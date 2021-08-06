@@ -7,7 +7,9 @@ const TableEstClientesReservas = (props) => {
     {
       title: "Cédula",
       field: "cedula",
+      type: "numeric",
       editable: "never",
+      align: "left",
     },
     {
       title: "Nombre",
@@ -17,7 +19,9 @@ const TableEstClientesReservas = (props) => {
     {
       title: "Número de reservas perdidas",
       field: "numReservasPerdidas",
+      type: "numeric",
       editable: "never",
+      align: "left",
     },
   ];
   return (

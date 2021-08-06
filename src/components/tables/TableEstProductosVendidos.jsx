@@ -7,14 +7,18 @@ const TableEstProductosVendidos = (props) => {
     {
       title: "Código",
       field: "codigo",
+      type: "numeric",
+      align: "left",
     },
     {
-      title: "Nombre",
-      field: "nombre",
+      title: "Producto",
+      field: "producto",
     },
     {
       title: "Nº de salida por ventas",
       field: "numVentas",
+      type: "numeric",
+      align: "left",
     },
   ];
 

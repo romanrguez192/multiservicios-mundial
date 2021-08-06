@@ -7,6 +7,8 @@ const TableEstClientesFrecuentes = (props) => {
     {
       title: "Cédula",
       field: "cedula",
+      type: "numeric",
+      align: "left",
     },
     {
       title: "Nombre",
@@ -15,6 +17,8 @@ const TableEstClientesFrecuentes = (props) => {
     {
       title: "Nº de veces que solicitó un servicio",
       field: "numServicios",
+      type: "numeric",
+      align: "left",
     },
   ];
 

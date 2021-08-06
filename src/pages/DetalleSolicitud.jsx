@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "../components/Sidebar";
-import { makeStyles, IconButton, Paper, Divider, CircularProgress } from "@material-ui/core";
+import {
+  makeStyles,
+  IconButton,
+  Paper,
+  Divider,
+  CircularProgress,
+} from "@material-ui/core";
 import { ArrowBackOutlined } from "@material-ui/icons";
 import TableServiciosSolicitud from "../components/tables/TableServiciosSolicitud";
 import { Link } from "react-router-dom";
 import Fade from "react-reveal/Fade";
 import PageTitle from "../components/PageTitle";
 import { useParams } from "react-router-dom";
+import { useSnackbar } from "notistack";
+import { Button } from "@material-ui/core";
 
 // ESTILOS
 const useStyles = makeStyles({
@@ -76,10 +84,16 @@ const useStyles = makeStyles({
     marginRight: "10pt",
   },
   loading: {
-    position: 'fixed',
-    top: '50%',
-    left: '50%',
-  }
+    position: "fixed",
+    top: "50%",
+    left: "50%",
+  },
+  endServ: {
+    margin: 'auto',
+    width: '250px',
+    paddingTop: '10pt',
+    paddingBottom: '30pt',
+  },
 });
 
 const DetalleSolicitud = () => {
@@ -87,6 +101,7 @@ const DetalleSolicitud = () => {
   const [solicitud, setSolicitud] = useState(null);
   const [loading, setLoading] = useState(true);
   const params = useParams();
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     const getSolicitud = async () => {
@@ -96,7 +111,9 @@ const DetalleSolicitud = () => {
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const solicitud = await response.json();
@@ -109,7 +126,7 @@ const DetalleSolicitud = () => {
   }, [params]);
 
   if (loading) {
-    return <CircularProgress className={classes.loading}/>;
+    return <CircularProgress className={classes.loading} />;
   }
 
   return (
@@ -129,8 +146,25 @@ const DetalleSolicitud = () => {
             <Paper className={classes.paperContainer}>
               <div className={classes.containerInformation}>
                 <div className={classes.box}>
-                  <p className={classes.title}>Cliente</p>
+                  <p className={classes.title}>Fecha de inicio</p>
+                  <p className={classes.subtitle}>{solicitud.fechaEntrada}</p>
+                </div>
+                <Divider orientation="vertical" flexItem />
+                <div className={classes.box}>
+                  <p className={classes.title}>Nombre del cliente</p>
                   <p className={classes.subtitle}>{solicitud.nombreCliente}</p>
+                </div>
+                <Divider orientation="vertical" flexItem />
+                <div className={classes.box}>
+                  <p className={classes.title}>Fecha de salida estimada</p>
+                  <p className={classes.subtitle}>{solicitud.fechaSalidaEstimada}</p>
+                </div>
+              </div>
+              <Divider className={classes.divider} />
+              <div className={classes.containerInformation}>
+                <div className={classes.box}>
+                  <p className={classes.title}>Marca del vehículo</p>
+                  <p className={classes.subtitle}>{solicitud.marca}</p>
                 </div>
                 <Divider orientation="vertical" flexItem />
                 <div className={classes.box}>
@@ -139,18 +173,6 @@ const DetalleSolicitud = () => {
                 </div>
                 <Divider orientation="vertical" flexItem />
                 <div className={classes.box}>
-                  <p className={classes.title}>Fecha de Inicio</p>
-                  <p className={classes.subtitle}>{solicitud.fechaEntrada}</p>
-                </div>
-              </div>
-              <Divider className={classes.divider} />
-              <div className={classes.containerSubInformation}>
-                <div className={classes.box2}>
-                  <p className={classes.title}>Marca del vehículo</p>
-                  <p className={classes.subtitle}>{solicitud.marca}</p>
-                </div>
-                <Divider orientation="vertical" flexItem />
-                <div className={classes.box2}>
                   <p className={classes.title}>Modelo del vehículo</p>
                   <p className={classes.subtitle}>{solicitud.modelo}</p>
                 </div>
@@ -158,6 +180,9 @@ const DetalleSolicitud = () => {
             </Paper>
           </Fade>
           <TableServiciosSolicitud nroSolicitud={solicitud.nroSolicitud} />
+          <div className={classes.endServ}>
+            <Button fullWidth variant="contained" color="primary">Finalizar Servicio</Button>
+          </div>
         </div>
       </main>
     </div>

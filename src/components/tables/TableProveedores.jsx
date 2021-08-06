@@ -4,10 +4,12 @@ import TableProductosDistribuidos from "./TableProductosDistribuidos";
 import TableFacturasProveedores from "./TableFacturasProveedores";
 import { TableContainer } from "@material-ui/core";
 import TableProductosFacturasProveedores from "./TableProductosFacturasProveedores";
+import { useSnackbar } from "notistack";
 
 const TableProveedores = ({ ...props }) => {
   const [proveedores, setProveedores] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     getProveedores();
@@ -20,7 +22,9 @@ const TableProveedores = ({ ...props }) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const proveedores = await response.json();
@@ -34,7 +38,6 @@ const TableProveedores = ({ ...props }) => {
       title: "RIF",
       field: "rifProveedor",
       editable: "always",
-      type: "numeric",
     },
     {
       title: "Razón Social",
@@ -76,7 +79,9 @@ const TableProveedores = ({ ...props }) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Ha ocurrido un error", {
+        variant: "error",
+      });
     }
 
     const proveedor = await response.json();
@@ -97,7 +102,9 @@ const TableProveedores = ({ ...props }) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const proveedor = await response.json();
@@ -118,7 +125,9 @@ const TableProveedores = ({ ...props }) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const dataDelete = [...proveedores];

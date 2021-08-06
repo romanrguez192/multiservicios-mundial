@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import TableClientes from "../tables/TableClientes";
 import { makeStyles } from "@material-ui/core";
+import { useSnackbar } from "notistack";
 
 // Estilos
 const useStyles = makeStyles({
@@ -10,14 +11,11 @@ const useStyles = makeStyles({
   },
 });
 
-const Step1Compra = ({
-  cliente,
-  setCliente,
-  setProductosS,
-}) => {
+const Step1Compra = ({ cliente, setCliente, setProductosS }) => {
   const classes = useStyles();
   const [clientes, setClientes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     const getClientes = async () => {
@@ -27,7 +25,9 @@ const Step1Compra = ({
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const clientes = await response.json();

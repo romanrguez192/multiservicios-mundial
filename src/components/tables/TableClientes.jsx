@@ -3,8 +3,10 @@ import Table from "./Table";
 import TableVehiculosCliente from "./TableVehiculosCliente";
 import Slide from "react-reveal/Slide";
 import { TableContainer } from "@material-ui/core";
+import { useSnackbar } from "notistack";
 
 const TableClientes = ({ clientes, setClientes, loadingC, ...props }) => {
+  const { enqueueSnackbar } = useSnackbar();
   const columns = [
     {
       title: "Cédula",
@@ -53,7 +55,9 @@ const TableClientes = ({ clientes, setClientes, loadingC, ...props }) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const cliente = await response.json();
@@ -74,7 +78,9 @@ const TableClientes = ({ clientes, setClientes, loadingC, ...props }) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const cliente = await response.json();
@@ -95,7 +101,9 @@ const TableClientes = ({ clientes, setClientes, loadingC, ...props }) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const dataDelete = [...clientes];
@@ -118,14 +126,15 @@ const TableClientes = ({ clientes, setClientes, loadingC, ...props }) => {
           onRowDelete: deleteCliente,
         }}
         detailPanel={(rowData) => {
-          return(
-          <>
-            <TableContainer>
-              <Slide top collapse>
-                <TableVehiculosCliente cedCliente={rowData.cedCliente} />
-              </Slide>
-            </TableContainer>
-          </>);
+          return (
+            <>
+              <TableContainer>
+                <Slide top collapse>
+                  <TableVehiculosCliente cedCliente={rowData.cedCliente} />
+                </Slide>
+              </TableContainer>
+            </>
+          );
         }}
         {...props}
       />

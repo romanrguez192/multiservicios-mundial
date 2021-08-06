@@ -7,14 +7,18 @@ const TableEstServiciosSolicitados = (props) => {
     {
       title: "Código",
       field: "codigo",
+      type: "numeric",
+      align: "left",
     },
     {
-      title: "Nombre",
-      field: "nombre",
+      title: "Servicio",
+      field: "servicio",
     },
     {
       title: "Nº de veces que se solicitó",
       field: "numSolicitudes",
+      type: "numeric",
+      align: "left",
     },
   ];
 

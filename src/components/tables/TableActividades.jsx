@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import Slide from "react-reveal/Slide";
+import { useSnackbar } from "notistack";
 
 const TableActividades = ({ codServicio, ...props }) => {
   const [actividades, setActividades] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     getActividades();
@@ -17,7 +19,9 @@ const TableActividades = ({ codServicio, ...props }) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const actividades = await response.json();
@@ -30,7 +34,9 @@ const TableActividades = ({ codServicio, ...props }) => {
     {
       title: "Número",
       field: "nroActividad",
+      type: "numeric",
       editable: "always",
+      align: "left",
     },
     {
       title: "Descripción",
@@ -41,12 +47,14 @@ const TableActividades = ({ codServicio, ...props }) => {
       title: "Precio (Bs.S)",
       field: "precio",
       type: "numeric",
+      align: "left",
       editable: "always",
     },
     {
       title: "Capacidad diaria",
       field: "capacidad",
       type: "numeric",
+      align: "left",
       editable: "always",
     },
   ];
@@ -64,7 +72,9 @@ const TableActividades = ({ codServicio, ...props }) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const actividad = await response.json();
@@ -85,7 +95,9 @@ const TableActividades = ({ codServicio, ...props }) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const actividad = await response.json();
@@ -106,7 +118,9 @@ const TableActividades = ({ codServicio, ...props }) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const dataDelete = [...actividades];
