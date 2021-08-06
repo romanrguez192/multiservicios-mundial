@@ -67,6 +67,7 @@ const useStyles = makeStyles({
     textAlign: "center",
   },
   containerSubInformation: {
+    paddingTop: "10pt",
     textAlign: "center",
     paddingBottom: "10pt",
     display: "inline-flex",
