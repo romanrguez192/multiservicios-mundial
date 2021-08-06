@@ -3,9 +3,10 @@ import Table from "./Table";
 import { useSnackbar } from "notistack";
 
 const TableVehiculosSucursal = ({
-  tiposVehiculos,
-  setTiposVehiculos,
-  loadingT,
+  vehiculosSucursal,
+  setVehiculosSucursal,
+  loadingVS,
+  vehiculos,
   ...props
 }) => {
   const { enqueueSnackbar } = useSnackbar();
