@@ -8,8 +8,6 @@ const TableEstSuministroProveedor = (props) => {
       title: "Rif",
       field: "rif",
       editable: "never",
-      type: "numeric",
-      align: "left",
     },
     {
       title: "Proveedor",

@@ -30,8 +30,6 @@ const TableSucursales = ({ ...props }) => {
       title: "RIF",
       field: "rifSucursal",
       editable: "always",
-      type: "numeric",
-      align: "left",
     },
     {
       title: "Nombre",
