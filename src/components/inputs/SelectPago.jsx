@@ -3,7 +3,7 @@ import Input from "./Input";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
 // Componente de input
-const SelectPago = ({ setTipoPago, setMoneda, ...props }) => {
+const SelectPago = ({ setTipoPago, setDatoPago, ...props }) => {
 
   const tiposPago = [
     { title: 'Efectivo' },
@@ -20,9 +20,9 @@ const SelectPago = ({ setTipoPago, setMoneda, ...props }) => {
   const handleChange = (event, value) => {
     value 
     ? 
-    (props.name === "tipoPago") ? setTipoPago(value.title) : setMoneda(value.title)
+    (props.name === "tipoPago") ? setTipoPago(value.title) : setDatoPago(value.title)
     :
-    (props.name === "tipoPago") ? setTipoPago(null) : setMoneda(null)
+    (props.name === "tipoPago") ? setTipoPago(null) : setDatoPago(null)
   };
 
   return (

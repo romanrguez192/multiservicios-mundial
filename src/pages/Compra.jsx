@@ -60,6 +60,7 @@ const Compra = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [cliente, setCliente] = useState(null);
   const [productosS, setProductosS] = useState(null);
+  const [tipoPago, setTipoPago] = useState(null);
   const [datoPago, setDatoPago] = useState(null);
 
   const steps = [
@@ -73,9 +74,9 @@ const Compra = () => {
       case 0:
         return <Step1Compra {...{ cliente, setCliente, setProductosS }} />;
       case 1:
-        return <Step2Compra {...{ setProductosS }} />;
+        return <Step2Compra {...{ setProductosS, setTipoPago, setDatoPago }} />;
       case 2:
-        return <Step3Compra  {...{ setDatoPago }} />;
+        return <Step3Compra  {...{ tipoPago, setTipoPago, datoPago, setDatoPago }} />;
       default:
         return "Error";
     }
@@ -92,7 +93,7 @@ const Compra = () => {
   const disable =
     (activeStep === 0 && !cliente) ||
     (activeStep === 1 && !productosS) ||
-    (activeStep === 2 && !datoPago);
+    (activeStep === 2 && !datoPago );
 
   return (
     <div className={classes.root}>
