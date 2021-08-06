@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import Add from "@material-ui/icons/AddOutlined";
 import { useHistory } from "react-router-dom";
+import TableProductosVendidos from "./TableProductosVendidos";
+import { TableContainer } from "@material-ui/core";
 
 const TableCompras = ({ loading, compras, setCompras, ...props }) => {
   
@@ -57,6 +59,15 @@ const TableCompras = ({ loading, compras, setCompras, ...props }) => {
         columns={columns}
         data={compras}
         isLoading={loading}
+        detailPanel={(rowData) => {
+          return (
+            <TableContainer>
+              <TableProductosVendidos
+                
+              />
+            </TableContainer>
+          );
+        }}
         actions={actions}
         {...props}
       />
