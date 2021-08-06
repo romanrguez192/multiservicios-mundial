@@ -48,11 +48,10 @@ const useStyles = makeStyles({
   },
 });
 
-const Step3Compra = ({
-  
-}) => {
+const Step3Compra = () => {
   const classes = useStyles();
-  const [pago, setPago] = useState(null);
+  const [tipoPago, setTipoPago] = useState(null);
+  const [moneda, setMoneda] = useState(null);
 
   const initialValues = {
     nombre: "",
@@ -60,14 +59,14 @@ const Step3Compra = ({
     tipoPago: "",
   };
 
-  function tipoDePago(type){
+  const verificarTipoPago = (type) => {
     switch(type) {
       case null:
         return
       case 'Efectivo':
-        return <SelectPago name="tipoPago" title="Moneda" />
+        return <SelectPago setMoneda={setMoneda} name="tipoMoneda" title="Moneda" />
       case 'Transferencia':
-        return <Input name="tarjeta" placeholder="Banco"/>
+        return <Input name="transferencia" placeholder="Banco"/>
       default:
         return <Input name="tarjeta" placeholder="Numero de tarjeta"/>
     }
@@ -82,10 +81,10 @@ const Step3Compra = ({
           {({ isSubmitting }) => (
             <Form className={classes.containerInputs}>
               <p className={classes.subtitleFH}>Seleccionar Tipo de pago</p>
-              <SelectPago name="tipoPago" title="Tipo de Pago"/>
+              <SelectPago name="tipoPago" title="Tipo de Pago" setTipoPago={setTipoPago}/>
               <p className={classes.subtitleDA}>Datos adicionales</p>
               <div className={classes.divFlex}>
-                {tipoDePago(null)} {/* aca verificar dependiendo de que tenga el SelectPago */}
+                {verificarTipoPago(tipoPago)} 
               </div>
             </Form>
           )}

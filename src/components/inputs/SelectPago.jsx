@@ -3,7 +3,7 @@ import Input from "./Input";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
 // Componente de input
-const SelectPago = ({ setPago, ...props }) => {
+const SelectPago = ({ setTipoPago, setMoneda, ...props }) => {
 
   const tiposPago = [
     { title: 'Efectivo' },
@@ -17,15 +17,20 @@ const SelectPago = ({ setPago, ...props }) => {
     { title: 'Dólares' },
   ];
 
-  const handleChange = (value) => {
-    setPago(value);
+  const handleChange = (event, value) => {
+    value 
+    ? 
+    (props.name === "tipoPago") ? setTipoPago(value.title) : setMoneda(value.title)
+    :
+    (props.name === "tipoPago") ? setTipoPago(null) : setMoneda(null)
   };
 
   return (
     <>
       <Autocomplete
         id="combo-box-demo"
-        options={props.title === "Tipo de Pago" ? tiposPago : tipoMoneda}
+        options={props.name === "tipoPago" ? tiposPago : tipoMoneda}
+        onChange={handleChange}
         getOptionLabel={(option) => option.title}
         style={{ width: 300, margin: "auto" }}
         renderInput={(params) => <Input {...params} label={props.title} />}
