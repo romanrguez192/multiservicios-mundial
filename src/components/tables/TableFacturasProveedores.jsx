@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import Slide from "react-reveal/Slide";
 import TableProductosFacturasProveedores from "./TableProductosFacturasProveedores";
+import { TableContainer } from "@material-ui/core";
 
 const TableFacturasProveedores = ({ rifProveedor, ...props }) => {
   const [facturasProveedores, setFacturasProveedores] = useState([]);
@@ -111,7 +112,11 @@ const TableFacturasProveedores = ({ rifProveedor, ...props }) => {
           onRowDelete: deleteFacturaProveedor,
         }}
         detailPanel={() => {
-          return <TableProductosFacturasProveedores />;
+          return (
+            <TableContainer>
+              <TableProductosFacturasProveedores />
+            </TableContainer>
+          );
         }}
       />
   );

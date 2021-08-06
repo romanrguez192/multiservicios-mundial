@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import TableProductosCompra from "./TableProductosCompra";
+import { TableContainer } from "@material-ui/core";
 
 const TableOrdenesCompra = ({
   ordCompra,
@@ -113,11 +114,13 @@ const TableOrdenesCompra = ({
         }}
         detailPanel={(rowData) => {
           return (
-            <TableProductosCompra
-              ordCompra={rowData}
-              ordenesCompra={ordCompra}
-              setOrdenesCompra={setOrdCompra}
-            />
+            <TableContainer>
+              <TableProductosCompra
+                ordCompra={rowData}
+                ordenesCompra={ordCompra}
+                setOrdenesCompra={setOrdCompra}
+              />
+            </TableContainer>
           );
         }}
         {...props}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import TableServiciosAsignados from "./TableServiciosAsignados";
 import { useUser } from "../../contexts/UserContext";
+import { TableContainer } from "@material-ui/core";
 
 const TablePersonal = ({ ...props }) => {
   const [personal, setPersonal] = useState([]);
@@ -118,7 +119,9 @@ const TablePersonal = ({ ...props }) => {
         }
         detailPanel={(rowData) => {
           return (
-            <TableServiciosAsignados cedEmpleado={rowData.cedEmpleado} />
+            <TableContainer>
+              <TableServiciosAsignados cedEmpleado={rowData.cedEmpleado} />
+            </TableContainer>
           );
         }}
         {...props}

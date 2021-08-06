@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import TableDescripcionModelo from "./TableDescripcionModelo";
 import TableListaMantenimientos from "./TableListaMantenimientos";
+import { TableContainer } from "@material-ui/core";
 
 const TableModelos = ({
   modelos,
@@ -155,8 +156,10 @@ const TableModelos = ({
         detailPanel={(rowData) => {
           return (
             <>
-              <TableDescripcionModelo marca={rowData.marca} modelo={rowData.modelo}/>
-              <TableListaMantenimientos marca={rowData.marca} modelo={rowData.modelo}/>
+              <TableContainer>
+                <TableDescripcionModelo marca={rowData.marca} modelo={rowData.modelo}/>
+                <TableListaMantenimientos marca={rowData.marca} modelo={rowData.modelo}/>
+              </TableContainer>
             </>
           );
         }}

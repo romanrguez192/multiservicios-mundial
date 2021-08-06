@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import TableFacturaActividades from "./TableFacturaActividades";
+import { TableContainer } from "@material-ui/core";
 
 const TableFacturasServicios = ({}) => {
   const [facturasServicios, setFacturasServicios] = useState([]);
@@ -112,7 +113,11 @@ const TableFacturasServicios = ({}) => {
           onRowDelete: deleteFacturaServicio,
         }}
         detailPanel={() => {
-          return <TableFacturaActividades />;
+          return (
+            <TableContainer>
+              <TableFacturaActividades />
+            </TableContainer>
+          );
         }}
       />
     </div>
