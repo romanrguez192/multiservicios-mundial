@@ -63,10 +63,11 @@ const Step1 = ({
     <div className={classes.tableContainer}>
       <TableClientes
         title="Seleccionar Cliente"
-        data={clientes}
-        isLoading={loading}
         onRowClick={handleClick}
         detailPanel={undefined}
+        clientes={clientes}
+        setClientes={setClientes}
+        loadingC={loading}
         options={{
           rowStyle: (rowData) => ({
             backgroundColor:

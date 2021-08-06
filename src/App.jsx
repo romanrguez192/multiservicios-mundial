@@ -53,7 +53,7 @@ function App() {
               <Route exact path="/solicitudes/crear" auth>
                 <CrearSolicitud />
               </Route>
-              <Route exact path="/solicitudes/detalles" auth>
+              <Route exact path="/solicitudes/:id" auth>
                 <DetalleSolicitud />
               </Route>
               <Route exact path="/facturas" auth>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import TableHistorialVehiculo from "./TableHistorialVehiculo";
+import TableMantenimientosPrevios from "./TableMantenimientosPrevios";
 import { TableContainer } from "@material-ui/core";
 
 const TableVehiculosCliente = ({ cedCliente, ...props }) => {
@@ -196,7 +197,8 @@ const TableVehiculosCliente = ({ cedCliente, ...props }) => {
         detailPanel={(rowData) => {
           return (
             <TableContainer>
-              <TableHistorialVehiculo triTable codVehiculo={rowData.codVehiculo} />
+              <TableHistorialVehiculo codVehiculo={rowData.codVehiculo}/>
+              <TableMantenimientosPrevios codVehiculo={rowData.codVehiculo}/>
             </TableContainer>
           );
         }}

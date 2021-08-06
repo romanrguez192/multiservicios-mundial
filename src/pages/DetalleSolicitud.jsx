@@ -11,6 +11,7 @@ import TableOrdenServicio from "../components/tables/TableOrdenServicio";
 import { Link } from "react-router-dom";
 import Fade from "react-reveal/Fade";
 import PageTitle from "../components/PageTitle";
+import { useParams } from "react-router-dom"
 
 // ESTILOS
 const useStyles = makeStyles({
@@ -77,6 +78,7 @@ const CrearSolicitud = () => {
   const [actividades, setActividades] = useState([]);
   const [productosS, setProductosS] = useState([]);
   const [servicio, setServicio] = useState([]);
+  const params = useParams();
 
   useEffect(() => {
     const getActividades = async () => {

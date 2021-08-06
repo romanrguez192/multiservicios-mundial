@@ -28,42 +28,43 @@ const TableSolServicios = ({ ...props }) => {
     }
 
     getSolicitudes();
-  }, [])
+  }, [user])
 
   const columns = [
     {
       title: "Número de solicitud",
       field: "nroSolicitud",
-      editable: "never",
     },
     {
       title: "Código de vehiculo",
       field: "codVehiculo",
-      editable: "never",
     },
     {
       title: "Fecha de entrada",
       field: "fechaEntrada",
-      editable: "always",
       type: "date"
     },
     {
       title: "Fecha de salida (estimada)",
       field: "fechaSalidaEstimada",
-      editable: "always",
       type: "date",
     },
     {
       title: "Fecha de salida (real)",
       field: "fechaSalidaReal",
-      editable: "always",
       type: "date",
+      emptyValue: "No aplica"
     },
     {
       title: "Autorizado para el retiro",
-      field: "autorizado",
-      editable: "always"
-    }
+      field: "nombreAutorizado",
+      emptyValue: "Ninguno"
+    },
+    {
+      title: "Teléfono del autorizado",
+      field: "tlfAutorizado",
+      emptyValue: "Ninguno"
+    },
   ];
 
   const create = () => {
