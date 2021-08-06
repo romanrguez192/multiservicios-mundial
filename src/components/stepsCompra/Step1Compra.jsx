@@ -58,7 +58,8 @@ const Step1Compra = ({
     <div className={classes.tableContainer}>
       <TableClientes
         title="Seleccionar Cliente"
-        data={clientes}
+        clientes={clientes}
+        setClientes={setClientes}
         isLoading={loading}
         onRowClick={handleClick}
         detailPanel={undefined}
