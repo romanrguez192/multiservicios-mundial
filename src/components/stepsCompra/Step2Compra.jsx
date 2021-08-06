@@ -26,12 +26,10 @@ const useStyles = makeStyles({
   },
 });
 
-const Step2Compra = ({ setProductosS }) => {
+const Step2Compra = ({ lista, setLista, cantidad, setCantidad,
+  setTipoPago, setDatoPago, montoTotal, setMontoTotal }) => {
   const classes = useStyles();
   const [productos, setProductos] = useState([]);
-  const [lista, setLista] = useState([]);
-  const [montoTotal, setMontoTotal] = useState(0);
-  const [cantidad, setCantidad] = useState(0);
   const [loading, setLoading] = useState(true);
   const { enqueueSnackbar } = useSnackbar();
 
@@ -55,27 +53,26 @@ const Step2Compra = ({ setProductosS }) => {
     };
 
     getProductos();
-  }, []);
 
-  if (cantidad === 0) setProductosS(null);
+    // Se reinician los pasos siguientes
+    setDatoPago(null);
+    setTipoPago(null);
+  }, []);
 
   return (
     <div className={classes.tableContainer}>
-      <TableComprarProductos
-        {...{
-          setProductosS,
-          productos,
-          setProductos,
-          montoTotal,
-          setMontoTotal,
-          cantidad,
-          setCantidad,
-          lista,
-          setLista,
-          loading,
-          setLoading,
-        }}
-      />
+      <TableComprarProductos {...{
+        productos,
+        setProductos,
+        montoTotal, 
+        setMontoTotal,
+        cantidad, 
+        setCantidad,
+        lista,
+        setLista,
+        loading,
+        setLoading
+      }}/>
       <div className={classes.divFlex}>
         <p className={classes.subtitle}>Monto total: {montoTotal}</p>
         <p className={classes.subtitle}>Cantidad total: {cantidad}</p>

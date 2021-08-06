@@ -22,7 +22,7 @@ const useStyles = makeStyles({
 });
 
 // Componente de input
-const Input = ({ endAdornment, icon, ...props }) => {
+const Input = ({ datoPago, setDatoPago, endAdornment, icon, ...props }) => {
   const classes = useStyles();
   const [changeColor, setChangeColor] = useState(false);
   const [field] = useField(props);
@@ -41,6 +41,10 @@ const Input = ({ endAdornment, icon, ...props }) => {
   // Clase del icono a mostrar
   const iconClass = changeColor ? "iconoColorido" : "icono";
 
+  const handleOnChange = (e) => {
+    setDatoPago(e.target.value)
+  }
+
   // Iconos al inicio del input
   const iconsObject = {
     person: <PersonOutlined className={classes[iconClass]} />,
@@ -56,7 +60,9 @@ const Input = ({ endAdornment, icon, ...props }) => {
       fullWidth
       variant="outlined"
       {...field}
+      value={datoPago}
       onFocus={handleClickChangeColor}
+      onChange={handleOnChange}
       onBlur={(e) => handleBlur(e)}
       InputProps={{
         startAdornment: (

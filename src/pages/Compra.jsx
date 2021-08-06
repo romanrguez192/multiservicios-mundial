@@ -59,8 +59,11 @@ const Compra = () => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
   const [cliente, setCliente] = useState(null);
-  const [productosS, setProductosS] = useState(null);
+  const [lista, setLista] = useState([]);
+  const [tipoPago, setTipoPago] = useState(null);
   const [datoPago, setDatoPago] = useState(null);
+  const [montoTotal, setMontoTotal] = useState(0);
+  const [cantidad, setCantidad] = useState(0);
 
   const steps = [
     "Seleccionar el cliente",
@@ -71,11 +74,13 @@ const Compra = () => {
   const getStepContent = (stepIndex) => {
     switch (stepIndex) {
       case 0:
-        return <Step1Compra {...{ cliente, setCliente, setProductosS }} />;
+        return <Step1Compra {...{ cliente, setCliente, setLista }} />;
       case 1:
-        return <Step2Compra {...{ setProductosS }} />;
+        return <Step2Compra {...{ 
+          lista, setLista, montoTotal, setMontoTotal,
+          setTipoPago, setDatoPago, cantidad, setCantidad }} />;
       case 2:
-        return <Step3Compra  {...{ setDatoPago }} />;
+        return <Step3Compra  {...{ tipoPago, setTipoPago, datoPago, setDatoPago }} />;
       default:
         return "Error";
     }
@@ -91,8 +96,18 @@ const Compra = () => {
 
   const disable =
     (activeStep === 0 && !cliente) ||
-    (activeStep === 1 && !productosS) ||
+    (activeStep === 1 && lista.length === 0) ||
     (activeStep === 2 && !datoPago);
+
+
+  const save = async () => {
+    const data = {
+
+    };
+
+
+
+  }
 
   return (
     <div className={classes.root}>
@@ -116,11 +131,7 @@ const Compra = () => {
           </Stepper>
         </Fade>
         <div>
-          {activeStep === steps.length ? (
-            <Typography>Guardar y cerrar</Typography>
-          ) : (
-            <div>{getStepContent(activeStep)}</div>
-          )}
+          <div>{getStepContent(activeStep)}</div>
         </div>
         <div className={classes.buttons}>
           <Button
@@ -136,7 +147,7 @@ const Compra = () => {
             variant="contained"
             className={classes.nextButton}
             color="primary"
-            onClick={handleNext}
+            onClick={activeStep === steps.length - 1 ? save : handleNext}
             disabled={disable}
           >
             {activeStep === steps.length - 1 ? "Guardar" : "Siguiente"}

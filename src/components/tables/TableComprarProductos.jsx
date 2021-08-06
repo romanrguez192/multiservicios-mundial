@@ -1,25 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
 
-const TableComprarProductos = ({
-  setProductosS,
-  productos,
-  setProductos,
-  montoTotal,
-  setMontoTotal,
-  cantidad,
-  setCantidad,
-  loading,
-  setLoading,
-  lista,
-  setLista,
-  ...props
-}) => {
-  const lookup = {};
-  productos &&
-    productos.forEach((p) => {
-      lookup[p.codProducto] = p.nombre;
-    });
+const TableComprarProductos = ({ 
+  productos, setProductos, 
+  montoTotal, setMontoTotal,
+  cantidad, setCantidad,
+  loading, setLoading,
+  lista, setLista, ...props }) => {
 
   const columns = [
     {
@@ -78,7 +65,6 @@ const TableComprarProductos = ({
       setCantidad(cantidad + data.cantidad);
       setMontoTotal(montoTotal + data.precio * data.cantidad);
       setLista([...lista, data]);
-      setProductosS(true);
     }
   };
 
