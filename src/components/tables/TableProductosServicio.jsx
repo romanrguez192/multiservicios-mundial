@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
+import { useSnackbar } from "notistack";
 
 const TableProductosServicios = ({
   productosServicios,
@@ -14,6 +15,7 @@ const TableProductosServicios = ({
       lookup[l.codLinea] = l.descripcion;
     });
 
+  const { enqueueSnackbar } = useSnackbar();
   const columns = [
     {
       title: "Código",
@@ -87,7 +89,9 @@ const TableProductosServicios = ({
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const productoServicio = await response.json();
@@ -108,7 +112,9 @@ const TableProductosServicios = ({
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const productoServicio = await response.json();
@@ -129,7 +135,9 @@ const TableProductosServicios = ({
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const dataDelete = [...productosServicios];

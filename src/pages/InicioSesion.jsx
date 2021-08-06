@@ -6,6 +6,7 @@ import { Formik, Form } from "formik";
 import Input from "../components/inputs/Input";
 import PasswordInput from "../components/inputs/PasswordInput";
 import Background from "../img/fondoInicioSesion.svg";
+import { useSnackbar } from "notistack";
 
 // ESTILOS
 const useStyles = makeStyles({
@@ -64,6 +65,7 @@ const useStyles = makeStyles({
 
 const InicioSesion = () => {
   const classes = useStyles();
+  const { enqueueSnackbar } = useSnackbar();
 
   const initialValues = {
     usuario: "",
@@ -87,7 +89,9 @@ const InicioSesion = () => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     localStorage.setItem("user", JSON.stringify(data));

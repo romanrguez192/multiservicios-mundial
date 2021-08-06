@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import TableProductosCompra from "./TableProductosCompra";
 import { TableContainer } from "@material-ui/core";
+import { useSnackbar } from "notistack";
 
 const TableOrdenesCompra = ({
   ordCompra,
@@ -24,7 +25,9 @@ const TableOrdenesCompra = ({
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const proveedor = await response.json();
@@ -34,6 +37,7 @@ const TableOrdenesCompra = ({
 
     getProveedores();
   }, []);
+  const { enqueueSnackbar } = useSnackbar();
 
   const columns = [
     {
@@ -92,7 +96,9 @@ const TableOrdenesCompra = ({
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
     }
 

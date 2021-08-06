@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import { makeStyles } from "@material-ui/core";
 import Slide from "react-reveal/Slide";
+import { useSnackbar } from "notistack";
 
 // ESTILOS
 const useStyles = makeStyles({
@@ -18,6 +19,7 @@ export default function TableListaMantenimientos({ marca, modelo, ...props }) {
   const classes = useStyles();
   const [mantenimientos, setMantenimientos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     const getMantenimientos = async () => {
@@ -27,7 +29,9 @@ export default function TableListaMantenimientos({ marca, modelo, ...props }) {
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const mantenimientos = await response.json();
@@ -86,7 +90,9 @@ export default function TableListaMantenimientos({ marca, modelo, ...props }) {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const mantenimiento = await response.json();
@@ -107,7 +113,9 @@ export default function TableListaMantenimientos({ marca, modelo, ...props }) {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const mantenimiento = await response.json();
@@ -128,7 +136,9 @@ export default function TableListaMantenimientos({ marca, modelo, ...props }) {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const dataDelete = [...mantenimientos];

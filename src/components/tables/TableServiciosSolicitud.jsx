@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import TableDetallesSolicitud from "./TableDetallesSolicitud";
 import { TableContainer } from "@material-ui/core";
+import { useSnackbar } from "notistack";
 
 const TableServiciosSolicitud = ({ nroSolicitud, ...props }) => {
   const [servicios, setServicios] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { enqueueSnackbar } = useSnackbar();
 
   const columns = [
     {
@@ -32,7 +34,9 @@ const TableServiciosSolicitud = ({ nroSolicitud, ...props }) => {
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const servicios = await response.json();

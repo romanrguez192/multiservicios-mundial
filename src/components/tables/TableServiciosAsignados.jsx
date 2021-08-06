@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import { useUser } from "../../contexts/UserContext";
 import Slide from "react-reveal/Slide";
+import { useSnackbar } from "notistack";
 
 const TableServiciosAsignados = ({ cedEmpleado, ...props }) => {
   const [serviciosAsignados, setServiciosAsignados] = useState([]);
   const [servicios, setServicios] = useState([]);
   const [loading, setLoading] = useState(true);
   const user = useUser();
+  const { enqueueSnackbar } = useSnackbar();
 
   const lookupServicio = {};
   if (servicios) {
@@ -24,7 +26,9 @@ const TableServiciosAsignados = ({ cedEmpleado, ...props }) => {
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const servicios = await response.json();
@@ -43,7 +47,9 @@ const TableServiciosAsignados = ({ cedEmpleado, ...props }) => {
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const serviciosAsignados = await response.json();
@@ -88,7 +94,9 @@ const TableServiciosAsignados = ({ cedEmpleado, ...props }) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const servicioAsignado = await response.json();
@@ -105,7 +113,9 @@ const TableServiciosAsignados = ({ cedEmpleado, ...props }) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const dataDelete = [...serviciosAsignados];

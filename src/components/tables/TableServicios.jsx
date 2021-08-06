@@ -2,8 +2,11 @@ import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import TableActividades from "./TableActividades";
 import { TableContainer } from "@material-ui/core";
+import { useSnackbar } from "notistack";
 
 const TableServicios = ({ servicios, setServicios, loadingS, ...props }) => {
+  const { enqueueSnackbar } = useSnackbar();
+
   const columns = [
     {
       title: "Código",
@@ -60,7 +63,9 @@ const TableServicios = ({ servicios, setServicios, loadingS, ...props }) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const servicio = await response.json();
@@ -81,7 +86,9 @@ const TableServicios = ({ servicios, setServicios, loadingS, ...props }) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const servicio = await response.json();
@@ -102,7 +109,9 @@ const TableServicios = ({ servicios, setServicios, loadingS, ...props }) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const dataDelete = [...servicios];

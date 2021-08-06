@@ -4,11 +4,13 @@ import TableHistorialVehiculo from "./TableHistorialVehiculo";
 import { useUser } from "../../contexts/UserContext";
 import TableMantenimientosPrevios from "./TableMantenimientosPrevios";
 import { TableContainer } from "@material-ui/core";
+import { useSnackbar } from "notistack";
 
 const TableVehiculos = ({ modelos, ...props }) => {
   const [vehiculos, setVehiculos] = useState([]);
   const [loading, setLoading] = useState(true);
   const user = useUser();
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     const getVehiculos = async () => {
@@ -18,7 +20,9 @@ const TableVehiculos = ({ modelos, ...props }) => {
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const vehiculos = await response.json();

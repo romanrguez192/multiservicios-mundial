@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
+import { useSnackbar } from "notistack";
 
 const TableMecanicos = ({ rows, ...props }) => {
   const [mecanicos, setMecanicos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     getMecanicos();
@@ -16,7 +18,9 @@ const TableMecanicos = ({ rows, ...props }) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const mecanicos = await response.json();
@@ -58,7 +62,9 @@ const TableMecanicos = ({ rows, ...props }) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const mecanico = await response.json();
@@ -79,7 +85,9 @@ const TableMecanicos = ({ rows, ...props }) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const mecanico = await response.json();
@@ -100,7 +108,9 @@ const TableMecanicos = ({ rows, ...props }) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const dataDelete = [...mecanicos];

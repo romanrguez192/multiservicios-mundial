@@ -3,6 +3,7 @@ import Table from "./Table";
 import TableDescripcionModelo from "./TableDescripcionModelo";
 import TableListaMantenimientos from "./TableListaMantenimientos";
 import { TableContainer } from "@material-ui/core";
+import { useSnackbar } from "notistack";
 
 const TableModelos = ({
   modelos,
@@ -16,6 +17,7 @@ const TableModelos = ({
     tiposVehiculos.forEach((t) => {
       lookup[t.codTipoVehiculo] = t.nombre;
     });
+  const { enqueueSnackbar } = useSnackbar();
 
   const columns = [
     {
@@ -89,7 +91,9 @@ const TableModelos = ({
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const modelo = await response.json();
@@ -110,7 +114,9 @@ const TableModelos = ({
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const modelo = await response.json();
@@ -131,7 +137,9 @@ const TableModelos = ({
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const dataDelete = [...modelos];
@@ -157,8 +165,14 @@ const TableModelos = ({
           return (
             <>
               <TableContainer>
-                <TableDescripcionModelo marca={rowData.marca} modelo={rowData.modelo}/>
-                <TableListaMantenimientos marca={rowData.marca} modelo={rowData.modelo}/>
+                <TableDescripcionModelo
+                  marca={rowData.marca}
+                  modelo={rowData.modelo}
+                />
+                <TableListaMantenimientos
+                  marca={rowData.marca}
+                  modelo={rowData.modelo}
+                />
               </TableContainer>
             </>
           );

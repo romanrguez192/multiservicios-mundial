@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "../components/Sidebar";
-import { makeStyles, IconButton, Paper, Divider, CircularProgress } from "@material-ui/core";
+import {
+  makeStyles,
+  IconButton,
+  Paper,
+  Divider,
+  CircularProgress,
+} from "@material-ui/core";
 import { ArrowBackOutlined } from "@material-ui/icons";
 import TableOrdenServicio from "../components/tables/TableOrdenServicio";
 import TableServiciosSolicitud from "../components/tables/TableServiciosSolicitud";
@@ -8,6 +14,7 @@ import { Link } from "react-router-dom";
 import Fade from "react-reveal/Fade";
 import PageTitle from "../components/PageTitle";
 import { useParams } from "react-router-dom";
+import { useSnackbar } from "notistack";
 
 // ESTILOS
 const useStyles = makeStyles({
@@ -77,10 +84,10 @@ const useStyles = makeStyles({
     marginRight: "10pt",
   },
   loading: {
-    position: 'fixed',
-    top: '50%',
-    left: '50%',
-  }
+    position: "fixed",
+    top: "50%",
+    left: "50%",
+  },
 });
 
 const DetalleSolicitud = () => {
@@ -91,6 +98,7 @@ const DetalleSolicitud = () => {
   const [servicio, setServicio] = useState([]);
   const [loading, setLoading] = useState(true);
   const params = useParams();
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     const getSolicitud = async () => {
@@ -100,7 +108,9 @@ const DetalleSolicitud = () => {
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const solicitud = await response.json();
@@ -120,7 +130,9 @@ const DetalleSolicitud = () => {
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const actividades = await response.json();
@@ -139,7 +151,9 @@ const DetalleSolicitud = () => {
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const productos = await response.json();
@@ -158,7 +172,9 @@ const DetalleSolicitud = () => {
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const servicio = await response.json();
@@ -170,7 +186,7 @@ const DetalleSolicitud = () => {
   }, []);
 
   if (loading) {
-    return <CircularProgress className={classes.loading}/>;
+    return <CircularProgress className={classes.loading} />;
   }
 
   return (

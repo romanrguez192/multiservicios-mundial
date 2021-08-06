@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import { useUser } from "../../contexts/UserContext";
 import Fade from "react-reveal/Fade";
+import { useSnackbar } from "notistack";
 
 const TableServiciosOfrecidos = ({
   serviciosOfrecidos,
@@ -12,6 +13,7 @@ const TableServiciosOfrecidos = ({
 }) => {
   const [empleados, setEmpleados] = useState([]);
   const user = useUser();
+  const { enqueueSnackbar } = useSnackbar();
 
   const lookupServicio = {};
   if (servicios) {
@@ -37,7 +39,9 @@ const TableServiciosOfrecidos = ({
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const empleados = await response.json();
@@ -78,7 +82,9 @@ const TableServiciosOfrecidos = ({
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const servicioOfrecido = await response.json();
@@ -99,7 +105,9 @@ const TableServiciosOfrecidos = ({
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const servicioOfrecido = await response.json();
@@ -120,7 +128,9 @@ const TableServiciosOfrecidos = ({
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const dataDelete = [...serviciosOfrecidos];

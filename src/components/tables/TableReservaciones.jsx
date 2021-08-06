@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import { useUser } from "../../contexts/UserContext";
+import { useSnackbar } from "notistack";
 
 const TableReservaciones = ({ ...props }) => {
   const [reservaciones, setReservaciones] = useState([]);
@@ -8,6 +9,7 @@ const TableReservaciones = ({ ...props }) => {
   const [servicios, setServicios] = useState([]);
   const [clientes, setClientes] = useState([]);
   const user = useUser();
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     const getServicios = async () => {
@@ -17,7 +19,9 @@ const TableReservaciones = ({ ...props }) => {
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const servicios = await response.json();
@@ -32,7 +36,9 @@ const TableReservaciones = ({ ...props }) => {
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const clientes = await response.json();
@@ -47,7 +53,9 @@ const TableReservaciones = ({ ...props }) => {
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const reservaciones = await response.json();
@@ -144,7 +152,9 @@ const TableReservaciones = ({ ...props }) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
     const reservacion = await response.json();
     setReservaciones([...reservaciones, reservacion]);
@@ -163,7 +173,9 @@ const TableReservaciones = ({ ...props }) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const reservacion = await response.json();
@@ -184,7 +196,9 @@ const TableReservaciones = ({ ...props }) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const dataDelete = [...reservaciones];

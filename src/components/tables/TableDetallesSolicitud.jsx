@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import Slide from "react-reveal/Slide";
+import { useSnackbar } from "notistack";
 
 const TableDetallesSolicitud = ({ nroSolicitud, codServicio, ...props }) => {
   const [actividades, setActividades] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     const getActividades = async () => {
@@ -14,7 +16,9 @@ const TableDetallesSolicitud = ({ nroSolicitud, codServicio, ...props }) => {
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const actividades = await response.json();

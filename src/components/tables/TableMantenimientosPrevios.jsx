@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Table from "./Table";
 import { makeStyles } from "@material-ui/core";
 import Slide from "react-reveal/Slide";
+import { useSnackbar } from "notistack";
 
 // ESTILOS
 const useStyles = makeStyles({
@@ -18,6 +19,7 @@ export default function TableMantenimientosPrevios({ codVehiculo, ...props }) {
   const classes = useStyles();
   const [mantenimientos, setMantenimientos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { enqueueSnackbar } = useSnackbar();
 
   const columns = [
     {
@@ -40,7 +42,9 @@ export default function TableMantenimientosPrevios({ codVehiculo, ...props }) {
 
       if (!response.ok) {
         //TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const mantenimientos = await response.json();
@@ -66,7 +70,9 @@ export default function TableMantenimientosPrevios({ codVehiculo, ...props }) {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const mantenimiento = await response.json();
@@ -89,7 +95,9 @@ export default function TableMantenimientosPrevios({ codVehiculo, ...props }) {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const mantenimiento = await response.json();
@@ -110,7 +118,9 @@ export default function TableMantenimientosPrevios({ codVehiculo, ...props }) {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const dataDelete = [...mantenimientos];

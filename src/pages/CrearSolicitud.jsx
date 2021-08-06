@@ -18,6 +18,7 @@ import { Link } from "react-router-dom";
 import Fade from "react-reveal/Fade";
 import { useUser } from "../contexts/UserContext";
 import { useHistory } from "react-router-dom";
+import { useSnackbar } from "notistack";
 
 // ESTILOS
 const useStyles = makeStyles({
@@ -70,6 +71,7 @@ const CrearSolicitud = () => {
   const [tlfAutorizado, setTlfAutorizado] = useState("");
   const user = useUser();
   const history = useHistory();
+  const { enqueueSnackbar } = useSnackbar();
 
   const steps = [
     "Seleccionar el cliente",
@@ -177,7 +179,9 @@ const CrearSolicitud = () => {
     if (!response.ok) {
       // TODO: Error
       setSubmitting(false);
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const solicitud = await response.json();

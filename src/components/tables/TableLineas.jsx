@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
+import { useSnackbar } from "notistack";
 
 const TableLineas = ({ lineas, setLineas, loadingL, ...props }) => {
+  const { enqueueSnackbar } = useSnackbar();
+
   const columns = [
     {
       title: "Código",
@@ -30,7 +33,9 @@ const TableLineas = ({ lineas, setLineas, loadingL, ...props }) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const linea = await response.json();
@@ -51,7 +56,9 @@ const TableLineas = ({ lineas, setLineas, loadingL, ...props }) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const linea = await response.json();
@@ -72,7 +79,9 @@ const TableLineas = ({ lineas, setLineas, loadingL, ...props }) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const dataDelete = [...lineas];

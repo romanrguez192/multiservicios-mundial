@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import Slide from "react-reveal/Slide";
+import { useSnackbar } from "notistack";
 
 const TableFacturaActividades = ({}) => {
   const [facturaActividades, setFacturaActividades] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     getFacturaActividades();
@@ -17,7 +19,9 @@ const TableFacturaActividades = ({}) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const facturaActividades = await response.json();
@@ -61,7 +65,9 @@ const TableFacturaActividades = ({}) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const facturaActividad = await response.json();
@@ -78,7 +84,9 @@ const TableFacturaActividades = ({}) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const dataDelete = [...facturaActividades];

@@ -9,6 +9,7 @@ import TableInventario from "../components/tables/TableInventario";
 import Nature from "../components/Nature";
 import PageTitle from "../components/PageTitle";
 import TableOrdenesCompra from "../components/tables/TableOrdenesCompra";
+import { useSnackbar } from "notistack";
 
 // ESTILOS
 const useStyles = makeStyles({
@@ -41,6 +42,7 @@ const Inventario = () => {
   const [inventario, setInventario] = useState([]);
   const [loadingI, setLoadingI] = useState(true);
   const [ordCompra, setOrdCompra] = useState([]);
+  const { enqueueSnackbar } = useSnackbar();
 
   const user = useUser();
 
@@ -53,7 +55,9 @@ const Inventario = () => {
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const lineas = await response.json();
@@ -74,7 +78,9 @@ const Inventario = () => {
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const productosServicios = await response.json();
@@ -95,7 +101,9 @@ const Inventario = () => {
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const productosVentas = await response.json();
@@ -116,7 +124,9 @@ const Inventario = () => {
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const inventario = await response.json();
@@ -136,7 +146,9 @@ const Inventario = () => {
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const ordenesCompra = await response.json();

@@ -3,12 +3,14 @@ import Table from "./Table";
 import Add from "@material-ui/icons/AddOutlined";
 import { useHistory } from "react-router-dom";
 import { useUser } from "../../contexts/UserContext";
+import { useSnackbar } from "notistack";
 
 const TableSolServicios = ({ ...props }) => {
   const [loading, setLoading] = useState(true);
   const [solicitudes, setSolicitudes] = useState([]);
   const history = useHistory();
   const user = useUser();
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     const getSolicitudes = async () => {
@@ -18,7 +20,9 @@ const TableSolServicios = ({ ...props }) => {
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const solicitudes = await response.json();

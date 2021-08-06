@@ -6,6 +6,7 @@ import TableModelos from "../components/tables/TableModelos";
 import TableVehiculos from "../components/tables/TableVehiculos";
 import PageTitle from "../components/PageTitle";
 import Nature from "../components/Nature";
+import { useSnackbar } from "notistack";
 
 // ESTILOS
 const useStyles = makeStyles({
@@ -32,6 +33,7 @@ const Vehiculos = () => {
   const [loadingT, setLoadingT] = useState(true);
   const [modelos, setModelos] = useState([]);
   const [loadingM, setLoadingM] = useState(true);
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     const getTiposVehiculos = async () => {
@@ -41,7 +43,9 @@ const Vehiculos = () => {
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const tiposVehiculos = await response.json();
@@ -61,7 +65,9 @@ const Vehiculos = () => {
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const modelos = await response.json();
@@ -79,7 +85,7 @@ const Vehiculos = () => {
       <main className={classes.containerVehiculos}>
         <PageTitle title="Vehículos" />
         <div className={classes.tableContainer}>
-          <TableVehiculos {...{ modelos }}/>
+          <TableVehiculos {...{ modelos }} />
           <TableTiposVehiculos
             // props
             {...{

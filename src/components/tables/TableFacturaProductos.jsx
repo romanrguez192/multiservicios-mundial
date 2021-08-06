@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
+import { useSnackbar } from "notistack";
 
 const TableFacturaProductos = ({}) => {
   const [facturaProductos, setFacturaProductos] = useState([]);
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     const getFacturaProductos = async () => {
@@ -14,7 +16,9 @@ const TableFacturaProductos = ({}) => {
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const facturaProductos = await response.json();
@@ -32,7 +36,9 @@ const TableFacturaProductos = ({}) => {
       const response = await fetch(url);
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
       const productos = await response.json();
       setProductos(productos);
@@ -91,7 +97,9 @@ const TableFacturaProductos = ({}) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const facturaProducto = await response.json();
@@ -108,7 +116,9 @@ const TableFacturaProductos = ({}) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const dataDelete = [...facturaProductos];

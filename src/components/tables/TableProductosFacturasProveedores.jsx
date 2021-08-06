@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Table from "./Table";
 import Slide from "react-reveal/Slide";
 import { makeStyles } from "@material-ui/core";
+import { useSnackbar } from "notistack";
 
 // ESTILOS
 const useStyles = makeStyles({
@@ -20,6 +21,7 @@ const TableProductosFacturasProveedores = ({}) => {
     useState([]);
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     const getProductosFacturasProveedores = async () => {
@@ -29,7 +31,9 @@ const TableProductosFacturasProveedores = ({}) => {
 
       if (!response.ok) {
         // TODO: error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const productosFacturasProveedores = await response.json();
@@ -49,7 +53,9 @@ const TableProductosFacturasProveedores = ({}) => {
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const productos = await response.json();
@@ -111,7 +117,9 @@ const TableProductosFacturasProveedores = ({}) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const productoFacturasProveedores = await response.json();
@@ -131,7 +139,9 @@ const TableProductosFacturasProveedores = ({}) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const dataDelete = [...productosFacturasProveedores];

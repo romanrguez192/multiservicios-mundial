@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import { useUser } from "../../contexts/UserContext";
+import { useSnackbar } from "notistack";
 
 const TableReservacionesCliente = ({ setReservas, cedCliente, ...props }) => {
   const [reservaciones, setReservaciones] = useState([]);
@@ -16,7 +17,9 @@ const TableReservacionesCliente = ({ setReservas, cedCliente, ...props }) => {
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const reservaciones = await response.json();
@@ -27,6 +30,7 @@ const TableReservacionesCliente = ({ setReservas, cedCliente, ...props }) => {
 
     getReservaciones();
   }, [user, cedCliente]);
+  const { enqueueSnackbar } = useSnackbar();
 
   const columns = [
     {
