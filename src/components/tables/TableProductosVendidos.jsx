@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
+import Slide from "react-reveal/Slide";
 
 const TableCompras = ({ loading, compras, setCompras, ...props }) => {
   
@@ -26,13 +27,16 @@ const TableCompras = ({ loading, compras, setCompras, ...props }) => {
 
   return (
     <div>
-      <Table
-        title="Compras"
-        columns={columns}
-        //data={compras}
-        //isLoading={loading}
-        {...props}
-      />
+      <Slide top collapse>
+        <Table
+            title="Productos vendidos"
+            subTable
+            columns={columns}
+            //data={compras}
+            //isLoading={loading}
+            {...props}
+        />
+      </Slide>
     </div>
   );
 };
