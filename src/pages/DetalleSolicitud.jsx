@@ -55,6 +55,13 @@ const useStyles = makeStyles({
     textOverflow: "ellipsis",
     overflow: "hidden",
   },
+  box2: {
+    width: "39vw",
+    textAlign: "center",
+    whiteSpace: "nowrap",
+    textOverflow: "ellipsis",
+    overflow: "hidden",
+  },
   divFlex: {
     display: "inline-flex",
     textAlign: "center",
@@ -62,6 +69,7 @@ const useStyles = makeStyles({
   containerSubInformation: {
     textAlign: "center",
     paddingBottom: "10pt",
+    display: "inline-flex",
   },
   divider: {
     marginLeft: "10pt",
@@ -192,11 +200,15 @@ const DetalleSolicitud = () => {
               </div>
               <Divider className={classes.divider} />
               <div className={classes.containerSubInformation}>
-                <p className={classes.title}>Servicios</p>
-                <p className={classes.subtitle}>
-                  Lavado y pulitura de carrocería
-                </p>
-                <p className={classes.subtitle}>Servicio de motor y chasis</p>
+                <div className={classes.box2}>
+                  <p className={classes.title}>Marca del vehículo</p>
+                  <p className={classes.subtitle}>{solicitud.marca}</p>
+                </div>
+                <Divider orientation="vertical" flexItem />
+                <div className={classes.box2}>
+                  <p className={classes.title}>Modelo del vehículo</p>
+                  <p className={classes.subtitle}>{solicitud.modelo}</p>
+                </div>
               </div>
             </Paper>
           </Fade>
