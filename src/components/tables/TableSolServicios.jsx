@@ -12,7 +12,7 @@ const TableSolServicios = ({ ...props }) => {
 
   useEffect(() => {
     const getSolicitudes = async() => {
-      const url = `http://localhost:4000/api/solicitudesServicio/${user.rifSucursal}`;
+      const url = `http://localhost:4000/api/solicitudesServicio/?rifSucursal=${user.rifSucursal}`;
 
       const response = await fetch(url);
 
