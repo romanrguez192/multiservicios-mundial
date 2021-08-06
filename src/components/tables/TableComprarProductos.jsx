@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
+import { useSnackbar } from "notistack";
 
 const TableComprarProductos = ({ 
   productos, setProductos, 
@@ -7,6 +8,13 @@ const TableComprarProductos = ({
   cantidad, setCantidad,
   loading, setLoading,
   lista, setLista, ...props }) => {
+  
+  const { enqueueSnackbar } = useSnackbar();
+  const lookup = {};
+
+  productos && productos.forEach((p) => {
+    lookup[p.codProducto] = p.nombre;
+  })
 
   const columns = [
     {
