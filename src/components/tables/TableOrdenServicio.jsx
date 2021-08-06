@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import { makeStyles } from "@material-ui/core";
 import { useUser } from "../../contexts/UserContext";
+import { useSnackbar } from "notistack";
 
-// ESTILOS
 const useStyles = makeStyles({
   toolbar: {
     fontFamily: "quicksand",
@@ -25,6 +25,7 @@ const TableOrdenServicio = ({
   const [empleados, setEmpleados] = useState([]);
   const [ordenes, setOrdenes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { enqueueSnackbar } = useSnackbar();
   const user = useUser();
 
   const productosLookup = {};
@@ -39,8 +40,6 @@ const TableOrdenServicio = ({
     empleadosLookup[e.cedEmpleado] = `${e.cedEmpleado} - ${e.nombre}`;
   });
 
-  console.log(ordenes);
-
   useEffect(() => {
     const getProductos = async () => {
       // TODO: Los del inventario... á
@@ -50,7 +49,9 @@ const TableOrdenServicio = ({
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const productos = await response.json();
@@ -63,14 +64,15 @@ const TableOrdenServicio = ({
 
   useEffect(() => {
     const getEmpleados = async () => {
-      // TODO: Los del inventario... á
       const url = `http://localhost:4000/api/empleados/?rifSucursal=${user.rifSucursal}&codServicio=${codServicio}`;
 
       const response = await fetch(url);
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const empleados = await response.json();
@@ -89,7 +91,9 @@ const TableOrdenServicio = ({
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const ordenes = await response.json();
@@ -128,9 +132,53 @@ const TableOrdenServicio = ({
     },
   ];
 
-  const addOrdenServicio = async (data) => {};
+  const addOrdenServicio = async (data) => {
+    const url = `http://localhost:4000/api/solicitudesServicio/${nroSolicitud}/servicios/${codServicio}/actividades/${nroActividad}/ordenes`;
 
-  const deleteOrdenServicio = async (oldData) => {};
+    data.nroSolicitud = nroSolicitud;
+    data.codServicio = codServicio;
+    data.nroActividad = nroActividad;
+
+    const response = await fetch(url, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      // TODO: Error
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
+    }
+
+    const orden = await response.json();
+
+    setOrdenes([...ordenes, orden]);
+  };
+
+  const deleteOrdenServicio = async (oldData) => {
+    const url = `http://localhost:4000/api/solicitudesServicio/${nroSolicitud}/servicios/${codServicio}/actividades/${nroActividad}/ordenes/?fecha=${oldData.fecha}&codProducto=${oldData.codProducto}`;
+
+    const response = await fetch(url, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      // TODO: Error
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
+    }
+
+    const dataDelete = [...ordenes];
+    const index = oldData.tableData.id;
+    dataDelete.splice(index, 1);
+
+    setOrdenes(dataDelete);
+  };
 
   return (
     <div className={classes.table}>
@@ -139,7 +187,8 @@ const TableOrdenServicio = ({
         columns={columns}
         data={ordenes}
         isLoading={loading}
-        
+        subTable
+        triTable
         editable={{
           onRowAdd: addOrdenServicio,
           onRowDelete: deleteOrdenServicio,

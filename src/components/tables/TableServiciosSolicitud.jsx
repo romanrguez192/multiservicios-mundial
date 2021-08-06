@@ -47,6 +47,7 @@ const TableServiciosSolicitud = ({ nroSolicitud, ...props }) => {
 
     getServicios();
   }, [nroSolicitud]);
+  
 
   return (
     <div>
