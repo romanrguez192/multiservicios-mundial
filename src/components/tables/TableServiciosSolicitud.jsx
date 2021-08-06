@@ -54,7 +54,7 @@ const TableServiciosSolicitud = ({ nroSolicitud, ...props }) => {
           return (
             <TableContainer>
               <TableDetallesSolicitud
-                nroSolicitud={rowData.nroSolicitud}
+                nroSolicitud={nroSolicitud}
                 codServicio={rowData.codServicio}
               />
             </TableContainer>

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Sidebar from "../components/Sidebar";
 import { makeStyles, IconButton, Paper, Divider } from "@material-ui/core";
 import { ArrowBackOutlined } from "@material-ui/icons";
-import TableOrdenServicio from "../components/tables/TableOrdenServicio";
 import TableServiciosSolicitud from "../components/tables/TableServiciosSolicitud";
 import { Link } from "react-router-dom";
 import Fade from "react-reveal/Fade";
@@ -72,9 +71,6 @@ const useStyles = makeStyles({
 const DetalleSolicitud = () => {
   const classes = useStyles();
   const [solicitud, setSolicitud] = useState(null);
-  const [actividades, setActividades] = useState([]);
-  const [productosS, setProductosS] = useState([]);
-  const [servicio, setServicio] = useState([]);
   const [loading, setLoading] = useState(true);
   const params = useParams();
 
@@ -97,63 +93,6 @@ const DetalleSolicitud = () => {
 
     getSolicitud();
   }, [params]);
-
-  useEffect(() => {
-    const getActividades = async () => {
-      const url = "http://localhost:4000/api/actividades";
-
-      const response = await fetch(url);
-
-      if (!response.ok) {
-        // TODO: Error
-        return console.log("Oh no");
-      }
-
-      const actividades = await response.json();
-
-      setActividades(actividades);
-    };
-
-    getActividades();
-  }, []);
-
-  useEffect(() => {
-    const getProductosS = async () => {
-      const url = "http://localhost:4000/api/productosServicios";
-
-      const response = await fetch(url);
-
-      if (!response.ok) {
-        // TODO: Error
-        return console.log("Oh no");
-      }
-
-      const productos = await response.json();
-
-      setProductosS(productos);
-    };
-
-    getProductosS();
-  }, []);
-
-  useEffect(() => {
-    const getServicio = async () => {
-      const url = "http://localhost:4000/api/servicios";
-
-      const response = await fetch(url);
-
-      if (!response.ok) {
-        // TODO: Error
-        return console.log("Oh no");
-      }
-
-      const servicio = await response.json();
-
-      setServicio(servicio);
-    };
-
-    getServicio();
-  }, []);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -201,14 +140,6 @@ const DetalleSolicitud = () => {
             </Paper>
           </Fade>
           <TableServiciosSolicitud nroSolicitud={solicitud.nroSolicitud} />
-          <TableOrdenServicio
-            {...{
-              //props
-              actividades,
-              servicio,
-              productosS,
-            }}
-          />
         </div>
       </main>
     </div>

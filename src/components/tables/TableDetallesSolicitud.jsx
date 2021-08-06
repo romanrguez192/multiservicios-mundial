@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import Slide from "react-reveal/Slide";
+import TableOrdenServicio from "./TableOrdenServicio";
+import { TableContainer } from "@material-ui/core";
 
 const TableDetallesSolicitud = ({ nroSolicitud, codServicio, ...props }) => {
   const [actividades, setActividades] = useState([]);
@@ -38,7 +40,7 @@ const TableDetallesSolicitud = ({ nroSolicitud, codServicio, ...props }) => {
     },
     {
       title: "Precio (Bs.S)",
-      field: "precio",
+      field: "monto",
       type: "numeric",
     },
     {
@@ -59,6 +61,17 @@ const TableDetallesSolicitud = ({ nroSolicitud, codServicio, ...props }) => {
         data={actividades}
         isLoading={loading}
         subTable
+        detailPanel={(rowData) => {
+          return (
+            <TableContainer>
+              <TableOrdenServicio
+                nroSolicitud={nroSolicitud}
+                codServicio={rowData.codServicio}
+                nroActividad={rowData.nroActividad}
+              />
+            </TableContainer>
+          );
+        }}
         {...props}
       />
     </Slide>
