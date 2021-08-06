@@ -48,7 +48,6 @@ export default function Table({
           title={Title}
           style={styleTable}
           options={{
-            filtering: true,
             selection: selection,
             emptyRowsWhenPaging: true,
             pageSizeOptions: pageSize,
