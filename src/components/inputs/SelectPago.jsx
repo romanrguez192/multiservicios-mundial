@@ -13,8 +13,8 @@ const SelectPago = ({ setTipoPago, setMoneda, ...props }) => {
   ];
 
   const tipoMoneda = [
-    { title: 'Bolívares' },
-    { title: 'Dólares' },
+    { title: 'Bolívar' },
+    { title: 'Divisa' },
   ];
 
   const handleChange = (event, value) => {
