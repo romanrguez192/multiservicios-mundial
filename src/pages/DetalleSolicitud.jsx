@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "../components/Sidebar";
-import { makeStyles, IconButton, Paper, Divider } from "@material-ui/core";
+import { makeStyles, IconButton, Paper, Divider, CircularProgress } from "@material-ui/core";
 import { ArrowBackOutlined } from "@material-ui/icons";
 import TableOrdenServicio from "../components/tables/TableOrdenServicio";
 import TableServiciosSolicitud from "../components/tables/TableServiciosSolicitud";
@@ -76,6 +76,11 @@ const useStyles = makeStyles({
     marginLeft: "10pt",
     marginRight: "10pt",
   },
+  loading: {
+    position: 'fixed',
+    top: '50%',
+    left: '50%',
+  }
 });
 
 const DetalleSolicitud = () => {
@@ -165,7 +170,7 @@ const DetalleSolicitud = () => {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <CircularProgress className={classes.loading}/>;
   }
 
   return (
