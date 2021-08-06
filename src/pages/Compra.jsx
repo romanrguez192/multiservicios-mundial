@@ -62,6 +62,7 @@ const Compra = () => {
   const [lista, setLista] = useState([]);
   const [tipoPago, setTipoPago] = useState(null);
   const [datoPago, setDatoPago] = useState(null);
+  const [moneda, setMoneda] = useState(null);
   const [montoTotal, setMontoTotal] = useState(0);
   const [cantidad, setCantidad] = useState(0);
 
@@ -78,9 +79,12 @@ const Compra = () => {
       case 1:
         return <Step2Compra {...{ 
           lista, setLista, montoTotal, setMontoTotal,
-          setTipoPago, setDatoPago, cantidad, setCantidad }} />;
+          setTipoPago, setDatoPago, setMoneda, cantidad, setCantidad }} />;
       case 2:
-        return <Step3Compra  {...{ tipoPago, setTipoPago, datoPago, setDatoPago }} />;
+        return <Step3Compra  {...{ 
+          tipoPago, setTipoPago, 
+          moneda, setMoneda,
+          datoPago, setDatoPago }} />;
       default:
         return "Error";
     }
@@ -101,12 +105,13 @@ const Compra = () => {
 
 
   const save = async () => {
-    const data = {
-
-    };
-
-
-
+    console.log(cliente);
+    console.log(lista);
+    console.log(tipoPago);
+    console.log(datoPago);
+    console.log(moneda);
+    console.log(montoTotal);
+    console.log(cantidad);
   }
 
   return (
