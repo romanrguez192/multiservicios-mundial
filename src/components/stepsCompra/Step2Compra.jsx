@@ -56,8 +56,6 @@ const Step2Compra = ({ lista, setLista, setTipoPago, setDatoPago }) => {
     setTipoPago(null);
   }, []);
 
-  if(cantidad === 0) setLista([]);
-
   return (
     <div className={classes.tableContainer}>
       <TableComprarProductos {...{
