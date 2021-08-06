@@ -126,7 +126,12 @@ const DetalleSolicitud = () => {
   }, [params]);
 
   if (loading) {
-    return <CircularProgress className={classes.loading} />;
+    return (
+      <div>
+        <Sidebar page="solicitudes" />
+        <CircularProgress className={classes.loading} />;
+      </div>
+    );
   }
 
   return (
@@ -151,14 +156,19 @@ const DetalleSolicitud = () => {
                 </div>
                 <Divider orientation="vertical" flexItem />
                 <div className={classes.box}>
-                  <p className={classes.title}>Fecha de inicio</p>
+                  <p className={classes.title}>Fecha de entrada</p>
                   <p className={classes.subtitle}>{solicitud.fechaEntrada}</p>
                 </div>
                 <Divider orientation="vertical" flexItem />
                 <div className={classes.box}>
-                  <p className={classes.title}>Fecha de salida estimada</p>
+                  <p className={classes.title}>
+                    {"Fecha de salida" +
+                      (solicitud.finalizada ? "" : " estimada")}
+                  </p>
                   <p className={classes.subtitle}>
-                    {solicitud.fechaSalidaEstimada}
+                    {solicitud.finalizada
+                      ? solicitud.fechaSalidaReal
+                      : solicitud.fechaSalidaEstimada}
                   </p>
                 </div>
               </div>
@@ -182,11 +192,15 @@ const DetalleSolicitud = () => {
             </Paper>
           </Fade>
           <TableServiciosSolicitud nroSolicitud={solicitud.nroSolicitud} />
-          <div className={classes.endServ}>
-            <Button fullWidth variant="contained" color="primary">
-              Finalizar Servicio
-            </Button>
-          </div>
+          {solicitud.finalizada ? (
+            <div>A</div>
+          ) : (
+            <div className={classes.endServ}>
+              <Button fullWidth variant="contained" color="primary">
+                Finalizar Servicio
+              </Button>
+            </div>
+          )}
         </div>
       </main>
     </div>
