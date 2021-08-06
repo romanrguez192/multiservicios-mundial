@@ -46,6 +46,11 @@ const useStyles = makeStyles({
     marginLeft: '20pt',
     marginRight: '20pt',
   },
+  datosAd: {
+    width:'300px',
+    margin: 'auto',
+    paddingBottom: '20pt',
+  }
 });
 
 const Step3Compra = ({ tipoPago, setTipoPago, datoPago, setDatoPago, ...props }) => {
@@ -63,19 +68,31 @@ const Step3Compra = ({ tipoPago, setTipoPago, datoPago, setDatoPago, ...props })
       case null:
         return
       case 'Efectivo':
-        return <SelectPago name="tipoMoneda" title="Moneda"
-          setDatoPago={setDatoPago} setTipoPago={setTipoPago}
-        />
+        return
       case 'Transferencia':
-        return <Input name="transferencia" placeholder="Banco" 
-          datoPago={datoPago} setDatoPago={setDatoPago}
-        />
+        return(
+          <>
+          <p className={classes.subtitleDA}>Datos adicionales</p>
+          <Input name="transferencia" placeholder="Banco" 
+            datoPago={datoPago} setDatoPago={setDatoPago}
+          />
+          </>
+        ); 
       default:
-        return <Input name="tarjeta" placeholder="Numero de tarjeta"
-          datoPago={datoPago} setDatoPago={setDatoPago}
-        />
+        return(
+          <>
+          <p className={classes.subtitleDA}>Datos adicionales</p>
+          <Input name="tarjeta" placeholder="Numero de tarjeta"
+            datoPago={datoPago} setDatoPago={setDatoPago}
+          />
+          </>
+        );  
     }
   };
+
+<Input name="tarjeta" placeholder="Numero de tarjeta"
+          datoPago={datoPago} setDatoPago={setDatoPago}
+        />
 
   return (
     <Fade>
@@ -86,8 +103,9 @@ const Step3Compra = ({ tipoPago, setTipoPago, datoPago, setDatoPago, ...props })
             <Form className={classes.containerInputs}>
               <p className={classes.subtitleFH}>Seleccionar Tipo de pago</p>
               <SelectPago name="tipoPago" title="Tipo de Pago" setTipoPago={setTipoPago}/>
-              <p className={classes.subtitleDA}>Datos adicionales</p>
-              <div className={classes.divFlex}>
+              <p className={classes.subtitleFH}>Seleccionar Moneda</p>
+              <SelectPago name="tipoMoneda" title="Moneda" setDatoPago={setDatoPago} setTipoPago={setTipoPago}/>
+              <div className={classes.datosAd}>
                 {verificarTipoPago(tipoPago)} 
               </div>
             </Form>
