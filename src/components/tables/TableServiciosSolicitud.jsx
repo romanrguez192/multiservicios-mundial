@@ -46,7 +46,7 @@ const TableServiciosSolicitud = ({ nroSolicitud, ...props }) => {
   return (
     <div>
       <Table
-        title="Servicios"
+        title="Servicios Contratados"
         columns={columns}
         data={servicios}
         isLoading={loading}

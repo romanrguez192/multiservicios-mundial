@@ -24,7 +24,7 @@ const TableOrdenServicio = ({
   const [productos, setProductos] = useState([]);
   const [empleados, setEmpleados] = useState([]);
   const [ordenes, setOrdenes] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const user = useUser();
 
   const productosLookup = {};
@@ -38,6 +38,8 @@ const TableOrdenServicio = ({
   empleados.forEach((e) => {
     empleadosLookup[e.cedEmpleado] = `${e.cedEmpleado} - ${e.nombre}`;
   });
+
+  console.log(ordenes);
 
   useEffect(() => {
     const getProductos = async () => {
@@ -93,6 +95,7 @@ const TableOrdenServicio = ({
       const ordenes = await response.json();
 
       setOrdenes(ordenes);
+      setLoading(false);
     };
 
     getOrdenes();
@@ -103,6 +106,11 @@ const TableOrdenServicio = ({
       title: "Producto",
       field: "codProducto",
       lookup: productosLookup,
+    },
+    {
+      title: "Fecha",
+      field: "fecha",
+      type: "date",
     },
     {
       title: "Cantidad",
@@ -116,6 +124,7 @@ const TableOrdenServicio = ({
     {
       title: "Empleado Responsable",
       field: "cedEmpleado",
+      lookup: empleadosLookup,
     },
   ];
 
@@ -126,10 +135,11 @@ const TableOrdenServicio = ({
   return (
     <div className={classes.table}>
       <Table
-        title="Órdenes de Servicio"
+        title="Órdenes de Suministro"
         columns={columns}
         data={ordenes}
         isLoading={loading}
+        
         editable={{
           onRowAdd: addOrdenServicio,
           onRowDelete: deleteOrdenServicio,
