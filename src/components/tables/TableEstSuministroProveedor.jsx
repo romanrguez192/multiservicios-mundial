@@ -1,8 +1,36 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Table from "./Table";
-
+import { useUser } from "../../contexts/UserContext";
+import { useSnackbar } from "notistack";
 //Proveedor que nos suministra más/menos productos
 const TableEstSuministroProveedor = (props) => {
+  const user = useUser();
+  const [proveedorProductos, setProveedorProductos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const { enqueueSnackbar } = useSnackbar();
+
+  useEffect(() => {
+    const getProveedorProductos = async () => {
+      const url = `http://localhost:4000/api/estadisticas/proveedorProductos/${user.rifSucursal}`;
+
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        // TODO: Error
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
+      }
+
+      const proveedorProductos = await response.json();
+
+      setProveedorProductos(proveedorProductos);
+      setLoading(false);
+    };
+
+    getProveedorProductos();
+  });
+
   const columns = [
     {
       title: "Rif",
@@ -27,9 +55,10 @@ const TableEstSuministroProveedor = (props) => {
   return (
     <div>
       <Table
-        title="Proveedores que suministran más productos"
+        title="Proveedores que suministran más/menos productos"
         columns={columns}
-        {...props}
+        data={proveedorProductos}
+        isLoading={loading}
       />
     </div>
   );
