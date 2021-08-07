@@ -198,7 +198,7 @@ const DetalleSolicitud = () => {
           </Fade>
           <TableServiciosSolicitud nroSolicitud={solicitud.nroSolicitud} />
           {solicitud.finalizada ? (
-            <div>A</div>
+            <div></div>
           ) : (
             <div className={classes.endServ}>
               <Button 

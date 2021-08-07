@@ -13,7 +13,7 @@ const TableSolServicios = ({ codVehiculo, ...props }) => {
 
   useEffect(() => {
     const getSolicitudes = async () => {
-      const url = `http://localhost:4000/api/solicitudesServicio/${codVehiculo}`;
+      const url = `http://localhost:4000/api/solicitudesServicio/?codVehiculo=${codVehiculo}`;
 
       const response = await fetch(url);
 
