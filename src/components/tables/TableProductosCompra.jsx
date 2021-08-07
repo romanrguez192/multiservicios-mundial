@@ -4,6 +4,17 @@ import Slide from "react-reveal/Slide";
 import { Button } from "@material-ui/core";
 import { useUser } from "../../contexts/UserContext";
 import { useSnackbar } from "notistack";
+import { composeClasses } from "@material-ui/data-grid";
+import { makeStyles } from "@material-ui/core";
+
+// Estilos
+const useStyles = makeStyles({
+  buttonEnviar: {
+    width: '250px',
+    margin: 'auto',
+    paddingBottom: '20pt',
+  },
+});
 
 const TableProductosCompra = ({
   ordCompra,
@@ -17,6 +28,7 @@ const TableProductosCompra = ({
   const [submitting, setSubmitting] = useState(false);
   const user = useUser();
   const { enqueueSnackbar } = useSnackbar();
+  const classes = useStyles();
 
   const lookup = {};
   productos.forEach((p) => {
@@ -166,14 +178,17 @@ const TableProductosCompra = ({
           {...props}
         />
         {!ordCompra.enviada && (
-          <Button
-            variant="contained"
-            color="primary"
-            disabled={!productosCompra.length || submitting}
-            onClick={enviar}
-          >
-            Enviar
-          </Button>
+          <div className={classes.buttonEnviar}>
+            <Button
+              variant="contained"
+              fullWidth
+              color="primary"
+              disabled={!productosCompra.length || submitting}
+              onClick={enviar}
+            >
+              Enviar
+            </Button>
+          </div>
         )}
       </div>
     </Slide>

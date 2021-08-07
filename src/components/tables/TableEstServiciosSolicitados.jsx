@@ -46,7 +46,7 @@ const TableEstServiciosSolicitados = () => {
     },
     {
       title: "Nº de veces que se solicitó",
-      field: "numSolicitudes",
+      field: "totalVeces",
       type: "numeric",
       align: "left",
       editable: "never",
@@ -56,7 +56,7 @@ const TableEstServiciosSolicitados = () => {
   return (
     <div>
       <Table
-        title="Servicios solicitados"
+        title="Servicios más/menos solicitados"
         columns={columns}
         data={serviciosSolicitados}
         isLoading={loading}
