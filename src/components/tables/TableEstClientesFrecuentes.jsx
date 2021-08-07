@@ -34,7 +34,7 @@ const TableEstClientesFrecuentes = () => {
   const columns = [
     {
       title: "Cédula",
-      field: "cedula",
+      field: "cedCliente",
       type: "numeric",
       align: "left",
       editable: "never",
@@ -46,7 +46,7 @@ const TableEstClientesFrecuentes = () => {
     },
     {
       title: "Nº de veces que solicitó un servicio",
-      field: "numServicios",
+      field: "totalVeces",
       type: "numeric",
       align: "left",
       editable: "never",

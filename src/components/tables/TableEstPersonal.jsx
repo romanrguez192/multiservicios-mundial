@@ -34,13 +34,18 @@ const TableEstPersonal = () => {
 
   const columns = [
     {
+      title: "Cédula del empleado",
+      field: "cedEmpleado",
+      editable: "never",
+    },
+    {
       title: "Empleado",
-      field: "empleado",
+      field: "nombreEmpleado",
       editable: "never",
     },
     {
       title: "Nº de Servicios Atendidos",
-      field: "numServiciosAtendidos",
+      field: "totalServicios",
       editable: "never",
       type: "numeric",
       align: "left",

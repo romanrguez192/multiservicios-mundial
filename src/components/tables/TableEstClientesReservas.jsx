@@ -35,7 +35,7 @@ const TableEstClientesReservas = () => {
   const columns = [
     {
       title: "Cédula",
-      field: "cedula",
+      field: "cedCliente",
       type: "numeric",
       editable: "never",
       align: "left",
@@ -47,7 +47,7 @@ const TableEstClientesReservas = () => {
     },
     {
       title: "Número de reservas perdidas",
-      field: "numReservasPerdidas",
+      field: "totalVeces",
       type: "numeric",
       editable: "never",
       align: "left",

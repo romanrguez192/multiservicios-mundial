@@ -28,24 +28,24 @@ const TableEstProductosVendidos = () => {
       setProductosVendidos(productosVendidos);
       setLoading(false);
     };
-
+    
     getProductosVendidos();
   });
 
   const columns = [
     {
       title: "Código",
-      field: "codigo",
+      field: "codProducto",
       type: "numeric",
       align: "left",
     },
     {
       title: "Producto",
-      field: "producto",
+      field: "nombre",
     },
     {
       title: "Nº de salida por ventas",
-      field: "numVentas",
+      field: "totalVentas",
       type: "numeric",
       align: "left",
     },

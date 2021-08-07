@@ -11,7 +11,7 @@ const TableEstMarcas = () => {
 
   useEffect(() => {
     const getMarcasVehiculos = async () => {
-      const url = `http://localhost:4000/api/estadisticas/clientesNoUsanServicio/${user.rifSucursal}`;
+      const url = `http://localhost:4000/api/estadisticas/marcasAtendidas/${user.rifSucursal}`;
 
       const response = await fetch(url);
 

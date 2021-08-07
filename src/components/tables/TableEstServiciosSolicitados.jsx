@@ -46,7 +46,7 @@ const TableEstServiciosSolicitados = () => {
     },
     {
       title: "Nº de veces que se solicitó",
-      field: "numSolicitudes",
+      field: "totalVeces",
       type: "numeric",
       align: "left",
       editable: "never",

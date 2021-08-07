@@ -34,19 +34,19 @@ const TableEstSuministroProveedor = (props) => {
   const columns = [
     {
       title: "Rif",
-      field: "rif",
+      field: "rifProveedor",
       editable: "never",
     },
     {
       title: "Proveedor",
-      field: "proveedor",
+      field: "razonSocial",
       editable: "never",
     },
     // TO DO No sé si esto se manejaría por la cantidad de productos así
     //O tipo la variedad de productos, no lo c
     {
       title: "Número de productos suministrados",
-      field: "numProductosSuministrados",
+      field: "cantidadTotal",
       editable: "never",
       type: "numeric",
       align: "left",
