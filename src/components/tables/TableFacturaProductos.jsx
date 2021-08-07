@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import { useSnackbar } from "notistack";
+import Slide from "react-reveal";
 
 const TableFacturaProductos = ({ nroFactura }) => {
   const [productos, setProductos] = useState([]);
@@ -52,7 +53,7 @@ const TableFacturaProductos = ({ nroFactura }) => {
   ];
 
   return (
-    <div>
+    <Slide top collapse>
       <Table
         title="Productos"
         columns={columns}
@@ -60,7 +61,7 @@ const TableFacturaProductos = ({ nroFactura }) => {
         isLoading={loading}
         subTable
       />
-    </div>
+    </Slide>
   );
 };
 
