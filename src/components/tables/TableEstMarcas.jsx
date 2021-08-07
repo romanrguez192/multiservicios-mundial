@@ -34,7 +34,7 @@ const TableEstMarcas = () => {
   const columns = [
     {
       title: "Servicio",
-      field: "servicio",
+      field: "nombre",
       editable: "never",
     },
     {
@@ -44,7 +44,7 @@ const TableEstMarcas = () => {
     },
     {
       title: "Nº de veces que se atendió esta marca",
-      field: "numMarcasAtendidas",
+      field: "totalVeces",
       type: "numeric",
       align: "left",
       editable: "never",
