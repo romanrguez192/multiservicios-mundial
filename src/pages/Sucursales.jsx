@@ -24,6 +24,12 @@ const useStyles = makeStyles({
     width: "80vw",
     margin: "auto",
   },
+  ir: {
+    margin: "auto",
+    width: "250px",
+    paddingTop: "10pt",
+    paddingBottom: "30pt",
+  },
 });
 
 const Sucursales = () => {
@@ -52,7 +58,7 @@ const Sucursales = () => {
 
     if (!response.ok) {
       // TODO: Error
-      setSubmitting(false); 
+      setSubmitting(false);
       return enqueueSnackbar("Se ha producido un error", {
         variant: "error",
       });
@@ -69,14 +75,18 @@ const Sucursales = () => {
         <div className={classes.tableContainer}>
           <TableSucursales sucursal={sucursal} setSucursal={setSucursal} />
         </div>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={changeSucursal}
-          disabled={!sucursal || submitting}
-        >
-          Ir a la sucursal
-        </Button>
+        <div className={classes.ir}>
+          <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            onClick={changeSucursal}
+            disabled={!sucursal || submitting}
+          >
+            Ir a la sucursal
+          </Button>
+        </div>
+
         <Nature />
       </main>
     </div>
