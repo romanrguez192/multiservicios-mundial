@@ -69,7 +69,7 @@ const TablePersonal = ({ ...props }) => {
         encargado: "Encargado",
       },
       editable: user.tipoEmpleado === "dueño" ? "always" : "never",
-    }, // TODO: Pensar bien lo del dueño
+    },
   ];
 
   if (user.tipoEmpleado !== "personal") {
