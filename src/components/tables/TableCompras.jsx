@@ -63,7 +63,7 @@ const TableCompras = ({ loading, compras, setCompras, ...props }) => {
           return (
             <TableContainer>
               <TableProductosVendidos
-                
+                nroFactura={rowData.nroFactura}
               />
             </TableContainer>
           );
