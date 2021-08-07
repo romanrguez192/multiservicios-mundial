@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core";
 import TableComprarProductos from "../tables/TableComprarProductos";
 import { useSnackbar } from "notistack";
+import { useUser } from "../../contexts/UserContext";
 
 // Estilos
 const useStyles = makeStyles({
@@ -32,10 +33,11 @@ const Step2Compra = ({ lista, setLista, cantidad, setCantidad,
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
   const { enqueueSnackbar } = useSnackbar();
+  const user = useUser();
 
   useEffect(() => {
     const getProductos = async () => {
-      const url = `http://localhost:4000/api/productosVentas`;
+      const url = `http://localhost:4000/api/productosVentas?rifSucursal=${user.rifSucursal}`;
 
       const response = await fetch(url);
 

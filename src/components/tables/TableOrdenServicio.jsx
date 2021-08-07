@@ -42,8 +42,8 @@ const TableOrdenServicio = ({
 
   useEffect(() => {
     const getProductos = async () => {
-      // TODO: Los del inventario... á
-      const url = "http://localhost:4000/api/productosServicios";
+      
+      const url = `http://localhost:4000/api/productosServicios?rifSucursal=${user.rifSucursal}`;
 
       const response = await fetch(url);
 
