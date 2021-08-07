@@ -15,44 +15,20 @@ const useStyles = makeStyles({
   },
 });
 
-const TableProductosFacturasProveedores = ({}) => {
+const TableProductosFacturasProveedores = ({ codOrdCompra }) => {
   const classes = useStyles();
-  const [productosFacturasProveedores, setProductosFacturasProveedores] =
-    useState([]);
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
-    const getProductosFacturasProveedores = async () => {
-      const url = "";
+    const getProductos = async () => {
+      const url = `http://localhost:4000/api/ordenesCompra/${codOrdCompra}/productos`;
 
       const response = await fetch(url);
 
       if (!response.ok) {
         // TODO: error
-        return enqueueSnackbar("Se ha producido un error", {
-          variant: "error",
-        });
-      }
-
-      const productosFacturasProveedores = await response.json();
-
-      setProductosFacturasProveedores(productosFacturasProveedores);
-      setLoading(false);
-    };
-
-    getProductosFacturasProveedores();
-  });
-
-  useEffect(() => {
-    const getProductos = async () => {
-      const url = `http://localhost:4000/api/productos`;
-
-      const response = await fetch(url);
-
-      if (!response.ok) {
-        // TODO: Error
         return enqueueSnackbar("Se ha producido un error", {
           variant: "error",
         });
@@ -65,51 +41,44 @@ const TableProductosFacturasProveedores = ({}) => {
     };
 
     getProductos();
-  }, []);
-
-  const lookup = {};
-  productos &&
-    productos.forEach((p) => {
-      lookup[p.codProducto] = `${p.codProducto} - ${p.nombre}`;
-    });
+  });
 
   const columns = [
     {
-      title: "Producto",
+      title: "Código del producto",
       field: "codProducto",
-      editable: "onAdd",
+      editable: "never",
       type: "numeric",
       align: "left",
-      lookup: lookup,
+    },
+    {
+      title: "Nombre de producto",
+      field: "nombre",
+      editable: "never",
     },
     {
       title: "Cantidad",
       field: "cantidad",
       type: "numeric",
       align: "left",
-      editable: "onAdd",
+      editable: "never",
     },
     {
-      title: "Precio Unitario",
-      field: "precioUnitario",
+      title: "Precio Total (Bs.S)",
+      field: "precio",
       type: "numeric",
       align: "left",
-      editable: "onAdd",
-    },
-    {
-      title: "Precio Total",
-      field: "precioTotal",
-      type: "numeric",
-      align: "left",
-      editable: "onAdd",
+      editable: "onUpdate",
+      emptyValue: "Por registrar",
     },
   ];
 
-  const addProductoFacturasProveedores = async (data) => {
-    const url = "";
+  const update = async (newData, oldData) => {
+    const url = `http://localhost:4000/api/ordenesCompra/${codOrdCompra}/productos/${oldData.codProducto}`;
+
     const response = await fetch(url, {
-      method: "POST",
-      body: JSON.stringify(data),
+      method: "PUT",
+      body: JSON.stringify(newData),
       headers: {
         "Content-Type": "application/json",
       },
@@ -122,33 +91,13 @@ const TableProductosFacturasProveedores = ({}) => {
       });
     }
 
-    const productoFacturasProveedores = await response.json();
+    const productos = await response.json();
 
-    setProductosFacturasProveedores([
-      ...productosFacturasProveedores,
-      productoFacturasProveedores,
-    ]);
-  };
-
-  const deleteProductoFacturasProveedores = async (oldData) => {
-    const url = "";
-
-    const response = await fetch(url, {
-      method: "DELETE",
-    });
-
-    if (!response.ok) {
-      // TODO: Error
-      return enqueueSnackbar("Se ha producido un error", {
-        variant: "error",
-      });
-    }
-
-    const dataDelete = [...productosFacturasProveedores];
+    const updatedData = [...productos];
     const index = oldData.tableData.id;
-    dataDelete.splice(index, 1);
+    updatedData[index] = productos;
 
-    setProductosFacturasProveedores(dataDelete);
+    setProductos(updatedData);
   };
 
   return (
@@ -156,12 +105,12 @@ const TableProductosFacturasProveedores = ({}) => {
       <Slide top collapse>
         <Table
           title="Productos"
+          subTable
           triTable
           columns={columns}
-          data={{}}
+          data={productos}
           editable={{
-            onRowAdd: addProductoFacturasProveedores,
-            onRowDelete: deleteProductoFacturasProveedores,
+            onRowUpdate: update,
           }}
           isLoading={loading}
         />

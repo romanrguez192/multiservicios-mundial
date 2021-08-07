@@ -124,10 +124,10 @@ const TableFacturasProveedores = ({ rifProveedor, ...props }) => {
         onRowAdd: addFacturaProveedor,
         onRowDelete: deleteFacturaProveedor,
       }}
-      detailPanel={() => {
+      detailPanel={(rowData) => {
         return (
           <TableContainer>
-            <TableProductosFacturasProveedores />
+            <TableProductosFacturasProveedores codOrdCompra={rowData.codOrdCompra} />
           </TableContainer>
         );
       }}
