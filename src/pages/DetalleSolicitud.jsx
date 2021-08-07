@@ -134,6 +134,11 @@ const DetalleSolicitud = () => {
     );
   }
 
+  function formatDate(string){
+    var options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'};
+    return new Date(string).toLocaleDateString('ES-es',options);
+}
+
   return (
     <div className={classes.root}>
       <Sidebar page="solicitudes" />
@@ -157,7 +162,7 @@ const DetalleSolicitud = () => {
                 <Divider orientation="vertical" flexItem />
                 <div className={classes.box}>
                   <p className={classes.title}>Fecha de entrada</p>
-                  <p className={classes.subtitle}>{solicitud.fechaEntrada}</p>
+                  <p className={classes.subtitle}>{formatDate(solicitud.fechaEntrada)}</p>
                 </div>
                 <Divider orientation="vertical" flexItem />
                 <div className={classes.box}>
@@ -167,8 +172,8 @@ const DetalleSolicitud = () => {
                   </p>
                   <p className={classes.subtitle}>
                     {solicitud.finalizada
-                      ? solicitud.fechaSalidaReal
-                      : solicitud.fechaSalidaEstimada}
+                      ? formatDate(solicitud.fechaSalidaReal)
+                      : formatDate(solicitud.fechaSalidaEstimada)}
                   </p>
                 </div>
               </div>
