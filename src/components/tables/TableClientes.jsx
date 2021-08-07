@@ -35,11 +35,6 @@ const TableClientes = ({ clientes, setClientes, loadingC, ...props }) => {
       field: "tlfAlternativo",
       editable: "always",
     },
-    {
-      title: "¿Es frecuente?",
-      field: "esFrecuente",
-      editable: "never",
-    },
   ];
 
   const addCliente = async (data) => {

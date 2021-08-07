@@ -26,7 +26,6 @@ const TableFacturasProveedores = ({ rifProveedor, ...props }) => {
       }
 
       const facturasProveedores = await response.json();
-      console.log(facturasProveedores);
 
       setFacturasProveedores(facturasProveedores);
       setLoading(false);
