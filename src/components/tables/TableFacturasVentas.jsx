@@ -7,7 +7,7 @@ import { useUser } from "../../contexts/UserContext";
 
 const TableFacturasVentas = ({}) => {
   const [facturasVentas, setFacturasVentas] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const { enqueueSnackbar } = useSnackbar();
   const user = useUser();
 
