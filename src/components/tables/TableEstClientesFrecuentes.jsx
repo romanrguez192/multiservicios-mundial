@@ -29,7 +29,7 @@ const TableEstClientesFrecuentes = () => {
     };
 
     getClientesFrecuentes();
-  });
+  }, []);
 
   const columns = [
     {

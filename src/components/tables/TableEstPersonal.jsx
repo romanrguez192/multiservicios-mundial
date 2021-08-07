@@ -30,7 +30,7 @@ const TableEstPersonal = () => {
     };
 
     getPersonal();
-  });
+  }, []);
 
   const columns = [
     {
@@ -51,6 +51,7 @@ const TableEstPersonal = () => {
       align: "left",
     },
   ];
+  
   return (
     <div>
       <Table

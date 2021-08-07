@@ -29,7 +29,7 @@ const TableEstServiciosSolicitados = () => {
     };
 
     getServiciosSolicitados();
-  });
+  }, []);
 
   const columns = [
     {

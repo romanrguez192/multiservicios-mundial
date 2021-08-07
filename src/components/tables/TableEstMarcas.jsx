@@ -29,7 +29,7 @@ const TableEstMarcas = () => {
     };
 
     getMarcasVehiculos();
-  });
+  }, []);
 
   const columns = [
     {

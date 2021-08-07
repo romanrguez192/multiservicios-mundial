@@ -29,7 +29,7 @@ const TableEstSuministroProveedor = (props) => {
     };
 
     getProveedorProductos();
-  });
+  }, []);
 
   const columns = [
     {

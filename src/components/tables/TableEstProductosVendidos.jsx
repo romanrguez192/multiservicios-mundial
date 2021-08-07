@@ -30,7 +30,7 @@ const TableEstProductosVendidos = () => {
     };
     
     getProductosVendidos();
-  });
+  }, []);
 
   const columns = [
     {

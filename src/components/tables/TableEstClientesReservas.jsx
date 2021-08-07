@@ -30,7 +30,7 @@ const TableEstClientesReservas = () => {
     };
 
     getClientesReservas();
-  });
+  }, []);
 
   const columns = [
     {
