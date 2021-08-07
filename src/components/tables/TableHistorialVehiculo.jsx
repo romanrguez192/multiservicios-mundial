@@ -1,70 +1,97 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Table from "./Table";
-import { makeStyles } from "@material-ui/core";
+import Add from "@material-ui/icons/AddOutlined";
+import { useHistory } from "react-router-dom";
+import { useSnackbar } from "notistack";
 import Slide from "react-reveal/Slide";
 
-// ESTILOS
-const useStyles = makeStyles({
-  toolbar: {
-    fontFamily: "quicksand",
-  },
-  table: {
-    marginBottom: '20pt',
-    width: '820pt',
-  },
-});
+const TableSolServicios = ({ codVehiculo, ...props }) => {
+  const [loading, setLoading] = useState(true);
+  const [solicitudes, setSolicitudes] = useState([]);
+  const history = useHistory();
+  const { enqueueSnackbar } = useSnackbar();
 
-export default function TableHistorialVehiculo({ codVehiculo, ...props }) {
-  const classes = useStyles();
-  const [loading, setLoading] = useState([]);
+  useEffect(() => {
+    const getSolicitudes = async () => {
+      const url = `http://localhost:4000/api/solicitudesServicio/${codVehiculo}`;
 
-  //aca va las columnas q se muestran en mantenimiento
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        // TODO: Error
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
+      }
+
+      const solicitudes = await response.json();
+
+      setSolicitudes(solicitudes);
+      setLoading(false);
+    };
+
+    getSolicitudes();
+  });
+
   const columns = [
     {
-      title: "Servicio",
-      field: "servicio",
+      title: "Número de solicitud",
+      field: "nroSolicitud",
+      type: "numeric",
+      align: "left",
     },
     {
-      title: "Fecha",
-      field: "fecha",
+      title: "Fecha de entrada",
+      field: "fechaEntrada",
+      type: "date",
+    },
+    {
+      title: "Fecha de salida",
+      field: "fechaSalidaReal",
+      type: "date",
+      emptyValue: "No aplica",
+    },
+    {
+      title: "Finalizada",
+      field: "finalizada",
+      lookup: {
+        true: "Sí", 
+        false: "No"
+      }
     },
   ];
 
-  //pa probar namas
-  const data=[
-    { servicio: 'Pulitura de carrocería', fecha: '02/02/2021'},
-    { servicio: 'Lavado', fecha: '08/05/2021'},
+  const create = () => {
+    history.push("/solicitudes/crear");
+  };
+
+  const actions = [
+    {
+      icon: () => <Add />,
+      tooltip: "Añadir",
+      isFreeAction: true,
+      onClick: create,
+    },
   ];
 
-  const addMantenimiento = async (data) => {
-
-  }
-
-  const updateMantenimiento = async (newData, oldData) => {
-
-  }
-
-  const deleteMantenimiento = async (oldData) => {
-
-  }
+  const handleRowClick = (evt, rowData) => {
+    history.push(`/solicitudes/${rowData.nroSolicitud}`);
+  };
 
   return (
-      <div className={classes.table}>
-        <Slide top collapse>
-          <Table
-            title="Historial de mantenimientos"
-            subTable
-            columns={columns}
-            data={data}
-            // isLoading={loading}
-            editable={{
-              onRowAdd: addMantenimiento,
-              onRowUpdate: updateMantenimiento,
-              onRowDelete: deleteMantenimiento
-            }}
-            {...props}
-          />
-        </Slide>
-      </div>
+    <Slide top collapse>
+      <Table
+        title="Historial de solicitudes de servicio"
+        subTable
+        columns={columns}
+        isLoading={loading}
+        data={[solicitudes]}
+        actions={actions}
+        onRowClick={handleRowClick}
+        {...props}
+      />
+    </Slide>
   );
-}
+};
+
+export default TableSolServicios;
