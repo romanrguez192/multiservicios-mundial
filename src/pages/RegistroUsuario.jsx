@@ -95,6 +95,7 @@ const RegistroUsuario = () => {
 
     if (!response.ok) {
       // TODO: Error
+      setSubmitting(false);
       return enqueueSnackbar("Se ha producido un error", {
         variant: "error",
       });
@@ -104,7 +105,6 @@ const RegistroUsuario = () => {
 
     localStorage.setItem("user", JSON.stringify(user));
 
-    setSubmitting(false);
     window.location.href = "/";
   };
 

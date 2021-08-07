@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import { useSnackbar } from "notistack";
+import { useUser } from "../../contexts/UserContext";
 
-const TableSucursales = ({ ...props }) => {
+const TableSucursales = ({ sucursal, setSucursal, ...props }) => {
   const [sucursales, setSucursales] = useState([]);
   const [loading, setLoading] = useState(true);
   const { enqueueSnackbar } = useSnackbar();
+  const user = useUser();
 
   useEffect(() => {
     const getSucursales = async () => {
@@ -152,10 +154,27 @@ const TableSucursales = ({ ...props }) => {
         columns={columns}
         data={sucursales}
         isLoading={loading}
+        onRowClick={(e, row) =>
+          row.rifSucursal === sucursal ? setSucursal(null) : setSucursal(row.rifSucursal)
+        }
         editable={{
           onRowAdd: addSucursal,
           onRowUpdate: updateSucursal,
           onRowDelete: deleteSucursal,
+        }}
+        options={{
+          rowStyle: (rowData) => ({
+            backgroundColor:
+              sucursal === rowData.rifSucursal ? "#9E9E9E50" : "#FFF",
+          }),
+          emptyRowsWhenPaging: true,
+          pageSizeOptions: [5, 10, 20],
+          actionsColumnIndex: -1,
+          headerStyle: {
+            backgroundColor: "#199479",
+            color: "#fff",
+            fontFamily: "quicksand",
+          },
         }}
         {...props}
       />

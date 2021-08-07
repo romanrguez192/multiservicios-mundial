@@ -205,7 +205,9 @@ export default function Sidebar(props) {
           <img className={classes.logoDrawer} src={logo} alt="logo" />
           <h1 className={classes.titleMM}>MULTISERVICIOS MUNDIAL</h1>
           <div className={classes.separator} />
-          <h4 className={classes.sucursalTitle}>{user.nombreSucursal}</h4>
+          {user.rifSucursal && (
+            <h4 className={classes.sucursalTitle}>{user.nombreSucursal}</h4>
+          )}
         </Toolbar>
       </AppBar>
       <Drawer
@@ -249,293 +251,319 @@ export default function Sidebar(props) {
               </ListItem>
             </Tooltip>
           )}
-          {props.page === "estadisticas" ? (
-            <Tooltip title="Estadísticas">
-              <ListItem button selected>
-                <ListItemIcon>
-                  <BarChart className={classes.iconDrawerSelect} />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Estadísticas"
-                  className={classes.pageSelectedText}
-                />
-              </ListItem>
-            </Tooltip>
-          ) : (
-            <Tooltip title="Estadísticas">
-              <ListItem button component={Link} to="/estadisticas">
-                <ListItemIcon>
-                  <BarChartOutlined className={classes.iconDrawer} />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Estadísticas"
-                  className={classes.pageText}
-                />
-              </ListItem>
-            </Tooltip>
+          {user.rifSucursal && (
+            <div>
+              {props.page === "estadisticas" ? (
+                <Tooltip title="Estadísticas">
+                  <ListItem button selected>
+                    <ListItemIcon>
+                      <BarChart className={classes.iconDrawerSelect} />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary="Estadísticas"
+                      className={classes.pageSelectedText}
+                    />
+                  </ListItem>
+                </Tooltip>
+              ) : (
+                <Tooltip title="Estadísticas">
+                  <ListItem button component={Link} to="/estadisticas">
+                    <ListItemIcon>
+                      <BarChartOutlined className={classes.iconDrawer} />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary="Estadísticas"
+                      className={classes.pageText}
+                    />
+                  </ListItem>
+                </Tooltip>
+              )}
+              {props.page === "solicitudes" ? (
+                <Tooltip title="Solicitudes de servicio">
+                  <ListItem button selected>
+                    <ListItemIcon>
+                      <LocalCarWash className={classes.iconDrawerSelect} />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary="Solicitudes de servicio"
+                      className={classes.pageSelectedText}
+                    />
+                  </ListItem>
+                </Tooltip>
+              ) : (
+                <Tooltip title="Solicitudes de servicio">
+                  <ListItem button component={Link} to="/solicitudes">
+                    <ListItemIcon>
+                      <LocalCarWashOutlined className={classes.iconDrawer} />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary="Solicitudes de servicio"
+                      className={classes.pageText}
+                    />
+                  </ListItem>
+                </Tooltip>
+              )}
+              {props.page === "facturas" ? (
+                <Tooltip title="Facturas">
+                  <ListItem button selected>
+                    <ListItemIcon>
+                      <MonetizationOn className={classes.iconDrawerSelect} />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary="Facturas"
+                      className={classes.pageSelectedText}
+                    />
+                  </ListItem>
+                </Tooltip>
+              ) : (
+                <Tooltip title="Facturas">
+                  <ListItem button component={Link} to="/facturas">
+                    <ListItemIcon>
+                      <MonetizationOnOutlined className={classes.iconDrawer} />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary="Facturas"
+                      className={classes.pageText}
+                    />
+                  </ListItem>
+                </Tooltip>
+              )}
+              {props.page === "servicios" ? (
+                <Tooltip title="Servicios">
+                  <ListItem button selected>
+                    <ListItemIcon>
+                      <Build className={classes.iconDrawerSelect} />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary="Servicios"
+                      className={classes.pageSelectedText}
+                    />
+                  </ListItem>
+                </Tooltip>
+              ) : (
+                <Tooltip title="Servicios">
+                  <ListItem button component={Link} to="/servicios">
+                    <ListItemIcon>
+                      <BuildOutlined className={classes.iconDrawer} />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary="Servicios"
+                      className={classes.pageText}
+                    />
+                  </ListItem>
+                </Tooltip>
+              )}
+              {props.page === "clientes" ? (
+                <Tooltip title="Clientes">
+                  <ListItem button selected>
+                    <ListItemIcon>
+                      <Group className={classes.iconDrawerSelect} />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary="Clientes"
+                      className={classes.pageSelectedText}
+                    />
+                  </ListItem>
+                </Tooltip>
+              ) : (
+                <Tooltip title="Clientes">
+                  <ListItem button component={Link} to="/clientes">
+                    <ListItemIcon>
+                      <GroupOutlined className={classes.iconDrawer} />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary="Clientes"
+                      className={classes.pageText}
+                    />
+                  </ListItem>
+                </Tooltip>
+              )}
+              {props.page === "vehiculos" ? (
+                <Tooltip title="Vehículos">
+                  <ListItem button selected>
+                    <ListItemIcon>
+                      <DirectionsCar className={classes.iconDrawerSelect} />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary="Vehículos"
+                      className={classes.pageSelectedText}
+                    />
+                  </ListItem>
+                </Tooltip>
+              ) : (
+                <Tooltip title="Vehículos">
+                  <ListItem button component={Link} to="/vehiculos">
+                    <ListItemIcon>
+                      <DirectionsCarOutlined className={classes.iconDrawer} />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary="Vehículos"
+                      className={classes.pageText}
+                    />
+                  </ListItem>
+                </Tooltip>
+              )}
+              {props.page === "reservaciones" ? (
+                <Tooltip title="Reservaciones">
+                  <ListItem button selected>
+                    <ListItemIcon>
+                      <CalendarToday className={classes.iconDrawerSelect} />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary="Reservaciones"
+                      className={classes.pageSelectedText}
+                    />
+                  </ListItem>
+                </Tooltip>
+              ) : (
+                <Tooltip title="Reservaciones">
+                  <ListItem button component={Link} to="/reservaciones">
+                    <ListItemIcon>
+                      <CalendarTodayOutlined className={classes.iconDrawer} />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary="Reservaciones"
+                      className={classes.pageText}
+                    />
+                  </ListItem>
+                </Tooltip>
+              )}
+              {props.page === "personal" ? (
+                <Tooltip title="Personal">
+                  <ListItem button selected>
+                    <ListItemIcon>
+                      <PermContactCalendar
+                        className={classes.iconDrawerSelect}
+                      />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary="Personal"
+                      className={classes.pageSelectedText}
+                    />
+                  </ListItem>
+                </Tooltip>
+              ) : (
+                <Tooltip title="Personal">
+                  <ListItem button component={Link} to="/personal">
+                    <ListItemIcon>
+                      <PermContactCalendarOutlined
+                        className={classes.iconDrawer}
+                      />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary="Personal"
+                      className={classes.pageText}
+                    />
+                  </ListItem>
+                </Tooltip>
+              )}
+              {props.page === "inventario" ? (
+                <Tooltip title="Inventario">
+                  <ListItem button selected>
+                    <ListItemIcon>
+                      <Assignment className={classes.iconDrawerSelect} />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary="Inventario"
+                      className={classes.pageSelectedText}
+                    />
+                  </ListItem>
+                </Tooltip>
+              ) : (
+                <Tooltip title="Inventario">
+                  <ListItem button component={Link} to="/inventario">
+                    <ListItemIcon>
+                      <AssignmentOutlined className={classes.iconDrawer} />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary="Inventario"
+                      className={classes.pageText}
+                    />
+                  </ListItem>
+                </Tooltip>
+              )}
+              {props.page === "tienda" ? (
+                <Tooltip title="Tienda">
+                  <ListItem button selected>
+                    <ListItemIcon>
+                      <LocalGroceryStore className={classes.iconDrawerSelect} />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary="Tienda"
+                      className={classes.pageSelectedText}
+                    />
+                  </ListItem>
+                </Tooltip>
+              ) : (
+                <Tooltip title="Tienda">
+                  <ListItem button component={Link} to="/tienda">
+                    <ListItemIcon>
+                      <LocalGroceryStoreOutlined
+                        className={classes.iconDrawer}
+                      />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary="Tienda"
+                      className={classes.pageText}
+                    />
+                  </ListItem>
+                </Tooltip>
+              )}
+              {props.page === "proveedores" ? (
+                <Tooltip title="Proveedores">
+                  <ListItem button selected>
+                    <ListItemIcon>
+                      <Work className={classes.iconDrawerSelect} />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary="Proveedores"
+                      className={classes.pageSelectedText}
+                    />
+                  </ListItem>
+                </Tooltip>
+              ) : (
+                <Tooltip title="Proveedores">
+                  <ListItem button component={Link} to="/proveedores">
+                    <ListItemIcon>
+                      <WorkOutlineOutlined className={classes.iconDrawer} />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary="Proveedores"
+                      className={classes.pageText}
+                    />
+                  </ListItem>
+                </Tooltip>
+              )}
+            </div>
           )}
-          {props.page === "solicitudes" ? (
-            <Tooltip title="Solicitudes de servicio">
-              <ListItem button selected>
-                <ListItemIcon>
-                  <LocalCarWash className={classes.iconDrawerSelect} />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Solicitudes de servicio"
-                  className={classes.pageSelectedText}
-                />
-              </ListItem>
-            </Tooltip>
-          ) : (
-            <Tooltip title="Solicitudes de servicio">
-              <ListItem button component={Link} to="/solicitudes">
-                <ListItemIcon>
-                  <LocalCarWashOutlined className={classes.iconDrawer} />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Solicitudes de servicio"
-                  className={classes.pageText}
-                />
-              </ListItem>
-            </Tooltip>
-          )}
-          {props.page === "facturas" ? (
-            <Tooltip title="Facturas">
-              <ListItem button selected>
-                <ListItemIcon>
-                  <MonetizationOn className={classes.iconDrawerSelect} />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Facturas"
-                  className={classes.pageSelectedText}
-                />
-              </ListItem>
-            </Tooltip>
-          ) : (
-            <Tooltip title="Facturas">
-              <ListItem button component={Link} to="/facturas">
-                <ListItemIcon>
-                  <MonetizationOnOutlined className={classes.iconDrawer} />
-                </ListItemIcon>
-                <ListItemText primary="Facturas" className={classes.pageText} />
-              </ListItem>
-            </Tooltip>
-          )}
-          {props.page === "servicios" ? (
-            <Tooltip title="Servicios">
-              <ListItem button selected>
-                <ListItemIcon>
-                  <Build className={classes.iconDrawerSelect} />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Servicios"
-                  className={classes.pageSelectedText}
-                />
-              </ListItem>
-            </Tooltip>
-          ) : (
-            <Tooltip title="Servicios">
-              <ListItem button component={Link} to="/servicios">
-                <ListItemIcon>
-                  <BuildOutlined className={classes.iconDrawer} />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Servicios"
-                  className={classes.pageText}
-                />
-              </ListItem>
-            </Tooltip>
-          )}
-          {props.page === "clientes" ? (
-            <Tooltip title="Clientes">
-              <ListItem button selected>
-                <ListItemIcon>
-                  <Group className={classes.iconDrawerSelect} />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Clientes"
-                  className={classes.pageSelectedText}
-                />
-              </ListItem>
-            </Tooltip>
-          ) : (
-            <Tooltip title="Clientes">
-              <ListItem button component={Link} to="/clientes">
-                <ListItemIcon>
-                  <GroupOutlined className={classes.iconDrawer} />
-                </ListItemIcon>
-                <ListItemText primary="Clientes" className={classes.pageText} />
-              </ListItem>
-            </Tooltip>
-          )}
-          {props.page === "vehiculos" ? (
-            <Tooltip title="Vehículos">
-              <ListItem button selected>
-                <ListItemIcon>
-                  <DirectionsCar className={classes.iconDrawerSelect} />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Vehículos"
-                  className={classes.pageSelectedText}
-                />
-              </ListItem>
-            </Tooltip>
-          ) : (
-            <Tooltip title="Vehículos">
-              <ListItem button component={Link} to="/vehiculos">
-                <ListItemIcon>
-                  <DirectionsCarOutlined className={classes.iconDrawer} />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Vehículos"
-                  className={classes.pageText}
-                />
-              </ListItem>
-            </Tooltip>
-          )}
-          {props.page === "reservaciones" ? (
-            <Tooltip title="Reservaciones">
-              <ListItem button selected>
-                <ListItemIcon>
-                  <CalendarToday className={classes.iconDrawerSelect} />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Reservaciones"
-                  className={classes.pageSelectedText}
-                />
-              </ListItem>
-            </Tooltip>
-          ) : (
-            <Tooltip title="Reservaciones">
-              <ListItem button component={Link} to="/reservaciones">
-                <ListItemIcon>
-                  <CalendarTodayOutlined className={classes.iconDrawer} />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Reservaciones"
-                  className={classes.pageText}
-                />
-              </ListItem>
-            </Tooltip>
-          )}
-          {props.page === "personal" ? (
-            <Tooltip title="Personal">
-              <ListItem button selected>
-                <ListItemIcon>
-                  <PermContactCalendar className={classes.iconDrawerSelect} />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Personal"
-                  className={classes.pageSelectedText}
-                />
-              </ListItem>
-            </Tooltip>
-          ) : (
-            <Tooltip title="Personal">
-              <ListItem button component={Link} to="/personal">
-                <ListItemIcon>
-                  <PermContactCalendarOutlined className={classes.iconDrawer} />
-                </ListItemIcon>
-                <ListItemText primary="Personal" className={classes.pageText} />
-              </ListItem>
-            </Tooltip>
-          )}
-          {props.page === "inventario" ? (
-            <Tooltip title="Inventario">
-              <ListItem button selected>
-                <ListItemIcon>
-                  <Assignment className={classes.iconDrawerSelect} />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Inventario"
-                  className={classes.pageSelectedText}
-                />
-              </ListItem>
-            </Tooltip>
-          ) : (
-            <Tooltip title="Inventario">
-              <ListItem button component={Link} to="/inventario">
-                <ListItemIcon>
-                  <AssignmentOutlined className={classes.iconDrawer} />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Inventario"
-                  className={classes.pageText}
-                />
-              </ListItem>
-            </Tooltip>
-          )}
-          {props.page === "sucursales" ? (
-            <Tooltip title="Sucursales">
-              <ListItem button selected>
-                <ListItemIcon>
-                  <Store className={classes.iconDrawerSelect} />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Sucursales"
-                  className={classes.pageSelectedText}
-                />
-              </ListItem>
-            </Tooltip>
-          ) : (
-            <Tooltip title="Sucursales">
-              <ListItem button component={Link} to="/sucursales">
-                <ListItemIcon>
-                  <StoreOutlined className={classes.iconDrawer} />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Sucursales"
-                  className={classes.pageText}
-                />
-              </ListItem>
-            </Tooltip>
-          )}
-          {props.page === "tienda" ? (
-            <Tooltip title="Tienda">
-              <ListItem button selected>
-                <ListItemIcon>
-                  <LocalGroceryStore className={classes.iconDrawerSelect} />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Tienda"
-                  className={classes.pageSelectedText}
-                />
-              </ListItem>
-            </Tooltip>
-          ) : (
-            <Tooltip title="Tienda">
-              <ListItem button component={Link} to="/tienda">
-                <ListItemIcon>
-                  <LocalGroceryStoreOutlined className={classes.iconDrawer} />
-                </ListItemIcon>
-                <ListItemText primary="Tienda" className={classes.pageText} />
-              </ListItem>
-            </Tooltip>
-          )}
-          {props.page === "proveedores" ? (
-            <Tooltip title="Proveedores">
-              <ListItem button selected>
-                <ListItemIcon>
-                  <Work className={classes.iconDrawerSelect} />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Proveedores"
-                  className={classes.pageSelectedText}
-                />
-              </ListItem>
-            </Tooltip>
-          ) : (
-            <Tooltip title="Proveedores">
-              <ListItem button component={Link} to="/proveedores">
-                <ListItemIcon>
-                  <WorkOutlineOutlined className={classes.iconDrawer} />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Proveedores"
-                  className={classes.pageText}
-                />
-              </ListItem>
-            </Tooltip>
+          {user.tipoEmpleado === "dueño" && (
+            <div>
+              {props.page === "sucursales" ? (
+                <Tooltip title="Sucursales">
+                  <ListItem button selected>
+                    <ListItemIcon>
+                      <Store className={classes.iconDrawerSelect} />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary="Sucursales"
+                      className={classes.pageSelectedText}
+                    />
+                  </ListItem>
+                </Tooltip>
+              ) : (
+                <Tooltip title="Sucursales">
+                  <ListItem button component={Link} to="/sucursales">
+                    <ListItemIcon>
+                      <StoreOutlined className={classes.iconDrawer} />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary="Sucursales"
+                      className={classes.pageText}
+                    />
+                  </ListItem>
+                </Tooltip>
+              )}
+            </div>
           )}
           <Tooltip title="Cerrar Sesión">
             <ListItem

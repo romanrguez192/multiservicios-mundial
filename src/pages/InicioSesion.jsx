@@ -89,13 +89,13 @@ const InicioSesion = () => {
 
     if (!response.ok) {
       // TODO: Error
+      setSubmitting(false);
       return enqueueSnackbar("Se ha producido un error", {
         variant: "error",
       });
     }
 
     localStorage.setItem("user", JSON.stringify(data));
-    setSubmitting(false);
     window.location.href = "/";
   };
 
