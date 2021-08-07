@@ -56,7 +56,7 @@ const TableEstServiciosSolicitados = () => {
   return (
     <div>
       <Table
-        title="Servicios solicitados"
+        title="Servicios más/menos solicitados"
         columns={columns}
         data={serviciosSolicitados}
         isLoading={loading}
