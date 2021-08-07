@@ -3,15 +3,18 @@ import Table from "./Table";
 import TableFacturaProductos from "./TableFacturaProductos";
 import { TableContainer } from "@material-ui/core";
 import { useSnackbar } from "notistack";
+import { useUser } from "../../contexts/UserContext";
 
 const TableFacturasVentas = ({}) => {
   const [facturasVentas, setFacturasVentas] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const { enqueueSnackbar } = useSnackbar();
+  const user = useUser();
 
   useEffect(() => {
-    const getFacturasVentas = async () => {
-      const url = "";
+    const getFacturasVentas = async() => {
+      const url = `http://localhost:4000/api/facturasVentas/factura/${user.rifSucursal}`;
+
       const response = await fetch(url);
 
       if (!response.ok) {
@@ -21,15 +24,14 @@ const TableFacturasVentas = ({}) => {
         });
       }
 
-      const facturasVentas = await response.json();
+      const facturas = await response.json();
 
-      setFacturasVentas(facturasVentas);
+      setFacturasVentas(facturas);
       setLoading(false);
-    };
+    }
 
     getFacturasVentas();
-  });
-
+  }, [])
   const columns = [
     {
       title: "Nro Factura",
@@ -52,7 +54,7 @@ const TableFacturasVentas = ({}) => {
     },
     {
       title: "Forma de Pago",
-      field: "modalidadPago",
+      field: "formaPago",
       editable: "onAdd",
     },
     {
@@ -60,59 +62,17 @@ const TableFacturasVentas = ({}) => {
       field: "descuento",
       type: "numeric",
       align: "left",
+      emptyValue: "Ninguno",
       editable: "onAdd",
     },
     {
       title: "Monto",
-      field: "montoTotal",
+      field: "monto",
       type: "numeric",
       align: "left",
       editable: "onAdd",
     },
   ];
-
-  const addFacturaVenta = async (data) => {
-    const url = "";
-    const response = await fetch(url, {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (!response.ok) {
-      // TODO: Error
-      return enqueueSnackbar("Se ha producido un error", {
-        variant: "error",
-      });
-    }
-
-    const facturaVenta = await response.json();
-
-    setFacturasVentas([...facturasVentas, facturaVenta]);
-  };
-
-  const deleteFacturaVenta = async (oldData) => {
-    const url = "";
-
-    const response = await fetch(url, {
-      method: "DELETE",
-    });
-
-    if (!response.ok) {
-      // TODO: Error
-      return enqueueSnackbar("Se ha producido un error", {
-        variant: "error",
-      });
-    }
-
-    const dataDelete = [...facturasVentas];
-    const index = oldData.tableData.id;
-    dataDelete.splice(index, 1);
-
-    setFacturasVentas(dataDelete);
-  };
 
   return (
     <div>
@@ -121,14 +81,10 @@ const TableFacturasVentas = ({}) => {
         columns={columns}
         data={facturasVentas}
         isLoading={loading}
-        editable={{
-          onRowAdd: addFacturaVenta,
-          onRowDelete: deleteFacturaVenta,
-        }}
-        detailPanel={() => {
+        detailPanel={(rowData) => {
           return (
             <TableContainer>
-              <TableFacturaProductos />
+              <TableFacturaProductos nroFactura={rowData.nroFactura}/>
             </TableContainer>
           );
         }}
