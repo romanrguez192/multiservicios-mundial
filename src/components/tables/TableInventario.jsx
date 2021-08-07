@@ -24,7 +24,7 @@ const TableProductosVentas = ({ inventario, loadingI, ...props }) => {
       field: "cantidadFisica",
       type: "numeric",
       align: "left",
-      emptyValue: "No disponible"
+      emptyValue: "Por registrar"
     },
   ];
 

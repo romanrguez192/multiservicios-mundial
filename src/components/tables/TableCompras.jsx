@@ -13,29 +13,24 @@ const TableCompras = ({ loading, compras, setCompras, ...props }) => {
     {
       title: "Número de factura",
       field: "nroFactura",
-      editable: "never",
     },
     {
       title: "Fecha de facturación",
       field: "fechaFacturacion",
       type: "date",
-      editable: "never",
     },
     {
       title: "Cédula del cliente",
       field: "cedCliente",
-      editable: "never",
     },
     {
       title: "Número de factura",
       field: "nroFactura",
-      editable: "never",
     },
     {
       title: "Descuento",
       field: "descuento",
       emptyValue: "Ninguno",
-      editable: "never",
     },
   ];
 
@@ -55,7 +50,7 @@ const TableCompras = ({ loading, compras, setCompras, ...props }) => {
   return (
     <div>
       <Table
-        title="Compras"
+        title="Ventas"
         columns={columns}
         data={compras}
         isLoading={loading}
