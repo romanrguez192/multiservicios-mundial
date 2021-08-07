@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import TableClientes from "../tables/TableClientes";
 import { makeStyles } from "@material-ui/core";
+import { useSnackbar } from "notistack";
 
 // Estilos
 const useStyles = makeStyles({
@@ -16,10 +17,14 @@ const Step1 = ({
   setVehiculo,
   setReservas,
   setServicios,
+  setFechaSalida,
+  setNombreAutorizado,
+  setTlfAutorizado,
 }) => {
   const classes = useStyles();
   const [clientes, setClientes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     const getClientes = async () => {
@@ -29,7 +34,9 @@ const Step1 = ({
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const clientes = await response.json();
@@ -46,7 +53,9 @@ const Step1 = ({
     setVehiculo(null);
     setReservas([]);
     setServicios([]);
-    // TODO: Reinciar datos finales
+    setFechaSalida(null);
+    setNombreAutorizado("");
+    setTlfAutorizado("");
 
     if (cliente && cliente.cedCliente === selectedRow.cedCliente) {
       return setCliente(null);
@@ -58,10 +67,11 @@ const Step1 = ({
     <div className={classes.tableContainer}>
       <TableClientes
         title="Seleccionar Cliente"
-        data={clientes}
-        isLoading={loading}
         onRowClick={handleClick}
         detailPanel={undefined}
+        clientes={clientes}
+        setClientes={setClientes}
+        loadingC={loading}
         options={{
           rowStyle: (rowData) => ({
             backgroundColor:

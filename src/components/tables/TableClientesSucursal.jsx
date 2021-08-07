@@ -13,6 +13,8 @@ const TableClientesSucursal = ({ clientesSucursal, loadingCS, ...props }) => {
       title: "Cedula",
       field: "cedCliente",
       editable: "never",
+      align: "left",
+      type: "numeric",
     },
     {
       title: "Nombre",
@@ -38,6 +40,7 @@ const TableClientesSucursal = ({ clientesSucursal, loadingCS, ...props }) => {
       title: "¿Es frecuente?",
       field: "esFrecuente",
       editable: "never",
+      lookup: { true: "Sí", false: "No" },
     },
   ];
 
@@ -50,13 +53,11 @@ const TableClientesSucursal = ({ clientesSucursal, loadingCS, ...props }) => {
         isLoading={loadingCS}
         detailPanel={(rowData) => {
           return (
-            <>
-              <TableContainer>
-                <Slide top collapse>
-                  <TableVehiculosCliente cedCliente={rowData.cedCliente} />
-                </Slide>
-              </TableContainer>
-            </>
+            <TableContainer>
+              <Slide top collapse>
+                <TableVehiculosCliente cedCliente={rowData.cedCliente} />
+              </Slide>
+            </TableContainer>
           );
         }}
         {...props}

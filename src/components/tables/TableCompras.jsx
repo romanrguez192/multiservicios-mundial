@@ -2,20 +2,39 @@ import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import Add from "@material-ui/icons/AddOutlined";
 import { useHistory } from "react-router-dom";
+import TableProductosVendidos from "./TableProductosVendidos";
+import { TableContainer } from "@material-ui/core";
 
-const TableCompras = ({ ...props }) => {
-  const [loading, setLoading] = useState(true);
+const TableCompras = ({ loading, compras, setCompras, ...props }) => {
+  
   const history = useHistory();
 
   const columns = [
     {
-      title: "una columna",
-      field: "colmun",
+      title: "Número de factura",
+      field: "nroFactura",
       editable: "never",
     },
     {
-      title: "otra columna",
-      field: "otraColumn",
+      title: "Fecha de facturación",
+      field: "fechaFacturacion",
+      type: "date",
+      editable: "never",
+    },
+    {
+      title: "Cédula del cliente",
+      field: "cedCliente",
+      editable: "never",
+    },
+    {
+      title: "Número de factura",
+      field: "nroFactura",
+      editable: "never",
+    },
+    {
+      title: "Descuento",
+      field: "descuento",
+      emptyValue: "Ninguno",
       editable: "never",
     },
   ];
@@ -38,7 +57,17 @@ const TableCompras = ({ ...props }) => {
       <Table
         title="Compras"
         columns={columns}
-        //isLoading={loading}
+        data={compras}
+        isLoading={loading}
+        detailPanel={(rowData) => {
+          return (
+            <TableContainer>
+              <TableProductosVendidos
+                nroFactura={rowData.nroFactura}
+              />
+            </TableContainer>
+          );
+        }}
         actions={actions}
         {...props}
       />

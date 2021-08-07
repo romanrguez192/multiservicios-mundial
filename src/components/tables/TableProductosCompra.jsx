@@ -3,6 +3,7 @@ import Table from "./Table";
 import Slide from "react-reveal/Slide";
 import { Button } from "@material-ui/core";
 import { useUser } from "../../contexts/UserContext";
+import { useSnackbar } from "notistack";
 
 const TableProductosCompra = ({
   ordCompra,
@@ -15,6 +16,7 @@ const TableProductosCompra = ({
   const [loading, setLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const user = useUser();
+  const { enqueueSnackbar } = useSnackbar();
 
   const lookup = {};
   productos.forEach((p) => {
@@ -30,7 +32,9 @@ const TableProductosCompra = ({
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const productosCompra = await response.json();
@@ -54,7 +58,9 @@ const TableProductosCompra = ({
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const productos = await response.json();
@@ -70,6 +76,8 @@ const TableProductosCompra = ({
       title: "Producto",
       field: "codProducto",
       editable: "onAdd",
+      type: "numeric",
+      align: "left",
       lookup: lookup,
     },
     {
@@ -77,6 +85,7 @@ const TableProductosCompra = ({
       field: "cantidad",
       editable: "always",
       type: "numeric",
+      align: "left",
     },
   ];
 
@@ -118,7 +127,9 @@ const TableProductosCompra = ({
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const [newOrdenCompra, productos] = await response.json();

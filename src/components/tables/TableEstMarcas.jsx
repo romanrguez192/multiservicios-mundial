@@ -13,8 +13,10 @@ const TableEstMarcas = (props) => {
       field: "marca",
     },
     {
-			title: "Nº de veces que se atendió esta marca",
-			field: "numMarcasAtendidas",
+      title: "Nº de veces que se atendió esta marca",
+      field: "numMarcasAtendidas",
+      type: "numeric",
+      align: "left",
     },
   ];
 

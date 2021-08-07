@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import { useSnackbar } from "notistack";
 
-const TableTiposVehiculos = ({
-  tiposVehiculos,
-  setTiposVehiculos,
-  loadingT,
+const TableVehiculosSucursal = ({
+  vehiculosSucursal,
+  setVehiculosSucursal,
+  loadingVS,
+  vehiculos,
   ...props
 }) => {
   const { enqueueSnackbar } = useSnackbar();
@@ -13,19 +14,19 @@ const TableTiposVehiculos = ({
     {
       title: "Código",
       field: "codTipoVehiculo",
-      editable: "never",
       type: "numeric",
       align: "left",
+      editable: "onAdd",
     },
     {
       title: "Nombre",
       field: "nombre",
-      editable: "always",
+      editable: "onAdd",
     },
     {
       title: "Descripción",
       field: "descripcion",
-      editable: "always",
+      editable: "onAdd",
     },
   ];
 
@@ -103,7 +104,7 @@ const TableTiposVehiculos = ({
   return (
     <div>
       <Table
-        title="Tipos de Vehículos"
+        title={`Tipos de vehiculos que recibe ${user.nombreSucursal}`}
         columns={columns}
         data={tiposVehiculos}
         isLoading={loadingT}
@@ -118,4 +119,4 @@ const TableTiposVehiculos = ({
   );
 };
 
-export default TableTiposVehiculos;
+export default TableVehiculosSucursal;

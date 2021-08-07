@@ -6,6 +6,7 @@ import TableClientesSucursal from "../components/tables/TableClientesSucursal";
 import Nature from "../components/Nature";
 import PageTitle from "../components/PageTitle";
 import { useUser } from "../contexts/UserContext";
+import { useSnackbar } from "notistack";
 
 // ESTILOS
 const useStyles = makeStyles({
@@ -29,6 +30,7 @@ const Clientes = () => {
   const [clientesSucursal, setClientesSucursal] = useState([]);
   const [loadingCS, setLoadingCS] = useState(true);
   const user = useUser();
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     const getClientes = async () => {
@@ -38,7 +40,9 @@ const Clientes = () => {
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const clientes = await response.json();
@@ -58,7 +62,9 @@ const Clientes = () => {
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const clientesSucursal = await response.json();

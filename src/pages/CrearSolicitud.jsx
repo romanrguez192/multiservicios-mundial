@@ -4,7 +4,6 @@ import {
   makeStyles,
   Button,
   Stepper,
-  Typography,
   Step,
   StepLabel,
   IconButton,
@@ -17,6 +16,9 @@ import Step4 from "../components/stepsCrearSolicitud/Step4";
 import { ArrowBackOutlined } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import Fade from "react-reveal/Fade";
+import { useUser } from "../contexts/UserContext";
+import { useHistory } from "react-router-dom";
+import { useSnackbar } from "notistack";
 
 // ESTILOS
 const useStyles = makeStyles({
@@ -59,12 +61,17 @@ const useStyles = makeStyles({
 const CrearSolicitud = () => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
+  const [submitting, setSubmitting] = useState(false);
   const [cliente, setCliente] = useState(null);
   const [vehiculo, setVehiculo] = useState(null);
   const [reservas, setReservas] = useState([]);
   const [servicios, setServicios] = useState([]);
   const [fechaSalida, setFechaSalida] = useState(null);
-  const [horaSalida, setHoraSalida] = useState(null);
+  const [nombreAutorizado, setNombreAutorizado] = useState("");
+  const [tlfAutorizado, setTlfAutorizado] = useState("");
+  const user = useUser();
+  const history = useHistory();
+  const { enqueueSnackbar } = useSnackbar();
 
   const steps = [
     "Seleccionar el cliente",
@@ -76,13 +83,58 @@ const CrearSolicitud = () => {
   const getStepContent = (stepIndex) => {
     switch (stepIndex) {
       case 0:
-        return <Step1 {...{ cliente, setCliente, setVehiculo, setReservas, setServicios }} />;
+        return (
+          <Step1
+            {...{
+              cliente,
+              setCliente,
+              setVehiculo,
+              setReservas,
+              setServicios,
+              setFechaSalida,
+              setNombreAutorizado,
+              setTlfAutorizado,
+            }}
+          />
+        );
       case 1:
-        return <Step2 {...{ vehiculo, setVehiculo, cliente, setReservas, setServicios }} />;
+        return (
+          <Step2
+            {...{
+              vehiculo,
+              setVehiculo,
+              cliente,
+              setReservas,
+              setServicios,
+              setFechaSalida,
+              setNombreAutorizado,
+              setTlfAutorizado,
+            }}
+          />
+        );
       case 2:
-        return <Step3 {...{ setServicios, setReservas, cliente }} />;
+        return (
+          <Step3
+            {...{
+              setServicios,
+              setReservas,
+              cliente,
+            }}
+          />
+        );
       case 3:
-        return <Step4 {...{ horaSalida, setHoraSalida, fechaSalida, setFechaSalida }}/>;
+        return (
+          <Step4
+            {...{
+              fechaSalida,
+              setFechaSalida,
+              nombreAutorizado,
+              setNombreAutorizado,
+              tlfAutorizado,
+              setTlfAutorizado,
+            }}
+          />
+        );
       default:
         return "Error";
     }
@@ -93,20 +145,66 @@ const CrearSolicitud = () => {
   };
 
   const handleBack = () => {
+    setReservas([]);
+    setServicios([]);
+    setFechaSalida(null);
+    setNombreAutorizado("");
+    setTlfAutorizado("");
     setActiveStep(activeStep - 1);
+  };
+
+  const save = async () => {
+    setSubmitting(true);
+
+    const data = {
+      fechaSalidaEstimada: fechaSalida,
+      codVehiculo: vehiculo.codVehiculo,
+      rifSucursal: user.rifSucursal,
+      nombreAutorizado: nombreAutorizado,
+      tlfAutorizado: tlfAutorizado,
+      reservas: reservas,
+      servicios: servicios,
+    };
+
+    const url = `http://localhost:4000/api/solicitudesServicio`;
+
+    const response = await fetch(url, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      // TODO: Error
+      setSubmitting(false);
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
+    }
+
+    const solicitud = await response.json();
+
+    setSubmitting(false);
+    history.push("/solicitudes/" + solicitud.nroSolicitud);
   };
 
   const disable =
     (activeStep === 0 && !cliente) ||
     (activeStep === 1 && !vehiculo) ||
     (activeStep === 2 && !reservas.length && !servicios.length) ||
-    (activeStep === 3 && false);
+    (activeStep === 3 && !fechaSalida);
 
   return (
     <div className={classes.root}>
       <Sidebar page="solicitudes" />
       <main className={classes.container}>
-        <IconButton component={Link} to="/solicitudes" className={classes.backIcon}>
+        <IconButton
+          component={Link}
+          to="/solicitudes"
+          className={classes.backIcon}
+        >
           <ArrowBackOutlined color="primary" />
         </IconButton>
         <Fade>
@@ -123,16 +221,10 @@ const CrearSolicitud = () => {
             ))}
           </Stepper>
         </Fade>
-        <div>
-          {activeStep === steps.length ? (
-            <Typography>Guardar y cerrar</Typography>
-          ) : (
-            <div>{getStepContent(activeStep)}</div>
-          )}
-        </div>
+        <div>{getStepContent(activeStep)}</div>
         <div className={classes.buttons}>
           <Button
-            disabled={activeStep === 0}
+            disabled={activeStep === 0 || submitting}
             onClick={handleBack}
             color="secondary"
             variant="contained"
@@ -144,8 +236,8 @@ const CrearSolicitud = () => {
             variant="contained"
             className={classes.nextButton}
             color="primary"
-            onClick={handleNext}
-            disabled={disable}
+            onClick={activeStep === steps.length - 1 ? save : handleNext}
+            disabled={disable || submitting}
           >
             {activeStep === steps.length - 1 ? "Guardar" : "Siguiente"}
           </Button>

@@ -14,6 +14,8 @@ const TableEstPersonal = (props) => {
       title: "Nº de Servicios Atendidos",
       field: "numServiciosAtendidos",
       editable: "never",
+      type: "numeric",
+      align: "left",
     },
   ];
   return (

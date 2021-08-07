@@ -2,15 +2,15 @@ import React, { useState, useEffect } from "react";
 import Table from "./Table";
 
 const TableComprarProductos = ({ 
-  setProductosS,
   productos, setProductos, 
   montoTotal, setMontoTotal,
   cantidad, setCantidad,
   loading, setLoading,
   lista, setLista, ...props }) => {
 
-  const lookup = {}
-  productos && productos.forEach(p => {
+  const lookup = {};
+
+  productos && productos.forEach((p) => {
     lookup[p.codProducto] = p.nombre;
   })
 
@@ -19,11 +19,13 @@ const TableComprarProductos = ({
       title: "Código",
       field: "codProducto",
       editable: "never",
+      align: "left",
+      type: "numeric",
     },
     {
       title: "Nombre",
       field: "nombreTabla",
-      lookup: lookup
+      lookup: lookup,
     },
     {
       title: "Descripción",
@@ -33,43 +35,46 @@ const TableComprarProductos = ({
     {
       title: "Línea",
       field: "codLinea",
+      type: "numeric",
+      align: "left",
       editable: "never",
     },
     {
       title: "Precio (Bs.S)",
       field: "precio",
       editable: "never",
+      align: "left",
       type: "numeric",
     },
     {
       title: "Cantidad",
       field: "cantidad",
       editable: "always",
+      align: "left",
       type: "numeric",
-    },    
+    },
   ];
 
   const addProducto = async (data) => {
-    if(data.nombreTabla && data.cantidad){
+    if (data.nombreTabla && data.cantidad) {
       data.codProducto = parseInt(data.nombreTabla);
-      productos && productos.forEach(p => {
-        if(parseInt(data.codProducto) === p.codProducto){
-          data.nombre = p.nombre;
-          data.descripcion = p.descripcion;
-          data.codLinea = p.codLinea;
-          data.precio = p.precio;
-          return;
-        }
-      })
+      productos &&
+        productos.forEach((p) => {
+          if (parseInt(data.codProducto) === p.codProducto) {
+            data.nombre = p.nombre;
+            data.descripcion = p.descripcion;
+            data.codLinea = p.codLinea;
+            data.precio = p.precio;
+            return;
+          }
+        });
       setCantidad(cantidad + data.cantidad);
       setMontoTotal(montoTotal + data.precio * data.cantidad);
       setLista([...lista, data]);
-      setProductosS(true);
     }
   };
 
   const updateProducto = async (newData, oldData) => {
-
     newData.codProducto = oldData.codProducto;
     newData.nombre = oldData.nombre;
     newData.codLinea = oldData.codLinea;
@@ -79,15 +84,16 @@ const TableComprarProductos = ({
     const index = oldData.tableData.id;
     updatedData[index] = newData;
 
-
-    setMontoTotal(montoTotal - (oldData.precio * oldData.cantidad) + (newData.precio * newData.cantidad));
+    setMontoTotal(
+      montoTotal -
+        oldData.precio * oldData.cantidad +
+        newData.precio * newData.cantidad
+    );
     setCantidad(cantidad - oldData.cantidad + newData.cantidad);
     setLista(updatedData);
   };
 
   const deleteProducto = async (oldData) => {
-    
-
     const dataDelete = [...lista];
     const index = oldData.tableData.id;
     dataDelete.splice(index, 1);

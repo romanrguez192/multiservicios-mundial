@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import { useUser } from "../../contexts/UserContext";
+import { useSnackbar } from "notistack";
 
 const TableReservacionesCliente = ({ setReservas, cedCliente, ...props }) => {
   const [reservaciones, setReservaciones] = useState([]);
@@ -9,16 +10,16 @@ const TableReservacionesCliente = ({ setReservas, cedCliente, ...props }) => {
 
   useEffect(() => {
     const getReservaciones = async () => {
-      const today = (new Date()).toISOString();
-      const url = `http://localhost:4000/api/reservaciones?rifSucursal=${
-        user.rifSucursal
-      }&cedCliente=${cedCliente}&fechaActividad=${today}`;
+      const today = new Date().toISOString();
+      const url = `http://localhost:4000/api/reservaciones?rifSucursal=${user.rifSucursal}&cedCliente=${cedCliente}&fechaActividad=${today}`;
 
       const response = await fetch(url);
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const reservaciones = await response.json();
@@ -29,11 +30,14 @@ const TableReservacionesCliente = ({ setReservas, cedCliente, ...props }) => {
 
     getReservaciones();
   }, [user, cedCliente]);
+  const { enqueueSnackbar } = useSnackbar();
 
   const columns = [
     {
       title: "Numero de Reserva",
       field: "nroReserva",
+      type: "numeric",
+      align: "left",
     },
     {
       title: "Fecha de Reservación",
@@ -43,6 +47,8 @@ const TableReservacionesCliente = ({ setReservas, cedCliente, ...props }) => {
     {
       title: "Código de Servicio",
       field: "codServicio",
+      type: "numeric",
+      align: "left",
     },
     {
       title: "Nombre de Servicio",
@@ -52,6 +58,7 @@ const TableReservacionesCliente = ({ setReservas, cedCliente, ...props }) => {
       title: "Monto Abonado (Bs.S)",
       field: "montoAbonado",
       type: "numeric",
+      align: "left",
     },
   ];
 

@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import Slide from "react-reveal/Slide";
+import { useSnackbar } from "notistack";
 
 const TableProductosDistribuidos = ({ rifProveedor, ...props }) => {
   const [productosDistribuidos, setProductosDistribuidos] = useState([]);
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     const getProductosDistribuidos = async () => {
@@ -15,7 +17,9 @@ const TableProductosDistribuidos = ({ rifProveedor, ...props }) => {
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const productosDistribuidos = await response.json();
@@ -35,7 +39,9 @@ const TableProductosDistribuidos = ({ rifProveedor, ...props }) => {
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const productos = await response.json();
@@ -58,6 +64,8 @@ const TableProductosDistribuidos = ({ rifProveedor, ...props }) => {
       title: "Producto",
       field: "codProducto",
       editable: "onAdd",
+      type: "numeric",
+      align: "left",
       lookup: lookup,
     },
   ];
@@ -75,7 +83,9 @@ const TableProductosDistribuidos = ({ rifProveedor, ...props }) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const productoDistribuido = await response.json();
@@ -92,7 +102,9 @@ const TableProductosDistribuidos = ({ rifProveedor, ...props }) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const dataDelete = [...productosDistribuidos];

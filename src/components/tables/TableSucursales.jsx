@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
+import { useSnackbar } from "notistack";
 
 const TableSucursales = ({ ...props }) => {
   const [sucursales, setSucursales] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     const getSucursales = async () => {
@@ -13,7 +15,9 @@ const TableSucursales = ({ ...props }) => {
 
       if (!response.ok) {
         //TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const sucursales = await response.json();
@@ -80,7 +84,9 @@ const TableSucursales = ({ ...props }) => {
 
     if (!response.ok) {
       //TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const sucursal = await response.json();
@@ -101,7 +107,9 @@ const TableSucursales = ({ ...props }) => {
 
     if (!response.ok) {
       //TODO: Error
-      return console.log("OH NO");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const sucursal = await response.json();
@@ -125,7 +133,9 @@ const TableSucursales = ({ ...props }) => {
 
     if (!response.ok) {
       //TODO: Error
-      return console.log("OH NO");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const dataDelete = [...sucursales];

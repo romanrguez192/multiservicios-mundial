@@ -6,6 +6,7 @@ import TableServiciosOfrecidos from "../components/tables/TableServiciosOfrecido
 import Nature from "../components/Nature";
 import PageTitle from "../components/PageTitle";
 import { useUser } from "../contexts/UserContext";
+import { useSnackbar } from "notistack";
 
 // ESTILOS
 const useStyles = makeStyles({
@@ -33,6 +34,7 @@ const Servicios = () => {
   const [loadingS, setLoadingS] = useState(true);
   const [serviciosOfrecidos, setServiciosOfrecidos] = useState([]);
   const [loadingSO, setLoadingSO] = useState(true);
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     const getServicios = async () => {
@@ -42,7 +44,9 @@ const Servicios = () => {
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const servicios = await response.json();
@@ -62,7 +66,9 @@ const Servicios = () => {
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const serviciosOfrecidos = await response.json();

@@ -16,6 +16,9 @@ const Step2 = ({
   cliente,
   setReservas,
   setServicios,
+  setFechaSalida,
+  setNombreAutorizado,
+  setTlfAutorizado,
 }) => {
   const classes = useStyles();
 
@@ -23,7 +26,9 @@ const Step2 = ({
     // Se reinician los pasos siguientes
     setReservas([]);
     setServicios([]);
-    // TODO: Reinciar datos finales
+    setFechaSalida(null);
+    setNombreAutorizado("");
+    setTlfAutorizado("");
 
     if (vehiculo && vehiculo.codVehiculo === selectedRow.codVehiculo) {
       return setVehiculo(null);

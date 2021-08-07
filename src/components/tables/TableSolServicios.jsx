@@ -3,67 +3,84 @@ import Table from "./Table";
 import Add from "@material-ui/icons/AddOutlined";
 import { useHistory } from "react-router-dom";
 import { useUser } from "../../contexts/UserContext";
+import { useSnackbar } from "notistack";
 
 const TableSolServicios = ({ ...props }) => {
   const [loading, setLoading] = useState(true);
   const [solicitudes, setSolicitudes] = useState([]);
   const history = useHistory();
   const user = useUser();
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
-    const getSolicitudes = async() => {
-      const url = `http://localhost:4000/api/solicitudesServicio/${user.rifSucursal}`;
+    const getSolicitudes = async () => {
+      const url = `http://localhost:4000/api/solicitudesServicio/?rifSucursal=${user.rifSucursal}`;
 
       const response = await fetch(url);
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const solicitudes = await response.json();
 
       setSolicitudes(solicitudes);
       setLoading(false);
-    }
+    };
 
     getSolicitudes();
-  }, [])
+  }, [user]);
 
   const columns = [
     {
       title: "Número de solicitud",
       field: "nroSolicitud",
-      editable: "never",
+      type: "numeric",
+      align: "left",
     },
     {
       title: "Código de vehiculo",
       field: "codVehiculo",
-      editable: "never",
+      type: "numeric",
+      align: "left",
     },
     {
       title: "Fecha de entrada",
       field: "fechaEntrada",
-      editable: "always",
-      type: "date"
+      type: "date",
     },
     {
       title: "Fecha de salida (estimada)",
       field: "fechaSalidaEstimada",
-      editable: "always",
       type: "date",
     },
     {
       title: "Fecha de salida (real)",
       field: "fechaSalidaReal",
-      editable: "always",
       type: "date",
+      emptyValue: "No aplica",
     },
     {
       title: "Autorizado para el retiro",
-      field: "autorizado",
-      editable: "always"
-    }
+      field: "nombreAutorizado",
+      emptyValue: "Ninguno",
+    },
+    {
+      title: "Teléfono del autorizado",
+      field: "tlfAutorizado",
+      emptyValue: "Ninguno",
+    },
+    {
+      title: "Finalizada",
+      field: "finalizada",
+      lookup: {
+        true: "Sí", 
+        false: "No"
+      }
+    },
   ];
 
   const create = () => {
@@ -79,14 +96,19 @@ const TableSolServicios = ({ ...props }) => {
     },
   ];
 
+  const handleRowClick = (evt, rowData) => {
+    history.push(`/solicitudes/${rowData.nroSolicitud}`);
+  };
+
   return (
     <div>
       <Table
-        title="Solicitudes de servicio"
+        title="Solicitudes de Servicio"
         columns={columns}
         isLoading={loading}
         data={solicitudes}
         actions={actions}
+        onRowClick={handleRowClick}
         {...props}
       />
     </div>

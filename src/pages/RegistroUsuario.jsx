@@ -7,6 +7,7 @@ import PasswordInput from "../components/inputs/PasswordInput";
 import Background from "../img/fondoInicioSesion.svg";
 import ArrowBackOutlinedIcon from "@material-ui/icons/ArrowBackOutlined";
 import { Formik, Form } from "formik";
+import { useSnackbar } from "notistack";
 
 // ESTILOS
 const useStyles = makeStyles({
@@ -64,6 +65,7 @@ const useStyles = makeStyles({
 
 const RegistroUsuario = () => {
   const classes = useStyles();
+  const { enqueueSnackbar } = useSnackbar();
 
   const initialValues = {
     usuario: "",
@@ -93,7 +95,9 @@ const RegistroUsuario = () => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const user = { usuario: data.usuario, contrasena: data.contrasena };

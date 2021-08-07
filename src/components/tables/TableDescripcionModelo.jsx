@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Table from "./Table";
 import { makeStyles } from "@material-ui/core";
 import Slide from "react-reveal/Slide";
+import { useSnackbar } from "notistack";
 
 // ESTILOS
 const useStyles = makeStyles({
@@ -20,6 +21,7 @@ export default function TableDescripcionModelo({ marca, modelo, ...props }) {
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [debeAplicarse, setDebeAplicarse] = useState([]);
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     const getProductos = async () => {
@@ -29,7 +31,9 @@ export default function TableDescripcionModelo({ marca, modelo, ...props }) {
 
       if (!response.ok) {
         //TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const productos = await response.json();
@@ -43,7 +47,9 @@ export default function TableDescripcionModelo({ marca, modelo, ...props }) {
 
       if (!response.ok) {
         //TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const debeAplicarse = await response.json();
@@ -64,12 +70,15 @@ export default function TableDescripcionModelo({ marca, modelo, ...props }) {
     {
       title: "Producto",
       field: "codProductoServicio",
+      type: "numeric",
+      align: "left",
       lookup: lookup,
     },
     {
       title: "Cantidad",
       field: "cantidad",
       type: "numeric",
+      align: "left",
     },
     {
       title: "Unidad de medida",
@@ -93,7 +102,9 @@ export default function TableDescripcionModelo({ marca, modelo, ...props }) {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const newDebeAplicarse = await response.json();
@@ -116,7 +127,9 @@ export default function TableDescripcionModelo({ marca, modelo, ...props }) {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const newDebeAplicarse = await response.json();
@@ -137,7 +150,9 @@ export default function TableDescripcionModelo({ marca, modelo, ...props }) {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const dataDelete = [...debeAplicarse];

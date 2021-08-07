@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import TableClientes from "../tables/TableClientes";
 import { makeStyles } from "@material-ui/core";
+import { useSnackbar } from "notistack";
 
 // Estilos
 const useStyles = makeStyles({
@@ -13,11 +14,12 @@ const useStyles = makeStyles({
 const Step1Compra = ({
   cliente,
   setCliente,
-  setProductosS,
+  setLista
 }) => {
   const classes = useStyles();
   const [clientes, setClientes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     const getClientes = async () => {
@@ -27,7 +29,9 @@ const Step1Compra = ({
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const clientes = await response.json();
@@ -41,7 +45,7 @@ const Step1Compra = ({
 
   const handleClick = (evt, selectedRow) => {
     // Se reinician los pasos siguientes
-    setProductosS(null);
+    setLista([]);
     // TODO: Reinciar datos finales
 
     if (cliente && cliente.cedCliente === selectedRow.cedCliente) {
@@ -54,7 +58,8 @@ const Step1Compra = ({
     <div className={classes.tableContainer}>
       <TableClientes
         title="Seleccionar Cliente"
-        data={clientes}
+        clientes={clientes}
+        setClientes={setClientes}
         isLoading={loading}
         onRowClick={handleClick}
         detailPanel={undefined}

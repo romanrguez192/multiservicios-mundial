@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import TableHistorialVehiculo from "./TableHistorialVehiculo";
+import TableMantenimientosPrevios from "./TableMantenimientosPrevios";
 import { TableContainer } from "@material-ui/core";
+import { useSnackbar } from "notistack";
 
 const TableVehiculosCliente = ({ cedCliente, ...props }) => {
   const [vehiculos, setVehiculos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [modelos, setModelos] = useState([]);
+  const { enqueueSnackbar } = useSnackbar();
 
   const lookup = {};
 
@@ -24,7 +27,9 @@ const TableVehiculosCliente = ({ cedCliente, ...props }) => {
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const vehiculos = await response.json();
@@ -47,7 +52,9 @@ const TableVehiculosCliente = ({ cedCliente, ...props }) => {
 
       if (!response.ok) {
         // TODO: Error
-        return console.log("Oh no");
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
       }
 
       const modelos = await response.json();
@@ -63,6 +70,8 @@ const TableVehiculosCliente = ({ cedCliente, ...props }) => {
       title: "Código de Vehículo",
       field: "codVehiculo",
       editable: "never",
+      type: "numeric",
+      align: "left",
     },
     {
       title: "Placa",
@@ -119,7 +128,9 @@ const TableVehiculosCliente = ({ cedCliente, ...props }) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const vehiculo = await response.json();
@@ -148,7 +159,9 @@ const TableVehiculosCliente = ({ cedCliente, ...props }) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const vehiculo = await response.json();
@@ -170,7 +183,9 @@ const TableVehiculosCliente = ({ cedCliente, ...props }) => {
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const dataDelete = [...vehiculos];
@@ -196,7 +211,8 @@ const TableVehiculosCliente = ({ cedCliente, ...props }) => {
         detailPanel={(rowData) => {
           return (
             <TableContainer>
-              <TableHistorialVehiculo triTable codVehiculo={rowData.codVehiculo} />
+              <TableHistorialVehiculo codVehiculo={rowData.codVehiculo} />
+              <TableMantenimientosPrevios codVehiculo={rowData.codVehiculo} />
             </TableContainer>
           );
         }}

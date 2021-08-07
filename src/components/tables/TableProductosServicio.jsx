@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
+import { useSnackbar } from "notistack";
 
 const TableProductosServicios = ({
   productosServicios,
@@ -14,11 +15,14 @@ const TableProductosServicios = ({
       lookup[l.codLinea] = l.descripcion;
     });
 
+  const { enqueueSnackbar } = useSnackbar();
   const columns = [
     {
       title: "Código",
       field: "codProducto",
       editable: "never",
+      type: "numeric",
+      align: "left",
     },
     {
       title: "Nombre",
@@ -34,7 +38,9 @@ const TableProductosServicios = ({
       title: "Línea",
       field: "codLinea",
       editable: "always",
+      type: "numeric",
       lookup: lookup,
+      align: "left",
     },
     {
       title: "Fabricante",
@@ -52,18 +58,21 @@ const TableProductosServicios = ({
       field: "precio",
       editable: "always",
       type: "numeric",
+      align: "left",
     },
     {
       title: "Nivel mínimo",
       field: "nivelMinimo",
       editable: "always",
       type: "numeric",
+      align: "left",
     },
     {
       title: "Nivel máximo",
       field: "nivelMaximo",
       editable: "always",
       type: "numeric",
+      align: "left",
     },
   ];
 
@@ -80,7 +89,9 @@ const TableProductosServicios = ({
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const productoServicio = await response.json();
@@ -101,7 +112,9 @@ const TableProductosServicios = ({
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const productoServicio = await response.json();
@@ -122,7 +135,9 @@ const TableProductosServicios = ({
 
     if (!response.ok) {
       // TODO: Error
-      return console.log("Oh no");
+      return enqueueSnackbar("Se ha producido un error", {
+        variant: "error",
+      });
     }
 
     const dataDelete = [...productosServicios];
