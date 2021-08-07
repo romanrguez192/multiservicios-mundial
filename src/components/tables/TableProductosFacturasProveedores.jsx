@@ -41,7 +41,7 @@ const TableProductosFacturasProveedores = ({ codOrdCompra }) => {
     };
 
     getProductos();
-  });
+  }, []);
 
   const columns = [
     {
@@ -68,7 +68,7 @@ const TableProductosFacturasProveedores = ({ codOrdCompra }) => {
       field: "precio",
       type: "numeric",
       align: "left",
-      editable: "onUpdate",
+      editable: "always",
       emptyValue: "Por registrar",
     },
   ];
@@ -91,11 +91,11 @@ const TableProductosFacturasProveedores = ({ codOrdCompra }) => {
       });
     }
 
-    const productos = await response.json();
+    const producto = await response.json();
 
     const updatedData = [...productos];
     const index = oldData.tableData.id;
-    updatedData[index] = productos;
+    updatedData[index] = producto;
 
     setProductos(updatedData);
   };
