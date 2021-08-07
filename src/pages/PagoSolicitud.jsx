@@ -14,7 +14,9 @@ import Fade from "react-reveal/Fade";
 import PageTitle from "../components/PageTitle";
 import { useParams } from "react-router-dom";
 import { useSnackbar } from "notistack";
-import { Button } from "@material-ui/core";
+import Input from "../components/inputs/Input";
+import { Formik, Form } from "formik";
+import SelectPago from "../components/inputs/SelectPago";
 
 // ESTILOS
 const useStyles = makeStyles({
@@ -43,6 +45,7 @@ const useStyles = makeStyles({
     fontWeight: "bold",
     lineHeight: "28px",
     color: "#199479",
+    paddingBottom: "10pt",
   },
   subtitle: {
     fontFamily: "Quicksand",
@@ -53,7 +56,7 @@ const useStyles = makeStyles({
   },
   containerInformation: {
     padding: "10pt",
-    display: "inline-flex",
+    textAlign: "center",
   },
   box: {
     width: "26vw",
@@ -94,14 +97,27 @@ const useStyles = makeStyles({
     paddingTop: "10pt",
     paddingBottom: "30pt",
   },
+  datos: {
+    width: "300px",
+    margin: "auto",
+    paddingBottom: "20pt",
+  },
+  separator: {
+    width: "50pt",
+  }
 });
 
 const DetalleSolicitud = () => {
   const classes = useStyles();
   const [solicitud, setSolicitud] = useState(null);
+  const [moneda, setMoneda] = useState(null);
+  const [tipoPago, setTipoPago] = useState(null);
+  const [numPago, setNumPago] = useState(0);
   const [loading, setLoading] = useState(true);
   const params = useParams();
   const { enqueueSnackbar } = useSnackbar();
+
+  
 
   useEffect(() => {
     const getSolicitud = async () => {
@@ -134,84 +150,75 @@ const DetalleSolicitud = () => {
     );
   }
 
-  function formatDate(string){
-    var options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'};
-    return new Date(string).toLocaleDateString('ES-es',options);
-}
+
+  const forPago = (numPagos) => {
+    var rows = [];
+      for (var i = 0; i < numPagos; i++) {
+          rows.push(
+            <div key={i}>
+              <p className={classes.title}>Pago {i+1}</p>
+              <p className={classes.subtitle}>Seleccionar Moneda</p>
+              <div className={classes.datos}>
+                <SelectPago
+                  name="tipoMoneda"
+                  title="Moneda"
+                  setMoneda={setMoneda}
+                />
+              </div>
+              <p className={classes.subtitle}>Seleccionar Tipo de pago</p>
+              <div className={classes.datos}>
+                <SelectPago
+                  name="tipoPago"
+                  title="Tipo de Pago"
+                  setTipoPago={setTipoPago}
+                />
+              </div>
+              <div className={classes.divFlex}>
+                <Input
+                  label="Banco"
+                />
+                <div className={classes.separator}/>
+                <Input
+                  label="Numero de Tarjeta"
+                  type="number"
+                  inputProps={{ min: 0 }}
+                />
+              </div>
+            </div>
+          );
+      }
+      return <div>{rows}</div>;
+  };
 
   return (
     <div className={classes.root}>
       <Sidebar page="solicitudes" />
       <main className={classes.container}>
-        <IconButton
-          component={Link}
-          to="/solicitudes"
-          className={classes.backIcon}
-        >
-          <ArrowBackOutlined color="primary" />
-        </IconButton>
-        <PageTitle title={`Solicitud #${solicitud.nroSolicitud}`} />
+        <PageTitle classname={classes.pagetitle} title={`Finalización de solicitud #${solicitud.nroSolicitud}`} />
         <div className={classes.tableContainer}>
           <Fade>
             <Paper className={classes.paperContainer}>
               <div className={classes.containerInformation}>
-                <div className={classes.box}>
-                  <p className={classes.title}>Nombre del cliente</p>
-                  <p className={classes.subtitle}>{solicitud.nombreCliente}</p>
-                </div>
-                <Divider orientation="vertical" flexItem />
-                <div className={classes.box}>
-                  <p className={classes.title}>Fecha de entrada</p>
-                  <p className={classes.subtitle}>{formatDate(solicitud.fechaEntrada)}</p>
-                </div>
-                <Divider orientation="vertical" flexItem />
-                <div className={classes.box}>
-                  <p className={classes.title}>
-                    {"Fecha de salida" +
-                      (solicitud.finalizada ? "" : " estimada")}
-                  </p>
-                  <p className={classes.subtitle}>
-                    {solicitud.finalizada
-                      ? formatDate(solicitud.fechaSalidaReal)
-                      : formatDate(solicitud.fechaSalidaEstimada)}
-                  </p>
-                </div>
-              </div>
-              <Divider className={classes.divider} />
-              <div className={classes.containerInformation}>
-                <div className={classes.box}>
-                  <p className={classes.title}>Placa de vehículo</p>
-                  <p className={classes.subtitle}>{solicitud.placa}</p>
-                </div>
-                <Divider orientation="vertical" flexItem />
-                <div className={classes.box}>
-                  <p className={classes.title}>Marca del vehículo</p>
-                  <p className={classes.subtitle}>{solicitud.marca}</p>
-                </div>
-                <Divider orientation="vertical" flexItem />
-                <div className={classes.box}>
-                  <p className={classes.title}>Modelo del vehículo</p>
-                  <p className={classes.subtitle}>{solicitud.modelo}</p>
-                </div>
+                <Formik>
+                  {() => (
+                    <Form className={classes.containerInputs}>
+                      <p className={classes.title}>Monto a pagar: (poner monto) Bs</p>
+                      <p className={classes.title}>Número de pagos a realizar</p>
+                      <div className={classes.datos}>
+                        <Input
+                          label="Numero de pagos"
+                          type="number"
+                          inputProps={{ min: 0 , max: 10 }}
+                          onChange={(e) => setNumPago(e.target.value)}
+                        />
+                      </div>
+                      {forPago(numPago)}
+                    </Form>
+                  )}
+                </Formik>
               </div>
             </Paper>
           </Fade>
-          <TableServiciosSolicitud nroSolicitud={solicitud.nroSolicitud} />
-          {solicitud.finalizada ? (
-            <div>A</div>
-          ) : (
-            <div className={classes.endServ}>
-              <Button 
-                fullWidth 
-                variant="contained" 
-                color="primary"
-                component={Link}
-                to={`pagoSolicitud/${solicitud.nroSolicitud}`}
-              >
-                Finalizar Servicio
-              </Button>
-            </div>
-          )}
         </div>
       </main>
     </div>
