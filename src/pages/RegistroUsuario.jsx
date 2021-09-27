@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import logo from "../img/logo.svg";
 import { Button, makeStyles, IconButton } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import Input from "../components/inputs/Input";
 import PasswordInput from "../components/inputs/PasswordInput";
+import SelectInput from "../components/inputs/SelectInput";
 import Background from "../img/fondoInicioSesion.svg";
 import ArrowBackOutlinedIcon from "@material-ui/icons/ArrowBackOutlined";
 import { Formik, Form } from "formik";
@@ -66,6 +67,28 @@ const useStyles = makeStyles({
 const RegistroUsuario = () => {
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
+  const [sucursales, setSucursales] = useState([]);
+
+  useEffect(() => {
+    const getSucursales = async () => {
+      const url = "http://localhost:4000/api/sucursales";
+
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        //TODO: Error
+        return enqueueSnackbar("Se ha producido un error", {
+          variant: "error",
+        });
+      }
+
+      const sucursales = await response.json();
+
+      setSucursales(sucursales);
+    };
+
+    getSucursales();
+  }, []);
 
   const initialValues = {
     usuario: "",
@@ -138,10 +161,11 @@ const RegistroUsuario = () => {
                 <div className={classes.spaceDiv} />
                 <PasswordInput name="confirmar" label="Confirmar Contraseña" />
               </div>
-              <Input
+              <SelectInput
                 name="rifSucursal"
                 label="RIF de la Sucursal"
                 icon="store"
+                options={sucursales.map((s) => ({ label: s.nombre, value: s.rifSucursal }))}
               />
               <Button
                 variant="contained"
