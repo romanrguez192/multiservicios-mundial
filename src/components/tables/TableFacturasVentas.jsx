@@ -12,8 +12,8 @@ const TableFacturasVentas = ({}) => {
   const user = useUser();
 
   useEffect(() => {
-    const getFacturasVentas = async() => {
-      const url = `http://localhost:4000/api/facturasVentas/factura/${user.rifSucursal}`;
+    const getFacturasVentas = async () => {
+      const url = `https://multiservicios-mundial.herokuapp.com/api/facturasVentas/factura/${user.rifSucursal}`;
 
       const response = await fetch(url);
 
@@ -28,10 +28,10 @@ const TableFacturasVentas = ({}) => {
 
       setFacturasVentas(facturas);
       setLoading(false);
-    }
+    };
 
     getFacturasVentas();
-  }, [])
+  }, []);
   const columns = [
     {
       title: "Nro Factura",
@@ -84,7 +84,7 @@ const TableFacturasVentas = ({}) => {
         detailPanel={(rowData) => {
           return (
             <TableContainer>
-              <TableFacturaProductos nroFactura={rowData.nroFactura}/>
+              <TableFacturaProductos nroFactura={rowData.nroFactura} />
             </TableContainer>
           );
         }}

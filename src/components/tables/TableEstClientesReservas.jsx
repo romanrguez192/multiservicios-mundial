@@ -12,7 +12,7 @@ const TableEstClientesReservas = () => {
 
   useEffect(() => {
     const getClientesReservas = async () => {
-      const url = `http://localhost:4000/api/estadisticas/clientesNoUsanServicio/${user.rifSucursal}`;
+      const url = `https://multiservicios-mundial.herokuapp.com/api/estadisticas/clientesNoUsanServicio/${user.rifSucursal}`;
 
       const response = await fetch(url);
 
@@ -55,12 +55,7 @@ const TableEstClientesReservas = () => {
   ];
   return (
     <div>
-      <Table
-        title="Clientes con reservas perdidas"
-        columns={columns}
-        data={clientesReservas}
-        isLoading={loading}
-      />
+      <Table title="Clientes con reservas perdidas" columns={columns} data={clientesReservas} isLoading={loading} />
     </div>
   );
 };

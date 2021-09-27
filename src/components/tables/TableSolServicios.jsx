@@ -14,7 +14,7 @@ const TableSolServicios = ({ ...props }) => {
 
   useEffect(() => {
     const getSolicitudes = async () => {
-      const url = `http://localhost:4000/api/solicitudesServicio/?rifSucursal=${user.rifSucursal}`;
+      const url = `https://multiservicios-mundial.herokuapp.com/api/solicitudesServicio/?rifSucursal=${user.rifSucursal}`;
 
       const response = await fetch(url);
 
@@ -77,9 +77,9 @@ const TableSolServicios = ({ ...props }) => {
       title: "Finalizada",
       field: "finalizada",
       lookup: {
-        true: "Sí", 
-        false: "No"
-      }
+        true: "Sí",
+        false: "No",
+      },
     },
   ];
 

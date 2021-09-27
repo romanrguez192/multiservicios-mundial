@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "../components/Sidebar";
-import {
-  makeStyles,
-  IconButton,
-  Paper,
-  Divider,
-  CircularProgress,
-} from "@material-ui/core";
+import { makeStyles, IconButton, Paper, Divider, CircularProgress } from "@material-ui/core";
 import { ArrowBackOutlined } from "@material-ui/icons";
 import TableServiciosSolicitud from "../components/tables/TableServiciosSolicitud";
 import { Link } from "react-router-dom";
@@ -105,7 +99,7 @@ const DetalleSolicitud = () => {
 
   useEffect(() => {
     const getSolicitud = async () => {
-      const url = `http://localhost:4000/api/solicitudesServicio/${params.id}`;
+      const url = `https://multiservicios-mundial.herokuapp.com/api/solicitudesServicio/${params.id}`;
 
       const response = await fetch(url);
 
@@ -134,20 +128,16 @@ const DetalleSolicitud = () => {
     );
   }
 
-  function formatDate(string){
-    var options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'};
-    return new Date(string).toLocaleDateString('ES-es',options);
-}
+  function formatDate(string) {
+    var options = { year: "numeric", month: "long", day: "numeric", hour: "numeric", minute: "numeric" };
+    return new Date(string).toLocaleDateString("ES-es", options);
+  }
 
   return (
     <div className={classes.root}>
       <Sidebar page="solicitudes" />
       <main className={classes.container}>
-        <IconButton
-          component={Link}
-          to="/solicitudes"
-          className={classes.backIcon}
-        >
+        <IconButton component={Link} to="/solicitudes" className={classes.backIcon}>
           <ArrowBackOutlined color="primary" />
         </IconButton>
         <PageTitle title={`Solicitud #${solicitud.nroSolicitud}`} />
@@ -166,10 +156,7 @@ const DetalleSolicitud = () => {
                 </div>
                 <Divider orientation="vertical" flexItem />
                 <div className={classes.box}>
-                  <p className={classes.title}>
-                    {"Fecha de salida" +
-                      (solicitud.finalizada ? "" : " estimada")}
-                  </p>
+                  <p className={classes.title}>{"Fecha de salida" + (solicitud.finalizada ? "" : " estimada")}</p>
                   <p className={classes.subtitle}>
                     {solicitud.finalizada
                       ? formatDate(solicitud.fechaSalidaReal)
@@ -201,9 +188,9 @@ const DetalleSolicitud = () => {
             <div></div>
           ) : (
             <div className={classes.endServ}>
-              <Button 
-                fullWidth 
-                variant="contained" 
+              <Button
+                fullWidth
+                variant="contained"
                 color="primary"
                 component={Link}
                 to={`pagoSolicitud/${solicitud.nroSolicitud}`}

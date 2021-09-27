@@ -38,7 +38,7 @@ const Servicios = () => {
 
   useEffect(() => {
     const getServicios = async () => {
-      const url = "http://localhost:4000/api/servicios";
+      const url = "https://multiservicios-mundial.herokuapp.com/api/servicios";
 
       const response = await fetch(url);
 
@@ -60,7 +60,7 @@ const Servicios = () => {
 
   useEffect(() => {
     const getServiciosOfrecidos = async () => {
-      const url = `http://localhost:4000/api/serviciosOfrecidos/${user.rifSucursal}`;
+      const url = `https://multiservicios-mundial.herokuapp.com/api/serviciosOfrecidos/${user.rifSucursal}`;
 
       const response = await fetch(url);
 

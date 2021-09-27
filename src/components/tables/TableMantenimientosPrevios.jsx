@@ -36,7 +36,7 @@ export default function TableMantenimientosPrevios({ codVehiculo, ...props }) {
   useEffect(() => {
     const getMantenimientos = async () => {
       console.log(codVehiculo);
-      const url = `http://localhost:4000/api/mantenimientosPrevios/${codVehiculo}`;
+      const url = `https://multiservicios-mundial.herokuapp.com/api/mantenimientosPrevios/${codVehiculo}`;
 
       const response = await fetch(url);
 
@@ -57,7 +57,7 @@ export default function TableMantenimientosPrevios({ codVehiculo, ...props }) {
   }, [codVehiculo]);
 
   const addMantenimiento = async (data) => {
-    const url = `http://localhost:4000/api/mantenimientosPrevios`;
+    const url = `https://multiservicios-mundial.herokuapp.com/api/mantenimientosPrevios`;
     data.codVehiculo = codVehiculo;
 
     const response = await fetch(url, {
@@ -81,7 +81,7 @@ export default function TableMantenimientosPrevios({ codVehiculo, ...props }) {
   };
 
   const updateMantenimiento = async (newData, oldData) => {
-    const url = `http://localhost:4000/api/mantenimientosPrevios/${codVehiculo}?fechaMant=${oldData.fechaMant}`;
+    const url = `https://multiservicios-mundial.herokuapp.com/api/mantenimientosPrevios/${codVehiculo}?fechaMant=${oldData.fechaMant}`;
 
     newData.codVehiculo = codVehiculo;
 
@@ -110,7 +110,7 @@ export default function TableMantenimientosPrevios({ codVehiculo, ...props }) {
   };
 
   const deleteMantenimiento = async (oldData) => {
-    const url = `http://localhost:4000/api/mantenimientosPrevios/${codVehiculo}?fechaMant=${oldData.fechaMant}`;
+    const url = `https://multiservicios-mundial.herokuapp.com/api/mantenimientosPrevios/${codVehiculo}?fechaMant=${oldData.fechaMant}`;
 
     const response = await fetch(url, {
       method: "DELETE",

@@ -8,7 +8,6 @@ import PageTitle from "../components/PageTitle";
 import TableCompras from "../components/tables/TableCompras";
 import { useSnackbar } from "notistack";
 
-
 // ESTILOS
 const useStyles = makeStyles({
   divFlex: {
@@ -36,8 +35,8 @@ const Tienda = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const getCompras = async() => {
-      const url = `http://localhost:4000/api/facturasVentas/sucursal/${user.rifSucursal}`;
+    const getCompras = async () => {
+      const url = `https://multiservicios-mundial.herokuapp.com/api/facturasVentas/sucursal/${user.rifSucursal}`;
 
       const response = await fetch(url);
 
@@ -52,10 +51,10 @@ const Tienda = () => {
 
       setCompras(compras);
       setLoading(false);
-    }
+    };
 
     getCompras();
-  }, [])
+  }, []);
 
   return (
     <>
@@ -66,7 +65,7 @@ const Tienda = () => {
           <div className={classes.tableContainer}>
             <TableCompras {...{ loading, compras, setCompras }} />
           </div>
-          <Nature/>
+          <Nature />
         </main>
       </div>
     </>

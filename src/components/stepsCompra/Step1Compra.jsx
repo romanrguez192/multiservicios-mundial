@@ -11,11 +11,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Step1Compra = ({
-  cliente,
-  setCliente,
-  setLista
-}) => {
+const Step1Compra = ({ cliente, setCliente, setLista }) => {
   const classes = useStyles();
   const [clientes, setClientes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -23,7 +19,7 @@ const Step1Compra = ({
 
   useEffect(() => {
     const getClientes = async () => {
-      const url = "http://localhost:4000/api/clientes";
+      const url = "https://multiservicios-mundial.herokuapp.com/api/clientes";
 
       const response = await fetch(url);
 
@@ -65,10 +61,7 @@ const Step1Compra = ({
         detailPanel={undefined}
         options={{
           rowStyle: (rowData) => ({
-            backgroundColor:
-              cliente && cliente.cedCliente === rowData.cedCliente
-                ? "#9E9E9E50"
-                : "#FFF",
+            backgroundColor: cliente && cliente.cedCliente === rowData.cedCliente ? "#9E9E9E50" : "#FFF",
           }),
           emptyRowsWhenPaging: true,
           pageSizeOptions: [5, 10, 20],

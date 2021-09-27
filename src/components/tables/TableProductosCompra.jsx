@@ -10,18 +10,13 @@ import { makeStyles } from "@material-ui/core";
 // Estilos
 const useStyles = makeStyles({
   buttonEnviar: {
-    width: '250px',
-    margin: 'auto',
-    paddingBottom: '20pt',
+    width: "250px",
+    margin: "auto",
+    paddingBottom: "20pt",
   },
 });
 
-const TableProductosCompra = ({
-  ordCompra,
-  ordenesCompra,
-  setOrdenesCompra,
-  ...props
-}) => {
+const TableProductosCompra = ({ ordCompra, ordenesCompra, setOrdenesCompra, ...props }) => {
   const [productosCompra, setProductosCompra] = useState([]);
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -38,7 +33,7 @@ const TableProductosCompra = ({
   useEffect(() => {
     setLoading(true);
     const getProductosCompra = async () => {
-      const url = `http://localhost:4000/api/ordenesCompra/${ordCompra.codOrdCompra}/productos`;
+      const url = `https://multiservicios-mundial.herokuapp.com/api/ordenesCompra/${ordCompra.codOrdCompra}/productos`;
 
       const response = await fetch(url);
 
@@ -64,7 +59,7 @@ const TableProductosCompra = ({
 
   useEffect(() => {
     const getProductos = async () => {
-      const url = `http://localhost:4000/api/proveedores/${ordCompra.rifProveedor}/productos`;
+      const url = `https://multiservicios-mundial.herokuapp.com/api/proveedores/${ordCompra.rifProveedor}/productos`;
 
       const response = await fetch(url);
 
@@ -123,7 +118,7 @@ const TableProductosCompra = ({
 
   const enviar = async () => {
     setSubmitting(true);
-    const url = "http://localhost:4000/api/ordenesCompra";
+    const url = "https://multiservicios-mundial.herokuapp.com/api/ordenesCompra";
 
     const ordenCompra = { ...ordCompra };
     ordenCompra.rifSucursal = user.rifSucursal;
@@ -162,9 +157,7 @@ const TableProductosCompra = ({
     <Slide top collapse>
       <div>
         <Table
-          title={
-            ordCompra.enviada ? "Productos Comprados" : "Productos a Comprar"
-          }
+          title={ordCompra.enviada ? "Productos Comprados" : "Productos a Comprar"}
           columns={columns}
           data={productosCompra}
           isLoading={loading}

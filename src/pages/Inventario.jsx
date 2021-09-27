@@ -49,7 +49,7 @@ const Inventario = () => {
   useEffect(() => {
     const getLineas = async () => {
       setLoadingL(true);
-      const url = "http://localhost:4000/api/lineas";
+      const url = "https://multiservicios-mundial.herokuapp.com/api/lineas";
 
       const response = await fetch(url);
 
@@ -72,7 +72,7 @@ const Inventario = () => {
   useEffect(() => {
     const getProductosServicios = async () => {
       setLoadingPS(true);
-      const url = "http://localhost:4000/api/productosServicios";
+      const url = "https://multiservicios-mundial.herokuapp.com/api/productosServicios";
 
       const response = await fetch(url);
 
@@ -95,7 +95,7 @@ const Inventario = () => {
   useEffect(() => {
     const getProductosVentas = async () => {
       setLoadingPV(true);
-      const url = "http://localhost:4000/api/productosVentas";
+      const url = "https://multiservicios-mundial.herokuapp.com/api/productosVentas";
 
       const response = await fetch(url);
 
@@ -118,7 +118,7 @@ const Inventario = () => {
   useEffect(() => {
     const getInventario = async () => {
       setLoadingI(true);
-      const url = `http://localhost:4000/api/inventario/${user.rifSucursal}`;
+      const url = `https://multiservicios-mundial.herokuapp.com/api/inventario/${user.rifSucursal}`;
 
       const response = await fetch(url);
 
@@ -140,7 +140,7 @@ const Inventario = () => {
 
   useEffect(() => {
     const getOrdCompra = async () => {
-      const url = `http://localhost:4000/api/ordenesCompra?rifSucursal=${user.rifSucursal}`;
+      const url = `https://multiservicios-mundial.herokuapp.com/api/ordenesCompra?rifSucursal=${user.rifSucursal}`;
 
       const response = await fetch(url);
 

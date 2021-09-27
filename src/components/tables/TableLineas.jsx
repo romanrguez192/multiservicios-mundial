@@ -21,7 +21,7 @@ const TableLineas = ({ lineas, setLineas, loadingL, ...props }) => {
   ];
 
   const addLinea = async (data) => {
-    const url = "http://localhost:4000/api/lineas";
+    const url = "https://multiservicios-mundial.herokuapp.com/api/lineas";
 
     const response = await fetch(url, {
       method: "POST",
@@ -44,7 +44,7 @@ const TableLineas = ({ lineas, setLineas, loadingL, ...props }) => {
   };
 
   const updateLinea = async (newData, oldData) => {
-    const url = `http://localhost:4000/api/lineas/${oldData.codLinea}`;
+    const url = `https://multiservicios-mundial.herokuapp.com/api/lineas/${oldData.codLinea}`;
 
     const response = await fetch(url, {
       method: "PUT",
@@ -71,7 +71,7 @@ const TableLineas = ({ lineas, setLineas, loadingL, ...props }) => {
   };
 
   const deleteLinea = async (oldData) => {
-    const url = `http://localhost:4000/api/lineas/${oldData.codLinea}`;
+    const url = `https://multiservicios-mundial.herokuapp.com/api/lineas/${oldData.codLinea}`;
 
     const response = await fetch(url, {
       method: "DELETE",

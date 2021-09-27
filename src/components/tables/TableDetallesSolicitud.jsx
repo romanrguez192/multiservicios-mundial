@@ -12,7 +12,7 @@ const TableDetallesSolicitud = ({ nroSolicitud, codServicio, ...props }) => {
 
   useEffect(() => {
     const getActividades = async () => {
-      const url = `http://localhost:4000/api/solicitudesServicio/${nroSolicitud}/servicios/${codServicio}`;
+      const url = `https://multiservicios-mundial.herokuapp.com/api/solicitudesServicio/${nroSolicitud}/servicios/${codServicio}`;
 
       const response = await fetch(url);
 

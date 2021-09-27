@@ -51,7 +51,7 @@ const TableServicios = ({ servicios, setServicios, loadingS, ...props }) => {
   ];
 
   const addServicio = async (data) => {
-    const url = "http://localhost:4000/api/servicios";
+    const url = "https://multiservicios-mundial.herokuapp.com/api/servicios";
 
     const response = await fetch(url, {
       method: "POST",
@@ -74,7 +74,7 @@ const TableServicios = ({ servicios, setServicios, loadingS, ...props }) => {
   };
 
   const updateServicio = async (newData, oldData) => {
-    const url = `http://localhost:4000/api/servicios/${oldData.codServicio}`;
+    const url = `https://multiservicios-mundial.herokuapp.com/api/servicios/${oldData.codServicio}`;
 
     const response = await fetch(url, {
       method: "PUT",
@@ -101,7 +101,7 @@ const TableServicios = ({ servicios, setServicios, loadingS, ...props }) => {
   };
 
   const deleteServicio = async (oldData) => {
-    const url = `http://localhost:4000/api/servicios/${oldData.codServicio}`;
+    const url = `https://multiservicios-mundial.herokuapp.com/api/servicios/${oldData.codServicio}`;
 
     const response = await fetch(url, {
       method: "DELETE",

@@ -3,19 +3,17 @@ import Table from "./Table";
 import Slide from "react-reveal/Slide";
 import { useSnackbar } from "notistack";
 
-
 const TableProductosVendidos = ({ nroFactura, ...props }) => {
-  
   const columns = [
     {
       title: "Código de producto",
       field: "codProducto",
-      editable: "never"
+      editable: "never",
     },
     {
       title: "Producto",
       field: "nombre",
-      editable: "never"
+      editable: "never",
     },
     // {
     //   title: "Cantidad",
@@ -24,7 +22,7 @@ const TableProductosVendidos = ({ nroFactura, ...props }) => {
     {
       title: "Precio unitario",
       field: "precio",
-      editable: "never"
+      editable: "never",
     },
   ];
 
@@ -33,9 +31,9 @@ const TableProductosVendidos = ({ nroFactura, ...props }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const getProductos = async() => {
-      const url = `http://localhost:4000/api/facturasVentas/productos/${nroFactura}`;
-      
+    const getProductos = async () => {
+      const url = `https://multiservicios-mundial.herokuapp.com/api/facturasVentas/productos/${nroFactura}`;
+
       const response = await fetch(url);
 
       if (!response.ok) {
@@ -50,23 +48,15 @@ const TableProductosVendidos = ({ nroFactura, ...props }) => {
       console.log(productos);
       setLoading(false);
       setProductos(productos);
-    }
+    };
 
     getProductos();
-  }, [])
-
+  }, []);
 
   return (
     <div>
       <Slide top collapse>
-        <Table
-            title="Productos vendidos"
-            subTable
-            columns={columns}
-            data={productos}
-            isLoading={loading}
-            {...props}
-        />
+        <Table title="Productos vendidos" subTable columns={columns} data={productos} isLoading={loading} {...props} />
       </Slide>
     </div>
   );

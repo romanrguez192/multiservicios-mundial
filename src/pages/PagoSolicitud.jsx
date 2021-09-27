@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "../components/Sidebar";
-import {
-  makeStyles,
-  IconButton,
-  Paper,
-  Divider,
-  CircularProgress,
-} from "@material-ui/core";
+import { makeStyles, IconButton, Paper, Divider, CircularProgress } from "@material-ui/core";
 import { ArrowBackOutlined } from "@material-ui/icons";
 import TableServiciosSolicitud from "../components/tables/TableServiciosSolicitud";
 import { Link } from "react-router-dom";
@@ -104,7 +98,7 @@ const useStyles = makeStyles({
   },
   separator: {
     width: "50pt",
-  }
+  },
 });
 
 const DetalleSolicitud = () => {
@@ -117,11 +111,9 @@ const DetalleSolicitud = () => {
   const params = useParams();
   const { enqueueSnackbar } = useSnackbar();
 
-  
-
   useEffect(() => {
     const getSolicitud = async () => {
-      const url = `http://localhost:4000/api/solicitudesServicio/${params.id}`;
+      const url = `https://multiservicios-mundial.herokuapp.com/api/solicitudesServicio/${params.id}`;
 
       const response = await fetch(url);
 
@@ -150,44 +142,29 @@ const DetalleSolicitud = () => {
     );
   }
 
-
   const forPago = (numPagos) => {
     var rows = [];
-      for (var i = 0; i < numPagos; i++) {
-          rows.push(
-            <div key={i}>
-              <p className={classes.title}>Pago {i+1}</p>
-              <p className={classes.subtitle}>Seleccionar Moneda</p>
-              <div className={classes.datos}>
-                <SelectPago
-                  name="tipoMoneda"
-                  title="Moneda"
-                  setMoneda={setMoneda}
-                />
-              </div>
-              <p className={classes.subtitle}>Seleccionar Tipo de pago</p>
-              <div className={classes.datos}>
-                <SelectPago
-                  name="tipoPago"
-                  title="Tipo de Pago"
-                  setTipoPago={setTipoPago}
-                />
-              </div>
-              <div className={classes.divFlex}>
-                <Input
-                  label="Banco"
-                />
-                <div className={classes.separator}/>
-                <Input
-                  label="Numero de Tarjeta"
-                  type="number"
-                  inputProps={{ min: 0 }}
-                />
-              </div>
-            </div>
-          );
-      }
-      return <div>{rows}</div>;
+    for (var i = 0; i < numPagos; i++) {
+      rows.push(
+        <div key={i}>
+          <p className={classes.title}>Pago {i + 1}</p>
+          <p className={classes.subtitle}>Seleccionar Moneda</p>
+          <div className={classes.datos}>
+            <SelectPago name="tipoMoneda" title="Moneda" setMoneda={setMoneda} />
+          </div>
+          <p className={classes.subtitle}>Seleccionar Tipo de pago</p>
+          <div className={classes.datos}>
+            <SelectPago name="tipoPago" title="Tipo de Pago" setTipoPago={setTipoPago} />
+          </div>
+          <div className={classes.divFlex}>
+            <Input label="Banco" />
+            <div className={classes.separator} />
+            <Input label="Numero de Tarjeta" type="number" inputProps={{ min: 0 }} />
+          </div>
+        </div>
+      );
+    }
+    return <div>{rows}</div>;
   };
 
   return (
@@ -208,7 +185,7 @@ const DetalleSolicitud = () => {
                         <Input
                           label="Numero de pagos"
                           type="number"
-                          inputProps={{ min: 0 , max: 10 }}
+                          inputProps={{ min: 0, max: 10 }}
                           onChange={(e) => setNumPago(e.target.value)}
                         />
                       </div>

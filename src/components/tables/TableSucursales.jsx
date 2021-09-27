@@ -11,7 +11,7 @@ const TableSucursales = ({ sucursal, setSucursal, ...props }) => {
 
   useEffect(() => {
     const getSucursales = async () => {
-      const url = "http://localhost:4000/api/sucursales";
+      const url = "https://multiservicios-mundial.herokuapp.com/api/sucursales";
 
       const response = await fetch(url);
 
@@ -74,7 +74,7 @@ const TableSucursales = ({ sucursal, setSucursal, ...props }) => {
   ];
 
   const addSucursal = async (data) => {
-    const url = "http://localhost:4000/api/sucursales";
+    const url = "https://multiservicios-mundial.herokuapp.com/api/sucursales";
 
     const response = await fetch(url, {
       method: "POST",
@@ -97,7 +97,7 @@ const TableSucursales = ({ sucursal, setSucursal, ...props }) => {
   };
 
   const updateSucursal = async (newData, oldData) => {
-    const url = `http://localhost:4000/api/sucursales/${oldData.rifSucursal}`;
+    const url = `https://multiservicios-mundial.herokuapp.com/api/sucursales/${oldData.rifSucursal}`;
 
     const response = await fetch(url, {
       method: "PUT",
@@ -127,7 +127,7 @@ const TableSucursales = ({ sucursal, setSucursal, ...props }) => {
   };
 
   const deleteSucursal = async (oldData) => {
-    const url = `http://localhost:4000/api/sucursales/${oldData.rifSucursal}`;
+    const url = `https://multiservicios-mundial.herokuapp.com/api/sucursales/${oldData.rifSucursal}`;
 
     const response = await fetch(url, {
       method: "DELETE",
@@ -154,9 +154,7 @@ const TableSucursales = ({ sucursal, setSucursal, ...props }) => {
         columns={columns}
         data={sucursales}
         isLoading={loading}
-        onRowClick={(e, row) =>
-          row.rifSucursal === sucursal ? setSucursal(null) : setSucursal(row.rifSucursal)
-        }
+        onRowClick={(e, row) => (row.rifSucursal === sucursal ? setSucursal(null) : setSucursal(row.rifSucursal))}
         editable={{
           onRowAdd: addSucursal,
           onRowUpdate: updateSucursal,
@@ -164,8 +162,7 @@ const TableSucursales = ({ sucursal, setSucursal, ...props }) => {
         }}
         options={{
           rowStyle: (rowData) => ({
-            backgroundColor:
-              sucursal === rowData.rifSucursal ? "#9E9E9E50" : "#FFF",
+            backgroundColor: sucursal === rowData.rifSucursal ? "#9E9E9E50" : "#FFF",
           }),
           emptyRowsWhenPaging: true,
           pageSizeOptions: [5, 10, 20],

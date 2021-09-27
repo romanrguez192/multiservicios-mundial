@@ -27,8 +27,17 @@ const useStyles = makeStyles({
   },
 });
 
-const Step2Compra = ({ lista, setLista, cantidad, setCantidad,
-  setTipoPago, setDatoPago, setMoneda, montoTotal, setMontoTotal }) => {
+const Step2Compra = ({
+  lista,
+  setLista,
+  cantidad,
+  setCantidad,
+  setTipoPago,
+  setDatoPago,
+  setMoneda,
+  montoTotal,
+  setMontoTotal,
+}) => {
   const classes = useStyles();
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -37,7 +46,7 @@ const Step2Compra = ({ lista, setLista, cantidad, setCantidad,
 
   useEffect(() => {
     const getProductos = async () => {
-      const url = `http://localhost:4000/api/productosVentas?rifSucursal=${user.rifSucursal}`;
+      const url = `https://multiservicios-mundial.herokuapp.com/api/productosVentas?rifSucursal=${user.rifSucursal}`;
 
       const response = await fetch(url);
 
@@ -64,18 +73,20 @@ const Step2Compra = ({ lista, setLista, cantidad, setCantidad,
 
   return (
     <div className={classes.tableContainer}>
-      <TableComprarProductos {...{
-        productos,
-        setProductos,
-        montoTotal, 
-        setMontoTotal,
-        cantidad, 
-        setCantidad,
-        lista,
-        setLista,
-        loading,
-        setLoading
-      }}/>
+      <TableComprarProductos
+        {...{
+          productos,
+          setProductos,
+          montoTotal,
+          setMontoTotal,
+          cantidad,
+          setCantidad,
+          lista,
+          setLista,
+          loading,
+          setLoading,
+        }}
+      />
       <div className={classes.divFlex}>
         <p className={classes.subtitle}>Monto total: {montoTotal}</p>
         <p className={classes.subtitle}>Cantidad total: {cantidad}</p>

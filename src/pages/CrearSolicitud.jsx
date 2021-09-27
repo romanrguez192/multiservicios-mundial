@@ -1,13 +1,6 @@
 import React, { useState } from "react";
 import Sidebar from "../components/Sidebar";
-import {
-  makeStyles,
-  Button,
-  Stepper,
-  Step,
-  StepLabel,
-  IconButton,
-} from "@material-ui/core";
+import { makeStyles, Button, Stepper, Step, StepLabel, IconButton } from "@material-ui/core";
 import QontoConnector from "../components/stepsCrearSolicitud/QontoConnector";
 import Step1 from "../components/stepsCrearSolicitud/Step1";
 import Step2 from "../components/stepsCrearSolicitud/Step2";
@@ -73,12 +66,7 @@ const CrearSolicitud = () => {
   const history = useHistory();
   const { enqueueSnackbar } = useSnackbar();
 
-  const steps = [
-    "Seleccionar el cliente",
-    "Seleccionar el vehículo",
-    "Seleccionar los servicios",
-    "Datos de salida",
-  ];
+  const steps = ["Seleccionar el cliente", "Seleccionar el vehículo", "Seleccionar los servicios", "Datos de salida"];
 
   const getStepContent = (stepIndex) => {
     switch (stepIndex) {
@@ -166,7 +154,7 @@ const CrearSolicitud = () => {
       servicios: servicios,
     };
 
-    const url = `http://localhost:4000/api/solicitudesServicio`;
+    const url = `https://multiservicios-mundial.herokuapp.com/api/solicitudesServicio`;
 
     const response = await fetch(url, {
       method: "POST",
@@ -200,11 +188,7 @@ const CrearSolicitud = () => {
     <div className={classes.root}>
       <Sidebar page="solicitudes" />
       <main className={classes.container}>
-        <IconButton
-          component={Link}
-          to="/solicitudes"
-          className={classes.backIcon}
-        >
+        <IconButton component={Link} to="/solicitudes" className={classes.backIcon}>
           <ArrowBackOutlined color="primary" />
         </IconButton>
         <Fade>

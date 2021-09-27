@@ -25,7 +25,7 @@ export default function TableDescripcionModelo({ marca, modelo, ...props }) {
 
   useEffect(() => {
     const getProductos = async () => {
-      const url = `http://localhost:4000/api/productosServicios`;
+      const url = `https://multiservicios-mundial.herokuapp.com/api/productosServicios`;
 
       const response = await fetch(url);
 
@@ -41,7 +41,7 @@ export default function TableDescripcionModelo({ marca, modelo, ...props }) {
     };
 
     const getDebeAplicarse = async () => {
-      const url = `http://localhost:4000/api/debeAplicarse/${marca}/${modelo}`;
+      const url = `https://multiservicios-mundial.herokuapp.com/api/debeAplicarse/${marca}/${modelo}`;
 
       const response = await fetch(url);
 
@@ -90,7 +90,7 @@ export default function TableDescripcionModelo({ marca, modelo, ...props }) {
     data.modelo = modelo;
     data.marca = marca;
 
-    const url = "http://localhost:4000/api/debeAplicarse";
+    const url = "https://multiservicios-mundial.herokuapp.com/api/debeAplicarse";
 
     const response = await fetch(url, {
       method: "POST",
@@ -112,7 +112,7 @@ export default function TableDescripcionModelo({ marca, modelo, ...props }) {
   };
 
   const updateDescripcion = async (newData, oldData) => {
-    const url = `http://localhost:4000/api/debeAplicarse/${marca}/${modelo}/${oldData.codProductoServicio}`;
+    const url = `https://multiservicios-mundial.herokuapp.com/api/debeAplicarse/${marca}/${modelo}/${oldData.codProductoServicio}`;
 
     newData.modelo = modelo;
     newData.marca = marca;
@@ -142,7 +142,7 @@ export default function TableDescripcionModelo({ marca, modelo, ...props }) {
   };
 
   const deleteDescripcion = async (oldData) => {
-    const url = `http://localhost:4000/api/debeAplicarse/${marca}/${modelo}/${oldData.codProductoServicio}`;
+    const url = `https://multiservicios-mundial.herokuapp.com/api/debeAplicarse/${marca}/${modelo}/${oldData.codProductoServicio}`;
 
     const response = await fetch(url, {
       method: "DELETE",

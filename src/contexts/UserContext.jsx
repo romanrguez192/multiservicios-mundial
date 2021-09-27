@@ -17,7 +17,7 @@ export const UserProvider = ({ children }) => {
   const getUser = async () => {
     const userData = localStorage.getItem("user");
 
-    const url = "http://localhost:4000/api/auth/login";
+    const url = "https://multiservicios-mundial.herokuapp.com/api/auth/login";
 
     try {
       const response = await fetch(url, {
@@ -41,9 +41,5 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-  return (
-    <UserContext.Provider value={user}>
-      {!loading && children}
-    </UserContext.Provider>
-  );
+  return <UserContext.Provider value={user}>{!loading && children}</UserContext.Provider>;
 };

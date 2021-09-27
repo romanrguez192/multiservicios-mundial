@@ -14,7 +14,7 @@ const TableFacturasProveedores = ({ rifProveedor, ...props }) => {
 
   useEffect(() => {
     const getFacturasProveedores = async () => {
-      const url = `http://localhost:4000/api/facturasProveedores/${rifProveedor}`;
+      const url = `https://multiservicios-mundial.herokuapp.com/api/facturasProveedores/${rifProveedor}`;
 
       const response = await fetch(url);
 
@@ -40,7 +40,7 @@ const TableFacturasProveedores = ({ rifProveedor, ...props }) => {
       field: "nroFactura",
       type: "numeric",
       align: "left",
-      editable: "never"
+      editable: "never",
     },
     {
       title: "Orden de Compra",
@@ -70,7 +70,7 @@ const TableFacturasProveedores = ({ rifProveedor, ...props }) => {
   ];
 
   const addFacturaProveedor = async (data) => {
-    const url =`http://localhost:4000/api/facturasProveedores/${user.rifSucursal}`
+    const url = `https://multiservicios-mundial.herokuapp.com/api/facturasProveedores/${user.rifSucursal}`;
 
     const response = await fetch(url, {
       method: "POST",
@@ -93,7 +93,7 @@ const TableFacturasProveedores = ({ rifProveedor, ...props }) => {
   };
 
   const deleteFacturaProveedor = async (oldData) => {
-    const url = `http://localhost:4000/api/facturasProveedores/${oldData.nroFactura}`
+    const url = `https://multiservicios-mundial.herokuapp.com/api/facturasProveedores/${oldData.nroFactura}`;
 
     const response = await fetch(url, {
       method: "DELETE",

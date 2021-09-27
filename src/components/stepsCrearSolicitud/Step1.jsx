@@ -28,7 +28,7 @@ const Step1 = ({
 
   useEffect(() => {
     const getClientes = async () => {
-      const url = "http://localhost:4000/api/clientes";
+      const url = "https://multiservicios-mundial.herokuapp.com/api/clientes";
 
       const response = await fetch(url);
 
@@ -74,10 +74,7 @@ const Step1 = ({
         loadingC={loading}
         options={{
           rowStyle: (rowData) => ({
-            backgroundColor:
-              cliente && cliente.cedCliente === rowData.cedCliente
-                ? "#9E9E9E50"
-                : "#FFF",
+            backgroundColor: cliente && cliente.cedCliente === rowData.cedCliente ? "#9E9E9E50" : "#FFF",
           }),
           emptyRowsWhenPaging: true,
           pageSizeOptions: [5, 10, 20],

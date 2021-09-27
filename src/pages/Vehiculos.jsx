@@ -37,7 +37,7 @@ const Vehiculos = () => {
 
   useEffect(() => {
     const getTiposVehiculos = async () => {
-      const url = "http://localhost:4000/api/tiposVehiculos";
+      const url = "https://multiservicios-mundial.herokuapp.com/api/tiposVehiculos";
 
       const response = await fetch(url);
 
@@ -59,7 +59,7 @@ const Vehiculos = () => {
 
   useEffect(() => {
     const getModelos = async () => {
-      const url = "http://localhost:4000/api/modelos";
+      const url = "https://multiservicios-mundial.herokuapp.com/api/modelos";
 
       const response = await fetch(url);
 

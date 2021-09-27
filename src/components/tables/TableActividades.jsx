@@ -13,7 +13,7 @@ const TableActividades = ({ codServicio, ...props }) => {
   }, []);
 
   const getActividades = async () => {
-    const url = `http://localhost:4000/api/servicios/${codServicio}/actividades`;
+    const url = `https://multiservicios-mundial.herokuapp.com/api/servicios/${codServicio}/actividades`;
 
     const response = await fetch(url);
 
@@ -60,7 +60,7 @@ const TableActividades = ({ codServicio, ...props }) => {
   ];
 
   const addActividad = async (data) => {
-    const url = `http://localhost:4000/api/servicios/${codServicio}/actividades`;
+    const url = `https://multiservicios-mundial.herokuapp.com/api/servicios/${codServicio}/actividades`;
 
     const response = await fetch(url, {
       method: "POST",
@@ -83,7 +83,7 @@ const TableActividades = ({ codServicio, ...props }) => {
   };
 
   const updateActividad = async (newData, oldData) => {
-    const url = `http://localhost:4000/api/servicios/${codServicio}/actividades/${oldData.nroActividad}`;
+    const url = `https://multiservicios-mundial.herokuapp.com/api/servicios/${codServicio}/actividades/${oldData.nroActividad}`;
 
     const response = await fetch(url, {
       method: "PUT",
@@ -110,7 +110,7 @@ const TableActividades = ({ codServicio, ...props }) => {
   };
 
   const deleteActividad = async (oldData) => {
-    const url = `http://localhost:4000/api/servicios/${codServicio}/actividades/${oldData.nroActividad}`;
+    const url = `https://multiservicios-mundial.herokuapp.com/api/servicios/${codServicio}/actividades/${oldData.nroActividad}`;
 
     const response = await fetch(url, {
       method: "DELETE",

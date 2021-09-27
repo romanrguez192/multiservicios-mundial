@@ -15,7 +15,7 @@ const TableProveedores = ({ ...props }) => {
   }, []);
 
   const getProveedores = async () => {
-    const url = "http://localhost:4000/api/proveedores";
+    const url = "https://multiservicios-mundial.herokuapp.com/api/proveedores";
 
     const response = await fetch(url);
 
@@ -66,7 +66,7 @@ const TableProveedores = ({ ...props }) => {
   ];
 
   const addProveedor = async (data) => {
-    const url = "http://localhost:4000/api/proveedores";
+    const url = "https://multiservicios-mundial.herokuapp.com/api/proveedores";
 
     const response = await fetch(url, {
       method: "POST",
@@ -89,7 +89,7 @@ const TableProveedores = ({ ...props }) => {
   };
 
   const updateProveedor = async (newData, oldData) => {
-    const url = `http://localhost:4000/api/proveedores/${oldData.rifProveedor}`;
+    const url = `https://multiservicios-mundial.herokuapp.com/api/proveedores/${oldData.rifProveedor}`;
 
     const response = await fetch(url, {
       method: "PUT",
@@ -116,7 +116,7 @@ const TableProveedores = ({ ...props }) => {
   };
 
   const deleteProveedor = async (oldData) => {
-    const url = `http://localhost:4000/api/proveedores/${oldData.rifProveedor}`;
+    const url = `https://multiservicios-mundial.herokuapp.com/api/proveedores/${oldData.rifProveedor}`;
 
     const response = await fetch(url, {
       method: "DELETE",

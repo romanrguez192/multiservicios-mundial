@@ -10,7 +10,7 @@ const TableFacturaProductos = ({ nroFactura }) => {
 
   useEffect(() => {
     const getFacturaProductos = async () => {
-      const url = `http://localhost:4000/api/facturasVentas/productos/${nroFactura}`;
+      const url = `https://multiservicios-mundial.herokuapp.com/api/facturasVentas/productos/${nroFactura}`;
 
       const response = await fetch(url);
 
@@ -54,13 +54,7 @@ const TableFacturaProductos = ({ nroFactura }) => {
 
   return (
     <Slide top collapse>
-      <Table
-        title="Productos"
-        columns={columns}
-        data={productos}
-        isLoading={loading}
-        subTable
-      />
+      <Table title="Productos" columns={columns} data={productos} isLoading={loading} subTable />
     </Slide>
   );
 };

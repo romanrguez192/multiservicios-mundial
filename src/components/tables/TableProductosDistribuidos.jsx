@@ -11,7 +11,7 @@ const TableProductosDistribuidos = ({ rifProveedor, ...props }) => {
 
   useEffect(() => {
     const getProductosDistribuidos = async () => {
-      const url = `http://localhost:4000/api/proveedores/${rifProveedor}/productos`;
+      const url = `https://multiservicios-mundial.herokuapp.com/api/proveedores/${rifProveedor}/productos`;
 
       const response = await fetch(url);
 
@@ -33,7 +33,7 @@ const TableProductosDistribuidos = ({ rifProveedor, ...props }) => {
 
   useEffect(() => {
     const getProductos = async () => {
-      const url = `http://localhost:4000/api/productos`;
+      const url = `https://multiservicios-mundial.herokuapp.com/api/productos`;
 
       const response = await fetch(url);
 
@@ -71,7 +71,7 @@ const TableProductosDistribuidos = ({ rifProveedor, ...props }) => {
   ];
 
   const addProductoDistribuido = async (data) => {
-    const url = `http://localhost:4000/api/proveedores/${rifProveedor}/productos`;
+    const url = `https://multiservicios-mundial.herokuapp.com/api/proveedores/${rifProveedor}/productos`;
 
     const response = await fetch(url, {
       method: "POST",
@@ -94,7 +94,7 @@ const TableProductosDistribuidos = ({ rifProveedor, ...props }) => {
   };
 
   const deleteProductoDistribuido = async (oldData) => {
-    const url = `http://localhost:4000/api/proveedores/${rifProveedor}/productos/${oldData.codProducto}`;
+    const url = `https://multiservicios-mundial.herokuapp.com/api/proveedores/${rifProveedor}/productos/${oldData.codProducto}`;
 
     const response = await fetch(url, {
       method: "DELETE",

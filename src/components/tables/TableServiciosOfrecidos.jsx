@@ -4,13 +4,7 @@ import { useUser } from "../../contexts/UserContext";
 import Fade from "react-reveal/Fade";
 import { useSnackbar } from "notistack";
 
-const TableServiciosOfrecidos = ({
-  serviciosOfrecidos,
-  setServiciosOfrecidos,
-  loadingSO,
-  servicios,
-  ...props
-}) => {
+const TableServiciosOfrecidos = ({ serviciosOfrecidos, setServiciosOfrecidos, loadingSO, servicios, ...props }) => {
   const [empleados, setEmpleados] = useState([]);
   const user = useUser();
   const { enqueueSnackbar } = useSnackbar();
@@ -25,15 +19,13 @@ const TableServiciosOfrecidos = ({
   const lookupCoordinador = {};
   if (empleados) {
     empleados.forEach((e) => {
-      lookupCoordinador[
-        e.cedEmpleado
-      ] = `${e.cedEmpleado} - ${e.nombre} ${e.apellido}`;
+      lookupCoordinador[e.cedEmpleado] = `${e.cedEmpleado} - ${e.nombre} ${e.apellido}`;
     });
   }
 
   useEffect(() => {
     const getEmpleados = async () => {
-      const url = `http://localhost:4000/api/empleados?rifSucursal=${user.rifSucursal}`;
+      const url = `https://multiservicios-mundial.herokuapp.com/api/empleados?rifSucursal=${user.rifSucursal}`;
 
       const response = await fetch(url);
 
@@ -68,7 +60,7 @@ const TableServiciosOfrecidos = ({
   ];
 
   const addServicioOfrecido = async (data) => {
-    const url = `http://localhost:4000/api/serviciosOfrecidos`;
+    const url = `https://multiservicios-mundial.herokuapp.com/api/serviciosOfrecidos`;
 
     data = { codServicio: data.codServicio, cedEmpleado: data.cedCoordinador };
 
@@ -93,7 +85,7 @@ const TableServiciosOfrecidos = ({
   };
 
   const updateServicioOfrecido = async (newData, oldData) => {
-    const url = `http://localhost:4000/api/serviciosOfrecidos/${oldData.codServicio}/${oldData.cedCoordinador}`;
+    const url = `https://multiservicios-mundial.herokuapp.com/api/serviciosOfrecidos/${oldData.codServicio}/${oldData.cedCoordinador}`;
 
     const response = await fetch(url, {
       method: "PUT",
@@ -120,7 +112,7 @@ const TableServiciosOfrecidos = ({
   };
 
   const deleteServicioOfrecido = async (oldData) => {
-    const url = `http://localhost:4000/api/serviciosOfrecidos/${oldData.codServicio}/${oldData.cedCoordinador}`;
+    const url = `https://multiservicios-mundial.herokuapp.com/api/serviciosOfrecidos/${oldData.codServicio}/${oldData.cedCoordinador}`;
 
     const response = await fetch(url, {
       method: "DELETE",

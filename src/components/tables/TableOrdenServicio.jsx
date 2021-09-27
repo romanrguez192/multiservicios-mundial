@@ -14,12 +14,7 @@ const useStyles = makeStyles({
   },
 });
 
-const TableOrdenServicio = ({
-  nroSolicitud,
-  codServicio,
-  nroActividad,
-  ...props
-}) => {
+const TableOrdenServicio = ({ nroSolicitud, codServicio, nroActividad, ...props }) => {
   const classes = useStyles();
   const [productos, setProductos] = useState([]);
   const [empleados, setEmpleados] = useState([]);
@@ -42,8 +37,7 @@ const TableOrdenServicio = ({
 
   useEffect(() => {
     const getProductos = async () => {
-      
-      const url = `http://localhost:4000/api/productosServicios?rifSucursal=${user.rifSucursal}`;
+      const url = `https://multiservicios-mundial.herokuapp.com/api/productosServicios?rifSucursal=${user.rifSucursal}`;
 
       const response = await fetch(url);
 
@@ -64,7 +58,7 @@ const TableOrdenServicio = ({
 
   useEffect(() => {
     const getEmpleados = async () => {
-      const url = `http://localhost:4000/api/empleados/?rifSucursal=${user.rifSucursal}&codServicio=${codServicio}`;
+      const url = `https://multiservicios-mundial.herokuapp.com/api/empleados/?rifSucursal=${user.rifSucursal}&codServicio=${codServicio}`;
 
       const response = await fetch(url);
 
@@ -85,7 +79,7 @@ const TableOrdenServicio = ({
 
   useEffect(() => {
     const getOrdenes = async () => {
-      const url = `http://localhost:4000/api/solicitudesServicio/${nroSolicitud}/servicios/${codServicio}/actividades/${nroActividad}/ordenes`;
+      const url = `https://multiservicios-mundial.herokuapp.com/api/solicitudesServicio/${nroSolicitud}/servicios/${codServicio}/actividades/${nroActividad}/ordenes`;
 
       const response = await fetch(url);
 
@@ -133,7 +127,7 @@ const TableOrdenServicio = ({
   ];
 
   const addOrdenServicio = async (data) => {
-    const url = `http://localhost:4000/api/solicitudesServicio/${nroSolicitud}/servicios/${codServicio}/actividades/${nroActividad}/ordenes`;
+    const url = `https://multiservicios-mundial.herokuapp.com/api/solicitudesServicio/${nroSolicitud}/servicios/${codServicio}/actividades/${nroActividad}/ordenes`;
 
     data.nroSolicitud = nroSolicitud;
     data.codServicio = codServicio;
@@ -160,7 +154,7 @@ const TableOrdenServicio = ({
   };
 
   const deleteOrdenServicio = async (oldData) => {
-    const url = `http://localhost:4000/api/solicitudesServicio/${nroSolicitud}/servicios/${codServicio}/actividades/${nroActividad}/ordenes/?fecha=${oldData.fecha}&codProducto=${oldData.codProducto}`;
+    const url = `https://multiservicios-mundial.herokuapp.com/api/solicitudesServicio/${nroSolicitud}/servicios/${codServicio}/actividades/${nroActividad}/ordenes/?fecha=${oldData.fecha}&codProducto=${oldData.codProducto}`;
 
     const response = await fetch(url, {
       method: "DELETE",

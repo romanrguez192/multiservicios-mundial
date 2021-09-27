@@ -46,7 +46,7 @@ const Sucursales = () => {
       rifSucursal: sucursal,
     };
 
-    const url = "http://localhost:4000/api/empleados/dueno";
+    const url = "https://multiservicios-mundial.herokuapp.com/api/empleados/dueno";
 
     const response = await fetch(url, {
       method: "PUT",

@@ -71,7 +71,7 @@ const RegistroUsuario = () => {
 
   useEffect(() => {
     const getSucursales = async () => {
-      const url = "http://localhost:4000/api/sucursales";
+      const url = "https://multiservicios-mundial.herokuapp.com/api/sucursales";
 
       const response = await fetch(url);
 
@@ -104,7 +104,7 @@ const RegistroUsuario = () => {
 
   const onSubmit = async (data, { setSubmitting }) => {
     setSubmitting(true);
-    const url = "http://localhost:4000/api/auth/signup";
+    const url = "https://multiservicios-mundial.herokuapp.com/api/auth/signup";
 
     // TODO: try catch ?
 

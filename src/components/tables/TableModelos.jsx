@@ -5,13 +5,7 @@ import TableListaMantenimientos from "./TableListaMantenimientos";
 import { TableContainer } from "@material-ui/core";
 import { useSnackbar } from "notistack";
 
-const TableModelos = ({
-  modelos,
-  setModelos,
-  loadingM,
-  tiposVehiculos,
-  ...props
-}) => {
+const TableModelos = ({ modelos, setModelos, loadingM, tiposVehiculos, ...props }) => {
   const lookup = {};
   tiposVehiculos &&
     tiposVehiculos.forEach((t) => {
@@ -79,7 +73,7 @@ const TableModelos = ({
   ];
 
   const addModelo = async (data) => {
-    const url = "http://localhost:4000/api/modelos";
+    const url = "https://multiservicios-mundial.herokuapp.com/api/modelos";
 
     const response = await fetch(url, {
       method: "POST",
@@ -102,7 +96,7 @@ const TableModelos = ({
   };
 
   const updateModelo = async (newData, oldData) => {
-    const url = `http://localhost:4000/api/modelos/${oldData.marca}/${oldData.modelo}`;
+    const url = `https://multiservicios-mundial.herokuapp.com/api/modelos/${oldData.marca}/${oldData.modelo}`;
 
     const response = await fetch(url, {
       method: "PUT",
@@ -129,7 +123,7 @@ const TableModelos = ({
   };
 
   const deleteModelo = async (oldData) => {
-    const url = `http://localhost:4000/api/modelos/${oldData.marca}/${oldData.modelo}`;
+    const url = `https://multiservicios-mundial.herokuapp.com/api/modelos/${oldData.marca}/${oldData.modelo}`;
 
     const response = await fetch(url, {
       method: "DELETE",
@@ -165,14 +159,8 @@ const TableModelos = ({
           return (
             <>
               <TableContainer>
-                <TableDescripcionModelo
-                  marca={rowData.marca}
-                  modelo={rowData.modelo}
-                />
-                <TableListaMantenimientos
-                  marca={rowData.marca}
-                  modelo={rowData.modelo}
-                />
+                <TableDescripcionModelo marca={rowData.marca} modelo={rowData.modelo} />
+                <TableListaMantenimientos marca={rowData.marca} modelo={rowData.modelo} />
               </TableContainer>
             </>
           );

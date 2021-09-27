@@ -14,7 +14,7 @@ const TableVehiculos = ({ modelos, ...props }) => {
 
   useEffect(() => {
     const getVehiculos = async () => {
-      const url = "http://localhost:4000/api/vehiculos";
+      const url = "https://multiservicios-mundial.herokuapp.com/api/vehiculos";
 
       const response = await fetch(url);
 

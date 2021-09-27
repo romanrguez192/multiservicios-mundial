@@ -21,7 +21,7 @@ const TableVehiculosCliente = ({ cedCliente, ...props }) => {
   useEffect(() => {
     const getVehiculosCliente = async () => {
       setLoading(true);
-      const url = `http://localhost:4000/api/vehiculos?cedCliente=${cedCliente}`;
+      const url = `https://multiservicios-mundial.herokuapp.com/api/vehiculos?cedCliente=${cedCliente}`;
 
       const response = await fetch(url);
 
@@ -46,7 +46,7 @@ const TableVehiculosCliente = ({ cedCliente, ...props }) => {
 
   useEffect(() => {
     const getModelos = async () => {
-      const url = "http://localhost:4000/api/modelos";
+      const url = "https://multiservicios-mundial.herokuapp.com/api/modelos";
 
       const response = await fetch(url);
 
@@ -109,7 +109,7 @@ const TableVehiculosCliente = ({ cedCliente, ...props }) => {
   ];
 
   const addVehiculo = async (data) => {
-    const url = "http://localhost:4000/api/vehiculos";
+    const url = "https://multiservicios-mundial.herokuapp.com/api/vehiculos";
 
     // TODO: OJO con los errores
     const marcaModelo = data.modelo.split("|");
@@ -140,7 +140,7 @@ const TableVehiculosCliente = ({ cedCliente, ...props }) => {
   };
 
   const updateVehiculo = async (newData, oldData) => {
-    const url = `http://localhost:4000/api/vehiculos/${oldData.codVehiculo}`;
+    const url = `https://multiservicios-mundial.herokuapp.com/api/vehiculos/${oldData.codVehiculo}`;
 
     // TODO: OJO con los errores
     const marcaModelo = newData.modelo.split("|");
@@ -175,7 +175,7 @@ const TableVehiculosCliente = ({ cedCliente, ...props }) => {
   };
 
   const deleteVehiculo = async (oldData) => {
-    const url = `http://localhost:4000/api/vehiculos/${oldData.codVehiculo}`;
+    const url = `https://multiservicios-mundial.herokuapp.com/api/vehiculos/${oldData.codVehiculo}`;
 
     const response = await fetch(url, {
       method: "DELETE",

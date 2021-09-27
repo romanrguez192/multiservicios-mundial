@@ -75,7 +75,7 @@ const InicioSesion = () => {
   const onSubmit = async (data, { setSubmitting }) => {
     setSubmitting(true);
 
-    const url = "http://localhost:4000/api/auth/login";
+    const url = "https://multiservicios-mundial.herokuapp.com/api/auth/login";
 
     // TODO: try catch ?
 
@@ -106,22 +106,9 @@ const InicioSesion = () => {
         <Formik initialValues={initialValues} onSubmit={onSubmit}>
           {({ isSubmitting }) => (
             <Form className={classes.containerInputs}>
-              <Input
-                name="usuario"
-                className={classes.userInputLogin}
-                label="Usuario"
-                icon="person"
-              />
-              <PasswordInput
-                name="contrasena"
-                className={classes.passwordInputLogin}
-                label="Contraseña"
-              />
-              <Link
-                component={RouterLink}
-                to="/signup"
-                className={classes.botonRegistrarse}
-              >
+              <Input name="usuario" className={classes.userInputLogin} label="Usuario" icon="person" />
+              <PasswordInput name="contrasena" className={classes.passwordInputLogin} label="Contraseña" />
+              <Link component={RouterLink} to="/signup" className={classes.botonRegistrarse}>
                 ¿No tienes cuenta? ¡Regístrate aquí!
               </Link>
               <Button

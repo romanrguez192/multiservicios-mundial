@@ -23,7 +23,7 @@ const TableProductosFacturasProveedores = ({ codOrdCompra }) => {
 
   useEffect(() => {
     const getProductos = async () => {
-      const url = `http://localhost:4000/api/ordenesCompra/${codOrdCompra}/productos`;
+      const url = `https://multiservicios-mundial.herokuapp.com/api/ordenesCompra/${codOrdCompra}/productos`;
 
       const response = await fetch(url);
 
@@ -74,7 +74,7 @@ const TableProductosFacturasProveedores = ({ codOrdCompra }) => {
   ];
 
   const update = async (newData, oldData) => {
-    const url = `http://localhost:4000/api/ordenesCompra/${codOrdCompra}/productos/${oldData.codProducto}`;
+    const url = `https://multiservicios-mundial.herokuapp.com/api/ordenesCompra/${codOrdCompra}/productos/${oldData.codProducto}`;
 
     const response = await fetch(url, {
       method: "PUT",

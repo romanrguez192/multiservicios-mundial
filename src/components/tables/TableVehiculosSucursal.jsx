@@ -2,13 +2,7 @@ import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import { useSnackbar } from "notistack";
 
-const TableVehiculosSucursal = ({
-  vehiculosSucursal,
-  setVehiculosSucursal,
-  loadingVS,
-  vehiculos,
-  ...props
-}) => {
+const TableVehiculosSucursal = ({ vehiculosSucursal, setVehiculosSucursal, loadingVS, vehiculos, ...props }) => {
   const { enqueueSnackbar } = useSnackbar();
   const columns = [
     {
@@ -31,7 +25,7 @@ const TableVehiculosSucursal = ({
   ];
 
   const addTipoVehiculo = async (data) => {
-    const url = "http://localhost:4000/api/tiposVehiculos";
+    const url = "https://multiservicios-mundial.herokuapp.com/api/tiposVehiculos";
 
     const response = await fetch(url, {
       method: "POST",
@@ -54,7 +48,7 @@ const TableVehiculosSucursal = ({
   };
 
   const updateTipoVehiculo = async (newData, oldData) => {
-    const url = `http://localhost:4000/api/tiposVehiculos/${oldData.codTipoVehiculo}`;
+    const url = `https://multiservicios-mundial.herokuapp.com/api/tiposVehiculos/${oldData.codTipoVehiculo}`;
 
     const response = await fetch(url, {
       method: "PUT",
@@ -81,7 +75,7 @@ const TableVehiculosSucursal = ({
   };
 
   const deleteTipoVehiculo = async (oldData) => {
-    const url = `http://localhost:4000/api/tiposVehiculos/${oldData.codTipoVehiculo}`;
+    const url = `https://multiservicios-mundial.herokuapp.com/api/tiposVehiculos/${oldData.codTipoVehiculo}`;
 
     const response = await fetch(url, {
       method: "DELETE",

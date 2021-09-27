@@ -11,7 +11,7 @@ const TableEstServiciosSolicitados = () => {
 
   useEffect(() => {
     const getServiciosSolicitados = async () => {
-      const url = `http://localhost:4000/api/estadisticas/serviciosSolicitados/${user.rifSucursal}`;
+      const url = `https://multiservicios-mundial.herokuapp.com/api/estadisticas/serviciosSolicitados/${user.rifSucursal}`;
 
       const response = await fetch(url);
 

@@ -13,7 +13,7 @@ const TableReservaciones = ({ ...props }) => {
 
   useEffect(() => {
     const getServicios = async () => {
-      const url = `http://localhost:4000/api/serviciosOfrecidos/${user.rifSucursal}`;
+      const url = `https://multiservicios-mundial.herokuapp.com/api/serviciosOfrecidos/${user.rifSucursal}`;
 
       const response = await fetch(url);
 
@@ -30,7 +30,7 @@ const TableReservaciones = ({ ...props }) => {
     };
 
     const getClientes = async () => {
-      const url = `http://localhost:4000/api/clientes`;
+      const url = `https://multiservicios-mundial.herokuapp.com/api/clientes`;
 
       const response = await fetch(url);
 
@@ -47,7 +47,7 @@ const TableReservaciones = ({ ...props }) => {
     };
 
     const getReservaciones = async () => {
-      const url = `http://localhost:4000/api/reservaciones?rifSucursal=${user.rifSucursal}`;
+      const url = `https://multiservicios-mundial.herokuapp.com/api/reservaciones?rifSucursal=${user.rifSucursal}`;
 
       const response = await fetch(url);
 
@@ -138,7 +138,7 @@ const TableReservaciones = ({ ...props }) => {
   ];
 
   const addReservacion = async (data) => {
-    const url = "http://localhost:4000/api/reservaciones";
+    const url = "https://multiservicios-mundial.herokuapp.com/api/reservaciones";
 
     data.rifSucursal = user.rifSucursal;
 
@@ -161,7 +161,7 @@ const TableReservaciones = ({ ...props }) => {
   };
 
   const updateReservacion = async (newData, oldData) => {
-    const url = `http://localhost:4000/api/reservaciones/${oldData.nroReserva}`;
+    const url = `https://multiservicios-mundial.herokuapp.com/api/reservaciones/${oldData.nroReserva}`;
 
     const response = await fetch(url, {
       method: "PUT",
@@ -188,7 +188,7 @@ const TableReservaciones = ({ ...props }) => {
   };
 
   const deleteReservacion = async (oldData) => {
-    const url = `http://localhost:4000/api/reservaciones/${oldData.nroReserva}`;
+    const url = `https://multiservicios-mundial.herokuapp.com/api/reservaciones/${oldData.nroReserva}`;
 
     const response = await fetch(url, {
       method: "DELETE",

@@ -20,7 +20,7 @@ const TableServiciosAsignados = ({ cedEmpleado, ...props }) => {
 
   useEffect(() => {
     const getServicios = async () => {
-      const url = `http://localhost:4000/api/serviciosOfrecidos/${user.rifSucursal}`;
+      const url = `https://multiservicios-mundial.herokuapp.com/api/serviciosOfrecidos/${user.rifSucursal}`;
 
       const response = await fetch(url);
 
@@ -41,7 +41,7 @@ const TableServiciosAsignados = ({ cedEmpleado, ...props }) => {
 
   useEffect(() => {
     const getServiciosAsignados = async () => {
-      const url = `http://localhost:4000/api/serviciosAsignados/${cedEmpleado}`;
+      const url = `https://multiservicios-mundial.herokuapp.com/api/serviciosAsignados/${cedEmpleado}`;
 
       const response = await fetch(url);
 
@@ -82,7 +82,7 @@ const TableServiciosAsignados = ({ cedEmpleado, ...props }) => {
   ];
 
   const addServicioAsignado = async (data) => {
-    const url = `http://localhost:4000/api/serviciosAsignados/${cedEmpleado}`;
+    const url = `https://multiservicios-mundial.herokuapp.com/api/serviciosAsignados/${cedEmpleado}`;
 
     const response = await fetch(url, {
       method: "POST",
@@ -105,7 +105,7 @@ const TableServiciosAsignados = ({ cedEmpleado, ...props }) => {
   };
 
   const deleteServicioAsignado = async (oldData) => {
-    const url = `http://localhost:4000/api/serviciosAsignados/${oldData.cedEmpleado}/${oldData.codServicio}`;
+    const url = `https://multiservicios-mundial.herokuapp.com/api/serviciosAsignados/${oldData.cedEmpleado}/${oldData.codServicio}`;
 
     const response = await fetch(url, {
       method: "DELETE",

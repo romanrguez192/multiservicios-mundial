@@ -2,13 +2,7 @@ import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import { useSnackbar } from "notistack";
 
-const TableProductosServicios = ({
-  productosServicios,
-  setProductosServicios,
-  loadingPS,
-  lineas,
-  ...props
-}) => {
+const TableProductosServicios = ({ productosServicios, setProductosServicios, loadingPS, lineas, ...props }) => {
   const lookup = {};
   lineas &&
     lineas.forEach((l) => {
@@ -77,7 +71,7 @@ const TableProductosServicios = ({
   ];
 
   const addProductoServicio = async (data) => {
-    const url = "http://localhost:4000/api/productosServicios";
+    const url = "https://multiservicios-mundial.herokuapp.com/api/productosServicios";
 
     const response = await fetch(url, {
       method: "POST",
@@ -100,7 +94,7 @@ const TableProductosServicios = ({
   };
 
   const updateProductoServicio = async (newData, oldData) => {
-    const url = `http://localhost:4000/api/productosServicios/${oldData.codProducto}`;
+    const url = `https://multiservicios-mundial.herokuapp.com/api/productosServicios/${oldData.codProducto}`;
 
     const response = await fetch(url, {
       method: "PUT",
@@ -127,7 +121,7 @@ const TableProductosServicios = ({
   };
 
   const deleteProductoServicio = async (oldData) => {
-    const url = `http://localhost:4000/api/productosServicios/${oldData.codProducto}`;
+    const url = `https://multiservicios-mundial.herokuapp.com/api/productosServicios/${oldData.codProducto}`;
 
     const response = await fetch(url, {
       method: "DELETE",

@@ -34,7 +34,7 @@ const Clientes = () => {
 
   useEffect(() => {
     const getClientes = async () => {
-      const url = "http://localhost:4000/api/clientes";
+      const url = "https://multiservicios-mundial.herokuapp.com/api/clientes";
 
       const response = await fetch(url);
 
@@ -56,7 +56,7 @@ const Clientes = () => {
 
   useEffect(() => {
     const getClientesSucursal = async () => {
-      const url = `http://localhost:4000/api/clientes?rifSucursal=${user.rifSucursal}`;
+      const url = `https://multiservicios-mundial.herokuapp.com/api/clientes?rifSucursal=${user.rifSucursal}`;
 
       const response = await fetch(url);
 

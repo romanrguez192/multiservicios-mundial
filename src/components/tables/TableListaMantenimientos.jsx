@@ -23,7 +23,7 @@ export default function TableListaMantenimientos({ marca, modelo, ...props }) {
 
   useEffect(() => {
     const getMantenimientos = async () => {
-      const url = `http://localhost:4000/api/mantenimientosRecomendados/${marca}/${modelo}`;
+      const url = `https://multiservicios-mundial.herokuapp.com/api/mantenimientosRecomendados/${marca}/${modelo}`;
 
       const response = await fetch(url);
 
@@ -75,7 +75,7 @@ export default function TableListaMantenimientos({ marca, modelo, ...props }) {
   ];
 
   const addMantenimiento = async (data) => {
-    const url = `http://localhost:4000/api/mantenimientosRecomendados`;
+    const url = `https://multiservicios-mundial.herokuapp.com/api/mantenimientosRecomendados`;
 
     data.marca = marca;
     data.modelo = modelo;
@@ -101,7 +101,7 @@ export default function TableListaMantenimientos({ marca, modelo, ...props }) {
   };
 
   const updateMantenimiento = async (newData, oldData) => {
-    const url = `http://localhost:4000/api/mantenimientosRecomendados/${marca}/${modelo}?tiempoUso=${oldData.tiempoUso}&kilometraje=${oldData.kilometraje}&mantenimiento=${oldData.mantenimiento}`;
+    const url = `https://multiservicios-mundial.herokuapp.com/api/mantenimientosRecomendados/${marca}/${modelo}?tiempoUso=${oldData.tiempoUso}&kilometraje=${oldData.kilometraje}&mantenimiento=${oldData.mantenimiento}`;
 
     const response = await fetch(url, {
       method: "PUT",
@@ -128,7 +128,7 @@ export default function TableListaMantenimientos({ marca, modelo, ...props }) {
   };
 
   const deleteMantenimiento = async (oldData) => {
-    const url = `http://localhost:4000/api/mantenimientosRecomendados/${marca}/${modelo}?tiempoUso=${oldData.tiempoUso}&kilometraje=${oldData.kilometraje}&mantenimiento=${oldData.mantenimiento}`;
+    const url = `https://multiservicios-mundial.herokuapp.com/api/mantenimientosRecomendados/${marca}/${modelo}?tiempoUso=${oldData.tiempoUso}&kilometraje=${oldData.kilometraje}&mantenimiento=${oldData.mantenimiento}`;
 
     const response = await fetch(url, {
       method: "DELETE",

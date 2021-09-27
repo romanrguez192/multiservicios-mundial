@@ -9,6 +9,7 @@ import Nature3 from "../img/nature3.svg";
 import Nature4 from "../img/nature4.svg";
 import Nature5 from "../img/nature5.svg";
 import Nature6 from "../img/nature6.svg";
+
 // ESTILOS
 const useStyles = makeStyles({
   carrusel: {
@@ -31,6 +32,7 @@ const useStyles = makeStyles({
     color: "#199479",
     margin: "18px auto",
     textAlign: "center",
+    fontFamily: "Quicksand",
   },
 });
 

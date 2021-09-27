@@ -4,12 +4,7 @@ import TableProductosCompra from "./TableProductosCompra";
 import { TableContainer } from "@material-ui/core";
 import { useSnackbar } from "notistack";
 
-const TableOrdenesCompra = ({
-  ordCompra,
-  setOrdCompra,
-  loadingOC,
-  ...props
-}) => {
+const TableOrdenesCompra = ({ ordCompra, setOrdCompra, loadingOC, ...props }) => {
   const [proveedores, setProveedores] = useState([]);
   const proveedoresLookup = {};
 
@@ -19,7 +14,7 @@ const TableOrdenesCompra = ({
 
   useEffect(() => {
     const getProveedores = async () => {
-      const url = "http://localhost:4000/api/proveedores";
+      const url = "https://multiservicios-mundial.herokuapp.com/api/proveedores";
 
       const response = await fetch(url);
 
@@ -88,7 +83,7 @@ const TableOrdenesCompra = ({
 
   const deleteOrdCompra = async (oldData) => {
     if (oldData.enviada) {
-      const url = `http://localhost:4000/api/ordenesCompra/${oldData.codOrdCompra}`;
+      const url = `https://multiservicios-mundial.herokuapp.com/api/ordenesCompra/${oldData.codOrdCompra}`;
 
       const response = await fetch(url, {
         method: "DELETE",
@@ -123,11 +118,7 @@ const TableOrdenesCompra = ({
         detailPanel={(rowData) => {
           return (
             <TableContainer>
-              <TableProductosCompra
-                ordCompra={rowData}
-                ordenesCompra={ordCompra}
-                setOrdenesCompra={setOrdCompra}
-              />
+              <TableProductosCompra ordCompra={rowData} ordenesCompra={ordCompra} setOrdenesCompra={setOrdCompra} />
             </TableContainer>
           );
         }}

@@ -38,7 +38,7 @@ const TableClientes = ({ clientes, setClientes, loadingC, ...props }) => {
   ];
 
   const addCliente = async (data) => {
-    const url = "http://localhost:4000/api/clientes";
+    const url = "https://multiservicios-mundial.herokuapp.com/api/clientes";
 
     const response = await fetch(url, {
       method: "POST",
@@ -61,7 +61,7 @@ const TableClientes = ({ clientes, setClientes, loadingC, ...props }) => {
   };
 
   const updateCliente = async (newData, oldData) => {
-    const url = `http://localhost:4000/api/clientes/${oldData.cedCliente}`;
+    const url = `https://multiservicios-mundial.herokuapp.com/api/clientes/${oldData.cedCliente}`;
 
     const response = await fetch(url, {
       method: "PUT",
@@ -88,7 +88,7 @@ const TableClientes = ({ clientes, setClientes, loadingC, ...props }) => {
   };
 
   const deleteCliente = async (oldData) => {
-    const url = `http://localhost:4000/api/clientes/${oldData.cedCliente}`;
+    const url = `https://multiservicios-mundial.herokuapp.com/api/clientes/${oldData.cedCliente}`;
 
     const response = await fetch(url, {
       method: "DELETE",

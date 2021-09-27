@@ -28,7 +28,7 @@ const TableServiciosSolicitud = ({ nroSolicitud, ...props }) => {
 
   useEffect(() => {
     const getServicios = async () => {
-      const url = `http://localhost:4000/api/solicitudesServicio/${nroSolicitud}/servicios`;
+      const url = `https://multiservicios-mundial.herokuapp.com/api/solicitudesServicio/${nroSolicitud}/servicios`;
 
       const response = await fetch(url);
 
@@ -47,7 +47,6 @@ const TableServiciosSolicitud = ({ nroSolicitud, ...props }) => {
 
     getServicios();
   }, [nroSolicitud]);
-  
 
   return (
     <div>
@@ -59,10 +58,7 @@ const TableServiciosSolicitud = ({ nroSolicitud, ...props }) => {
         detailPanel={(rowData) => {
           return (
             <TableContainer>
-              <TableDetallesSolicitud
-                nroSolicitud={nroSolicitud}
-                codServicio={rowData.codServicio}
-              />
+              <TableDetallesSolicitud nroSolicitud={nroSolicitud} codServicio={rowData.codServicio} />
             </TableContainer>
           );
         }}

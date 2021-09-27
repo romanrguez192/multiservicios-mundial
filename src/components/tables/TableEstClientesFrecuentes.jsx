@@ -11,7 +11,7 @@ const TableEstClientesFrecuentes = () => {
 
   useEffect(() => {
     const getClientesFrecuentes = async () => {
-      const url = `http://localhost:4000/api/estadisticas/clientesMasMenosFrecuentes/${user.rifSucursal}`;
+      const url = `https://multiservicios-mundial.herokuapp.com/api/estadisticas/clientesMasMenosFrecuentes/${user.rifSucursal}`;
 
       const response = await fetch(url);
 
@@ -55,12 +55,7 @@ const TableEstClientesFrecuentes = () => {
 
   return (
     <div>
-      <Table
-        title="Clientes más/menos frecuentes"
-        columns={columns}
-        data={clientesFrecuentes}
-        isLoading={loading}
-      />
+      <Table title="Clientes más/menos frecuentes" columns={columns} data={clientesFrecuentes} isLoading={loading} />
     </div>
   );
 };

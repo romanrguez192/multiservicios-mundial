@@ -12,7 +12,7 @@ const TableEstProductosVendidos = () => {
 
   useEffect(() => {
     const getProductosVendidos = async () => {
-      const url = `http://localhost:4000/api/estadisticas/productosVendidos/${user.rifSucursal}`;
+      const url = `https://multiservicios-mundial.herokuapp.com/api/estadisticas/productosVendidos/${user.rifSucursal}`;
 
       const response = await fetch(url);
 
@@ -28,7 +28,7 @@ const TableEstProductosVendidos = () => {
       setProductosVendidos(productosVendidos);
       setLoading(false);
     };
-    
+
     getProductosVendidos();
   }, []);
 
@@ -53,12 +53,7 @@ const TableEstProductosVendidos = () => {
 
   return (
     <div>
-      <Table
-        title="Productos más/menos vendidos"
-        columns={columns}
-        data={productosVendidos}
-        isLoading={loading}
-      />
+      <Table title="Productos más/menos vendidos" columns={columns} data={productosVendidos} isLoading={loading} />
     </div>
   );
 };

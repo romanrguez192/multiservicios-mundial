@@ -13,7 +13,7 @@ const TablePersonal = ({ ...props }) => {
 
   useEffect(() => {
     const getPersonal = async () => {
-      const url = `http://localhost:4000/api/empleados?rifSucursal=${user.rifSucursal}`;
+      const url = `https://multiservicios-mundial.herokuapp.com/api/empleados?rifSucursal=${user.rifSucursal}`;
 
       const response = await fetch(url);
 
@@ -83,7 +83,7 @@ const TablePersonal = ({ ...props }) => {
   }
 
   const update = async (newData, oldData) => {
-    const url = `http://localhost:4000/api/empleados/${oldData.cedEmpleado}`;
+    const url = `https://multiservicios-mundial.herokuapp.com/api/empleados/${oldData.cedEmpleado}`;
 
     const response = await fetch(url, {
       method: "PUT",

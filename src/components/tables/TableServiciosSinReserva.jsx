@@ -12,7 +12,7 @@ const TableServiciosSinReserva = ({ setServicios, ...props }) => {
 
   useEffect(() => {
     const getServicios = async () => {
-      const url = `http://localhost:4000/api/serviciosOfrecidos/${user.rifSucursal}?sinReserva=true`;
+      const url = `https://multiservicios-mundial.herokuapp.com/api/serviciosOfrecidos/${user.rifSucursal}?sinReserva=true`;
 
       const response = await fetch(url);
 

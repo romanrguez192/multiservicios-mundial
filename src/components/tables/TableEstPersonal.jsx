@@ -12,7 +12,7 @@ const TableEstPersonal = () => {
 
   useEffect(() => {
     const getPersonal = async () => {
-      const url = `http://localhost:4000/api/estadisticas/personalServicios/${user.rifSucursal}`;
+      const url = `https://multiservicios-mundial.herokuapp.com/api/estadisticas/personalServicios/${user.rifSucursal}`;
 
       const response = await fetch(url);
 
@@ -51,15 +51,10 @@ const TableEstPersonal = () => {
       align: "left",
     },
   ];
-  
+
   return (
     <div>
-      <Table
-        title="Personal que realiza más/menos servicios"
-        columns={columns}
-        data={personal}
-        isLoading={loading}
-      />
+      <Table title="Personal que realiza más/menos servicios" columns={columns} data={personal} isLoading={loading} />
     </div>
   );
 };

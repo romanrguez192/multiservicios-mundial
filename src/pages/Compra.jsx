@@ -1,14 +1,6 @@
 import React, { useState } from "react";
 import Sidebar from "../components/Sidebar";
-import {
-  makeStyles,
-  Button,
-  Stepper,
-  Typography,
-  Step,
-  StepLabel,
-  IconButton,
-} from "@material-ui/core";
+import { makeStyles, Button, Stepper, Typography, Step, StepLabel, IconButton } from "@material-ui/core";
 import QontoConnector from "../components/stepsCrearSolicitud/QontoConnector";
 import Step1Compra from "../components/stepsCompra/Step1Compra";
 import Step2Compra from "../components/stepsCompra/Step2Compra";
@@ -69,30 +61,45 @@ const Compra = () => {
   const [montoTotal, setMontoTotal] = useState(0);
   const [cantidad, setCantidad] = useState(0);
   const { enqueueSnackbar } = useSnackbar();
-  
 
   const history = useHistory();
   const user = useUser();
 
-  const steps = [
-    "Seleccionar el cliente",
-    "Seleccionar los productos",
-    "Seleccionar método de pago",
-  ];
+  const steps = ["Seleccionar el cliente", "Seleccionar los productos", "Seleccionar método de pago"];
 
   const getStepContent = (stepIndex) => {
     switch (stepIndex) {
       case 0:
         return <Step1Compra {...{ cliente, setCliente, setLista }} />;
       case 1:
-        return <Step2Compra {...{ 
-          lista, setLista, montoTotal, setMontoTotal,
-          setTipoPago, setDatoPago, setMoneda, cantidad, setCantidad }} />;
+        return (
+          <Step2Compra
+            {...{
+              lista,
+              setLista,
+              montoTotal,
+              setMontoTotal,
+              setTipoPago,
+              setDatoPago,
+              setMoneda,
+              cantidad,
+              setCantidad,
+            }}
+          />
+        );
       case 2:
-        return <Step3Compra  {...{ 
-          tipoPago, setTipoPago, 
-          moneda, setMoneda,
-          datoPago, setDatoPago }} />;
+        return (
+          <Step3Compra
+            {...{
+              tipoPago,
+              setTipoPago,
+              moneda,
+              setMoneda,
+              datoPago,
+              setDatoPago,
+            }}
+          />
+        );
       default:
         return "Error";
     }
@@ -109,21 +116,20 @@ const Compra = () => {
   const disable =
     (activeStep === 0 && !cliente) ||
     (activeStep === 1 && lista.length === 0) ||
-    (activeStep === 2 && (!datoPago && !moneda));
-
+    (activeStep === 2 && !datoPago && !moneda);
 
   const save = async () => {
-    if(!tipoPago){
+    if (!tipoPago) {
       return enqueueSnackbar("Usted debe seleccionar un tipo de pago", {
         variant: "error",
       });
     }
-    if(!moneda){
+    if (!moneda) {
       return enqueueSnackbar("Usted debe seleccionar un tipo de moneda", {
         variant: "error",
       });
     }
-    if(!datoPago && tipoPago !== 'Efectivo'){
+    if (!datoPago && tipoPago !== "Efectivo") {
       return enqueueSnackbar("Usted debe proporcionar información adicional", {
         variant: "error",
       });
@@ -136,31 +142,31 @@ const Compra = () => {
       monto: montoTotal,
       moneda: moneda.toLowerCase(),
       lista,
-    }
+    };
     // Por ahora se hará asi
-    switch(tipoPago){
-      case 'Efectivo':
+    switch (tipoPago) {
+      case "Efectivo":
         data.codModalidad = 1;
         data.banco = null;
         data.nroTarjeta = null;
         break;
-      case 'Transferencia':
+      case "Transferencia":
         data.codModalidad = 2;
         data.banco = datoPago;
         data.nroTarjeta = null;
         break;
-      case 'Tarjeta de crédito':
+      case "Tarjeta de crédito":
         data.codModalidad = 3;
         data.nroTarjeta = datoPago;
         data.banco = null;
         break;
-      case 'Tarjeta de débito':
+      case "Tarjeta de débito":
         data.codModalidad = 4;
         data.nroTarjeta = datoPago;
         data.banco = null;
     }
 
-    const url = "http://localhost:4000/api/facturasVentas";
+    const url = "https://multiservicios-mundial.herokuapp.com/api/facturasVentas";
 
     const response = await fetch(url, {
       method: "POST",
@@ -177,12 +183,12 @@ const Compra = () => {
       });
     }
 
-    // Retorna un array 
+    // Retorna un array
     // La primera posicion tiene lo que se guarda en la tabla FacturasClientes
     // La segunda posicion tiene lo que se guarda en la tabla Pagos
     const factura = await response.json();
     history.push("/tienda");
-  }
+  };
 
   return (
     <div className={classes.root}>
